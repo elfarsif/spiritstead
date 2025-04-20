@@ -10,7 +10,6 @@ public class CutsceneManager {
     SpriteBatch batch;
     public int sceneNum;
     public int scenePhase;
-    int charIndex=0;
 
 
     //Scene Number
@@ -19,7 +18,7 @@ public class CutsceneManager {
     public final int gameStart =2;
 
     //Intro Cutscene Assets
-    GameIntroCutscene gameIntroCutscene;
+    public GameIntroCutscene gameIntroCutscene;
 
 
     public CutsceneManager(GamePanel gp){

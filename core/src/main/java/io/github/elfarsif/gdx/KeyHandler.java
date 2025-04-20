@@ -49,9 +49,18 @@ public class KeyHandler extends InputAdapter {
         //OPTIONS STATE
         } else if(gp.gameState == gp.optionsState){
             optionsState(code);
+        //CUTSCENE STATE
+        } else if(gp.gameState == gp.cutsceneState){
+            cutsceneState(code);
         }
 
         return true;
+    }
+
+    private void cutsceneState(int code) {
+        if(code == Input.Keys.SPACE){
+            spacePressed = true;
+        }
     }
 
     private void optionsState(int code) {

@@ -16,9 +16,15 @@ public class GameIntroCutscene {
     BitmapFont font;
     public Sprite blackBackground;
     public Sprite firstCutsceneImage;
+
+    public Sprite secondCutsceneImage;
+
+
     String displayedText = "";
     int charIndex=0;
     String combinedText = "";
+    public int scenePart=0;
+
 
     public GameIntroCutscene(GamePanel gp){
         this.gp = gp;
@@ -29,6 +35,37 @@ public class GameIntroCutscene {
     public void start(SpriteBatch batch) {
         this.batch= batch;
 
+        //Go to next scene part
+        if (gp.keyHandler.spacePressed){
+            scenePart++;
+            //Reset text
+            charIndex = 0;
+            combinedText = "";
+            displayedText = "";
+            System.out.println("Scene part: " + scenePart);
+            gp.keyHandler.spacePressed = false;
+        }
+
+        switch (scenePart) {
+            case 0:
+                firstCutsceneImage();
+
+                break;
+            case 1:
+                secondCutsceneImage();
+                break;
+
+            case 2:
+                //Second cutsceneImage
+                break;
+        }
+
+        //Second cutsceneImage
+
+
+    }
+
+    private void firstCutsceneImage() {
         batch.draw(blackBackground, 0, 0,blackBackground.getWidth(), blackBackground.getHeight());
 
         //addFirstCutsceneImage
@@ -40,11 +77,13 @@ public class GameIntroCutscene {
 
     }
 
-
     private void loadCutsceneAssets() {
         try {
             firstCutsceneImage = new Sprite(new Texture("cutscene/intro-cutscene-1.png"));
             firstCutsceneImage.setSize(gp.screenWidth/2, gp.screenHeight/2);
+
+            secondCutsceneImage = new Sprite(new Texture("cutscene/intro-cutscene-2.png"));
+            secondCutsceneImage.setSize(gp.screenWidth/2, gp.screenHeight/2);
         } catch (Exception e) {
             throw new RuntimeException("Error reading image for mushroom:" + e);
         }
@@ -54,7 +93,7 @@ public class GameIntroCutscene {
         // Create a 1x1 black pixel texture
         Texture blackTexture;
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0, 0, 0, 1);
+        pixmap.setColor(Color.BLACK);
         pixmap.fill();
         blackTexture = new Texture(pixmap);
         pixmap.dispose(); // No longer needed after texture creation
@@ -84,6 +123,40 @@ public class GameIntroCutscene {
         font.draw(batch, displayedText,gp.ui.getXforCenteredText(text) ,imageYposition-gp.tileSize);
 
     }
+
+    private void secondCutsceneImage() {
+
+        batch.draw(blackBackground, 0, 0, blackBackground.getWidth(), blackBackground.getHeight());
+
+        //addFirstCutsceneImage
+        int imageXposition = (int) (gp.screenWidth / 2 - (secondCutsceneImage.getWidth() / 2));
+        int imageYposition = (int) (gp.screenHeight - (secondCutsceneImage.getHeight() + gp.tileSize));
+        batch.draw(secondCutsceneImage, imageXposition, imageYposition, secondCutsceneImage.getWidth(), secondCutsceneImage.getHeight());
+
+        addSecondCutsceneText(imageYposition);
+
+    }
+
+    private void addSecondCutsceneText(int imageYposition) {
+        font = new BitmapFont();
+        font.getData().setScale(2f);
+        font.setColor(Color.WHITE);
+        String text = "This is the second cutscene text";
+
+
+        //Letter by letter effect
+        char characters[] = text.toCharArray();
+
+        if (charIndex < characters.length) {
+            String s = String.valueOf(characters[charIndex]);
+            combinedText += s;
+            displayedText = combinedText;
+            charIndex++;
+        }
+        font.draw(batch, displayedText,gp.ui.getXforCenteredText(text) ,imageYposition-gp.tileSize);
+
+    }
+
 
 
 }
