@@ -14,9 +14,9 @@ public class GameIntroCutscene {
     SpriteBatch batch;
 
     BitmapFont font;
+    public int maxSceneNumber=2;
     public Sprite blackBackground;
     public Sprite firstCutsceneImage;
-
     public Sprite secondCutsceneImage;
 
 
@@ -42,22 +42,18 @@ public class GameIntroCutscene {
             charIndex = 0;
             combinedText = "";
             displayedText = "";
-            System.out.println("Scene part: " + scenePart);
             gp.keyHandler.spacePressed = false;
+
         }
 
         switch (scenePart) {
             case 0:
                 firstCutsceneImage();
-
                 break;
             case 1:
                 secondCutsceneImage();
                 break;
 
-            case 2:
-                //Second cutsceneImage
-                break;
         }
 
         //Second cutsceneImage

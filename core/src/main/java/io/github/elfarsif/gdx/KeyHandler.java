@@ -60,6 +60,12 @@ public class KeyHandler extends InputAdapter {
     private void cutsceneState(int code) {
         if(code == Input.Keys.SPACE){
             spacePressed = true;
+            //Leave cutscene to main game
+            if(gp.cutsceneManager.gameIntroCutscene.scenePart == gp.cutsceneManager.gameIntroCutscene.maxSceneNumber-1){
+                gp.gameState = gp.playState;
+                gp.cutsceneManager.gameIntroCutscene.scenePart=999;
+                spacePressed = false;
+            }
         }
     }
 
