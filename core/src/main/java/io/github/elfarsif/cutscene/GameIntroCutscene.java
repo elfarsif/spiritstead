@@ -42,6 +42,7 @@ public class GameIntroCutscene {
             charIndex = 0;
             combinedText = "";
             displayedText = "";
+            //TODO:Bug for pagination in dialogue state
             gp.keyHandler.spacePressed = false;
 
         }
@@ -104,7 +105,7 @@ public class GameIntroCutscene {
         font = new BitmapFont();
         font.getData().setScale(2f);
         font.setColor(Color.WHITE);
-        String text = "Welcome to Oscael";
+        String text = "Welcome to our place of residence we are just adding words to see the cutoff of the area";
 
 
         //Letter by letter effect
@@ -114,6 +115,7 @@ public class GameIntroCutscene {
             String s = String.valueOf(characters[charIndex]);
             combinedText += s;
             displayedText = combinedText;
+            gp.playSoundEffect(4);
             charIndex++;
         }
         font.draw(batch, displayedText,gp.ui.getXforCenteredText(text) ,imageYposition-gp.tileSize);
@@ -147,6 +149,7 @@ public class GameIntroCutscene {
             String s = String.valueOf(characters[charIndex]);
             combinedText += s;
             displayedText = combinedText;
+            gp.playSoundEffect(4);
             charIndex++;
         }
         font.draw(batch, displayedText,gp.ui.getXforCenteredText(text) ,imageYposition-gp.tileSize);

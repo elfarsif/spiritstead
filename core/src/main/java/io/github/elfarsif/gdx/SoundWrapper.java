@@ -16,6 +16,7 @@ public class SoundWrapper {
         sounds[1] = (Sound) Gdx.audio.newSound(Gdx.files.internal("sounds/chopping-wood.wav"));
         sounds[2] = (Sound) Gdx.audio.newSound(Gdx.files.internal("sounds/inventory-cursor.wav"));
         sounds[3] = (Sound) Gdx.audio.newSound(Gdx.files.internal("sounds/sword-sound.wav"));
+        sounds[4] = (Sound) Gdx.audio.newSound(Gdx.files.internal("sounds/dialogue.wav"));
 
         checkVolume();
 

@@ -592,15 +592,16 @@ public class UI {
 
         //DIALOGUE PAGINATION
         if (npc.dialogues[npc.dialogueSetNumber][npc.dialogueIndex]!=null){
+
 //            currentDialogue = npc.dialogues[npc.dialogueSetNumber][npc.dialogueIndex];
            char characters[] = npc.dialogues[npc.dialogueSetNumber][npc.dialogueIndex].toCharArray();
            if (charIndex<characters.length) {
                String s = String.valueOf(characters[charIndex]);
                combinedText += s;
                currentDialogue = combinedText;
+               gp.playSoundEffect(4);
                charIndex++;
            }
-
             if (gp.keyHandler.spacePressed){
                 //reset letter by letter
                 charIndex = 0;

@@ -64,6 +64,7 @@ public class KeyHandler extends InputAdapter {
             if(gp.cutsceneManager.gameIntroCutscene.scenePart == gp.cutsceneManager.gameIntroCutscene.maxSceneNumber-1){
                 gp.gameState = gp.playState;
                 gp.cutsceneManager.gameIntroCutscene.scenePart=999;
+                gp.cutsceneManager.sceneNum=999;
                 spacePressed = false;
             }
         }
@@ -139,8 +140,8 @@ public class KeyHandler extends InputAdapter {
 
     private void dialogueState(int code) {
         if(code == Input.Keys.SPACE){
-            System.out.println("Space Pressed");
             spacePressed = true;
+            System.out.println("SPACE PRESSED" + spacePressed);
         }
     }
 
