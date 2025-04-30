@@ -1,5 +1,6 @@
 package io.github.elfarsif.cutscene;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,6 +25,7 @@ public class GameIntroCutscene {
     int charIndex=0;
     String combinedText = "";
     public int scenePart=0;
+    public int fadeCounter=0;
 
 
     public GameIntroCutscene(GamePanel gp){
@@ -63,6 +65,13 @@ public class GameIntroCutscene {
     }
 
     private void firstCutsceneImage() {
+        fadeCounter++;
+
+        float alpha = Math.max(1f - fadeCounter * 0.05f, 0f); // fade from black to transparent
+
+
+
+
         batch.draw(blackBackground, 0, 0,blackBackground.getWidth(), blackBackground.getHeight());
 
         //addFirstCutsceneImage
@@ -70,7 +79,15 @@ public class GameIntroCutscene {
         int imageYposition = (int) (gp.screenHeight-(firstCutsceneImage.getHeight()+gp.tileSize));
         batch.draw(firstCutsceneImage, imageXposition, imageYposition, firstCutsceneImage.getWidth(), firstCutsceneImage.getHeight());
 
-        addFirstCutsceneText(imageYposition);
+        // Set blending and draw with alpha
+        Color originalColor = batch.getColor();
+        batch.setColor(0, 0, 0, alpha);
+        batch.draw(blackBackground, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.setColor(originalColor);
+
+        if (fadeCounter>=30){
+            addFirstCutsceneText(imageYposition);
+        }
 
     }
 
@@ -123,6 +140,9 @@ public class GameIntroCutscene {
     }
 
     private void secondCutsceneImage() {
+        fadeCounter++;
+
+        float alpha = Math.max(1f - fadeCounter * 0.05f, 0f); // fade from black to transparent
 
         batch.draw(blackBackground, 0, 0, blackBackground.getWidth(), blackBackground.getHeight());
 
@@ -130,8 +150,14 @@ public class GameIntroCutscene {
         int imageXposition = (int) (gp.screenWidth / 2 - (secondCutsceneImage.getWidth() / 2));
         int imageYposition = (int) (gp.screenHeight - (secondCutsceneImage.getHeight() + gp.tileSize));
         batch.draw(secondCutsceneImage, imageXposition, imageYposition, secondCutsceneImage.getWidth(), secondCutsceneImage.getHeight());
-
-        addSecondCutsceneText(imageYposition);
+        // Set blending and draw with alpha
+        Color originalColor = batch.getColor();
+        batch.setColor(0, 0, 0, alpha);
+        batch.draw(blackBackground, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.setColor(originalColor);
+        if (fadeCounter>=50) {
+            addSecondCutsceneText(imageYposition);
+        }
 
     }
 
