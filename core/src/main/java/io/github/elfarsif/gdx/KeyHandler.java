@@ -58,7 +58,7 @@ public class KeyHandler extends InputAdapter {
     }
 
     private void cutsceneState(int code) {
-        if(code == Input.Keys.SPACE){
+        if(code == Input.Keys.SPACE || code == Input.Keys.ENTER){
             gp.cutsceneManager.gameIntroCutscene.fadeCounter=0;
             spacePressed = true;
             //Leave cutscene to main game

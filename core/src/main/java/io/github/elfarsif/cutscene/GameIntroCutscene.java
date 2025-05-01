@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.elfarsif.gdx.GamePanel;
@@ -86,7 +87,7 @@ public class GameIntroCutscene {
         batch.setColor(originalColor);
 
         if (fadeCounter>=30){
-            addFirstCutsceneText(imageYposition);
+            addFirstCutsceneText(imageXposition,imageYposition);
         }
 
     }
@@ -118,11 +119,11 @@ public class GameIntroCutscene {
 
     }
 
-    private void addFirstCutsceneText(int imageYposition) {
+    private void addFirstCutsceneText(int imageXposition, int imageYposition) {
         font = new BitmapFont();
         font.getData().setScale(2f);
         font.setColor(Color.WHITE);
-        String text = "Welcome to our place of residence we are just adding words to see the cutoff of the area";
+        String text = addNewLinesToText("Welcome to our place of residence we are just adding words to see the cutoff of the area", (int) firstCutsceneImage.getWidth());
 
 
         //Letter by letter effect
@@ -135,8 +136,34 @@ public class GameIntroCutscene {
             gp.playSoundEffect(4);
             charIndex++;
         }
-        font.draw(batch, displayedText,gp.ui.getXforCenteredText(text) ,imageYposition-gp.tileSize);
+        font.draw(batch, displayedText,imageXposition ,imageYposition-gp.tileSize);
 
+    }
+
+    private String addNewLinesToText(String text, int imageWidth){
+        String originalText = text;
+        StringBuilder wrappedText = new StringBuilder();
+
+        GlyphLayout layout = new GlyphLayout();
+        float maxWidth = imageWidth; // or set manually
+        String[] words = originalText.split(" ");
+        String line = "";
+
+        for (String word : words) {
+            String testLine = line.isEmpty() ? word : line + " " + word;
+            layout.setText(font, testLine);
+
+            if (layout.width > maxWidth) {
+                wrappedText.append(line).append("\n");
+                line = word; // Start new line with the current word
+            } else {
+                line = testLine;
+            }
+        }
+        wrappedText.append(line); // append the last line
+
+        String finalText = wrappedText.toString();
+        return finalText;
     }
 
     private void secondCutsceneImage() {
@@ -156,12 +183,12 @@ public class GameIntroCutscene {
         batch.draw(blackBackground, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.setColor(originalColor);
         if (fadeCounter>=50) {
-            addSecondCutsceneText(imageYposition);
+            addSecondCutsceneText(imageXposition,imageYposition);
         }
 
     }
 
-    private void addSecondCutsceneText(int imageYposition) {
+    private void addSecondCutsceneText(int imageXposition, int imageYposition) {
         font = new BitmapFont();
         font.getData().setScale(2f);
         font.setColor(Color.WHITE);
@@ -178,7 +205,7 @@ public class GameIntroCutscene {
             gp.playSoundEffect(4);
             charIndex++;
         }
-        font.draw(batch, displayedText,gp.ui.getXforCenteredText(text) ,imageYposition-gp.tileSize);
+        font.draw(batch, displayedText, imageXposition ,imageYposition-gp.tileSize);
 
     }
 
