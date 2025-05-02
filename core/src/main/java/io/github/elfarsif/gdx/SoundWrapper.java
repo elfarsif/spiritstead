@@ -8,7 +8,7 @@ public class SoundWrapper {
 
     Sound currentSound;
     Sound sounds[] = new Sound[10];
-    int volumeScale = 3; // 0 to 5
+    public int volumeScale = 3; // 0 to 5
     float volume;
 
     public SoundWrapper(){

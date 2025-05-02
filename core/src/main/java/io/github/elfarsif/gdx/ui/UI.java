@@ -1,4 +1,4 @@
-package io.github.elfarsif.gdx;
+package io.github.elfarsif.gdx.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.elfarsif.entity.Entity;
+import io.github.elfarsif.gdx.GamePanel;
 import io.github.elfarsif.objects.HealthBar;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class UI {
     public Entity npc;
     int charIndex = 0;
     String combinedText = "";
+    public OptionMenu optionMenu;
 
     private Texture blackTexture;
 
@@ -41,6 +43,7 @@ public class UI {
         this.gp = gp;
         this.font = new BitmapFont();
         this.font.getData().setScale(2f);
+        optionMenu = new OptionMenu(gp);
         loadBackgroundImage();
         loadUIImages();
         initializeTransitionTexture();
@@ -123,7 +126,7 @@ public class UI {
         }
         //OPTIONS STATE
         if(gp.gameState == gp.optionsState){
-            drawOptionsScreen();
+            optionMenu.drawOptionsScreen(spriteBatch,currentDialogue);
         }
         //TRANSITION MAP STATE
         if(gp.gameState == gp.transitionMapState){
@@ -178,7 +181,6 @@ public class UI {
         pixmap.dispose(); // Texture is now holding the data
     }
 
-
     private void drawTransitionMapAnimation() {
         counter++;
 
@@ -198,244 +200,6 @@ public class UI {
             gp.player.worldY = gp.eventHandler.tempRow * gp.tileSize;
             gp.eventHandler.previousEventX = gp.player.worldX;
             gp.eventHandler.previousEventY = gp.player.worldY;
-        }
-    }
-
-    private void drawOptionsScreen() {
-        font.setColor(Color.WHITE);
-        font.getData().setScale(1.5f);
-
-        //SUB WINDOW
-        int frameX = gp.tileSize*6;
-        int frameY = gp.tileSize;
-        int frameWidth = gp.tileSize*10;
-        int frameHeight = gp.tileSize*10;
-
-        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
-
-        switch (subState){
-            case 0:
-                optionsTop(frameX,frameY);
-                break;
-            case 1:
-                optionsControl(frameX,frameY);
-                break;
-            case 2:
-                optionsExitGame(frameX,frameY);
-        }
-
-        gp.keyHandler.enterPressed = false;
-
-    }
-
-    private void optionsExitGame(int frameX, int frameY) {
-        int textX = frameX + gp.tileSize;
-        int textY = frameY + gp.tileSize*3;
-
-        currentDialogue = "Are you sure you want to exit the game?";
-        font.draw(spriteBatch, currentDialogue, textX, textY);
-
-        //YES
-        String text = "YES";
-        textX = getXforCenteredText(text)- frameX;
-        textY += gp.tileSize*2;
-        font.draw(spriteBatch, text, textX, textY);
-        if (commandNum == 0){
-            font.draw(spriteBatch, ">", textX - 30, textY);
-            if (gp.keyHandler.enterPressed){
-                subState = 0;
-                gp.gameState = gp.titleState;
-            }
-        }
-
-        //NO
-        text = "NO";
-        textX = getXforCenteredText(text)- frameX;
-        textY += gp.tileSize;
-        font.draw(spriteBatch, text, textX, textY);
-        if (commandNum == 1){
-            font.draw(spriteBatch, ">", textX - 30, textY);
-            if (gp.keyHandler.enterPressed){
-                subState = 0;
-                commandNum = 4;
-            }
-        }
-
-    }
-
-    private void optionsTop(int frameX, int frameY) {
-        int textX;
-        int textY;
-
-        //TITLE
-
-        String text = "OPTIONS";
-        textX = getXforCenteredText(text)- frameX;
-        textY = frameY + gp.tileSize;
-        font.draw(spriteBatch, text, textX, textY);
-
-        //FULL SCREEN ON/OFF
-        text = "FULL SCREEN";
-        textX = frameX+ gp.tileSize;
-        textY += gp.tileSize*2;
-        font.draw(spriteBatch, text, textX, textY);
-        if (commandNum == 0){
-            font.draw(spriteBatch, ">", textX - 30, textY);
-            if (gp.keyHandler.enterPressed){
-            /*    if (!gp.fullScreenOn){
-                    gp.fullScreenOn = true;
-                }
-                else{
-                    gp.fullScreenOn = false;
-                }
-*/
-                System.out.println("Full Screen On/Off");
-            }
-        }
-
-        //MUSIC
-        text = "MUSIC";
-        textY += gp.tileSize;
-        font.draw(spriteBatch, text, textX, textY);
-        if (commandNum == 1){
-            font.draw(spriteBatch, ">", textX - 30, textY);
-        }
-
-        //SOUND EFFECT
-        text = "SOUND EFFECT";
-        textY += gp.tileSize;
-        font.draw(spriteBatch, text, textX, textY);
-        if (commandNum == 2){
-            font.draw(spriteBatch, ">", textX - 30, textY);
-        }
-
-        //CONTROL
-        text = "CONTROL";
-        textY += gp.tileSize;
-        font.draw(spriteBatch, text, textX, textY);
-        if (commandNum == 3){
-            font.draw(spriteBatch, ">", textX - 30, textY);
-            if (gp.keyHandler.enterPressed){
-                subState = 1;
-                commandNum = 0;
-            }
-        }
-
-        //Exit
-        text = "EXIT";
-        textY += gp.tileSize;
-        font.draw(spriteBatch, text, textX, textY);
-        if (commandNum == 4){
-            font.draw(spriteBatch, ">", textX - 30, textY);
-            if (gp.keyHandler.enterPressed){
-                subState = 2;
-                commandNum = 0;
-            }
-        }
-
-        //BACK
-        text = "BACK";
-        textY += gp.tileSize*2;
-        font.draw(spriteBatch, text, textX, textY);
-        if (commandNum == 5){
-            font.draw(spriteBatch, ">", textX - 30, textY);
-        }
-
-        //FULL SCREEN CHECK BOX
-        textX = (int) (frameX + gp.tileSize*6.5);
-        textY = (int) (frameY + (int)gp.tileSize*2.5);
-        Pixmap pixmap = new Pixmap(gp.tileSize, gp.tileSize, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.drawRectangle(textX, textY, gp.tileSize / 3, gp.tileSize / 3);
-
-        //Dont initialize it here its super slow compared to initializing it in create and using the same object
-        Texture texture = new Texture(pixmap);
-        pixmap.dispose();
-        spriteBatch.draw(texture, textX, textY);
-
-        if (gp.fullScreenOn){
-            pixmap = new Pixmap(gp.tileSize, gp.tileSize, Pixmap.Format.RGBA8888);
-            pixmap.setColor(Color.WHITE);
-            pixmap.fillRectangle(textX, textY, gp.tileSize / 3, gp.tileSize / 3);
-            texture = new Texture(pixmap);
-            pixmap.dispose();
-            spriteBatch.draw(texture, textX, textY);
-        }
-
-        //MUSIC SLIDER
-        textY += gp.tileSize;
-        pixmap = new Pixmap(gp.tileSize*3, gp.tileSize/3, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.drawRectangle(textX, textY, gp.tileSize*3, gp.tileSize/3);
-        texture = new Texture(pixmap);
-        pixmap.dispose();
-        spriteBatch.draw(texture, textX, textY);
-        int volumeWidth = gp.tileSize*3/5 * gp.music.volumeScale;
-        pixmap = new Pixmap(volumeWidth, gp.tileSize/3, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.fillRectangle(textX, textY, volumeWidth, gp.tileSize/3);
-        texture = new Texture(pixmap);
-        pixmap.dispose();
-        spriteBatch.draw(texture, textX, textY);
-
-        //SOUND EFFECT SLIDER
-        textY += gp.tileSize;
-        pixmap = new Pixmap(gp.tileSize*3, gp.tileSize/3, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.drawRectangle(textX, textY, gp.tileSize*3, gp.tileSize/3);
-        texture = new Texture(pixmap);
-        pixmap.dispose();
-        spriteBatch.draw(texture, textX, textY);
-        volumeWidth = gp.tileSize*3/5 * gp.soundEffect.volumeScale;
-        pixmap = new Pixmap(volumeWidth, gp.tileSize/3, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.fillRectangle(textX, textY, volumeWidth, gp.tileSize/3);
-        texture = new Texture(pixmap);
-        pixmap.dispose();
-        spriteBatch.draw(texture, textX, textY);
-
-        gp.config.saveConfig();
-    }
-
-    public void optionsControl(int frameX, int frameY){
-        int textX;
-        int textY;
-
-        //TITLE
-        String text = "CONTROL";
-        textX = getXforCenteredText(text)- frameX;
-        textY = frameY + gp.tileSize;
-        font.draw(spriteBatch, text, textX, textY);
-
-        textX = frameX + gp.tileSize;
-        textY += gp.tileSize;
-        font.draw(spriteBatch, "Move", textX, textY);
-        textY += gp.tileSize;
-        font.draw(spriteBatch, "Attack", textX, textY);
-        textY += gp.tileSize;
-        font.draw(spriteBatch, "Shoot", textX, textY);
-        textY += gp.tileSize;
-        font.draw(spriteBatch, "Interact", textX, textY);
-
-        textX = frameX + gp.tileSize*6;
-        textY = frameY + gp.tileSize*2;
-        font.draw(spriteBatch, "WASD", textX, textY);
-        textY += gp.tileSize;
-        font.draw(spriteBatch, "F", textX, textY);
-        textY += gp.tileSize;
-        font.draw(spriteBatch, "G", textX, textY);
-        textY += gp.tileSize;
-
-        //BACK
-        textX = frameX + gp.tileSize;
-        textY += gp.tileSize*2;
-        font.draw(spriteBatch, "BACK", textX, textY);
-        if (commandNum == 0){
-            font.draw(spriteBatch, ">", textX - 30, textY);
-            if (gp.keyHandler.enterPressed){
-                subState = 0;
-                commandNum = 3;
-            }
         }
     }
 

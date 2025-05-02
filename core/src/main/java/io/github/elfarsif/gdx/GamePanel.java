@@ -13,6 +13,7 @@ import io.github.elfarsif.entity.Entity;
 import io.github.elfarsif.entity.Player;
 
 import io.github.elfarsif.environment.EnvironmentManager;
+import io.github.elfarsif.gdx.ui.UI;
 import io.github.elfarsif.tile.Map;
 import io.github.elfarsif.tile.TileManager;
 import io.github.elfarsif.tile_interactive.InteractiveTile;
@@ -52,11 +53,11 @@ public class GamePanel implements ApplicationListener {
     public SoundWrapper music;
     public SoundWrapper soundEffect;
     public UI ui;
-    public AssetSetter assetSetter = new AssetSetter(this);
+    public AssetSetter assetSetter;
     private BitmapFont font;
-    public EventHandler eventHandler = new EventHandler(this);
+    public EventHandler eventHandler;
     public boolean fullScreenOn = false;
-    Config config;
+    public Config config;
     public PathFinder pathFinder;
     public CutsceneManager cutsceneManager;
     public EnvironmentManager environmentManager;
@@ -103,6 +104,8 @@ public class GamePanel implements ApplicationListener {
         ui = new UI(this);
         pathFinder = new PathFinder(this);
         environmentManager = new EnvironmentManager(this);
+        assetSetter = new AssetSetter(this);
+        eventHandler = new EventHandler(this);
 
 
         config.loadConfig();
