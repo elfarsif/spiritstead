@@ -38,20 +38,20 @@ public class OptionMenu {
 
         switch (subState){
             case 0:
-                optionsTop(frameX,frameY);
+                optionsTop(frameX,frameY, frameHeight);
                 break;
             case 1:
-                optionsControl(frameX,frameY);
+                optionsControl(frameX,frameY, frameHeight);
                 break;
             case 2:
-                optionsExitGame(frameX,frameY);
+                optionsExitGame(frameX,frameY, frameHeight);
         }
 
         gp.keyHandler.enterPressed = false;
 
     }
 
-    private void optionsTop(int frameX, int frameY) {
+    private void optionsTop(int frameX, int frameY, int frameHeight) {
         int textX;
         int textY;
 
@@ -59,13 +59,13 @@ public class OptionMenu {
 
         String text = "OPTIONS";
         textX = gp.ui.getXforCenteredText(text)- frameX;
-        textY = frameY + gp.tileSize;
+        textY = frameY + frameHeight - gp.tileSize;
         font.draw(batch, text, textX, textY);
 
         //FULL SCREEN ON/OFF
         text = "FULL SCREEN";
         textX = frameX+ gp.tileSize;
-        textY += gp.tileSize*2;
+        textY -= gp.tileSize*2;
         font.draw(batch, text, textX, textY);
         if (commandNum == 0){
             font.draw(batch, ">", textX - 30, textY);
@@ -83,7 +83,7 @@ public class OptionMenu {
 
         //MUSIC
         text = "MUSIC";
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, text, textX, textY);
         if (commandNum == 1){
             font.draw(batch, ">", textX - 30, textY);
@@ -91,7 +91,7 @@ public class OptionMenu {
 
         //SOUND EFFECT
         text = "SOUND EFFECT";
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, text, textX, textY);
         if (commandNum == 2){
             font.draw(batch, ">", textX - 30, textY);
@@ -99,7 +99,7 @@ public class OptionMenu {
 
         //CONTROL
         text = "CONTROL";
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, text, textX, textY);
         if (commandNum == 3){
             font.draw(batch, ">", textX - 30, textY);
@@ -111,7 +111,7 @@ public class OptionMenu {
 
         //Exit
         text = "EXIT";
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, text, textX, textY);
         if (commandNum == 4){
             font.draw(batch, ">", textX - 30, textY);
@@ -123,7 +123,7 @@ public class OptionMenu {
 
         //BACK
         text = "BACK";
-        textY += gp.tileSize*2;
+        textY -= gp.tileSize*2;
         font.draw(batch, text, textX, textY);
         if (commandNum == 5){
             font.draw(batch, ">", textX - 30, textY);
@@ -151,7 +151,7 @@ public class OptionMenu {
         }
 
         //MUSIC SLIDER
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         pixmap = new Pixmap(gp.tileSize*3, gp.tileSize/3, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);
         pixmap.drawRectangle(textX, textY, gp.tileSize*3, gp.tileSize/3);
@@ -167,7 +167,7 @@ public class OptionMenu {
         batch.draw(texture, textX, textY);
 
         //SOUND EFFECT SLIDER
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         pixmap = new Pixmap(gp.tileSize*3, gp.tileSize/3, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);
         pixmap.drawRectangle(textX, textY, gp.tileSize*3, gp.tileSize/3);
@@ -185,38 +185,38 @@ public class OptionMenu {
         gp.config.saveConfig();
     }
 
-    public void optionsControl(int frameX, int frameY){
+    public void optionsControl(int frameX, int frameY, int frameHeight){
         int textX;
         int textY;
 
         //TITLE
         String text = "CONTROL";
         textX = gp.ui.getXforCenteredText(text)- frameX;
-        textY = frameY + gp.tileSize;
+        textY = frameY + frameHeight - gp.tileSize;
         font.draw(batch, text, textX, textY);
 
         textX = frameX + gp.tileSize;
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, "Move", textX, textY);
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, "Attack", textX, textY);
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, "Shoot", textX, textY);
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, "Interact", textX, textY);
 
         textX = frameX + gp.tileSize*6;
-        textY = frameY + gp.tileSize*2;
+        textY = frameY +frameHeight - gp.tileSize*2;
         font.draw(batch, "WASD", textX, textY);
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, "F", textX, textY);
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, "G", textX, textY);
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
 
         //BACK
         textX = frameX + gp.tileSize;
-        textY += gp.tileSize*2;
+        textY -= gp.tileSize*2;
         font.draw(batch, "BACK", textX, textY);
         if (commandNum == 0){
             font.draw(batch, ">", textX - 30, textY);
@@ -227,9 +227,9 @@ public class OptionMenu {
         }
     }
 
-    private void optionsExitGame(int frameX, int frameY) {
+    private void optionsExitGame(int frameX, int frameY, int frameHeight) {
         int textX = frameX + gp.tileSize;
-        int textY = frameY + gp.tileSize*3;
+        int textY = frameY + frameHeight - gp.tileSize*3;
 
         currentDialogue = "Are you sure you want to exit the game?";
         font.draw(batch, currentDialogue, textX, textY);
@@ -237,7 +237,7 @@ public class OptionMenu {
         //YES
         String text = "YES";
         textX = gp.ui.getXforCenteredText(text)- frameX;
-        textY += gp.tileSize*2;
+        textY -= gp.tileSize*2;
         font.draw(batch, text, textX, textY);
         if (commandNum == 0){
             font.draw(batch, ">", textX - 30, textY);
@@ -250,7 +250,7 @@ public class OptionMenu {
         //NO
         text = "NO";
         textX = gp.ui.getXforCenteredText(text)- frameX;
-        textY += gp.tileSize;
+        textY -= gp.tileSize;
         font.draw(batch, text, textX, textY);
         if (commandNum == 1){
             font.draw(batch, ">", textX - 30, textY);
