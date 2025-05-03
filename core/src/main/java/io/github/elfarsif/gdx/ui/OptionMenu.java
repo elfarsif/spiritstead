@@ -29,10 +29,10 @@ public class OptionMenu {
         font.getData().setScale(1.5f);
 
         //SUB WINDOW
-        int frameX = gp.tileSize*6;
-        int frameY = gp.tileSize;
         int frameWidth = gp.tileSize*10;
         int frameHeight = gp.tileSize*10;
+        int frameX = gp.screenWidth/2 - frameWidth/2;
+        int frameY = gp.screenHeight/2 - frameHeight/2;
 
         gp.ui.drawSubWindow(frameX,frameY,frameWidth,frameHeight);
 
@@ -58,32 +58,32 @@ public class OptionMenu {
         //TITLE
 
         String text = "OPTIONS";
-        textX = gp.ui.getXforCenteredText(text)- frameX;
+        textX = frameX + gp.tileSize;
         textY = frameY + frameHeight - gp.tileSize;
         font.draw(batch, text, textX, textY);
 
         //FULL SCREEN ON/OFF
-        text = "FULL SCREEN";
+      /*  text = "FULL SCREEN";
         textX = frameX+ gp.tileSize;
         textY -= gp.tileSize*2;
         font.draw(batch, text, textX, textY);
         if (commandNum == 0){
             font.draw(batch, ">", textX - 30, textY);
             if (gp.keyHandler.enterPressed){
-            /*    if (!gp.fullScreenOn){
+            *//*    if (!gp.fullScreenOn){
                     gp.fullScreenOn = true;
                 }
                 else{
                     gp.fullScreenOn = false;
                 }
-*/
+*//*
                 System.out.println("Full Screen On/Off");
             }
-        }
+        }*/
 
         //MUSIC
         text = "MUSIC";
-        textY -= gp.tileSize;
+        textY -= gp.tileSize*2;
         font.draw(batch, text, textX, textY);
         if (commandNum == 1){
             font.draw(batch, ">", textX - 30, textY);
