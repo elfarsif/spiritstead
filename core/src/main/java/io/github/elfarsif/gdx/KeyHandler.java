@@ -221,6 +221,7 @@ public class KeyHandler extends InputAdapter {
                     gp.cutsceneManager.sceneNum = gp.cutsceneManager.gameStart;
                     break;
                 case 1:
+                    gp.saveLoad.load();
                     gp.gameState = gp.playState;
                     break;
                 case 2:

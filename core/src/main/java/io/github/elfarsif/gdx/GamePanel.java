@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.elfarsif.ai.PathFinder;
 import io.github.elfarsif.cutscene.CutsceneManager;
+import io.github.elfarsif.data.SaveLoad;
 import io.github.elfarsif.entity.Entity;
 import io.github.elfarsif.entity.Player;
 
@@ -61,6 +62,7 @@ public class GamePanel implements ApplicationListener {
     public PathFinder pathFinder;
     public CutsceneManager cutsceneManager;
     public EnvironmentManager environmentManager;
+    public SaveLoad saveLoad;
 
     //ENTITIES AND OBJECTS
     public Player player;
@@ -106,6 +108,7 @@ public class GamePanel implements ApplicationListener {
         environmentManager = new EnvironmentManager(this);
         assetSetter = new AssetSetter(this);
         eventHandler = new EventHandler(this);
+        saveLoad = new SaveLoad(this);
 
 
         config.loadConfig();

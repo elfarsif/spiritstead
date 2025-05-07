@@ -153,12 +153,16 @@ public class OptionMenu {
             }
         }
 
-        //BACK
-        text = "BACK";
+        //SAVE
+        text = "SAVE";
         textY -= gp.tileSize*2;
         font.draw(batch, text, textX, textY);
         if (commandNum == 5){
             font.draw(batch, ">", textX - 30, textY);
+            if (gp.keyHandler.enterPressed){
+                gp.saveLoad.save();
+                System.out.println("Game Saved");
+            }
         }
 
         //FULL SCREEN CHECK BOX
