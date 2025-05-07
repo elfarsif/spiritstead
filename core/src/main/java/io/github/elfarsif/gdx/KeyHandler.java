@@ -114,6 +114,7 @@ public class KeyHandler extends InputAdapter {
                 }
                 if (gp.ui.optionMenu.commandNum == 2 && gp.soundEffect.volumeScale > 0) {
                     gp.soundEffect.volumeScale--;
+                    gp.soundEffect.checkVolume();
                     gp.playSoundEffect(1);
                 }
             }
@@ -128,6 +129,7 @@ public class KeyHandler extends InputAdapter {
                 }
                 if (gp.ui.optionMenu.commandNum == 2 && gp.soundEffect.volumeScale < 5) {
                     gp.soundEffect.volumeScale++;
+                    gp.soundEffect.checkVolume();
                     gp.playSoundEffect(1);
                 }
             }

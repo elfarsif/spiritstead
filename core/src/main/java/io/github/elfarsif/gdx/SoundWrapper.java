@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 
 public class SoundWrapper {
 
+    long id;
     Sound currentSound;
     Sound sounds[] = new Sound[10];
     public int maxVolumeScale =5;
@@ -19,32 +20,41 @@ public class SoundWrapper {
         sounds[3] = (Sound) Gdx.audio.newSound(Gdx.files.internal("sounds/sword-sound.wav"));
         sounds[4] = (Sound) Gdx.audio.newSound(Gdx.files.internal("sounds/dialogue.wav"));
 
+        currentSound = sounds[0];
         checkVolume();
 
     }
 
     public void checkVolume(){
+
         switch (volumeScale) {
             case 0:
                 volume = 0.0f;
+                currentSound.setVolume(id, volume);
                 break;
             case 1:
                 volume = 0.25f;
+                currentSound.setVolume(id, volume);
                 break;
             case 2:
                 volume = 0.4f;
+                currentSound.setVolume(id, volume);
                 break;
             case 3:
                 volume = 0.6f;
+                currentSound.setVolume(id, volume);
                 break;
             case 4:
                 volume = 0.8f;
+                currentSound.setVolume(id, volume);
                 break;
             case 5:
                 volume = 1.0f;
+                currentSound.setVolume(id, volume);
                 break;
             default:
                 volume = 0.6f;
+                currentSound.setVolume(id, volume);
         }
     }
 
@@ -53,7 +63,7 @@ public class SoundWrapper {
     }
 
     public void play(){
-        currentSound.play(volume);
+        id = currentSound.play(volume);
     }
 
     public void stop(){
@@ -61,8 +71,7 @@ public class SoundWrapper {
     }
 
     public void loop(){
-        long id = currentSound.loop();
-        currentSound.setVolume(id,volume);
+        currentSound.setLooping(id,true);
     }
 
 }

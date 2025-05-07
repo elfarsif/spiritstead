@@ -128,6 +128,7 @@ public class GamePanel implements ApplicationListener {
         assetSetter.setInteractiveTiles();
         environmentManager.setup();
         playMusic(0);
+//        stopMusic();
 
         if(fullScreenOn){
 //            setFullScreen();
@@ -328,7 +329,6 @@ public class GamePanel implements ApplicationListener {
 
     public void playMusic(int i){
         music.setFile(i);
-        music.volumeScale = 0;
         music.play();
         music.loop();
     }

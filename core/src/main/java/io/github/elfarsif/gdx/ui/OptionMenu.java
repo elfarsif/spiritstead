@@ -204,7 +204,7 @@ public class OptionMenu {
 
         //TITLE
         String text = "CONTROL";
-        textX = gp.ui.getXforCenteredText(text)- frameX;
+        textX = frameX + gp.tileSize;
         textY = frameY + frameHeight - gp.tileSize;
         font.draw(batch, text, textX, textY);
 
@@ -249,7 +249,7 @@ public class OptionMenu {
 
         //YES
         String text = "YES";
-        textX = gp.ui.getXforCenteredText(text)- frameX;
+        textX = frameX + gp.tileSize;
         textY -= gp.tileSize*2;
         font.draw(batch, text, textX, textY);
         if (commandNum == 0){
@@ -262,7 +262,7 @@ public class OptionMenu {
 
         //NO
         text = "NO";
-        textX = gp.ui.getXforCenteredText(text)- frameX;
+        textX = frameX + gp.tileSize;
         textY -= gp.tileSize;
         font.draw(batch, text, textX, textY);
         if (commandNum == 1){
