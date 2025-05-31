@@ -18,7 +18,11 @@ public class EnvironmentManager {
         lighting = new Lighting(gp,600);
     }
 
+    public void update(){
+        lighting.update();
+    }
+
     public  void draw(SpriteBatch batch){
-//        lighting.draw(batch);
+        lighting.draw(batch);
     }
 }

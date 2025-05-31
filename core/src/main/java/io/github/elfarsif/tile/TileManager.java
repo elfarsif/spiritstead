@@ -67,22 +67,22 @@ public class TileManager {
 
         //map parents house
         setup(47,"tiles/parent_home/00-00.png",false);
-        setup(48,"tiles/parent_home/00-01.png",false);
-        setup(49,"tiles/parent_home/00-02.png",false);
-        setup(50,"tiles/parent_home/00-03.png",false);
-        setup(51,"tiles/parent_home/00-04.png",false);
-        setup(52,"tiles/parent_home/00-05.png",false);
-        setup(53,"tiles/parent_home/00-06.png",false);
-        setup(54,"tiles/parent_home/00-07.png",false);
-        setup(55,"tiles/parent_home/00-08.png",false);
-        setup(56,"tiles/parent_home/00-09.png",false);
-        setup(57,"tiles/parent_home/00-10.png",false);
-        setup(57,"tiles/parent_home/00-11.png",false);
+        setup(48,"tiles/parent_home/00-01.png",true);
+        setup(49,"tiles/parent_home/00-02.png",true);
+        setup(50,"tiles/parent_home/00-03.png",true);
+        setup(51,"tiles/parent_home/00-04.png",true);
+        setup(52,"tiles/parent_home/00-05.png",true);
+        setup(53,"tiles/parent_home/00-06.png",true);
+        setup(54,"tiles/parent_home/00-07.png",true);
+        setup(55,"tiles/parent_home/00-08.png",true);
+        setup(56,"tiles/parent_home/00-09.png",true);
+//        setup(57,"tiles/parent_home/00-10.png",false);
+        setup(57,"tiles/parent_home/00-11.png",true);
         setup(58,"tiles/parent_home/01-00.png",false);
-        setup(59,"tiles/parent_home/01-01.png",false);
-        setup(60,"tiles/parent_home/01-02.png",false);
-        setup(61,"tiles/parent_home/01-03.png",false);
-        setup(62,"tiles/parent_home/01-04.png",false);
+        setup(59,"tiles/parent_home/01-01.png",true);
+        setup(60,"tiles/parent_home/01-02.png",true);
+        setup(61,"tiles/parent_home/01-03.png",true);
+        setup(62,"tiles/black_tile.png",true);
         setup(63,"tiles/parent_home/01-05.png",false);
         setup(64,"tiles/parent_home/01-06.png",false);
         setup(65,"tiles/parent_home/01-07.png",false);

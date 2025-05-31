@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class UI {
     private GamePanel gp;
-    private BitmapFont font;
+    public BitmapFont font;
     private Texture mushroomTexture;
     private boolean messageOn = false;
     public boolean gameFinished = false;

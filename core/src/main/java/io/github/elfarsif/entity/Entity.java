@@ -119,7 +119,6 @@ public abstract class Entity {
     private void setDefaultSolidArea() {
         solidArea = new Rectangle();
 
-
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = gp.tileSize;

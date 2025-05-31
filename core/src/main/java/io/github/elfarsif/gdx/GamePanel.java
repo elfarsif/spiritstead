@@ -15,7 +15,6 @@ import io.github.elfarsif.entity.Player;
 
 import io.github.elfarsif.environment.EnvironmentManager;
 import io.github.elfarsif.gdx.ui.UI;
-import io.github.elfarsif.tile.Map;
 import io.github.elfarsif.tile.TileManager;
 import io.github.elfarsif.tile_interactive.InteractiveTile;
 
@@ -45,7 +44,6 @@ public class GamePanel implements ApplicationListener {
     public final int worldHeight = tileSize * maxWorldRow;
     public final int maxMap=10;
     public int currentMap = 0;
-    public Map parentsHome = new Map(10,10);
 
     //SYSTEM
     public KeyHandler keyHandler;
@@ -55,7 +53,7 @@ public class GamePanel implements ApplicationListener {
     public SoundWrapper soundEffect;
     public UI ui;
     public AssetSetter assetSetter;
-    private BitmapFont font;
+    public BitmapFont font;
     public EventHandler eventHandler;
     public boolean fullScreenOn = false;
     public Config config;
@@ -131,7 +129,7 @@ public class GamePanel implements ApplicationListener {
         assetSetter.setInteractiveTiles();
         environmentManager.setup();
         playMusic(0);
-//        stopMusic();
+        stopMusic();
 
         if(fullScreenOn){
 //            setFullScreen();
@@ -181,6 +179,8 @@ public class GamePanel implements ApplicationListener {
                     iTiles[currentMap][i].update();
                 }
             }
+            //update weather environment
+            environmentManager.update();
         }
         if(gameState == pauseState){
             //nothing

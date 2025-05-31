@@ -1,5 +1,8 @@
 package io.github.elfarsif.gdx;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.utils.ScreenUtils;
+
 public class EventHandler {
     GamePanel gp;
     EventRect[][][] eventRect;
@@ -56,7 +59,7 @@ public class EventHandler {
                 findTresure(0,29,6);
             }
             else if(hit(0,32,38,"up")){
-                switchToMap(1,31,38);
+                switchToMap(2,3,3);
             }
             else if(hit(1,32,38,"up")){
                 switchToMap(0,31,35);
