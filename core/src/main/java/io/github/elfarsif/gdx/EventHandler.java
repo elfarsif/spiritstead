@@ -59,13 +59,17 @@ public class EventHandler {
                 findTresure(0,29,6);
             }
             else if(hit(0,32,38,"up")){
-                switchToMap(2,3,3);
+                switchToMap(2,4,2);
             }
             else if(hit(1,32,38,"up")){
                 switchToMap(0,31,35);
             }
             else if(hit(0,32,37,"up")){
 //                this.oscaelMeetingCutscene();
+            }
+            else if(hit(2,5,2,"any")){
+                System.out.println("hit event");
+                switchToMap(0,32,39);
             }
 
         }
