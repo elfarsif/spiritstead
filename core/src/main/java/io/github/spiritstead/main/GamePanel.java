@@ -40,6 +40,15 @@ public class GamePanel extends ApplicationAdapter {
     }
 
     @Override
+    public void resize(int width, int height) {
+        // Resize the default camera viewport to match the new window size
+        // This is necessary to ensure that the game scales correctly when the window is resized.
+        Gdx.gl.glViewport(0, 0, screenWidth, screenHeight);
+        batch.getProjectionMatrix().setToOrtho2D(0, 0, screenWidth, screenHeight);
+    }
+
+
+    @Override
     public void render() {
 
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
@@ -53,13 +62,22 @@ public class GamePanel extends ApplicationAdapter {
         if (keyH.upPressed){
             playerY += playerSpeed;
         }
+        else if (keyH.downPressed){
+            playerY -= playerSpeed;
+        }
+        else if (keyH.leftPressed) {
+            playerX -= playerSpeed;
+        }
+        else if (keyH.rightPressed) {
+            playerX += playerSpeed;
+        }
     }
 
     private void draw() {
-        drawCircle(playerX, playerY);
+        drawPlayer(playerX, playerY);
     }
 
-    private void drawCircle(int x, int y) {
+    private void drawPlayer(int x, int y) {
         Pixmap pixmap = new Pixmap( tileSize, tileSize, Pixmap.Format.RGBA8888 );
         pixmap.setColor( Color.PINK);
         pixmap.fillRectangle(0,0, tileSize, tileSize);
