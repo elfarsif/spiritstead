@@ -2,12 +2,11 @@ package io.github.spiritstead.main;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.spiritstead.entity.Player;
+import io.github.spiritstead.tile.TileManager;
 
 /*
 This class is the main class that handles all aspects of game logic
@@ -21,13 +20,15 @@ public class GamePanel extends ApplicationAdapter {
     final int scale = 3;
 
     public final int tileSize = orginalTileSize*scale;
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
 
+    TileManager tileM;
     KeyHandler keyH;
     Player player;
+
 
     @Override
     public void create() {
@@ -35,6 +36,7 @@ public class GamePanel extends ApplicationAdapter {
         Gdx.graphics.setWindowedMode(screenWidth, screenHeight);
         batch = new SpriteBatch();
         keyH = new KeyHandler();
+        tileM = new TileManager(this);
         player = new Player(this, keyH);
 
         Gdx.input.setInputProcessor(keyH);
@@ -64,6 +66,7 @@ public class GamePanel extends ApplicationAdapter {
     }
 
     private void draw() {
+        tileM.draw(batch);
         player.draw(batch);
     }
 

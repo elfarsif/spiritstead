@@ -10,10 +10,9 @@ import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.KeyHandler;
 
 public class Player extends Entity{
-    GamePanel gp;
-    KeyHandler keyH;
+    private GamePanel gp;
+    private KeyHandler keyH;
     private SpriteBatch batch;
-    private Texture image;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -41,6 +40,13 @@ public class Player extends Entity{
     }
 
     public void update(){
+        if (keyH.upPressed|| keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            move();
+        }
+
+    }
+
+    private void move() {
         if (keyH.upPressed){
             direction = Direction.UP;
             y += speed;
@@ -58,6 +64,7 @@ public class Player extends Entity{
             x += speed;
         }
 
+        //handle sprite animation
         spriteCounter++;
         if (spriteCounter>15){
             if (spriteNum == 1) {
@@ -68,7 +75,6 @@ public class Player extends Entity{
             spriteCounter =0;
         }
     }
-
 
     public void draw(SpriteBatch batch){
         this.batch= batch;
