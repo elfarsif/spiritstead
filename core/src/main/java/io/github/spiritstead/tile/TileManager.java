@@ -18,7 +18,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[10];
-        mapTileNum = new int[gp.maxScreenRow][gp.maxScreenCol];
+        mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
         loadTileSprites();
         loadMap("/maps/map1.txt");
     }
@@ -36,7 +36,7 @@ public class TileManager {
                 while(col < gp.maxScreenCol){
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[row][col] = num;
+                    mapTileNum[col][row] = num;
                     col++;
                 }
                 if (col == gp.maxScreenCol) {
@@ -68,7 +68,7 @@ public class TileManager {
         int y = 0;
 
         while (col< gp.maxScreenCol && row <gp.maxScreenRow){
-            int tileNum = mapTileNum[row][col];
+            int tileNum = mapTileNum[col][row];
 
             batch.draw(tile[tileNum].image,x,y,gp.tileSize,gp.tileSize);
             col++;
