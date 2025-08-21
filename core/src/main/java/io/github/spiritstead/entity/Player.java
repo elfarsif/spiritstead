@@ -1,8 +1,6 @@
 package io.github.spiritstead.entity;
 
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,16 +12,21 @@ public class Player extends Entity{
     private KeyHandler keyH;
     private SpriteBatch batch;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
         setDefaultPlayerValues();
         loadPlayerTextures();
+        screenX = gp.screenWidth/2 - gp.tileSize/2;
+        screenY = gp.screenHeight/2 - gp.tileSize/2;
     }
 
     private void setDefaultPlayerValues(){
-        x = gp.tileSize * 3;
-        y = gp.tileSize * 3;
+        worldX = gp.tileSize * 3;
+        worldY = gp.tileSize * 3;
         speed = 4;
         direction = Direction.DOWN;
     }
@@ -49,19 +52,19 @@ public class Player extends Entity{
     private void move() {
         if (keyH.upPressed){
             direction = Direction.UP;
-            y += speed;
+            worldY += speed;
         }
         else if (keyH.downPressed){
             direction = Direction.DOWN;
-            y -= speed;
+            worldY -= speed;
         }
         else if (keyH.leftPressed) {
             direction = Direction.LEFT;
-            x -= speed;
+            worldX -= speed;
         }
         else if (keyH.rightPressed) {
             direction = Direction.RIGHT;
-            x += speed;
+            worldX += speed;
         }
 
         //handle sprite animation
@@ -111,7 +114,7 @@ public class Player extends Entity{
             default:
                 currentTexture = down1;
         }
-        batch.draw(currentTexture, x, y, gp.tileSize, gp.tileSize);
+        batch.draw(currentTexture, screenX, screenY, gp.tileSize, gp.tileSize);
     }
 
 

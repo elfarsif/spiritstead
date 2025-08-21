@@ -22,12 +22,18 @@ public class GamePanel extends ApplicationAdapter {
     public final int tileSize = orginalTileSize*scale;
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol;
-    final int screenHeight = tileSize * maxScreenRow;
+    public final int screenWidth = tileSize * maxScreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
+
+    //World Setting
+    public final int maxWorldCol = 30;
+    public final int maxWorldRow = 30;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
 
     TileManager tileM;
     KeyHandler keyH;
-    Player player;
+    public Player player;
 
 
     @Override
