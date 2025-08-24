@@ -1,16 +1,21 @@
 package io.github.spiritstead.entity;
 
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.KeyHandler;
 
+import java.awt.*;
+
 public class Player extends Entity{
     private GamePanel gp;
     private KeyHandler keyH;
     private SpriteBatch batch;
+    private Sprite solidAreaOutlineSprite;
 
     public final int screenX;
     public final int screenY;
@@ -18,10 +23,19 @@ public class Player extends Entity{
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
-        setDefaultPlayerValues();
-        loadPlayerTextures();
+
         screenX = gp.screenWidth/2 - gp.tileSize/2;
         screenY = gp.screenHeight/2 - gp.tileSize/2;
+
+        solidArea = new Rectangle();
+        solidArea.x = 0;
+        solidArea.y = 0;
+        solidArea.width = gp.tileSize;
+        solidArea.height = gp.tileSize;
+
+        generateSolidAreaOutline();
+        setDefaultPlayerValues();
+        loadPlayerTextures();
     }
 
     private void setDefaultPlayerValues(){
@@ -44,30 +58,31 @@ public class Player extends Entity{
 
     public void update(){
         if (keyH.upPressed|| keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            assignKeyPressToDirection();
+            checkPlayerCollision();
             move();
+            handleSpriteAnimation();
         }
 
     }
 
-    private void move() {
+    private void assignKeyPressToDirection() {
         if (keyH.upPressed){
             direction = Direction.UP;
-            worldY += speed;
         }
         else if (keyH.downPressed){
             direction = Direction.DOWN;
-            worldY -= speed;
         }
         else if (keyH.leftPressed) {
             direction = Direction.LEFT;
-            worldX -= speed;
         }
         else if (keyH.rightPressed) {
             direction = Direction.RIGHT;
-            worldX += speed;
         }
 
-        //handle sprite animation
+    }
+
+    private void handleSpriteAnimation() {
         spriteCounter++;
         if (spriteCounter>15){
             if (spriteNum == 1) {
@@ -79,42 +94,78 @@ public class Player extends Entity{
         }
     }
 
+    private void checkPlayerCollision() {
+        collisionOn = false;
+        gp.cChecker.checkEntityIsCollidingWithCollidableTile(this);
+
+    }
+
+    private void move(){
+        if (!collisionOn){
+            switch (direction){
+                case UP:
+                    worldY += speed;
+                    break;
+                case DOWN:
+                    worldY -= speed;
+                    break;
+                case LEFT:
+                    worldX -= speed;
+                    break;
+                case RIGHT:
+                    worldX += speed;
+                    break;
+            }
+        }
+
+    }
+
+    private void generateSolidAreaOutline(){
+        Pixmap solidAreaPixmap = new Pixmap(solidArea.width, solidArea.height, Pixmap.Format.RGBA8888);
+        solidAreaPixmap.setColor(Color.WHITE);
+        solidAreaPixmap.drawRectangle(solidArea.x, solidArea.y, solidArea.width, solidArea.height);
+        Sprite solidAreaSprite = new Sprite(new Texture(solidAreaPixmap));
+        solidAreaPixmap.dispose();
+        this.solidAreaOutlineSprite = solidAreaSprite;
+    }
+
     public void draw(SpriteBatch batch){
         this.batch= batch;
-        Sprite currentTexture = null;
+        Sprite currentSprite = null;
         switch (direction){
             case UP:
                 if (spriteNum ==1) {
-                    currentTexture = up1;
+                    currentSprite = up1;
                 } else if (spriteNum == 2) {
-                    currentTexture = up2;
+                    currentSprite = up2;
                 }
                 break;
             case DOWN:
                 if (spriteNum == 1) {
-                    currentTexture = down1;
+                    currentSprite = down1;
                 } else if (spriteNum == 2) {
-                    currentTexture = down2;
+                    currentSprite = down2;
                 }
                 break;
             case LEFT:
                 if (spriteNum == 1) {
-                    currentTexture = left1;
+                    currentSprite = left1;
                 } else if (spriteNum == 2) {
-                    currentTexture = left2;
+                    currentSprite = left2;
                 }
                 break;
             case RIGHT:
                 if (spriteNum == 1) {
-                    currentTexture = right1;
+                    currentSprite = right1;
                 } else if (spriteNum == 2) {
-                    currentTexture = right2;
+                    currentSprite = right2;
                 }
                 break;
             default:
-                currentTexture = down1;
+                currentSprite = down1;
         }
-        batch.draw(currentTexture, screenX, screenY, gp.tileSize, gp.tileSize);
+        batch.draw(currentSprite, screenX, screenY, gp.tileSize, gp.tileSize);
+        batch.draw(solidAreaOutlineSprite,screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
     }
 
 

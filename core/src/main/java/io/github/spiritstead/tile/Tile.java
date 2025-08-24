@@ -4,5 +4,5 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Tile {
     Sprite image;
-    private boolean collision = false;
+    public boolean collision = false;
 }

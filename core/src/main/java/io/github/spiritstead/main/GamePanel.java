@@ -33,6 +33,7 @@ public class GamePanel extends ApplicationAdapter {
 
     TileManager tileM;
     KeyHandler keyH;
+    public CollisionChecker cChecker;
     public Player player;
 
 
@@ -42,6 +43,7 @@ public class GamePanel extends ApplicationAdapter {
         Gdx.graphics.setWindowedMode(screenWidth, screenHeight);
         batch = new SpriteBatch();
         keyH = new KeyHandler();
+        cChecker = new CollisionChecker(this);
         tileM = new TileManager(this);
         player = new Player(this, keyH);
 
