@@ -5,7 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import io.github.spiritstead.entity.Player;
+import io.github.spiritstead.entity.Player.Player;
+import io.github.spiritstead.object.GameObject;
 import io.github.spiritstead.tile.TileManager;
 
 /*
@@ -17,7 +18,7 @@ public class GamePanel extends ApplicationAdapter {
 
     //Screen Setting
     final int orginalTileSize =16;
-    final int scale = 3;
+    public final int scale = 3;
 
     public final int tileSize = orginalTileSize*scale;
     public final int maxScreenCol = 16;
@@ -34,7 +35,10 @@ public class GamePanel extends ApplicationAdapter {
     TileManager tileM;
     KeyHandler keyH;
     public CollisionChecker cChecker;
+    public AssetSetter aSetter;
+
     public Player player;
+    public GameObject objects[] = new GameObject[10];
 
 
     @Override
@@ -45,9 +49,16 @@ public class GamePanel extends ApplicationAdapter {
         keyH = new KeyHandler();
         cChecker = new CollisionChecker(this);
         tileM = new TileManager(this);
+        aSetter = new AssetSetter(this);
         player = new Player(this, keyH);
 
+        setupGame();
+
         Gdx.input.setInputProcessor(keyH);
+    }
+
+    private void setupGame(){
+        aSetter.setObject();
     }
 
     @Override
@@ -75,6 +86,14 @@ public class GamePanel extends ApplicationAdapter {
 
     private void draw() {
         tileM.draw(batch);
+
+        //draw objects
+        for(int i = 0; i<objects.length;i++){
+            if (objects[i]!=null){
+                objects[i].draw(batch,this);
+            }
+        }
+
         player.draw(batch);
     }
 

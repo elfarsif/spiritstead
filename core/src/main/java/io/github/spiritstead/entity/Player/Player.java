@@ -1,4 +1,4 @@
-package io.github.spiritstead.entity;
+package io.github.spiritstead.entity.Player;
 
 
 import com.badlogic.gdx.graphics.Color;
@@ -6,16 +6,19 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.entity.Direction;
+import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.KeyHandler;
 
 import java.awt.*;
 
-public class Player extends Entity{
+public class Player extends Entity {
     private GamePanel gp;
     private KeyHandler keyH;
     private SpriteBatch batch;
     private Sprite solidAreaOutlineSprite;
+    int hasKey =0;
 
     public final int screenX;
     public final int screenY;
@@ -28,10 +31,13 @@ public class Player extends Entity{
         screenY = gp.screenHeight/2 - gp.tileSize/2;
 
         solidArea = new Rectangle();
-        solidArea.x = 0;
+        solidArea.x = 5*gp.scale;
         solidArea.y = 0;
-        solidArea.width = gp.tileSize;
-        solidArea.height = gp.tileSize;
+        //record default values to change solid area
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidArea.width = 6*gp.scale;
+        solidArea.height = 6*gp.scale;
 
         generateSolidAreaOutline();
         setDefaultPlayerValues();
@@ -97,7 +103,29 @@ public class Player extends Entity{
     private void checkPlayerCollision() {
         collisionOn = false;
         gp.cChecker.checkEntityIsCollidingWithCollidableTile(this);
+        int objIndex = gp.cChecker.checkEntityIsCollidingWithObject(this,true);
+        pickUpObject(objIndex);
 
+    }
+
+    private void pickUpObject(int index){
+        if(index!=9999){
+            String objName = gp.objects[index].name;
+            switch (objName){
+                case "Key":
+                    hasKey++;
+                    gp.objects[index]=null;
+                    System.out.println("Key"+hasKey);
+                    break;
+                case "Door":
+                    if (hasKey>0){
+                        gp.objects[index] = null;
+                        hasKey--;
+                    }
+                    System.out.println("Key"+hasKey);
+                    break;
+            }
+        }
     }
 
     private void move(){
@@ -121,9 +149,9 @@ public class Player extends Entity{
     }
 
     private void generateSolidAreaOutline(){
-        Pixmap solidAreaPixmap = new Pixmap(solidArea.width, solidArea.height, Pixmap.Format.RGBA8888);
+        Pixmap solidAreaPixmap = new Pixmap(gp.tileSize, gp.tileSize, Pixmap.Format.RGBA8888);
         solidAreaPixmap.setColor(Color.WHITE);
-        solidAreaPixmap.drawRectangle(solidArea.x, solidArea.y, solidArea.width, solidArea.height);
+        solidAreaPixmap.drawRectangle(solidArea.x, gp.tileSize-solidArea.height, solidArea.width, solidArea.height);
         Sprite solidAreaSprite = new Sprite(new Texture(solidAreaPixmap));
         solidAreaPixmap.dispose();
         this.solidAreaOutlineSprite = solidAreaSprite;
@@ -165,7 +193,7 @@ public class Player extends Entity{
                 currentSprite = down1;
         }
         batch.draw(currentSprite, screenX, screenY, gp.tileSize, gp.tileSize);
-        batch.draw(solidAreaOutlineSprite,screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
+        batch.draw(solidAreaOutlineSprite,screenX, screenY);
     }
 
 

@@ -12,12 +12,16 @@ public class Entity {
     public int worldX, worldY;
     public int speed;
 
-    Sprite up1, up2,down1, down2, left1, left2, right1, right2;
+    protected Sprite up1, up2,down1, down2, left1, left2, right1, right2;
     public Direction direction;
 
-    int spriteCounter = 0;
-    int spriteNum = 1;
+    protected int spriteCounter = 0;
+    protected int spriteNum = 1;
 
     public Rectangle solidArea;
+    //allows to change solid area for collision detection and store original values to restore area
+    public int solidAreaDefaultX;
+    public int solidAreaDefaultY;
+
     public boolean collisionOn = false;
 }
