@@ -3,8 +3,6 @@ package io.github.spiritstead.main;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.entity.Entity;
 
-import static io.github.spiritstead.entity.Direction.UP;
-
 public class CollisionChecker {
     GamePanel gp;
 
@@ -27,7 +25,7 @@ public class CollisionChecker {
         //just need to check 2 tiles in each direction
         int tileNum1,tileNum2;
 
-        switch (entity.direction){
+        switch (entity.Direction){
             case UP:
                 entityTopRow = (entityTopWorldY + entity.speed)/gp.tileSize;
 
@@ -89,7 +87,7 @@ public class CollisionChecker {
                 gp.objects[i].solidArea.x = gp.objects[i].worldX + gp.objects[i].solidArea.x;
                 gp.objects[i].solidArea.y = gp.objects[i].worldY + gp.objects[i].solidArea.y;
 
-                switch (entity.direction){
+                switch (entity.Direction){
                     case UP:
                         entity.solidArea.y += entity.speed;
                         if (entity.solidArea.intersects(gp.objects[i].solidArea)){

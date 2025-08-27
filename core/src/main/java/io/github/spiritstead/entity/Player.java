@@ -1,4 +1,4 @@
-package io.github.spiritstead.entity.Player;
+package io.github.spiritstead.entity;
 
 
 import com.badlogic.gdx.graphics.Color;
@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import io.github.spiritstead.entity.Direction;
-import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.KeyHandler;
 
@@ -48,7 +46,7 @@ public class Player extends Entity {
         worldX = gp.tileSize * 3;
         worldY = gp.tileSize * 3;
         speed = 4;
-        direction = Direction.DOWN;
+        Direction = Direction.DOWN;
     }
 
     private void loadPlayerTextures(){
@@ -74,16 +72,16 @@ public class Player extends Entity {
 
     private void assignKeyPressToDirection() {
         if (keyH.upPressed){
-            direction = Direction.UP;
+            Direction = Direction.UP;
         }
         else if (keyH.downPressed){
-            direction = Direction.DOWN;
+            Direction = Direction.DOWN;
         }
         else if (keyH.leftPressed) {
-            direction = Direction.LEFT;
+            Direction = Direction.LEFT;
         }
         else if (keyH.rightPressed) {
-            direction = Direction.RIGHT;
+            Direction = Direction.RIGHT;
         }
 
     }
@@ -124,13 +122,17 @@ public class Player extends Entity {
                     }
                     System.out.println("Key"+hasKey);
                     break;
+                case "Boots":
+                    speed+=2;
+                    gp.objects[index]=null;
+
             }
         }
     }
 
     private void move(){
         if (!collisionOn){
-            switch (direction){
+            switch (Direction){
                 case UP:
                     worldY += speed;
                     break;
@@ -160,7 +162,7 @@ public class Player extends Entity {
     public void draw(SpriteBatch batch){
         this.batch= batch;
         Sprite currentSprite = null;
-        switch (direction){
+        switch (Direction){
             case UP:
                 if (spriteNum ==1) {
                     currentSprite = up1;

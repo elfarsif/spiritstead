@@ -13,7 +13,7 @@ public class Entity {
     public int speed;
 
     protected Sprite up1, up2,down1, down2, left1, left2, right1, right2;
-    public Direction direction;
+    public Direction Direction;
 
     protected int spriteCounter = 0;
     protected int spriteNum = 1;

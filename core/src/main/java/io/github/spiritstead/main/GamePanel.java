@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import io.github.spiritstead.entity.Player.Player;
+import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.object.GameObject;
 import io.github.spiritstead.tile.TileManager;
 

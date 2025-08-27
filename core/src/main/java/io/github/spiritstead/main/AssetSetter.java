@@ -1,5 +1,6 @@
 package io.github.spiritstead.main;
 
+import io.github.spiritstead.object.Boots;
 import io.github.spiritstead.object.Chest;
 import io.github.spiritstead.object.Door;
 import io.github.spiritstead.object.Key;
@@ -27,6 +28,10 @@ public class AssetSetter {
         gp.objects[3] = new Chest();
         gp.objects[3].worldX = 4 *gp.tileSize;
         gp.objects[3].worldY = 12 *gp.tileSize;
+
+        gp.objects[4] = new Boots();
+        gp.objects[4].worldX = 6 *gp.tileSize;
+        gp.objects[4].worldY = 12 *gp.tileSize;
 
     }
 }
