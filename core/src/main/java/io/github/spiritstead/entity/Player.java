@@ -16,7 +16,7 @@ public class Player extends Entity {
     private KeyHandler keyH;
     private SpriteBatch batch;
     private Sprite solidAreaOutlineSprite;
-    int hasKey =0;
+    public int hasKey =0;
 
     public final int screenX;
     public final int screenY;
@@ -114,16 +114,26 @@ public class Player extends Entity {
                     hasKey++;
                     gp.objects[index]=null;
                     gp.playSE(1);
+                    gp.ui.showMessage("You got a key!");
                     break;
                 case "Door":
                     if (hasKey>0){
                         gp.objects[index] = null;
                         hasKey--;
+                        gp.ui.showMessage("You opened the door!");
+                    }else {
+                        gp.ui.showMessage("You need a key");
                     }
                     break;
                 case "Boots":
                     speed+=2;
                     gp.objects[index]=null;
+                    gp.playSE(2);
+                    gp.ui.showMessage("YOU ARE FAST");
+                    break;
+                case "Chest":
+                    gp.ui.gameFinished =true;
+                    gp.stopMusic();
                     gp.playSE(2);
                     break;
 

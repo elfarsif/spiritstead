@@ -37,6 +37,7 @@ public class GamePanel extends ApplicationAdapter {
     SoundWrapper se;
     public CollisionChecker cChecker;
     public AssetSetter aSetter;
+    public UI ui;
 
     //Entities and Objects
     public Player player;
@@ -54,6 +55,7 @@ public class GamePanel extends ApplicationAdapter {
         cChecker = new CollisionChecker(this);
         tileM = new TileManager(this);
         aSetter = new AssetSetter(this);
+        ui = new UI(this);
         player = new Player(this, keyH);
 
         setupGame();
@@ -79,6 +81,7 @@ public class GamePanel extends ApplicationAdapter {
         music.setFile(i);
         music.play();
         music.loop();
+        stopMusic();
     }
 
     public void stopMusic(){
@@ -115,9 +118,13 @@ public class GamePanel extends ApplicationAdapter {
         }
 
         player.draw(batch);
+
+        ui.draw(batch);
     }
 
     @Override
     public void dispose() {
+        ui.dispose();
+        batch.dispose();
     }
 }
