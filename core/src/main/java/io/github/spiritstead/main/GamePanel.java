@@ -33,7 +33,8 @@ public class GamePanel extends ApplicationAdapter {
     //System
     TileManager tileM;
     KeyHandler keyH;
-    SoundWrapper soundW;
+    SoundWrapper music;
+    SoundWrapper se;
     public CollisionChecker cChecker;
     public AssetSetter aSetter;
 
@@ -48,7 +49,8 @@ public class GamePanel extends ApplicationAdapter {
 
         batch = new SpriteBatch();
         keyH = new KeyHandler();
-        soundW = new SoundWrapper();
+        music = new SoundWrapper();
+        se = new SoundWrapper();
         cChecker = new CollisionChecker(this);
         tileM = new TileManager(this);
         aSetter = new AssetSetter(this);
@@ -74,17 +76,17 @@ public class GamePanel extends ApplicationAdapter {
     }
 
     public void playMusic(int i){
-        soundW.setFile(i);
-        soundW.play();
-        soundW.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
 
     public void stopMusic(){
-        soundW.stop();
+        music.stop();
     }
     public void playSE(int i){
-        soundW.setFile(i);
-        soundW.play();
+        se.setFile(i);
+        se.play();
     }
 
 
