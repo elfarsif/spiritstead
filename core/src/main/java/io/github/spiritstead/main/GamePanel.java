@@ -29,24 +29,26 @@ public class GamePanel extends ApplicationAdapter {
     //World Setting
     public final int maxWorldCol = 30;
     public final int maxWorldRow = 30;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
 
+    //System
     TileManager tileM;
     KeyHandler keyH;
+    SoundWrapper soundW;
     public CollisionChecker cChecker;
     public AssetSetter aSetter;
 
+    //Entities and Objects
     public Player player;
     public GameObject objects[] = new GameObject[10];
 
 
     @Override
     public void create() {
-
         Gdx.graphics.setWindowedMode(screenWidth, screenHeight);
+
         batch = new SpriteBatch();
         keyH = new KeyHandler();
+        soundW = new SoundWrapper();
         cChecker = new CollisionChecker(this);
         tileM = new TileManager(this);
         aSetter = new AssetSetter(this);
@@ -59,6 +61,8 @@ public class GamePanel extends ApplicationAdapter {
 
     private void setupGame(){
         aSetter.setObject();
+
+        playMusic(0);
     }
 
     @Override
@@ -67,6 +71,20 @@ public class GamePanel extends ApplicationAdapter {
         // This is necessary to ensure that the game scales correctly when the window is resized.
         Gdx.gl.glViewport(0, 0, screenWidth, screenHeight);
         batch.getProjectionMatrix().setToOrtho2D(0, 0, screenWidth, screenHeight);
+    }
+
+    public void playMusic(int i){
+        soundW.setFile(i);
+        soundW.play();
+        soundW.loop();
+    }
+
+    public void stopMusic(){
+        soundW.stop();
+    }
+    public void playSE(int i){
+        soundW.setFile(i);
+        soundW.play();
     }
 
 
