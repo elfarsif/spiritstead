@@ -43,13 +43,14 @@ public class GamePanel extends ApplicationAdapter {
     public Player player;
     public GameObject objects[] = new GameObject[10];
 
+    public GameState gameState;
 
     @Override
     public void create() {
         Gdx.graphics.setWindowedMode(screenWidth, screenHeight);
 
         batch = new SpriteBatch();
-        keyH = new KeyHandler();
+        keyH = new KeyHandler(this);
         music = new SoundWrapper();
         se = new SoundWrapper();
         cChecker = new CollisionChecker(this);
@@ -67,6 +68,7 @@ public class GamePanel extends ApplicationAdapter {
         aSetter.setObject();
 
         playMusic(0);
+        gameState = GameState.PLAYSTATE;
     }
 
     @Override
@@ -104,7 +106,13 @@ public class GamePanel extends ApplicationAdapter {
     }
 
     private void update() {
-        player.update();
+        switch (gameState){
+            case PLAYSTATE:
+                player.update();
+                break;
+            case PAUSESTATE:
+                break;
+        }
     }
 
     private void draw() {
