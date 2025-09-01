@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.spiritstead.entity.Player;
+import io.github.spiritstead.main.ui.UI;
 import io.github.spiritstead.object.GameObject;
 import io.github.spiritstead.tile.TileManager;
 
@@ -67,8 +68,8 @@ public class GamePanel extends ApplicationAdapter {
     private void setupGame(){
         aSetter.setObject();
 
-        playMusic(0);
-        gameState = GameState.PLAYSTATE;
+//        playMusic(0);
+        gameState = GameState.TITLESTATE;
     }
 
     @Override
@@ -83,7 +84,6 @@ public class GamePanel extends ApplicationAdapter {
         music.setFile(i);
         music.play();
         music.loop();
-        stopMusic();
     }
 
     public void stopMusic(){
@@ -116,18 +116,25 @@ public class GamePanel extends ApplicationAdapter {
     }
 
     private void draw() {
-        tileM.draw(batch);
+        if (gameState == GameState.TITLESTATE){
+            ui.draw(batch);
+        }
+        else {
+            tileM.draw(batch);
 
-        //draw objects
-        for(int i = 0; i<objects.length;i++){
-            if (objects[i]!=null){
-                objects[i].draw(batch,this);
+            //draw objects
+            for(int i = 0; i<objects.length;i++){
+                if (objects[i]!=null){
+                    objects[i].draw(batch,this);
+                }
             }
+
+            player.draw(batch);
+
+            ui.draw(batch);
         }
 
-        player.draw(batch);
 
-        ui.draw(batch);
     }
 
     @Override

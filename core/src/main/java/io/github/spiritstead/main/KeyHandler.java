@@ -2,6 +2,8 @@ package io.github.spiritstead.main;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import io.github.spiritstead.main.ui.TitleScreenOptions;
+
 /*
 This class handles the key inputs for the game.
 It extends InputAdapter to handle key events.
@@ -17,6 +19,35 @@ public class KeyHandler extends InputAdapter {
 
     @Override
     public boolean keyDown(int code){
+        //Title State
+        if (gp.gameState == GameState.TITLESTATE){
+            //move this logic to a seperate class for title state
+            if (code == Input.Keys.W){
+                gp.ui.titleScreenUI.commandNum--;
+                if (gp.ui.titleScreenUI.commandNum<TitleScreenOptions.NEW_GAME.getValue()){
+                    gp.ui.titleScreenUI.commandNum = TitleScreenOptions.QUIT.getValue();
+                }
+            }
+            else if (code == Input.Keys.S){
+                gp.ui.titleScreenUI.commandNum++;
+                if (gp.ui.titleScreenUI.commandNum>TitleScreenOptions.QUIT.getValue()){
+                    gp.ui.titleScreenUI.commandNum = TitleScreenOptions.NEW_GAME.getValue();
+                }
+            }
+            if (code == Input.Keys.ENTER){
+                if (gp.ui.titleScreenUI.commandNum == TitleScreenOptions.NEW_GAME.getValue()){
+                    gp.gameState = GameState.PLAYSTATE;
+                }
+                if (gp.ui.titleScreenUI.commandNum == TitleScreenOptions.LOAD_GAME.getValue()){
+
+                }
+                if (gp.ui.titleScreenUI.commandNum == TitleScreenOptions.QUIT.getValue()){
+                    System.exit(0);
+                }
+            }
+        }
+
+
         if (code == Input.Keys.W){
             upPressed = true;
         }
