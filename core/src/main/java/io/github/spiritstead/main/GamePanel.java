@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import io.github.spiritstead.cutscene.CutsceneManager;
 import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.main.ui.UI;
 import io.github.spiritstead.object.GameObject;
@@ -39,6 +40,7 @@ public class GamePanel extends ApplicationAdapter {
     public CollisionChecker cChecker;
     public AssetSetter aSetter;
     public UI ui;
+    public CutsceneManager cutsceneManager;
 
     //Entities and Objects
     public Player player;
@@ -58,7 +60,9 @@ public class GamePanel extends ApplicationAdapter {
         tileM = new TileManager(this);
         aSetter = new AssetSetter(this);
         ui = new UI(this);
+        cutsceneManager = new CutsceneManager(this);
         player = new Player(this, keyH);
+
 
         setupGame();
 
@@ -69,7 +73,7 @@ public class GamePanel extends ApplicationAdapter {
         aSetter.setObject();
 
 //        playMusic(0);
-        gameState = GameState.TITLESTATE;
+        gameState = gameState.TITLESTATE;
     }
 
     @Override
@@ -116,8 +120,12 @@ public class GamePanel extends ApplicationAdapter {
     }
 
     private void draw() {
-        if (gameState == GameState.TITLESTATE){
+
+        if (gameState == gameState.TITLESTATE){
             ui.draw(batch);
+        }
+        else if (gameState == gameState.CUTSCENE){
+            cutsceneManager.draw(batch);
         }
         else {
             tileM.draw(batch);
