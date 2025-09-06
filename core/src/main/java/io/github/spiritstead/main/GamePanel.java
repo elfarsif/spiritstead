@@ -34,7 +34,7 @@ public class GamePanel extends ApplicationAdapter {
 
     //System
     TileManager tileM;
-    KeyHandler keyH;
+    public KeyHandler keyH;
     SoundWrapper music;
     SoundWrapper se;
     public CollisionChecker cChecker;

@@ -1,7 +1,7 @@
 package io.github.spiritstead.cutscene;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.cutscene.gameIntro.GameIntro;
 import io.github.spiritstead.main.GamePanel;
 
 public class CutsceneManager {

@@ -31,7 +31,6 @@ public class KeyHandler extends InputAdapter {
         else if (gp.gameState == GameState.CUTSCENE){
             if (code == Input.Keys.SPACE){
                 spacePressed =true;
-                System.out.println("space pressed");
 
             }
         }

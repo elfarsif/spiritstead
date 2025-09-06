@@ -1,4 +1,4 @@
-package io.github.spiritstead.cutscene;
+package io.github.spiritstead.cutscene.gameIntro;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -8,44 +8,71 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ui.UIUtilities;
 
-public class GameIntro implements Cutscene{
-    Texture test = new Texture("player/down1.png");
+import java.util.ArrayList;
+
+public class Slide{
     BitmapFont font;
     GamePanel gp;
     Sprite image1;
     float image1X,image1Y;
-    public int introSceneNum = 0;
-    String text1 = "In one of the small nooks on the maps of our world lied a town full of characters and adventures.";
+    ArrayList<String> texts;
     private SpriteBatch batch;
     StringBuilder wrappedText = new StringBuilder();
     GlyphLayout layout = new GlyphLayout();
 
-    String displayText= "";
+    public int textCounter=0;
+    public boolean completed = false;
 
-    public GameIntro(GamePanel gp){
+    String displayedText ="";
+    int charIndex =0;
+    String combinedText ="";
+
+    public Slide(GamePanel gp, String imageFileName,ArrayList<String> texts){
         this.gp = gp;
         font = UIUtilities.initializeFont(font,"fonts/maruMonica.fnt");
-        loadFirstCutsceneImage();
+        setImage(imageFileName);
+        this.texts = texts;
     }
 
-    private void loadFirstCutsceneImage() {
+    public void setImage(String fileName){
         try {
-            image1 = new Sprite(new Texture("intro/spiritstead.png"));
+            image1 = new Sprite(new Texture(fileName));
             image1.setSize(gp.tileSize*10,gp.tileSize*6);
 
             image1X = gp.screenWidth/2 - image1.getWidth()/2;
             image1Y = gp.screenHeight/2-image1.getHeight()/4;
         }catch (Exception e){
+
             System.out.println(e.getMessage());
         }
     }
 
-    private void firstImageText(){
-        text1 = addNewLinesToText(text1,(int)image1.getWidth());
-        font.draw(batch,text1,image1X-gp.tileSize,image1Y-gp.tileSize);
+    public void setText(ArrayList<String> texts){
+        this.texts = texts;
     }
 
-    private String addNewLinesToText(String text, int imageWidth){
+    private void displayText(int counter){
+        String text = texts.get(counter);
+        firstImageText(text);
+    }
+
+    private void firstImageText(String text){
+        text = wrapTextToSizeWithLineBreaks(text,(int)image1.getWidth());
+        //Letter by letter effect
+        char characters[] = text.toCharArray();
+
+        if (charIndex < characters.length) {
+            String s = String.valueOf(characters[charIndex]);
+            combinedText += s;
+            displayedText = combinedText;
+//            gp.playSoundEffect(4);
+            charIndex++;
+        }
+        font.draw(batch,displayedText,image1X-gp.tileSize,image1Y-gp.tileSize);
+    }
+
+
+    private String wrapTextToSizeWithLineBreaks(String text, int imageWidth){
         String originalText = text;
 
         float maxWidth = imageWidth+gp.tileSize*2; // or set manually
@@ -70,13 +97,13 @@ public class GameIntro implements Cutscene{
         return finalText;
     }
 
-    @Override
-    public void draw(SpriteBatch batch) {
+
+    public void draw(SpriteBatch batch){
         this.batch = batch;
 
-
         batch.draw(image1,image1X ,image1Y,image1.getWidth(),image1.getHeight());
-        firstImageText();
+        displayText(textCounter);
 
     }
+
 }
