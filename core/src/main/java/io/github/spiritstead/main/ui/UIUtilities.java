@@ -3,6 +3,8 @@ package io.github.spiritstead.main.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import io.github.spiritstead.main.GamePanel;
 
 public class UIUtilities {
 
@@ -14,4 +16,9 @@ public class UIUtilities {
         return font;
     }
 
+     static public float getXforCenteredText(BitmapFont font, GlyphLayout layout,String text, GamePanel gp){
+        layout.setText(font,text);
+        return gp.screenWidth/2 - layout.width/2;
+
+    }
 }
