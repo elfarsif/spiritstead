@@ -1,0 +1,17 @@
+// this is a comment
+// Chapter 1 Game intro slides
+1.In one of the small nooks on the maps of our world lied a town full of characters and adventures. k
+1.The town was called Spiritstead and those who stumbled into its ravines and grass fields often ended up there without intending to. f
+1.The (Insert Name) mountains made good work of keeping the town hidden from the dangers beyond the valley.  Few could ever intentionally find their way there.f
+1.Though direction was a hard thing to come by in this world, if you stumbled into Spiritstead it was certainly because you were lost. f
+1.Frank was no exception
+2.Frank was a young farmer. He aspired to be the greatest farmer in all of the maps!
+2.However, he did not have a farm and he had been looking for work as farmer for quite some time.
+3. Although he could’ve sworn his map directed him to a large city full of buildings, moving parts and most importantly farms, he found himself wandering through a forest path and greeted by something entirely different.
+4. What lay before him was a small village nestled at the feet of mountains.
+4.The opening of the forest had been only an hour behind him, but he did not recall mountains being nearby.
+4.Where was he?
+4. How had he ended up there?
+5.Among the scenery his eyes found an unkept FARM!
+5.With hungry eyes, he made him way towards the town.
+

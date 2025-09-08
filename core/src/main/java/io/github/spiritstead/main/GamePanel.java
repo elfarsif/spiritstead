@@ -9,6 +9,7 @@ import io.github.spiritstead.cutscene.CutsceneManager;
 import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.main.ui.UI;
 import io.github.spiritstead.object.GameObject;
+import io.github.spiritstead.script.Script;
 import io.github.spiritstead.tile.TileManager;
 
 /*
@@ -40,7 +41,9 @@ public class GamePanel extends ApplicationAdapter {
     public CollisionChecker cChecker;
     public AssetSetter aSetter;
     public UI ui;
+    public Script script = new Script();
     public CutsceneManager cutsceneManager;
+    public EventHandler eHandler;
 
     //Entities and Objects
     public Player player;
@@ -61,7 +64,10 @@ public class GamePanel extends ApplicationAdapter {
         aSetter = new AssetSetter(this);
         ui = new UI(this);
         cutsceneManager = new CutsceneManager(this);
+        eHandler = new EventHandler(this);
+
         player = new Player(this, keyH);
+
 
 
         setupGame();
@@ -73,7 +79,8 @@ public class GamePanel extends ApplicationAdapter {
         aSetter.setObject();
 
 //        playMusic(0);
-        gameState = gameState.TITLESTATE;
+        gameState = gameState.PLAYSTATE;
+
     }
 
     @Override
@@ -95,7 +102,7 @@ public class GamePanel extends ApplicationAdapter {
     }
     public void playSE(int i){
         se.setFile(i);
-        se.play();
+//        se.play();
     }
 
 
@@ -138,6 +145,9 @@ public class GamePanel extends ApplicationAdapter {
             }
 
             player.draw(batch);
+
+            //draw event rects
+            eHandler.draw(batch);
 
             ui.draw(batch);
         }

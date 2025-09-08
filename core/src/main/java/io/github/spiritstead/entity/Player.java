@@ -64,10 +64,15 @@ public class Player extends Entity {
         if (keyH.upPressed|| keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             assignKeyPressToDirection();
             checkPlayerCollision();
+            checkEventCollision();
             move();
             handleSpriteAnimation();
         }
 
+    }
+
+    private void checkEventCollision() {
+        gp.eHandler.checkEvent();
     }
 
     private void assignKeyPressToDirection() {
