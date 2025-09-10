@@ -11,7 +11,7 @@ It can be used to check if a key is pressed or released.
  */
 public class KeyHandler extends InputAdapter {
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, tPressed;
 
     public KeyHandler(GamePanel gp){
         this.gp = gp;
@@ -56,6 +56,8 @@ public class KeyHandler extends InputAdapter {
             }else if (gp.gameState == GameState.PAUSESTATE){
                 gp.gameState = GameState.PLAYSTATE;
             }
+        }else if (code == Input.Keys.T){
+            tPressed = !tPressed;
         }
     }
 

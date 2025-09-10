@@ -11,7 +11,7 @@ import io.github.spiritstead.main.KeyHandler;
 
 import java.awt.*;
 
-public class Player extends Entity {
+public class Player extends Entity implements IEntity{
     private GamePanel gp;
     private KeyHandler keyH;
     private SpriteBatch batch;
@@ -22,6 +22,7 @@ public class Player extends Entity {
     public final int screenY;
 
     public Player(GamePanel gp, KeyHandler keyH) {
+        super(gp);
         this.gp = gp;
         this.keyH = keyH;
 
@@ -43,10 +44,10 @@ public class Player extends Entity {
     }
 
     private void setDefaultPlayerValues(){
-        worldX = gp.tileSize * 3;
-        worldY = gp.tileSize * 3;
+        worldX = gp.tileSize * 28;
+        worldY = gp.tileSize * 13;
         speed = 4;
-        Direction = Direction.DOWN;
+        direction = direction.DOWN;
     }
 
     private void loadPlayerTextures(){
@@ -64,11 +65,23 @@ public class Player extends Entity {
         if (keyH.upPressed|| keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             assignKeyPressToDirection();
             checkPlayerCollision();
+            checkNPCCollision();
             checkEventCollision();
             move();
             handleSpriteAnimation();
         }
 
+    }
+
+    private void checkNPCCollision() {
+        int npcIndex = gp.cChecker.checkPlayerIsCollidingWithEntity(this,gp.npcs);
+        interactNPC(npcIndex);
+    }
+
+    private void interactNPC(int npcIndex) {
+        if (npcIndex!=9999){
+            System.out.println("interacting with npcs");
+        }
     }
 
     private void checkEventCollision() {
@@ -77,16 +90,16 @@ public class Player extends Entity {
 
     private void assignKeyPressToDirection() {
         if (keyH.upPressed){
-            Direction = Direction.UP;
+            direction = direction.UP;
         }
         else if (keyH.downPressed){
-            Direction = Direction.DOWN;
+            direction = direction.DOWN;
         }
         else if (keyH.leftPressed) {
-            Direction = Direction.LEFT;
+            direction = direction.LEFT;
         }
         else if (keyH.rightPressed) {
-            Direction = Direction.RIGHT;
+            direction = direction.RIGHT;
         }
 
     }
@@ -148,7 +161,7 @@ public class Player extends Entity {
 
     private void move(){
         if (!collisionOn){
-            switch (Direction){
+            switch (direction){
                 case UP:
                     worldY += speed;
                     break;
@@ -178,7 +191,7 @@ public class Player extends Entity {
     public void draw(SpriteBatch batch){
         this.batch= batch;
         Sprite currentSprite = null;
-        switch (Direction){
+        switch (direction){
             case UP:
                 if (spriteNum ==1) {
                     currentSprite = up1;

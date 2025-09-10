@@ -38,7 +38,7 @@ public class EventHandler {
 
     public void checkEvent(){
         if (hit(3,3,Direction.ANY)){
-            System.out.println("event hit");
+            gp.ui.gameStateUI.showMessage("You have hit an event");
         }
     }
 
@@ -51,7 +51,7 @@ public class EventHandler {
         eventRect.y = eventRow*gp.tileSize + eventRect.y;
 
         if (gp.player.solidArea.intersects(eventRect)){
-            if ((gp.player.Direction == reqDirection)){
+            if ((gp.player.direction == reqDirection)){
                 hit = true;
             }else if (reqDirection == Direction.ANY){
                 hit = true;

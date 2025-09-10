@@ -63,6 +63,18 @@ public class GameStateUI {
         this.batch = batch;
         drawKeyInventory();
         drawMessages();
+        if (gp.keyH.tPressed){
+            int x = 10;
+            int y = 40;
+            int lineHeight = 30;
+            font.draw(batch, "Player X: " + gp.player.worldX, x, y);
+            y += lineHeight;
+            font.draw(batch, "Player Y: " + gp.player.worldY, x, y);
+            y += lineHeight;
+            font.draw(batch, "Player Col: " + (gp.player.worldX+gp.player.solidArea.x)/gp.tileSize, x, y);
+            y += lineHeight;
+            font.draw(batch, "Player Row: " + (gp.player.worldY+gp.player.solidArea.y)/gp.tileSize, x, y);
+        }
     }
 
     public void dispose() {

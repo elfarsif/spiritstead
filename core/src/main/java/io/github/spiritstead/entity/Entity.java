@@ -1,9 +1,13 @@
 package io.github.spiritstead.entity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.main.GamePanel;
 
 
 import java.awt.*;
+import java.util.Random;
+
 /*
 This class represents an entity in the game. It is a parent class for players, monsters, npcs
  */
@@ -13,7 +17,7 @@ public class Entity {
     public int speed;
 
     public Sprite up1, up2,down1, down2, left1, left2, right1, right2;
-    public Direction Direction;
+    public Direction direction;
 
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
@@ -24,4 +28,21 @@ public class Entity {
     public int solidAreaDefaultY;
 
     public boolean collisionOn = false;
+
+    public Entity(GamePanel gp){
+        solidArea = new Rectangle(0,0,gp.tileSize,gp.tileSize);
+
+    }
+
+    public void setAction(){
+
+    }
+
+    public void update(){
+
+    }
+
+    public void draw(SpriteBatch batch){
+
+    }
 }

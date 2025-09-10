@@ -2,12 +2,11 @@ package io.github.spiritstead.cutscene.gameIntro;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.cutscene.Cutscene;
+import io.github.spiritstead.entity.Direction;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.GameState;
-import io.github.spiritstead.script.Script;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GameIntro implements Cutscene {
     GamePanel gp;
@@ -21,8 +20,8 @@ public class GameIntro implements Cutscene {
 
         slides.add(new TitleSlide(gp,"Chapter 1"));
 
-        slides.add(new ContentSlide(gp,"intro/spiritstead.png",new ArrayList<>(gp.script.getChapter1().get(1))));
-        slides.add(new ContentSlide(gp,"intro/introSlide.png",new ArrayList<>(gp.script.getChapter1().get(2))));
+        slides.add(new ContentSlide(gp,"intro/introSlide.png",new ArrayList<>(gp.script.getChapter1().get(1))));
+        slides.add(new ContentSlide(gp,"intro/introSlideCharacter.png",new ArrayList<>(gp.script.getChapter1().get(2))));
         slides.add(new ContentSlide(gp,"intro/spiritstead.png",new ArrayList<>(gp.script.getChapter1().get(3))));
         slides.add(new ContentSlide(gp,"intro/introSlide.png",new ArrayList<>(gp.script.getChapter1().get(4))));
         slides.add(new ContentSlide(gp,"intro/introSlide.png",new ArrayList<>(gp.script.getChapter1().get(5))));
@@ -57,6 +56,7 @@ public class GameIntro implements Cutscene {
             slide.draw(batch);
         }else {
             gp.gameState = GameState.PLAYSTATE;
+            gp.player.direction = Direction.LEFT;
         }
 
 

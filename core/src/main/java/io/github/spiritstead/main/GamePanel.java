@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.spiritstead.cutscene.CutsceneManager;
+import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.main.ui.UI;
 import io.github.spiritstead.object.GameObject;
@@ -48,8 +49,10 @@ public class GamePanel extends ApplicationAdapter {
     //Entities and Objects
     public Player player;
     public GameObject objects[] = new GameObject[10];
+    public Entity npcs[] = new Entity[10];
 
     public GameState gameState;
+
 
     @Override
     public void create() {
@@ -77,9 +80,10 @@ public class GamePanel extends ApplicationAdapter {
 
     private void setupGame(){
         aSetter.setObject();
+        aSetter.setNPCs();
 
 //        playMusic(0);
-        gameState = gameState.PLAYSTATE;
+        gameState = gameState.TITLESTATE;
 
     }
 
@@ -120,6 +124,15 @@ public class GamePanel extends ApplicationAdapter {
         switch (gameState){
             case PLAYSTATE:
                 player.update();
+
+                //NPC update
+                for (int i = 0;i<npcs.length;i++){
+                    if (npcs[i]!=null){
+                        npcs[i].update();
+                    }
+                }
+
+
                 break;
             case PAUSESTATE:
                 break;
@@ -141,6 +154,13 @@ public class GamePanel extends ApplicationAdapter {
             for(int i = 0; i<objects.length;i++){
                 if (objects[i]!=null){
                     objects[i].draw(batch,this);
+                }
+            }
+
+            //draw NPC
+            for (int i = 0;i<npcs.length;i++){
+                if (npcs[i]!=null){
+                    npcs[i].draw(batch);
                 }
             }
 

@@ -1,5 +1,6 @@
 package io.github.spiritstead.main;
 
+import io.github.spiritstead.entity.Mayor;
 import io.github.spiritstead.object.Boots;
 import io.github.spiritstead.object.Chest;
 import io.github.spiritstead.object.Door;
@@ -33,5 +34,15 @@ public class AssetSetter {
         gp.objects[4].worldX = 6 *gp.tileSize;
         gp.objects[4].worldY = 12 *gp.tileSize;
 
+        gp.objects[5] = new Chest();
+        gp.objects[5].worldX = 22 *gp.tileSize;
+        gp.objects[5].worldY = 17 *gp.tileSize;
+
+    }
+
+    public void setNPCs(){
+        gp.npcs[0] = new Mayor(gp);
+        gp.npcs[0].worldX = 22*gp.tileSize;
+        gp.npcs[0].worldY = 14*gp.tileSize;
     }
 }
