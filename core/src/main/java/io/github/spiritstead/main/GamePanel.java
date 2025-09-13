@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.spiritstead.cutscene.CutsceneManager;
 import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.entity.Player;
+import io.github.spiritstead.main.collision.CollisionChecker;
 import io.github.spiritstead.main.ui.UI;
 import io.github.spiritstead.object.GameObject;
 import io.github.spiritstead.script.Script;
@@ -35,7 +36,7 @@ public class GamePanel extends ApplicationAdapter {
     public final int maxWorldRow = 30;
 
     //System
-    TileManager tileM;
+    public TileManager tileM;
     public KeyHandler keyH;
     SoundWrapper music;
     SoundWrapper se;
