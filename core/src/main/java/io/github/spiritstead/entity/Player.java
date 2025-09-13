@@ -11,7 +11,7 @@ import io.github.spiritstead.main.KeyHandler;
 
 import java.awt.*;
 
-public class Player extends Entity implements IEntity{
+public class Player extends Entity{
     private GamePanel gp;
     private KeyHandler keyH;
     private SpriteBatch batch;

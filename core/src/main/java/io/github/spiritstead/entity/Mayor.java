@@ -7,7 +7,7 @@ import io.github.spiritstead.main.GamePanel;
 
 import java.util.Random;
 
-public class Mayor extends Entity implements IEntity{
+public class Mayor extends Entity {
     GamePanel gp;
     public int actionLockCounter =0;
 
