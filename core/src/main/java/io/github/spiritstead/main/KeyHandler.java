@@ -52,6 +52,7 @@ public class KeyHandler extends InputAdapter {
                 gp.gameState = GameState.PAUSESTATE;
             } else if (gp.gameState == GameState.PAUSESTATE) {
                 gp.gameState = GameState.PLAYSTATE;
+                gp.screen = gp.playScreen;
             }
         } else if (code == Input.Keys.T) {
             tPressed = !tPressed;
@@ -79,6 +80,7 @@ public class KeyHandler extends InputAdapter {
             }
             if (gp.titleScreen.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
                 gp.gameState = GameState.PLAYSTATE;
+                gp.screen = gp.playScreen;
 
             }
             if (gp.titleScreen.commandNum == TitleScreenOptions.QUIT.getValue()) {

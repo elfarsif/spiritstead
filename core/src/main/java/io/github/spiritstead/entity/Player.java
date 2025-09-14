@@ -45,7 +45,7 @@ public class Player extends Entity {
     private void setDefaultPlayerValues() {
         worldX = gp.tileSize * 28;
         worldY = gp.tileSize * 13;
-        speed = 4;
+        speed = 7;
         direction = direction.DOWN;
     }
 
@@ -84,7 +84,7 @@ public class Player extends Entity {
     }
 
     private void checkEventCollision() {
-        gp.eHandler.checkEvent();
+        gp.playScreen.eHandler.checkEvent();
     }
 
     private void assignKeyPressToDirection() {
@@ -128,25 +128,25 @@ public class Player extends Entity {
                     hasKey++;
                     gp.objects[index] = null;
                     gp.playSE(1);
-                    gp.ui.gameScreenUI.showMessage("You got a key!");
+                    gp.playScreen.ui.gameScreenUI.showMessage("You got a key!");
                     break;
                 case "Door":
                     if (hasKey > 0) {
                         gp.objects[index] = null;
                         hasKey--;
-                        gp.ui.gameScreenUI.showMessage("You opened the door!");
+                        gp.playScreen.ui.gameScreenUI.showMessage("You opened the door!");
                     } else {
-                        gp.ui.gameScreenUI.showMessage("You need a key");
+                        gp.playScreen.ui.gameScreenUI.showMessage("You need a key");
                     }
                     break;
                 case "Boots":
                     speed += 2;
                     gp.objects[index] = null;
                     gp.playSE(2);
-                    gp.ui.gameScreenUI.showMessage("YOU ARE FAST");
+                    gp.playScreen.ui.gameScreenUI.showMessage("YOU ARE FAST");
                     break;
                 case "Chest":
-                    gp.ui.gameScreenUI.gameFinished = true;
+                    gp.playScreen.ui.gameScreenUI.gameFinished = true;
                     gp.stopMusic();
                     gp.playSE(2);
                     break;

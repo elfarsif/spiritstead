@@ -43,9 +43,7 @@ public class GamePanel extends ApplicationAdapter {
     SoundWrapper se;
     public CollisionChecker cChecker;
     public AssetSetter aSetter;
-    public UI ui;
     public Script script = new Script();
-    public EventHandler eHandler;
 
     //Entities and Objects
     public Player player;
@@ -57,6 +55,7 @@ public class GamePanel extends ApplicationAdapter {
     public Screen screen;
     public TitleScreen titleScreen;
     public CutsceneScreen cutsceneScreen;
+    public PlayScreen playScreen;
 
     @Override
     public void create() {
@@ -69,12 +68,13 @@ public class GamePanel extends ApplicationAdapter {
         cChecker = new CollisionChecker(this);
         tileM = new TileManager(this);
         aSetter = new AssetSetter(this);
-        ui = new UI(this);
-        cutsceneScreen = new CutsceneScreen(this);
-        eHandler = new EventHandler(this);
+
         titleScreen = new TitleScreen(this);
+        cutsceneScreen = new CutsceneScreen(this);
+        playScreen = new PlayScreen(this);
 
         player = new Player(this, keyH);
+        playScreen.setPlayer(player);
 
         setupGame();
 
@@ -83,7 +83,9 @@ public class GamePanel extends ApplicationAdapter {
 
     private void setupGame() {
         aSetter.setObject();
+        playScreen.setObject(objects);
         aSetter.setNPCs();
+        playScreen.setNpcs(npcs);
 
 //        playMusic(0);
         gameState = gameState.TITLESTATE;
@@ -143,43 +145,14 @@ public class GamePanel extends ApplicationAdapter {
     }
 
     private void draw() {
-
-        if (gameState == gameState.TITLESTATE) {
-            screen.draw(batch);
-        } else if (gameState == gameState.CUTSCENE) {
-            screen.draw(batch);
-        } else {
-            tileM.draw(batch);
-
-            //draw objects
-            for (int i = 0; i < objects.length; i++) {
-                if (objects[i] != null) {
-                    objects[i].draw(batch, this);
-                }
-            }
-
-            //draw NPC
-            for (int i = 0; i < npcs.length; i++) {
-                if (npcs[i] != null) {
-                    npcs[i].draw(batch);
-                }
-            }
-
-            player.draw(batch);
-
-            //draw event rects
-            eHandler.draw(batch);
-
-            ui.draw(batch);
-        }
-
+        screen.draw(batch);
     }
 
     @Override
     public void dispose() {
 
         titleScreen.dispose();
-        ui.dispose();
+        playScreen.dispose();
         batch.dispose();
     }
 }

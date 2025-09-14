@@ -11,20 +11,19 @@ import java.util.ArrayList;
 public class GameIntro implements Cutscene {
     GamePanel gp;
     private SpriteBatch batch;
-    int slideCounter =0;
+    int slideCounter = 0;
     ArrayList<Slide> slides = new ArrayList<>();
 
-
-    public GameIntro(GamePanel gp){
+    public GameIntro(GamePanel gp) {
         this.gp = gp;
 
-        slides.add(new TitleSlide(gp,"Chapter 1"));
+        slides.add(new TitleSlide(gp, "Chapter 1"));
 
-        slides.add(new ContentSlide(gp,"intro/introSlide.png",new ArrayList<>(gp.script.getChapter1().get(1))));
-        slides.add(new ContentSlide(gp,"intro/introSlideCharacter.png",new ArrayList<>(gp.script.getChapter1().get(2))));
-        slides.add(new ContentSlide(gp,"intro/spiritstead.png",new ArrayList<>(gp.script.getChapter1().get(3))));
-        slides.add(new ContentSlide(gp,"intro/introSlide.png",new ArrayList<>(gp.script.getChapter1().get(4))));
-        slides.add(new ContentSlide(gp,"intro/introSlide.png",new ArrayList<>(gp.script.getChapter1().get(5))));
+        slides.add(new ContentSlide(gp, "intro/introSlide.png", new ArrayList<>(gp.script.getChapter1().get(1))));
+        slides.add(new ContentSlide(gp, "intro/introSlideCharacter.png", new ArrayList<>(gp.script.getChapter1().get(2))));
+        slides.add(new ContentSlide(gp, "intro/spiritstead.png", new ArrayList<>(gp.script.getChapter1().get(3))));
+        slides.add(new ContentSlide(gp, "intro/introSlide.png", new ArrayList<>(gp.script.getChapter1().get(4))));
+        slides.add(new ContentSlide(gp, "intro/introSlide.png", new ArrayList<>(gp.script.getChapter1().get(5))));
 
     }
 
@@ -32,36 +31,33 @@ public class GameIntro implements Cutscene {
     public void draw(SpriteBatch batch) {
         this.batch = batch;
 
-        if (!slides.isEmpty()){
+        if (!slides.isEmpty()) {
 
             Slide slide = slides.get(0);
-            if (gp.keyH.spacePressed){
+            if (gp.keyH.spacePressed) {
 
-                if (slide instanceof ContentSlide && (slide.getTextCounter() < slide.getTexts().size()-1) ){
-                    int textCounter = slide.getTextCounter()+1;
+                if (slide instanceof ContentSlide && (slide.getTextCounter() < slide.getTexts().size() - 1)) {
+                    int textCounter = slide.getTextCounter() + 1;
                     slide.setTextCounter(textCounter);
                     slide.setDisplayedText("");
                     slide.setCharIndex(0);
                     slide.setCombinedText("");
-                }else {
+                } else {
                     slideCounter++;
-                    if (!slides.isEmpty()){
+                    if (!slides.isEmpty()) {
                         slides.remove(0);
                     }
                 }
 
-                gp.keyH.spacePressed =false;
+                gp.keyH.spacePressed = false;
             }
 
             slide.draw(batch);
-        }else {
+        } else {
             gp.gameState = GameState.PLAYSTATE;
+            gp.screen = gp.playScreen;
             gp.player.direction = Direction.LEFT;
         }
-
-
-
-
 
     }
 

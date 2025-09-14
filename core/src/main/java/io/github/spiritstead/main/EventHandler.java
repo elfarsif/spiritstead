@@ -37,7 +37,7 @@ public class EventHandler {
 
     public void checkEvent() {
         if (hit(3, 3, Direction.ANY)) {
-            gp.ui.gameScreenUI.showMessage("You have hit an event");
+            gp.playScreen.ui.gameScreenUI.showMessage("You have hit an event");
         }
     }
 
