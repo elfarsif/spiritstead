@@ -5,11 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import io.github.spiritstead.cutscene.CutsceneManager;
+import io.github.spiritstead.cutscene.CutsceneScreen;
 import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.main.collision.CollisionChecker;
-import io.github.spiritstead.main.ui.TitleScreenUI;
+import io.github.spiritstead.main.ui.TitleScreen;
 import io.github.spiritstead.main.ui.UI;
 import io.github.spiritstead.object.GameObject;
 import io.github.spiritstead.script.Script;
@@ -45,7 +45,6 @@ public class GamePanel extends ApplicationAdapter {
     public AssetSetter aSetter;
     public UI ui;
     public Script script = new Script();
-    public CutsceneManager cutsceneManager;
     public EventHandler eHandler;
 
     //Entities and Objects
@@ -56,7 +55,8 @@ public class GamePanel extends ApplicationAdapter {
     public GameState gameState;
 
     public Screen screen;
-    public TitleScreenUI titleScreenUI;
+    public TitleScreen titleScreen;
+    public CutsceneScreen cutsceneScreen;
 
     @Override
     public void create() {
@@ -70,9 +70,9 @@ public class GamePanel extends ApplicationAdapter {
         tileM = new TileManager(this);
         aSetter = new AssetSetter(this);
         ui = new UI(this);
-        cutsceneManager = new CutsceneManager(this);
+        cutsceneScreen = new CutsceneScreen(this);
         eHandler = new EventHandler(this);
-        titleScreenUI = new TitleScreenUI(this);
+        titleScreen = new TitleScreen(this);
 
         player = new Player(this, keyH);
 
@@ -87,7 +87,7 @@ public class GamePanel extends ApplicationAdapter {
 
 //        playMusic(0);
         gameState = gameState.TITLESTATE;
-        screen = titleScreenUI;
+        screen = titleScreen;
 
     }
 
@@ -147,7 +147,7 @@ public class GamePanel extends ApplicationAdapter {
         if (gameState == gameState.TITLESTATE) {
             screen.draw(batch);
         } else if (gameState == gameState.CUTSCENE) {
-            cutsceneManager.draw(batch);
+            screen.draw(batch);
         } else {
             tileM.draw(batch);
 
@@ -177,7 +177,8 @@ public class GamePanel extends ApplicationAdapter {
 
     @Override
     public void dispose() {
-        titleScreenUI.dispose();
+
+        titleScreen.dispose();
         ui.dispose();
         batch.dispose();
     }

@@ -61,26 +61,27 @@ public class KeyHandler extends InputAdapter {
     private void titleState(int code) {
         //move this logic to a seperate class for title state
         if (code == Input.Keys.W) {
-            gp.titleScreenUI.commandNum--;
-            if (gp.titleScreenUI.commandNum < TitleScreenOptions.NEW_GAME.getValue()) {
-                gp.titleScreenUI.commandNum = TitleScreenOptions.QUIT.getValue();
+            gp.titleScreen.commandNum--;
+            if (gp.titleScreen.commandNum < TitleScreenOptions.NEW_GAME.getValue()) {
+                gp.titleScreen.commandNum = TitleScreenOptions.QUIT.getValue();
             }
         } else if (code == Input.Keys.S) {
-            gp.titleScreenUI.commandNum++;
-            if (gp.titleScreenUI.commandNum > TitleScreenOptions.QUIT.getValue()) {
-                gp.titleScreenUI.commandNum = TitleScreenOptions.NEW_GAME.getValue();
+            gp.titleScreen.commandNum++;
+            if (gp.titleScreen.commandNum > TitleScreenOptions.QUIT.getValue()) {
+                gp.titleScreen.commandNum = TitleScreenOptions.NEW_GAME.getValue();
             }
         }
         if (code == Input.Keys.ENTER) {
-            if (gp.titleScreenUI.commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
+            if (gp.titleScreen.commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
                 gp.gameState = GameState.CUTSCENE;
+                gp.screen = gp.cutsceneScreen;
 
             }
-            if (gp.titleScreenUI.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
+            if (gp.titleScreen.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
                 gp.gameState = GameState.PLAYSTATE;
 
             }
-            if (gp.titleScreenUI.commandNum == TitleScreenOptions.QUIT.getValue()) {
+            if (gp.titleScreen.commandNum == TitleScreenOptions.QUIT.getValue()) {
                 System.exit(0);
             }
         }

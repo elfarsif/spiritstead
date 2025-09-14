@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.Screen;
 
-public class TitleScreenUI implements Screen {
+public class TitleScreen implements Screen {
     private GamePanel gp;
     private BitmapFont font;
     private BitmapFont titleFont;
@@ -16,7 +16,7 @@ public class TitleScreenUI implements Screen {
 
     public int commandNum = 0;
 
-    public TitleScreenUI(GamePanel gp) {
+    public TitleScreen(GamePanel gp) {
         this.gp = gp;
         font = UIUtilities.initializeFont(font, "fonts/maruMonicaBold.fnt");
         titleFont = UIUtilities.initializeFont(font, "fonts/maruMonicaBold.fnt");
