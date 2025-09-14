@@ -5,14 +5,15 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.Screen;
 
-public class TitleScreenUI {
-    GamePanel gp;
-    BitmapFont font;
-    BitmapFont titleFont;
-    //used to determine length and with of text for proper on screen display
-    GlyphLayout layout = new GlyphLayout();
-    SpriteBatch batch;
+public class TitleScreenUI implements Screen {
+    private GamePanel gp;
+    private BitmapFont font;
+    private BitmapFont titleFont;
+    private GlyphLayout layout = new GlyphLayout();
+    private SpriteBatch batch;
+
     public int commandNum = 0;
 
     public TitleScreenUI(GamePanel gp) {

@@ -13,24 +13,24 @@ public class KeyHandler extends InputAdapter {
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, tPressed;
 
-    public KeyHandler(GamePanel gp){
+    public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
 
     @Override
-    public boolean keyDown(int code){
+    public boolean keyDown(int code) {
         //Title State
-        if (gp.gameState == GameState.TITLESTATE){
+        if (gp.gameState == GameState.TITLESTATE) {
             titleState(code);
         }
         //PlayState
-        else if (gp.gameState == GameState.PLAYSTATE){
+        else if (gp.gameState == GameState.PLAYSTATE) {
             playState(code);
         }
         //Cutscene
-        else if (gp.gameState == GameState.CUTSCENE){
-            if (code == Input.Keys.SPACE){
-                spacePressed =true;
+        else if (gp.gameState == GameState.CUTSCENE) {
+            if (code == Input.Keys.SPACE) {
+                spacePressed = true;
 
             }
         }
@@ -39,52 +39,48 @@ public class KeyHandler extends InputAdapter {
     }
 
     private void playState(int code) {
-        if (code == Input.Keys.W){
+        if (code == Input.Keys.W) {
             upPressed = true;
-        }
-        else if (code == Input.Keys.S){
+        } else if (code == Input.Keys.S) {
             downPressed = true;
-        }
-        else if (code == Input.Keys.A){
+        } else if (code == Input.Keys.A) {
             leftPressed = true;
-        }
-        else if (code == Input.Keys.D){
+        } else if (code == Input.Keys.D) {
             rightPressed = true;
-        }else if (code == Input.Keys.P){
-            if (gp.gameState == GameState.PLAYSTATE){
+        } else if (code == Input.Keys.P) {
+            if (gp.gameState == GameState.PLAYSTATE) {
                 gp.gameState = GameState.PAUSESTATE;
-            }else if (gp.gameState == GameState.PAUSESTATE){
+            } else if (gp.gameState == GameState.PAUSESTATE) {
                 gp.gameState = GameState.PLAYSTATE;
             }
-        }else if (code == Input.Keys.T){
+        } else if (code == Input.Keys.T) {
             tPressed = !tPressed;
         }
     }
 
     private void titleState(int code) {
         //move this logic to a seperate class for title state
-        if (code == Input.Keys.W){
-            gp.ui.titleScreenUI.commandNum--;
-            if (gp.ui.titleScreenUI.commandNum<TitleScreenOptions.NEW_GAME.getValue()){
-                gp.ui.titleScreenUI.commandNum = TitleScreenOptions.QUIT.getValue();
+        if (code == Input.Keys.W) {
+            gp.titleScreenUI.commandNum--;
+            if (gp.titleScreenUI.commandNum < TitleScreenOptions.NEW_GAME.getValue()) {
+                gp.titleScreenUI.commandNum = TitleScreenOptions.QUIT.getValue();
+            }
+        } else if (code == Input.Keys.S) {
+            gp.titleScreenUI.commandNum++;
+            if (gp.titleScreenUI.commandNum > TitleScreenOptions.QUIT.getValue()) {
+                gp.titleScreenUI.commandNum = TitleScreenOptions.NEW_GAME.getValue();
             }
         }
-        else if (code == Input.Keys.S){
-            gp.ui.titleScreenUI.commandNum++;
-            if (gp.ui.titleScreenUI.commandNum>TitleScreenOptions.QUIT.getValue()){
-                gp.ui.titleScreenUI.commandNum = TitleScreenOptions.NEW_GAME.getValue();
-            }
-        }
-        if (code == Input.Keys.ENTER){
-            if (gp.ui.titleScreenUI.commandNum == TitleScreenOptions.NEW_GAME.getValue()){
+        if (code == Input.Keys.ENTER) {
+            if (gp.titleScreenUI.commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
                 gp.gameState = GameState.CUTSCENE;
 
             }
-            if (gp.ui.titleScreenUI.commandNum == TitleScreenOptions.LOAD_GAME.getValue()){
+            if (gp.titleScreenUI.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
                 gp.gameState = GameState.PLAYSTATE;
 
             }
-            if (gp.ui.titleScreenUI.commandNum == TitleScreenOptions.QUIT.getValue()){
+            if (gp.titleScreenUI.commandNum == TitleScreenOptions.QUIT.getValue()) {
                 System.exit(0);
             }
         }
@@ -92,16 +88,13 @@ public class KeyHandler extends InputAdapter {
 
     @Override
     public boolean keyUp(int code) {
-        if (code == Input.Keys.W){
+        if (code == Input.Keys.W) {
             upPressed = false;
-        }
-        else if (code == Input.Keys.S){
+        } else if (code == Input.Keys.S) {
             downPressed = false;
-        }
-        else if (code == Input.Keys.A){
+        } else if (code == Input.Keys.A) {
             leftPressed = false;
-        }
-        else if (code == Input.Keys.D){
+        } else if (code == Input.Keys.D) {
             rightPressed = false;
         }
 

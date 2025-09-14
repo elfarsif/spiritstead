@@ -9,6 +9,7 @@ import io.github.spiritstead.cutscene.CutsceneManager;
 import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.main.collision.CollisionChecker;
+import io.github.spiritstead.main.ui.TitleScreenUI;
 import io.github.spiritstead.main.ui.UI;
 import io.github.spiritstead.object.GameObject;
 import io.github.spiritstead.script.Script;
@@ -54,6 +55,9 @@ public class GamePanel extends ApplicationAdapter {
 
     public GameState gameState;
 
+    public Screen screen;
+    public TitleScreenUI titleScreenUI;
+
     @Override
     public void create() {
         Gdx.graphics.setWindowedMode(screenWidth, screenHeight);
@@ -68,6 +72,7 @@ public class GamePanel extends ApplicationAdapter {
         ui = new UI(this);
         cutsceneManager = new CutsceneManager(this);
         eHandler = new EventHandler(this);
+        titleScreenUI = new TitleScreenUI(this);
 
         player = new Player(this, keyH);
 
@@ -82,6 +87,7 @@ public class GamePanel extends ApplicationAdapter {
 
 //        playMusic(0);
         gameState = gameState.TITLESTATE;
+        screen = titleScreenUI;
 
     }
 
@@ -139,7 +145,7 @@ public class GamePanel extends ApplicationAdapter {
     private void draw() {
 
         if (gameState == gameState.TITLESTATE) {
-            ui.draw(batch);
+            screen.draw(batch);
         } else if (gameState == gameState.CUTSCENE) {
             cutsceneManager.draw(batch);
         } else {
@@ -171,6 +177,7 @@ public class GamePanel extends ApplicationAdapter {
 
     @Override
     public void dispose() {
+        titleScreenUI.dispose();
         ui.dispose();
         batch.dispose();
     }
