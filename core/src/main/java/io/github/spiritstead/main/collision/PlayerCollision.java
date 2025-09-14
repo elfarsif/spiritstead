@@ -15,24 +15,26 @@ public class PlayerCollision {
         this.entity = entity;
         intializeEntitySolidArea();
         initializePlayerSolidArea();
-
-        switch (entity.direction) {
-            case UP:
-                moveUp();
-                break;
-            case DOWN:
-                moveDown();
-                break;
-            case LEFT:
-                moveLeft();
-                break;
-            case RIGHT:
-                moveRight();
-                break;
-        }
-
+        checkCollisionForAllDirections(entity);
         restoreDefaultSolidAreaValues();
 
+    }
+
+    private void checkCollisionForAllDirections(Entity entity) {
+        switch (entity.direction) {
+            case UP:
+                checkUpCollision();
+                break;
+            case DOWN:
+                checkDownCollision();
+                break;
+            case LEFT:
+                checkLeftCollision();
+                break;
+            case RIGHT:
+                checkRightCollision();
+                break;
+        }
     }
 
     private void intializeEntitySolidArea() {
@@ -45,28 +47,28 @@ public class PlayerCollision {
         gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
     }
 
-    private void moveUp() {
+    private void checkUpCollision() {
         entity.solidArea.y += entity.speed;
         if (entity.solidArea.intersects(gp.player.solidArea)) {
             entity.collisionOn = true;
         }
     }
 
-    private void moveDown() {
+    private void checkDownCollision() {
         entity.solidArea.y -= entity.speed;
         if (entity.solidArea.intersects(gp.player.solidArea)) {
             entity.collisionOn = true;
         }
     }
 
-    private void moveLeft() {
+    private void checkLeftCollision() {
         entity.solidArea.x -= entity.speed;
         if (entity.solidArea.intersects(gp.player.solidArea)) {
             entity.collisionOn = true;
         }
     }
 
-    private void moveRight() {
+    private void checkRightCollision() {
         entity.solidArea.x += entity.speed;
         if (entity.solidArea.intersects(gp.player.solidArea)) {
             entity.collisionOn = true;

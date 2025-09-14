@@ -4,5 +4,6 @@ public enum GameState {
     PLAYSTATE,
     PAUSESTATE,
     TITLESTATE,
-    CUTSCENE
+    CUTSCENE,
+    DIALOGUE
 }

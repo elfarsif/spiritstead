@@ -9,19 +9,18 @@ import java.util.Random;
 
 public class Mayor extends Entity {
     GamePanel gp;
-    public int actionLockCounter =0;
+    public int actionLockCounter = 0;
 
-    public Mayor(GamePanel gp){
+    public Mayor(GamePanel gp) {
         super(gp);
         this.gp = gp;
         direction = Direction.LEFT;
-        speed =1;
+        speed = 1;
         loadPlayerTextures();
-
 
     }
 
-    private void loadPlayerTextures(){
+    private void loadPlayerTextures() {
         up1 = new Sprite(new Texture("player/up1.png"));
         up2 = new Sprite(new Texture("player/up2.png"));
         down1 = new Sprite(new Texture("player/down1.png"));
@@ -32,35 +31,34 @@ public class Mayor extends Entity {
         right2 = new Sprite(new Texture("player/right2.png"));
     }
 
-    public void setAction(){
+    public void setAction() {
         actionLockCounter++;
 
-        if (actionLockCounter == 120){
+        if (actionLockCounter == 120) {
             Random random = new Random();
             int i = random.nextInt(100);
 
-            if (i<50){
+            if (i < 50) {
                 direction = Direction.UP;
             }
-            if (i>50){
+            if (i > 50) {
                 direction = Direction.UP;
             }
             actionLockCounter = 0;
         }
 
-
     }
 
-    public void update(){
+    public void update() {
         setAction();
         checkPlayerCollision();
         move();
 
     }
 
-    private void move(){
-        if (!collisionOn){
-            switch (direction){
+    private void move() {
+        if (!collisionOn) {
+            switch (direction) {
                 case UP:
                     worldY += speed;
                     break;
@@ -78,18 +76,15 @@ public class Mayor extends Entity {
 
     }
 
-
-
     private void checkPlayerCollision() {
         collisionOn = false;
         gp.cChecker.checkEntityIsCollidingWithCollidableTile(this);
-        gp.cChecker.checkEntityIsCollidingWithObject(this,false);
+        gp.cChecker.checkEntityIsCollidingWithObject(this, false);
         gp.cChecker.checkEntityIsCollidingWithPlayer(this);
-
 
     }
 
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch) {
 
         //Calculate where on the screen to draw the tile relative to the player
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
@@ -102,9 +97,9 @@ public class Mayor extends Entity {
             worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
             Sprite currentSprite = null;
-            switch (direction){
+            switch (direction) {
                 case UP:
-                    if (spriteNum ==1) {
+                    if (spriteNum == 1) {
                         currentSprite = up1;
                     } else if (spriteNum == 2) {
                         currentSprite = up2;
@@ -134,7 +129,7 @@ public class Mayor extends Entity {
                 default:
                     currentSprite = down1;
             }
-            batch.draw(currentSprite,screenX,screenY,gp.tileSize,gp.tileSize);
+            batch.draw(currentSprite, screenX, screenY, gp.tileSize, gp.tileSize);
         }
 
     }

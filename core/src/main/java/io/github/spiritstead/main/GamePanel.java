@@ -22,10 +22,10 @@ public class GamePanel extends ApplicationAdapter {
     private Texture image;
 
     //Screen Setting
-    final int orginalTileSize =16;
+    final int orginalTileSize = 16;
     public final int scale = 3;
 
-    public final int tileSize = orginalTileSize*scale;
+    public final int tileSize = orginalTileSize * scale;
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol;
@@ -54,7 +54,6 @@ public class GamePanel extends ApplicationAdapter {
 
     public GameState gameState;
 
-
     @Override
     public void create() {
         Gdx.graphics.setWindowedMode(screenWidth, screenHeight);
@@ -72,14 +71,12 @@ public class GamePanel extends ApplicationAdapter {
 
         player = new Player(this, keyH);
 
-
-
         setupGame();
 
         Gdx.input.setInputProcessor(keyH);
     }
 
-    private void setupGame(){
+    private void setupGame() {
         aSetter.setObject();
         aSetter.setNPCs();
 
@@ -96,20 +93,20 @@ public class GamePanel extends ApplicationAdapter {
         batch.getProjectionMatrix().setToOrtho2D(0, 0, screenWidth, screenHeight);
     }
 
-    public void playMusic(int i){
+    public void playMusic(int i) {
         music.setFile(i);
         music.play();
         music.loop();
     }
 
-    public void stopMusic(){
+    public void stopMusic() {
         music.stop();
     }
-    public void playSE(int i){
+
+    public void playSE(int i) {
         se.setFile(i);
 //        se.play();
     }
-
 
     @Override
     public void render() {
@@ -122,17 +119,16 @@ public class GamePanel extends ApplicationAdapter {
     }
 
     private void update() {
-        switch (gameState){
+        switch (gameState) {
             case PLAYSTATE:
                 player.update();
 
                 //NPC update
-                for (int i = 0;i<npcs.length;i++){
-                    if (npcs[i]!=null){
+                for (int i = 0; i < npcs.length; i++) {
+                    if (npcs[i] != null) {
                         npcs[i].update();
                     }
                 }
-
 
                 break;
             case PAUSESTATE:
@@ -142,25 +138,23 @@ public class GamePanel extends ApplicationAdapter {
 
     private void draw() {
 
-        if (gameState == gameState.TITLESTATE){
+        if (gameState == gameState.TITLESTATE) {
             ui.draw(batch);
-        }
-        else if (gameState == gameState.CUTSCENE){
+        } else if (gameState == gameState.CUTSCENE) {
             cutsceneManager.draw(batch);
-        }
-        else {
+        } else {
             tileM.draw(batch);
 
             //draw objects
-            for(int i = 0; i<objects.length;i++){
-                if (objects[i]!=null){
-                    objects[i].draw(batch,this);
+            for (int i = 0; i < objects.length; i++) {
+                if (objects[i] != null) {
+                    objects[i].draw(batch, this);
                 }
             }
 
             //draw NPC
-            for (int i = 0;i<npcs.length;i++){
-                if (npcs[i]!=null){
+            for (int i = 0; i < npcs.length; i++) {
+                if (npcs[i] != null) {
                     npcs[i].draw(batch);
                 }
             }
@@ -172,7 +166,6 @@ public class GamePanel extends ApplicationAdapter {
 
             ui.draw(batch);
         }
-
 
     }
 
