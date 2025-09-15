@@ -8,21 +8,22 @@ import io.github.spiritstead.main.ui.UIUtilities;
 
 import java.util.ArrayList;
 
-public class TitleSlide implements Slide{
+public class TitleSlide implements Slide {
     BitmapFont font;
     GamePanel gp;
     String title;
     GlyphLayout layout = new GlyphLayout();
 
-    public TitleSlide(GamePanel gp, String title){
+    public TitleSlide(GamePanel gp, String title) {
         this.gp = gp;
         this.title = title;
-        font = UIUtilities.initializeFont(font,"fonts/maruMonica.fnt");
+        font = UIUtilities.initializeFont(font, "fonts/maruMonica.fnt");
     }
+
     @Override
     public void draw(SpriteBatch batch) {
-        float x = UIUtilities.getXforCenteredText(font,layout,title,gp);
-        font.draw(batch,title,x,gp.screenHeight/2);
+        float x = UIUtilities.getXforCenteredText(font, layout, title, gp);
+        font.draw(batch, title, x, gp.screenHeight / 2);
     }
 
     @Override

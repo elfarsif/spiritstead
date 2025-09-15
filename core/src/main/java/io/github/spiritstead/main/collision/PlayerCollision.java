@@ -43,34 +43,34 @@ public class PlayerCollision {
     }
 
     private void initializePlayerSolidArea() {
-        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+        gp.playScreen.player.solidArea.x = gp.playScreen.player.worldX + gp.playScreen.player.solidArea.x;
+        gp.playScreen.player.solidArea.y = gp.playScreen.player.worldY + gp.playScreen.player.solidArea.y;
     }
 
     private void checkUpCollision() {
         entity.solidArea.y += entity.speed;
-        if (entity.solidArea.intersects(gp.player.solidArea)) {
+        if (entity.solidArea.intersects(gp.playScreen.player.solidArea)) {
             entity.collisionOn = true;
         }
     }
 
     private void checkDownCollision() {
         entity.solidArea.y -= entity.speed;
-        if (entity.solidArea.intersects(gp.player.solidArea)) {
+        if (entity.solidArea.intersects(gp.playScreen.player.solidArea)) {
             entity.collisionOn = true;
         }
     }
 
     private void checkLeftCollision() {
         entity.solidArea.x -= entity.speed;
-        if (entity.solidArea.intersects(gp.player.solidArea)) {
+        if (entity.solidArea.intersects(gp.playScreen.player.solidArea)) {
             entity.collisionOn = true;
         }
     }
 
     private void checkRightCollision() {
         entity.solidArea.x += entity.speed;
-        if (entity.solidArea.intersects(gp.player.solidArea)) {
+        if (entity.solidArea.intersects(gp.playScreen.player.solidArea)) {
             entity.collisionOn = true;
         }
     }
@@ -78,7 +78,7 @@ public class PlayerCollision {
     private void restoreDefaultSolidAreaValues() {
         entity.solidArea.x = entity.solidAreaDefaultX;
         entity.solidArea.y = entity.solidAreaDefaultY;
-        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+        gp.playScreen.player.solidArea.x = gp.playScreen.player.solidAreaDefaultX;
+        gp.playScreen.player.solidArea.y = gp.playScreen.player.solidAreaDefaultY;
     }
 }

@@ -41,7 +41,7 @@ public class TitleScreen implements Screen {
         float imageSize = gp.tileSize * 2;
         x = gp.screenWidth / 2 - imageSize / 2;
         y = gp.screenHeight / 2 - imageSize / 2;
-        batch.draw(gp.player.down1, x, y, imageSize, imageSize);
+        batch.draw(gp.playScreen.player.down1, x, y, imageSize, imageSize);
 
         //MENU
         font.getData().setScale(1f);

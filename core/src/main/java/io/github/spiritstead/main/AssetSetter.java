@@ -1,48 +1,50 @@
 package io.github.spiritstead.main;
 
+import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.entity.Mayor;
-import io.github.spiritstead.object.Boots;
-import io.github.spiritstead.object.Chest;
-import io.github.spiritstead.object.Door;
-import io.github.spiritstead.object.Key;
+import io.github.spiritstead.object.*;
 
 public class AssetSetter {
-    GamePanel gp;
+    private GamePanel gp;
+    public GameObject objects[] = new GameObject[10];
+    public Entity npcs[] = new Entity[10];
 
-    public AssetSetter(GamePanel gp){
+    public AssetSetter(GamePanel gp) {
         this.gp = gp;
+        setObject();
+        setNPCs();
     }
 
-    public void setObject(){
-        gp.objects[0] = new Key();
-        gp.objects[0].worldX = 6 *gp.tileSize;
-        gp.objects[0].worldY = 3 *gp.tileSize;
+    public void setObject() {
+        objects[0] = new Key();
+        objects[0].worldX = 6 * gp.tileSize;
+        objects[0].worldY = 3 * gp.tileSize;
 
-        gp.objects[1] = new Key();
-        gp.objects[1].worldX = 8 *gp.tileSize;
-        gp.objects[1].worldY = 3 *gp.tileSize;
+        objects[1] = new Key();
+        objects[1].worldX = 8 * gp.tileSize;
+        objects[1].worldY = 3 * gp.tileSize;
 
-        gp.objects[2] = new Door();
-        gp.objects[2].worldX = 3 *gp.tileSize;
-        gp.objects[2].worldY = 9 *gp.tileSize;
+        objects[2] = new Door();
+        objects[2].worldX = 3 * gp.tileSize;
+        objects[2].worldY = 9 * gp.tileSize;
 
-        gp.objects[3] = new Chest();
-        gp.objects[3].worldX = 4 *gp.tileSize;
-        gp.objects[3].worldY = 12 *gp.tileSize;
+        objects[3] = new Chest();
+        objects[3].worldX = 4 * gp.tileSize;
+        objects[3].worldY = 12 * gp.tileSize;
 
-        gp.objects[4] = new Boots();
-        gp.objects[4].worldX = 6 *gp.tileSize;
-        gp.objects[4].worldY = 12 *gp.tileSize;
+        objects[4] = new Boots();
+        objects[4].worldX = 6 * gp.tileSize;
+        objects[4].worldY = 12 * gp.tileSize;
 
-        gp.objects[5] = new Chest();
-        gp.objects[5].worldX = 22 *gp.tileSize;
-        gp.objects[5].worldY = 17 *gp.tileSize;
+        objects[5] = new Chest();
+        objects[5].worldX = 22 * gp.tileSize;
+        objects[5].worldY = 17 * gp.tileSize;
 
     }
 
-    public void setNPCs(){
-        gp.npcs[0] = new Mayor(gp);
-        gp.npcs[0].worldX = 22*gp.tileSize;
-        gp.npcs[0].worldY = 14*gp.tileSize;
+    public void setNPCs() {
+        npcs[0] = new Mayor(gp);
+        npcs[0].worldX = 22 * gp.tileSize;
+        npcs[0].worldY = 14 * gp.tileSize;
     }
 }

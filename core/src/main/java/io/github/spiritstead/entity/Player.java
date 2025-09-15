@@ -45,7 +45,7 @@ public class Player extends Entity {
     private void setDefaultPlayerValues() {
         worldX = gp.tileSize * 28;
         worldY = gp.tileSize * 13;
-        speed = 7;
+        speed = 4;
         direction = direction.DOWN;
     }
 
@@ -73,7 +73,7 @@ public class Player extends Entity {
     }
 
     private void checkNPCCollision() {
-        int npcIndex = gp.cChecker.checkPlayerIsCollidingWithEntity(this, gp.npcs);
+        int npcIndex = gp.cChecker.checkPlayerIsCollidingWithEntity(this, gp.playScreen.aSetter.npcs);
         interactNPC(npcIndex);
     }
 
@@ -122,17 +122,17 @@ public class Player extends Entity {
 
     private void pickUpObject(int index) {
         if (index != 9999) {
-            String objName = gp.objects[index].name;
+            String objName = gp.playScreen.aSetter.objects[index].name;
             switch (objName) {
                 case "Key":
                     hasKey++;
-                    gp.objects[index] = null;
+                    gp.playScreen.aSetter.objects[index] = null;
                     gp.playSE(1);
                     gp.playScreen.ui.gameScreenUI.showMessage("You got a key!");
                     break;
                 case "Door":
                     if (hasKey > 0) {
-                        gp.objects[index] = null;
+                        gp.playScreen.aSetter.objects[index] = null;
                         hasKey--;
                         gp.playScreen.ui.gameScreenUI.showMessage("You opened the door!");
                     } else {
@@ -141,7 +141,7 @@ public class Player extends Entity {
                     break;
                 case "Boots":
                     speed += 2;
-                    gp.objects[index] = null;
+                    gp.playScreen.aSetter.objects[index] = null;
                     gp.playSE(2);
                     gp.playScreen.ui.gameScreenUI.showMessage("YOU ARE FAST");
                     break;

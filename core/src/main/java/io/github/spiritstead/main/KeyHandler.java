@@ -20,15 +20,15 @@ public class KeyHandler extends InputAdapter {
     @Override
     public boolean keyDown(int code) {
         //Title State
-        if (gp.gameState == GameState.TITLESTATE) {
+        if (gp.screen == gp.titleScreen) {
             titleState(code);
         }
         //PlayState
-        else if (gp.gameState == GameState.PLAYSTATE) {
+        else if (gp.screen == gp.playScreen) {
             playState(code);
         }
         //Cutscene
-        else if (gp.gameState == GameState.CUTSCENE) {
+        else if (gp.screen == gp.cutsceneScreen) {
             if (code == Input.Keys.SPACE) {
                 spacePressed = true;
 
@@ -48,11 +48,8 @@ public class KeyHandler extends InputAdapter {
         } else if (code == Input.Keys.D) {
             rightPressed = true;
         } else if (code == Input.Keys.P) {
-            if (gp.gameState == GameState.PLAYSTATE) {
-                gp.gameState = GameState.PAUSESTATE;
-            } else if (gp.gameState == GameState.PAUSESTATE) {
-                gp.gameState = GameState.PLAYSTATE;
-                gp.screen = gp.playScreen;
+            if (gp.screen == gp.playScreen) {
+                System.out.println("pause state");
             }
         } else if (code == Input.Keys.T) {
             tPressed = !tPressed;
@@ -74,12 +71,10 @@ public class KeyHandler extends InputAdapter {
         }
         if (code == Input.Keys.ENTER) {
             if (gp.titleScreen.commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
-                gp.gameState = GameState.CUTSCENE;
                 gp.screen = gp.cutsceneScreen;
 
             }
             if (gp.titleScreen.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
-                gp.gameState = GameState.PLAYSTATE;
                 gp.screen = gp.playScreen;
 
             }

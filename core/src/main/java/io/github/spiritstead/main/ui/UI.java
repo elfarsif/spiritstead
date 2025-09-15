@@ -2,8 +2,6 @@ package io.github.spiritstead.main.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.GameState;
-import io.github.spiritstead.main.Screen;
 
 /**
  * This class manages the different UI elements in different states
@@ -27,12 +25,8 @@ public class UI {
     public void draw(SpriteBatch batch) {
         this.batch = batch;
 
-        if (gp.gameState == GameState.PLAYSTATE) {
+        if (gp.screen == gp.playScreen) {
             gameScreenUI.draw(batch);
-        }
-
-        if (gp.gameState == GameState.DIALOGUE) {
-
         }
 
     }

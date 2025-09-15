@@ -87,14 +87,14 @@ public class Mayor extends Entity {
     public void draw(SpriteBatch batch) {
 
         //Calculate where on the screen to draw the tile relative to the player
-        int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        int screenX = worldX - gp.playScreen.player.worldX + gp.playScreen.player.screenX;
+        int screenY = worldY - gp.playScreen.player.worldY + gp.playScreen.player.screenY;
 
         //only draw the tile if it is within the screen bounds plus one tile size to blend
-        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-            worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-            worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-            worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        if (worldX + gp.tileSize > gp.playScreen.player.worldX - gp.playScreen.player.screenX &&
+            worldX - gp.tileSize < gp.playScreen.player.worldX + gp.playScreen.player.screenX &&
+            worldY + gp.tileSize > gp.playScreen.player.worldY - gp.playScreen.player.screenY &&
+            worldY - gp.tileSize < gp.playScreen.player.worldY + gp.playScreen.player.screenY) {
 
             Sprite currentSprite = null;
             switch (direction) {

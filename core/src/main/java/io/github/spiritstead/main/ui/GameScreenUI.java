@@ -52,7 +52,7 @@ public class GameScreenUI {
 
     private void drawKeyInventory() {
         batch.draw(keyImage, 10, gp.screenHeight - gp.tileSize, gp.tileSize, gp.tileSize);
-        font.draw(batch, Integer.toString(gp.player.hasKey), 2 * gp.tileSize, gp.screenHeight - 10);
+        font.draw(batch, Integer.toString(gp.playScreen.player.hasKey), 2 * gp.tileSize, gp.screenHeight - 10);
 
     }
 
@@ -64,13 +64,13 @@ public class GameScreenUI {
             int x = 10;
             int y = 40;
             int lineHeight = 30;
-            font.draw(batch, "Player X: " + gp.player.worldX, x, y);
+            font.draw(batch, "Player X: " + gp.playScreen.player.worldX, x, y);
             y += lineHeight;
-            font.draw(batch, "Player Y: " + gp.player.worldY, x, y);
+            font.draw(batch, "Player Y: " + gp.playScreen.player.worldY, x, y);
             y += lineHeight;
-            font.draw(batch, "Player Col: " + (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize, x, y);
+            font.draw(batch, "Player Col: " + (gp.playScreen.player.worldX + gp.playScreen.player.solidArea.x) / gp.tileSize, x, y);
             y += lineHeight;
-            font.draw(batch, "Player Row: " + (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize, x, y);
+            font.draw(batch, "Player Row: " + (gp.playScreen.player.worldY + gp.playScreen.player.solidArea.y) / gp.tileSize, x, y);
         }
     }
 

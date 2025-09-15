@@ -6,14 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.spiritstead.cutscene.CutsceneScreen;
-import io.github.spiritstead.entity.Entity;
-import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.main.collision.CollisionChecker;
 import io.github.spiritstead.main.ui.TitleScreen;
-import io.github.spiritstead.main.ui.UI;
-import io.github.spiritstead.object.GameObject;
 import io.github.spiritstead.script.Script;
-import io.github.spiritstead.tile.TileManager;
 
 /*
 This class is the main class that handles all aspects of game logic
@@ -37,20 +32,11 @@ public class GamePanel extends ApplicationAdapter {
     public final int maxWorldRow = 30;
 
     //System
-    public TileManager tileM;
     public KeyHandler keyH;
     SoundWrapper music;
     SoundWrapper se;
     public CollisionChecker cChecker;
-    public AssetSetter aSetter;
     public Script script = new Script();
-
-    //Entities and Objects
-    public Player player;
-    public GameObject objects[] = new GameObject[10];
-    public Entity npcs[] = new Entity[10];
-
-    public GameState gameState;
 
     public Screen screen;
     public TitleScreen titleScreen;
@@ -66,15 +52,10 @@ public class GamePanel extends ApplicationAdapter {
         music = new SoundWrapper();
         se = new SoundWrapper();
         cChecker = new CollisionChecker(this);
-        tileM = new TileManager(this);
-        aSetter = new AssetSetter(this);
 
         titleScreen = new TitleScreen(this);
         cutsceneScreen = new CutsceneScreen(this);
-        playScreen = new PlayScreen(this);
-
-        player = new Player(this, keyH);
-        playScreen.setPlayer(player);
+        playScreen = new PlayScreen(this, keyH);
 
         setupGame();
 
@@ -82,13 +63,8 @@ public class GamePanel extends ApplicationAdapter {
     }
 
     private void setupGame() {
-        aSetter.setObject();
-        playScreen.setObject(objects);
-        aSetter.setNPCs();
-        playScreen.setNpcs(npcs);
 
 //        playMusic(0);
-        gameState = gameState.TITLESTATE;
         screen = titleScreen;
 
     }
@@ -118,7 +94,6 @@ public class GamePanel extends ApplicationAdapter {
 
     @Override
     public void render() {
-
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         batch.begin();
         update();
@@ -127,21 +102,10 @@ public class GamePanel extends ApplicationAdapter {
     }
 
     private void update() {
-        switch (gameState) {
-            case PLAYSTATE:
-                player.update();
-
-                //NPC update
-                for (int i = 0; i < npcs.length; i++) {
-                    if (npcs[i] != null) {
-                        npcs[i].update();
-                    }
-                }
-
-                break;
-            case PAUSESTATE:
-                break;
+        if (screen == playScreen) {
+            playScreen.update();
         }
+
     }
 
     private void draw() {
@@ -150,7 +114,6 @@ public class GamePanel extends ApplicationAdapter {
 
     @Override
     public void dispose() {
-
         titleScreen.dispose();
         playScreen.dispose();
         batch.dispose();

@@ -44,21 +44,21 @@ public class EventHandler {
     public boolean hit(int eventCol, int eventRow, Direction reqDirection) {
         boolean hit = false;
 
-        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+        gp.playScreen.player.solidArea.x = gp.playScreen.player.worldX + gp.playScreen.player.solidArea.x;
+        gp.playScreen.player.solidArea.y = gp.playScreen.player.worldY + gp.playScreen.player.solidArea.y;
         eventRect.x = eventCol * gp.tileSize + eventRect.x;
         eventRect.y = eventRow * gp.tileSize + eventRect.y;
 
-        if (gp.player.solidArea.intersects(eventRect)) {
-            if ((gp.player.direction == reqDirection)) {
+        if (gp.playScreen.player.solidArea.intersects(eventRect)) {
+            if ((gp.playScreen.player.direction == reqDirection)) {
                 hit = true;
             } else if (reqDirection == Direction.ANY) {
                 hit = true;
 
             }
         }
-        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+        gp.playScreen.player.solidArea.x = gp.playScreen.player.solidAreaDefaultX;
+        gp.playScreen.player.solidArea.y = gp.playScreen.player.solidAreaDefaultY;
         eventRect.x = eventRectDefaultX;
         eventRect.y = eventRectDefaultX;
 
@@ -77,8 +77,8 @@ public class EventHandler {
 
     public void draw(SpriteBatch batch) {
         //calculate where on the screen to draw the tile relative to player, from tile manage class
-        int screenX = e1WorldX - gp.player.worldX + gp.player.screenX;
-        int screenY = e1WorldY - gp.player.worldY + gp.player.screenY;
+        int screenX = e1WorldX - gp.playScreen.player.worldX + gp.playScreen.player.screenX;
+        int screenY = e1WorldY - gp.playScreen.player.worldY + gp.playScreen.player.screenY;
 
         batch.draw(solidAreaOutlineSprite, screenX, screenY);
 

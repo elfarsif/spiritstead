@@ -2,15 +2,14 @@ package io.github.spiritstead.main.collision;
 
 import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.tile.TileManager;
 
 public class TileCollision {
     GamePanel gp;
-
     int entityLeftWorldX, entityRightWorldX, entityTopWorldY, entityBottomWorldY;
-
     int entityLeftCol, entityRightCol, entityTopRow, entityBottomRow;
-
     int tileNum1, tileNum2;
+    TileManager tileM;
 
     public TileCollision(GamePanel gp) {
         this.gp = gp;
@@ -18,6 +17,7 @@ public class TileCollision {
     }
 
     public void check(Entity entity) {
+        this.tileM = gp.playScreen.tileM;
         initializeEntitySolidArea(entity);
         intializeLinesForCollisionDetection();
         switch (entity.direction) {
@@ -40,10 +40,10 @@ public class TileCollision {
     private void checkRightCollision(Entity entity) {
         entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
 
-        tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-        tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+        tileNum1 = tileM.mapTileNum[entityRightCol][entityTopRow];
+        tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
 
-        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+        if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
             entity.collisionOn = true;
         }
     }
@@ -51,10 +51,10 @@ public class TileCollision {
     private void checkLeftCollision(Entity entity) {
         entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
 
-        tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-        tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+        tileNum1 = tileM.mapTileNum[entityLeftCol][entityTopRow];
+        tileNum2 = tileM.mapTileNum[entityLeftCol][entityBottomRow];
 
-        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+        if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
             entity.collisionOn = true;
         }
     }
@@ -62,10 +62,10 @@ public class TileCollision {
     private void checkDownCollision(Entity entity) {
         entityBottomRow = (entityBottomWorldY - entity.speed) / gp.tileSize;
 
-        tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-        tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+        tileNum1 = tileM.mapTileNum[entityLeftCol][entityBottomRow];
+        tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
 
-        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+        if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
             entity.collisionOn = true;
         }
     }
@@ -73,10 +73,10 @@ public class TileCollision {
     private void checkUpCollision(Entity entity) {
         entityTopRow = (entityTopWorldY + entity.speed) / gp.tileSize;
 
-        tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-        tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+        tileNum1 = tileM.mapTileNum[entityLeftCol][entityTopRow];
+        tileNum2 = tileM.mapTileNum[entityRightCol][entityTopRow];
 
-        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+        if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
             entity.collisionOn = true;
         }
     }

@@ -10,28 +10,19 @@ import io.github.spiritstead.tile.TileManager;
 public class PlayScreen implements Screen {
     GamePanel gp;
     public TileManager tileM;
-    public GameObject objects[] = new GameObject[10];
-    private AssetSetter aSetter;
-    private Entity npcs[] = new Entity[10];
+    public AssetSetter aSetter;
     public Player player;
     public EventHandler eHandler;
     public UI ui;
 
-    public PlayScreen(GamePanel gp) {
+    public PlayScreen(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.tileM = new TileManager(gp);
-        aSetter = new AssetSetter(gp);
         eHandler = new EventHandler(gp);
         ui = new UI(gp);
+        aSetter = new AssetSetter(gp);
+        player = new Player(gp, keyH);
 
-    }
-
-    public void setObject(GameObject objects[]) {
-        this.objects = objects;
-    }
-
-    public void setNpcs(Entity npcs[]) {
-        this.npcs = npcs;
     }
 
     public void setPlayer(Player player) {
@@ -43,16 +34,16 @@ public class PlayScreen implements Screen {
         tileM.draw(batch);
 
         //draw objects
-        for (int i = 0; i < objects.length; i++) {
-            if (objects[i] != null) {
-                objects[i].draw(batch, this.gp);
+        for (int i = 0; i < aSetter.objects.length; i++) {
+            if (aSetter.objects[i] != null) {
+                aSetter.objects[i].draw(batch, this.gp);
             }
         }
 
         //draw NPC
-        for (int i = 0; i < npcs.length; i++) {
-            if (npcs[i] != null) {
-                npcs[i].draw(batch);
+        for (int i = 0; i < aSetter.npcs.length; i++) {
+            if (aSetter.npcs[i] != null) {
+                aSetter.npcs[i].draw(batch);
             }
         }
 
@@ -67,5 +58,17 @@ public class PlayScreen implements Screen {
 
     public void dispose() {
         ui.dispose();
+    }
+
+    public void update() {
+        player.update();
+
+        //NPC update
+        for (int i = 0; i < aSetter.npcs.length; i++) {
+            if (aSetter.npcs[i] != null) {
+                aSetter.npcs[i].update();
+            }
+        }
+
     }
 }
