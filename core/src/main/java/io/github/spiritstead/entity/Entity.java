@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
 
-
 import java.awt.*;
 import java.util.Random;
 
@@ -16,7 +15,7 @@ public class Entity {
     public int worldX, worldY;
     public int speed;
 
-    public Sprite up1, up2,down1, down2, left1, left2, right1, right2;
+    public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
     public Direction direction;
 
     protected int spriteCounter = 0;
@@ -29,20 +28,20 @@ public class Entity {
 
     public boolean collisionOn = false;
 
-    public Entity(GamePanel gp){
-        solidArea = new Rectangle(0,0,gp.tileSize,gp.tileSize);
+    public Entity(GamePanel gp) {
+        solidArea = new Rectangle(0, 0, gp.sSetting.tileSize, gp.sSetting.tileSize);
 
     }
 
-    public void setAction(){
+    public void setAction() {
 
     }
 
-    public void update(){
+    public void update() {
 
     }
 
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch) {
 
     }
 }

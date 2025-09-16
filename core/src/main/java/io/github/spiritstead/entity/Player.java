@@ -25,17 +25,17 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyH = keyH;
 
-        screenX = gp.screenWidth / 2 - gp.tileSize / 2;
-        screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+        screenX = gp.sSetting.screenWidth / 2 - gp.sSetting.tileSize / 2;
+        screenY = gp.sSetting.screenHeight / 2 - gp.sSetting.tileSize / 2;
 
         solidArea = new Rectangle();
-        solidArea.x = 5 * gp.scale;
+        solidArea.x = 5 * gp.sSetting.scale;
         solidArea.y = 0;
         //record default values to change solid area
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 6 * gp.scale;
-        solidArea.height = 6 * gp.scale;
+        solidArea.width = 6 * gp.sSetting.scale;
+        solidArea.height = 6 * gp.sSetting.scale;
 
         generateSolidAreaOutline();
         setDefaultPlayerValues();
@@ -43,8 +43,8 @@ public class Player extends Entity {
     }
 
     private void setDefaultPlayerValues() {
-        worldX = gp.tileSize * 28;
-        worldY = gp.tileSize * 13;
+        worldX = gp.sSetting.tileSize * 28;
+        worldY = gp.sSetting.tileSize * 13;
         speed = 4;
         direction = direction.DOWN;
     }
@@ -63,7 +63,7 @@ public class Player extends Entity {
     public void update() {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             assignKeyPressToDirection();
-            checkPlayerCollision();
+            checkTileCollision();
             checkNPCCollision();
             checkEventCollision();
             move();
@@ -73,18 +73,18 @@ public class Player extends Entity {
     }
 
     private void checkNPCCollision() {
-        int npcIndex = gp.cChecker.checkPlayerIsCollidingWithEntity(this, gp.playScreen.aSetter.npcs);
+        int npcIndex = gp.system.cChecker.checkPlayerIsCollidingWithEntity(this, gp.system.aSetter.npcs);
         interactNPC(npcIndex);
     }
 
     private void interactNPC(int npcIndex) {
         if (npcIndex != 9999) {
-            System.out.println("interacting with npcs");
+            gp.system.ui.uiScreen = gp.system.ui.dialogueUI;
         }
     }
 
     private void checkEventCollision() {
-        gp.playScreen.eHandler.checkEvent();
+        gp.system.eHandler.checkEvent();
     }
 
     private void assignKeyPressToDirection() {
@@ -112,43 +112,42 @@ public class Player extends Entity {
         }
     }
 
-    private void checkPlayerCollision() {
+    private void checkTileCollision() {
         collisionOn = false;
-        gp.cChecker.checkEntityIsCollidingWithCollidableTile(this);
-        int objIndex = gp.cChecker.checkEntityIsCollidingWithObject(this, true);
+        gp.system.cChecker.checkEntityIsCollidingWithCollidableTile(this);
+        int objIndex = gp.system.cChecker.checkEntityIsCollidingWithObject(this, true);
         pickUpObject(objIndex);
 
     }
 
     private void pickUpObject(int index) {
         if (index != 9999) {
-            String objName = gp.playScreen.aSetter.objects[index].name;
+            String objName = gp.system.aSetter.objects[index].name;
             switch (objName) {
                 case "Key":
                     hasKey++;
-                    gp.playScreen.aSetter.objects[index] = null;
-                    gp.playSE(1);
-                    gp.playScreen.ui.gameScreenUI.showMessage("You got a key!");
+                    gp.system.aSetter.objects[index] = null;
+                    gp.system.audioPlayer.playSE(1);
+                    gp.system.ui.gameScreenUI.showMessage("You got a key!");
                     break;
                 case "Door":
                     if (hasKey > 0) {
-                        gp.playScreen.aSetter.objects[index] = null;
+                        gp.system.aSetter.objects[index] = null;
                         hasKey--;
-                        gp.playScreen.ui.gameScreenUI.showMessage("You opened the door!");
+                        gp.system.ui.gameScreenUI.showMessage("You opened the door!");
                     } else {
-                        gp.playScreen.ui.gameScreenUI.showMessage("You need a key");
+                        gp.system.ui.gameScreenUI.showMessage("You need a key");
                     }
                     break;
                 case "Boots":
                     speed += 2;
-                    gp.playScreen.aSetter.objects[index] = null;
-                    gp.playSE(2);
-                    gp.playScreen.ui.gameScreenUI.showMessage("YOU ARE FAST");
+                    gp.system.aSetter.objects[index] = null;
+                    gp.system.audioPlayer.playSE(2);
+                    gp.system.ui.gameScreenUI.showMessage("YOU ARE FAST");
                     break;
                 case "Chest":
-                    gp.playScreen.ui.gameScreenUI.gameFinished = true;
-                    gp.stopMusic();
-                    gp.playSE(2);
+                    gp.system.ui.gameScreenUI.gameFinished = true;
+                    gp.system.audioPlayer.playSE(2);
                     break;
 
             }
@@ -176,9 +175,9 @@ public class Player extends Entity {
     }
 
     private void generateSolidAreaOutline() {
-        Pixmap solidAreaPixmap = new Pixmap(gp.tileSize, gp.tileSize, Pixmap.Format.RGBA8888);
+        Pixmap solidAreaPixmap = new Pixmap(gp.sSetting.tileSize, gp.sSetting.tileSize, Pixmap.Format.RGBA8888);
         solidAreaPixmap.setColor(Color.WHITE);
-        solidAreaPixmap.drawRectangle(solidArea.x, gp.tileSize - solidArea.height, solidArea.width, solidArea.height);
+        solidAreaPixmap.drawRectangle(solidArea.x, gp.sSetting.tileSize - solidArea.height, solidArea.width, solidArea.height);
         Sprite solidAreaSprite = new Sprite(new Texture(solidAreaPixmap));
         solidAreaPixmap.dispose();
         this.solidAreaOutlineSprite = solidAreaSprite;
@@ -219,7 +218,7 @@ public class Player extends Entity {
             default:
                 currentSprite = down1;
         }
-        batch.draw(currentSprite, screenX, screenY, gp.tileSize, gp.tileSize);
+        batch.draw(currentSprite, screenX, screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
         batch.draw(solidAreaOutlineSprite, screenX, screenY);
     }
 

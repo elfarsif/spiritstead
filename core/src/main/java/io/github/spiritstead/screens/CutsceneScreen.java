@@ -1,9 +1,9 @@
-package io.github.spiritstead.cutscene;
+package io.github.spiritstead.screens;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.cutscene.Cutscene;
 import io.github.spiritstead.cutscene.gameIntro.GameIntro;
 import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.Screen;
 
 public class CutsceneScreen implements Screen {
     GamePanel gp;
@@ -12,12 +12,13 @@ public class CutsceneScreen implements Screen {
     private final Cutscene gameIntro;
 
     public CutsceneScreen(GamePanel gp) {
+        this.gp = gp;
         gameIntro = new GameIntro(gp);
 
     }
 
-    public void draw(SpriteBatch batch) {
-        gameIntro.draw(batch);
+    public void draw() {
+        gameIntro.draw(gp.batch);
 
     }
 }

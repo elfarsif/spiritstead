@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.object.Key;
 
-public class GameScreenUI {
+public class GameScreenUI implements UIScreen {
 
     GamePanel gp;
     BitmapFont font;
@@ -19,6 +19,7 @@ public class GameScreenUI {
 
     public GameScreenUI(GamePanel gp) {
         this.gp = gp;
+        this.batch = gp.batch;
         loadKeyImage();
         font = UIUtilities.initializeFont(font, "fonts/maruMonicaBold.fnt");
 
@@ -38,7 +39,7 @@ public class GameScreenUI {
         if (messageOn) {
             float scale = font.getScaleX();
             font.getData().setScale(0.75f);
-            font.draw(batch, message, gp.tileSize, gp.screenHeight - (3 * gp.tileSize));
+            font.draw(batch, message, gp.sSetting.tileSize, gp.sSetting.screenHeight - (3 * gp.sSetting.tileSize));
             font.getData().setScale(scale);
 
             messageCounter++;
@@ -51,26 +52,25 @@ public class GameScreenUI {
     }
 
     private void drawKeyInventory() {
-        batch.draw(keyImage, 10, gp.screenHeight - gp.tileSize, gp.tileSize, gp.tileSize);
-        font.draw(batch, Integer.toString(gp.playScreen.player.hasKey), 2 * gp.tileSize, gp.screenHeight - 10);
+        batch.draw(keyImage, 10, gp.sSetting.screenHeight - gp.sSetting.tileSize, gp.sSetting.tileSize, gp.sSetting.tileSize);
+        font.draw(batch, Integer.toString(gp.player.hasKey), 2 * gp.sSetting.tileSize, gp.sSetting.screenHeight - 10);
 
     }
 
-    public void draw(SpriteBatch batch) {
-        this.batch = batch;
+    public void draw() {
         drawKeyInventory();
         drawMessages();
-        if (gp.keyH.tPressed) {
+        if (gp.system.keyH.tPressed) {
             int x = 10;
             int y = 40;
             int lineHeight = 30;
-            font.draw(batch, "Player X: " + gp.playScreen.player.worldX, x, y);
+            font.draw(batch, "Player X: " + gp.player.worldX, x, y);
             y += lineHeight;
-            font.draw(batch, "Player Y: " + gp.playScreen.player.worldY, x, y);
+            font.draw(batch, "Player Y: " + gp.player.worldY, x, y);
             y += lineHeight;
-            font.draw(batch, "Player Col: " + (gp.playScreen.player.worldX + gp.playScreen.player.solidArea.x) / gp.tileSize, x, y);
+            font.draw(batch, "Player Col: " + (gp.player.worldX + gp.player.solidArea.x) / gp.sSetting.tileSize, x, y);
             y += lineHeight;
-            font.draw(batch, "Player Row: " + (gp.playScreen.player.worldY + gp.playScreen.player.solidArea.y) / gp.tileSize, x, y);
+            font.draw(batch, "Player Row: " + (gp.player.worldY + gp.player.solidArea.y) / gp.sSetting.tileSize, x, y);
         }
     }
 

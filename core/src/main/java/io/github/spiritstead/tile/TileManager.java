@@ -18,7 +18,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[10];
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum = new int[gp.worldSettings.maxWorldCol][gp.worldSettings.maxWorldRow];
         loadTileSprites();
         loadMap("/maps/map1.txt");
     }
@@ -29,17 +29,17 @@ public class TileManager {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
-            int row = gp.maxWorldRow - 1;//start from the bottom row since 0,0 in libgdx is bottom left
+            int row = gp.worldSettings.maxWorldRow - 1;//start from the bottom row since 0,0 in libgdx is bottom left
 
-            while (col < gp.maxWorldCol && row >= 0) {
+            while (col < gp.worldSettings.maxWorldCol && row >= 0) {
                 String line = br.readLine();
-                while (col < gp.maxWorldCol) {
+                while (col < gp.worldSettings.maxWorldCol) {
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[col][row] = num;
                     col++;
                 }
-                if (col == gp.maxWorldCol) {
+                if (col == gp.worldSettings.maxWorldCol) {
                     col = 0;
                     row--;
                 }
@@ -72,28 +72,28 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
 
-        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+        while (worldCol < gp.worldSettings.maxWorldCol && worldRow < gp.worldSettings.maxWorldRow) {
             int tileNum = mapTileNum[worldCol][worldRow];
 
-            int worldX = worldCol * gp.tileSize;
-            int worldY = worldRow * gp.tileSize;
+            int worldX = worldCol * gp.sSetting.tileSize;
+            int worldY = worldRow * gp.sSetting.tileSize;
             //Calculate where on the screen to draw the tile relative to the player
-            int screenX = worldX - gp.playScreen.player.worldX + gp.playScreen.player.screenX;
-            int screenY = worldY - gp.playScreen.player.worldY + gp.playScreen.player.screenY;
+            int screenX = worldX - gp.player.worldX + gp.player.screenX;
+            int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
             //only draw the tile if it is within the screen bounds plus one tile size to blend
-            if (worldX + gp.tileSize > gp.playScreen.player.worldX - gp.playScreen.player.screenX &&
-                worldX - gp.tileSize < gp.playScreen.player.worldX + gp.playScreen.player.screenX &&
-                worldY + gp.tileSize > gp.playScreen.player.worldY - gp.playScreen.player.screenY &&
-                worldY - gp.tileSize < gp.playScreen.player.worldY + gp.playScreen.player.screenY) {
+            if (worldX + gp.sSetting.tileSize > gp.player.worldX - gp.player.screenX &&
+                worldX - gp.sSetting.tileSize < gp.player.worldX + gp.player.screenX &&
+                worldY + gp.sSetting.tileSize > gp.player.worldY - gp.player.screenY &&
+                worldY - gp.sSetting.tileSize < gp.player.worldY + gp.player.screenY) {
 
-                batch.draw(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize);
+                batch.draw(tile[tileNum].image, screenX, screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
 
             }
 
             worldCol++;
 
-            if (worldCol == gp.maxWorldCol) {
+            if (worldCol == gp.worldSettings.maxWorldCol) {
                 worldCol = 0;
                 worldRow++;
             }

@@ -19,9 +19,9 @@ public class ObjectCollision {
         this.entity = entity;
         index = 9999;
 
-        for (int i = 0; i < gp.playScreen.aSetter.objects.length; i++) {
-            if (gp.playScreen.aSetter.objects[i] != null) {
-                gameObject = gp.playScreen.aSetter.objects[i];
+        for (int i = 0; i < gp.system.aSetter.objects.length; i++) {
+            if (gp.system.aSetter.objects[i] != null) {
+                gameObject = gp.system.aSetter.objects[i];
                 intializeEntitySolidArea();
                 initializeObjectSolidArea(i);
                 checkCollisionForAllDirections(entity, player, i);

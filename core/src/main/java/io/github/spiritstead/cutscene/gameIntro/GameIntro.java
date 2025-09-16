@@ -18,11 +18,11 @@ public class GameIntro implements Cutscene {
 
         slides.add(new TitleSlide(gp, "Chapter 1"));
 
-        slides.add(new ContentSlide(gp, "intro/introSlide.png", new ArrayList<>(gp.script.getChapter1().get(1))));
-        slides.add(new ContentSlide(gp, "intro/introSlideCharacter.png", new ArrayList<>(gp.script.getChapter1().get(2))));
-        slides.add(new ContentSlide(gp, "intro/forrestTrail.png", new ArrayList<>(gp.script.getChapter1().get(3))));
-        slides.add(new ContentSlide(gp, "intro/townMap.png", new ArrayList<>(gp.script.getChapter1().get(4))));
-        slides.add(new ContentSlide(gp, "intro/introSlide.png", new ArrayList<>(gp.script.getChapter1().get(5))));
+        slides.add(new ContentSlide(gp, "intro/introSlide.png", new ArrayList<>(gp.system.script.getChapter1().get(1))));
+        slides.add(new ContentSlide(gp, "intro/introSlideCharacter.png", new ArrayList<>(gp.system.script.getChapter1().get(2))));
+        slides.add(new ContentSlide(gp, "intro/forrestTrail.png", new ArrayList<>(gp.system.script.getChapter1().get(3))));
+        slides.add(new ContentSlide(gp, "intro/townMap.png", new ArrayList<>(gp.system.script.getChapter1().get(4))));
+        slides.add(new ContentSlide(gp, "intro/introSlide.png", new ArrayList<>(gp.system.script.getChapter1().get(5))));
 
     }
 
@@ -33,7 +33,7 @@ public class GameIntro implements Cutscene {
         if (!slides.isEmpty()) {
 
             Slide slide = slides.get(0);
-            if (gp.keyH.spacePressed) {
+            if (gp.system.keyH.spacePressed) {
 
                 if (slide instanceof ContentSlide && (slide.getTextCounter() < slide.getTexts().size() - 1)) {
                     int textCounter = slide.getTextCounter() + 1;
@@ -48,13 +48,13 @@ public class GameIntro implements Cutscene {
                     }
                 }
 
-                gp.keyH.spacePressed = false;
+                gp.system.keyH.spacePressed = false;
             }
 
             slide.draw(batch);
         } else {
-            gp.screen = gp.playScreen;
-            gp.playScreen.player.direction = Direction.LEFT;
+            gp.screenManager.screen = gp.screenManager.gameScreen;
+            gp.player.direction = Direction.LEFT;
         }
 
     }

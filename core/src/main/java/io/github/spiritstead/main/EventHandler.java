@@ -23,13 +23,13 @@ public class EventHandler {
         eventRect = new Rectangle();
         eventRect.x = 0;
         eventRect.y = 0;
-        eventRect.width = gp.tileSize;
-        eventRect.height = gp.tileSize;
+        eventRect.width = gp.sSetting.tileSize;
+        eventRect.height = gp.sSetting.tileSize;
         eventRectDefaultX = eventRect.x;
         eventRectDefaultY = eventRect.y;
 
-        e1WorldX = 3 * gp.tileSize;
-        e1WorldY = 3 * gp.tileSize;
+        e1WorldX = 3 * gp.sSetting.tileSize;
+        e1WorldY = 3 * gp.sSetting.tileSize;
 
         generateSolidAreaOutline();
 
@@ -37,28 +37,28 @@ public class EventHandler {
 
     public void checkEvent() {
         if (hit(3, 3, Direction.ANY)) {
-            gp.playScreen.ui.gameScreenUI.showMessage("You have hit an event");
+            gp.system.ui.gameScreenUI.showMessage("You have hit an event");
         }
     }
 
     public boolean hit(int eventCol, int eventRow, Direction reqDirection) {
         boolean hit = false;
 
-        gp.playScreen.player.solidArea.x = gp.playScreen.player.worldX + gp.playScreen.player.solidArea.x;
-        gp.playScreen.player.solidArea.y = gp.playScreen.player.worldY + gp.playScreen.player.solidArea.y;
-        eventRect.x = eventCol * gp.tileSize + eventRect.x;
-        eventRect.y = eventRow * gp.tileSize + eventRect.y;
+        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+        eventRect.x = eventCol * gp.sSetting.tileSize + eventRect.x;
+        eventRect.y = eventRow * gp.sSetting.tileSize + eventRect.y;
 
-        if (gp.playScreen.player.solidArea.intersects(eventRect)) {
-            if ((gp.playScreen.player.direction == reqDirection)) {
+        if (gp.player.solidArea.intersects(eventRect)) {
+            if ((gp.player.direction == reqDirection)) {
                 hit = true;
             } else if (reqDirection == Direction.ANY) {
                 hit = true;
 
             }
         }
-        gp.playScreen.player.solidArea.x = gp.playScreen.player.solidAreaDefaultX;
-        gp.playScreen.player.solidArea.y = gp.playScreen.player.solidAreaDefaultY;
+        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
         eventRect.x = eventRectDefaultX;
         eventRect.y = eventRectDefaultX;
 
@@ -67,7 +67,7 @@ public class EventHandler {
     }
 
     private void generateSolidAreaOutline() {
-        Pixmap solidAreaPixmap = new Pixmap(gp.tileSize, gp.tileSize, Pixmap.Format.RGBA8888);
+        Pixmap solidAreaPixmap = new Pixmap(gp.sSetting.tileSize, gp.sSetting.tileSize, Pixmap.Format.RGBA8888);
         solidAreaPixmap.setColor(Color.RED);
         solidAreaPixmap.drawRectangle(eventRect.x, eventRect.y, eventRect.width, eventRect.height);
         Sprite solidAreaSprite = new Sprite(new Texture(solidAreaPixmap));
@@ -77,8 +77,8 @@ public class EventHandler {
 
     public void draw(SpriteBatch batch) {
         //calculate where on the screen to draw the tile relative to player, from tile manage class
-        int screenX = e1WorldX - gp.playScreen.player.worldX + gp.playScreen.player.screenX;
-        int screenY = e1WorldY - gp.playScreen.player.worldY + gp.playScreen.player.screenY;
+        int screenX = e1WorldX - gp.player.worldX + gp.player.screenX;
+        int screenY = e1WorldY - gp.player.worldY + gp.player.screenY;
 
         batch.draw(solidAreaOutlineSprite, screenX, screenY);
 

@@ -23,7 +23,7 @@ public class TitleSlide implements Slide {
     @Override
     public void draw(SpriteBatch batch) {
         float x = UIUtilities.getXforCenteredText(font, layout, title, gp);
-        font.draw(batch, title, x, gp.screenHeight / 2);
+        font.draw(batch, title, x, gp.sSetting.screenHeight / 2);
     }
 
     @Override

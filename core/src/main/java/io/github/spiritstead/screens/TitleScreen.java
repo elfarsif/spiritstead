@@ -1,11 +1,12 @@
-package io.github.spiritstead.main.ui;
+package io.github.spiritstead.screens;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.Screen;
+import io.github.spiritstead.main.ui.TitleScreenOptions;
+import io.github.spiritstead.main.ui.UIUtilities;
 
 public class TitleScreen implements Screen {
     private GamePanel gp;
@@ -20,6 +21,7 @@ public class TitleScreen implements Screen {
         this.gp = gp;
         font = UIUtilities.initializeFont(font, "fonts/maruMonicaBold.fnt");
         titleFont = UIUtilities.initializeFont(font, "fonts/maruMonicaBold.fnt");
+        this.batch = gp.batch;
     }
 
     private void drawTitleScreen() {
@@ -27,7 +29,7 @@ public class TitleScreen implements Screen {
         titleFont.getData().setScale(3f);
         String text = "Spiritstead";
         float x = getXforCenteredText(titleFont, text);
-        float y = gp.screenHeight * 3 / 4 + layout.height / 2;
+        float y = gp.sSetting.screenHeight * 3 / 4 + layout.height / 2;
 
         //Shadow
         titleFont.setColor(Color.GRAY);
@@ -38,48 +40,47 @@ public class TitleScreen implements Screen {
         titleFont.draw(batch, text, x, y);
 
         //Character image
-        float imageSize = gp.tileSize * 2;
-        x = gp.screenWidth / 2 - imageSize / 2;
-        y = gp.screenHeight / 2 - imageSize / 2;
-        batch.draw(gp.playScreen.player.down1, x, y, imageSize, imageSize);
+        float imageSize = gp.sSetting.tileSize * 2;
+        x = gp.sSetting.screenWidth / 2 - imageSize / 2;
+        y = gp.sSetting.screenHeight / 2 - imageSize / 2;
+        batch.draw(gp.player.down1, x, y, imageSize, imageSize);
 
         //MENU
         font.getData().setScale(1f);
 
         text = "NEW GAME";
         x = getXforCenteredText(font, text);
-        y -= gp.tileSize;
+        y -= gp.sSetting.tileSize;
         font.draw(batch, text, x, y);
         if (commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
-            font.draw(batch, ">", x - gp.tileSize, y);
+            font.draw(batch, ">", x - gp.sSetting.tileSize, y);
         }
 
         text = "LOAD GAME";
         x = getXforCenteredText(font, text);
-        y -= gp.tileSize;
+        y -= gp.sSetting.tileSize;
         font.draw(batch, text, x, y);
         if (commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
-            font.draw(batch, ">", x - gp.tileSize, y);
+            font.draw(batch, ">", x - gp.sSetting.tileSize, y);
         }
 
         text = "QUIT";
         x = getXforCenteredText(font, text);
-        y -= gp.tileSize;
+        y -= gp.sSetting.tileSize;
         font.draw(batch, text, x, y);
         if (commandNum == TitleScreenOptions.QUIT.getValue()) {
-            font.draw(batch, ">", x - gp.tileSize, y);
+            font.draw(batch, ">", x - gp.sSetting.tileSize, y);
         }
 
     }
 
     private float getXforCenteredText(BitmapFont font, String text) {
         layout.setText(font, text);
-        return gp.screenWidth / 2 - layout.width / 2;
+        return gp.sSetting.screenWidth / 2 - layout.width / 2;
 
     }
 
-    public void draw(SpriteBatch batch) {
-        this.batch = batch;
+    public void draw() {
         drawTitleScreen();
     }
 

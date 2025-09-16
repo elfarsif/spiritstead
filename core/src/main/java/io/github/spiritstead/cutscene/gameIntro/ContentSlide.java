@@ -10,54 +10,54 @@ import io.github.spiritstead.main.ui.UIUtilities;
 
 import java.util.ArrayList;
 
-public class ContentSlide implements Slide{
+public class ContentSlide implements Slide {
     BitmapFont font;
     GamePanel gp;
     Sprite image1;
-    float image1X,image1Y;
+    float image1X, image1Y;
     ArrayList<String> texts;
     private SpriteBatch batch;
     StringBuilder wrappedText = new StringBuilder();
     GlyphLayout layout = new GlyphLayout();
 
-    public int textCounter=0;
+    public int textCounter = 0;
     public boolean completed = false;
 
-    String displayedText ="";
-    int charIndex =0;
-    String combinedText ="";
+    String displayedText = "";
+    int charIndex = 0;
+    String combinedText = "";
 
-    public ContentSlide(GamePanel gp, String imageFileName,ArrayList<String> texts){
+    public ContentSlide(GamePanel gp, String imageFileName, ArrayList<String> texts) {
         this.gp = gp;
-        font = UIUtilities.initializeFont(font,"fonts/maruMonica.fnt");
+        font = UIUtilities.initializeFont(font, "fonts/maruMonica.fnt");
         setImage(imageFileName);
         this.texts = texts;
     }
 
-    public void setImage(String fileName){
+    public void setImage(String fileName) {
         try {
             image1 = new Sprite(new Texture(fileName));
-            image1.setSize(gp.tileSize*10,gp.tileSize*6);
+            image1.setSize(gp.sSetting.tileSize * 10, gp.sSetting.tileSize * 6);
 
-            image1X = gp.screenWidth/2 - image1.getWidth()/2;
-            image1Y = gp.screenHeight/2-image1.getHeight()/4;
-        }catch (Exception e){
+            image1X = gp.sSetting.screenWidth / 2 - image1.getWidth() / 2;
+            image1Y = gp.sSetting.screenHeight / 2 - image1.getHeight() / 4;
+        } catch (Exception e) {
 
             System.out.println(e.getMessage());
         }
     }
 
-    public void setText(ArrayList<String> texts){
+    public void setText(ArrayList<String> texts) {
         this.texts = texts;
     }
 
-    private void displayText(int counter){
+    private void displayText(int counter) {
         String text = texts.get(counter);
         firstImageText(text);
     }
 
-    private void firstImageText(String text){
-        text = wrapTextToSizeWithLineBreaks(text,(int)image1.getWidth());
+    private void firstImageText(String text) {
+        text = wrapTextToSizeWithLineBreaks(text, (int) image1.getWidth());
         //Letter by letter effect
         char characters[] = text.toCharArray();
 
@@ -68,14 +68,13 @@ public class ContentSlide implements Slide{
 //            gp.playSoundEffect(4);
             charIndex++;
         }
-        font.draw(batch,displayedText,image1X-gp.tileSize,image1Y-gp.tileSize);
+        font.draw(batch, displayedText, image1X - gp.sSetting.tileSize, image1Y - gp.sSetting.tileSize);
     }
 
-
-    private String wrapTextToSizeWithLineBreaks(String text, int imageWidth){
+    private String wrapTextToSizeWithLineBreaks(String text, int imageWidth) {
         String originalText = text;
 
-        float maxWidth = imageWidth+gp.tileSize*2; // or set manually
+        float maxWidth = imageWidth + gp.sSetting.tileSize * 2; // or set manually
         String[] words = originalText.split(" ");
         String line = "";
 
@@ -97,11 +96,10 @@ public class ContentSlide implements Slide{
         return finalText;
     }
 
-
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch) {
         this.batch = batch;
 
-        batch.draw(image1,image1X ,image1Y,image1.getWidth(),image1.getHeight());
+        batch.draw(image1, image1X, image1Y, image1.getWidth(), image1.getHeight());
         displayText(textCounter);
 
     }

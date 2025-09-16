@@ -11,28 +11,24 @@ public class UI {
     GamePanel gp;
     SpriteBatch batch;
 
-    //Screens
-    public TitleScreen titleScreen;
+    public UIScreen uiScreen;
     public GameScreenUI gameScreenUI;
+    public DialogueUI dialogueUI;
 
     public UI(GamePanel gp) {
         this.gp = gp;
-        this.titleScreen = new TitleScreen(this.gp);
-        this.gameScreenUI = new GameScreenUI(this.gp);
+        this.batch = gp.batch;
+        this.gameScreenUI = new GameScreenUI(gp);
+        dialogueUI = new DialogueUI(gp);
 
+        uiScreen = gameScreenUI;
     }
 
-    public void draw(SpriteBatch batch) {
-        this.batch = batch;
-
-        if (gp.screen == gp.playScreen) {
-            gameScreenUI.draw(batch);
-        }
-
+    public void draw() {
+        uiScreen.draw();
     }
 
     public void dispose() {
         gameScreenUI.dispose();
-        titleScreen.dispose();
     }
 }

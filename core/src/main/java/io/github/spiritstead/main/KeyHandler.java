@@ -20,15 +20,15 @@ public class KeyHandler extends InputAdapter {
     @Override
     public boolean keyDown(int code) {
         //Title State
-        if (gp.screen == gp.titleScreen) {
+        if (gp.screenManager.screen == gp.screenManager.titleScreen) {
             titleState(code);
         }
         //PlayState
-        else if (gp.screen == gp.playScreen) {
+        else if (gp.screenManager.screen == gp.screenManager.gameScreen) {
             playState(code);
         }
         //Cutscene
-        else if (gp.screen == gp.cutsceneScreen) {
+        else if (gp.screenManager.screen == gp.screenManager.cutsceneScreen) {
             if (code == Input.Keys.SPACE) {
                 spacePressed = true;
 
@@ -48,7 +48,7 @@ public class KeyHandler extends InputAdapter {
         } else if (code == Input.Keys.D) {
             rightPressed = true;
         } else if (code == Input.Keys.P) {
-            if (gp.screen == gp.playScreen) {
+            if (gp.screenManager.screen == gp.screenManager.gameScreen) {
                 System.out.println("pause state");
             }
         } else if (code == Input.Keys.T) {
@@ -59,26 +59,26 @@ public class KeyHandler extends InputAdapter {
     private void titleState(int code) {
         //move this logic to a seperate class for title state
         if (code == Input.Keys.W) {
-            gp.titleScreen.commandNum--;
-            if (gp.titleScreen.commandNum < TitleScreenOptions.NEW_GAME.getValue()) {
-                gp.titleScreen.commandNum = TitleScreenOptions.QUIT.getValue();
+            gp.screenManager.titleScreen.commandNum--;
+            if (gp.screenManager.titleScreen.commandNum < TitleScreenOptions.NEW_GAME.getValue()) {
+                gp.screenManager.titleScreen.commandNum = TitleScreenOptions.QUIT.getValue();
             }
         } else if (code == Input.Keys.S) {
-            gp.titleScreen.commandNum++;
-            if (gp.titleScreen.commandNum > TitleScreenOptions.QUIT.getValue()) {
-                gp.titleScreen.commandNum = TitleScreenOptions.NEW_GAME.getValue();
+            gp.screenManager.titleScreen.commandNum++;
+            if (gp.screenManager.titleScreen.commandNum > TitleScreenOptions.QUIT.getValue()) {
+                gp.screenManager.titleScreen.commandNum = TitleScreenOptions.NEW_GAME.getValue();
             }
         }
         if (code == Input.Keys.ENTER) {
-            if (gp.titleScreen.commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
-                gp.screen = gp.cutsceneScreen;
+            if (gp.screenManager.titleScreen.commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
+                gp.screenManager.screen = gp.screenManager.cutsceneScreen;
 
             }
-            if (gp.titleScreen.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
-                gp.screen = gp.playScreen;
+            if (gp.screenManager.titleScreen.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
+                gp.screenManager.screen = gp.screenManager.gameScreen;
 
             }
-            if (gp.titleScreen.commandNum == TitleScreenOptions.QUIT.getValue()) {
+            if (gp.screenManager.titleScreen.commandNum == TitleScreenOptions.QUIT.getValue()) {
                 System.exit(0);
             }
         }
