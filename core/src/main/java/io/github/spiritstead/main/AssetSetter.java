@@ -1,7 +1,7 @@
 package io.github.spiritstead.main;
 
 import io.github.spiritstead.entity.Entity;
-import io.github.spiritstead.entity.Mayor;
+import io.github.spiritstead.entity.mayor.Mayor;
 import io.github.spiritstead.object.*;
 
 public class AssetSetter {

@@ -1,8 +1,8 @@
-package io.github.spiritstead.entity;
+package io.github.spiritstead.entity.mayor;
 
 public class MayorDialogue {
-    String array[] = new String[20];
-    int index = 0;
+    public String[] array = new String[20];
+    public int index = 0;
 
     public MayorDialogue() {
         initializeDialogues();

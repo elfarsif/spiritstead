@@ -1,5 +1,6 @@
-package io.github.spiritstead.entity;
+package io.github.spiritstead.entity.player;
 
+import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.GamePanel;
 
 public class NPCInteraction {

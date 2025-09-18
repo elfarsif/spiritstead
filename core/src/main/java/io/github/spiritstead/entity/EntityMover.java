@@ -5,14 +5,12 @@ import io.github.spiritstead.main.KeyHandler;
 
 public class EntityMover {
     Entity entity;
-    KeyHandler keyH;
 
-    public EntityMover(Entity entity, KeyHandler keyH) {
+    public EntityMover(Entity entity) {
         this.entity = entity;
-        this.keyH = keyH;
     }
 
-    public void assignKeyPressToDirection() {
+    public void assignKeyPressToDirection(KeyHandler keyH) {
         if (keyH.upPressed) {
             entity.direction = entity.direction.UP;
         } else if (keyH.downPressed) {

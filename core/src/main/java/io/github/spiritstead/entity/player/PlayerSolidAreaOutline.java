@@ -1,10 +1,9 @@
-package io.github.spiritstead.entity;
+package io.github.spiritstead.entity.player;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.GamePanel;
 
 public class PlayerSolidAreaOutline {

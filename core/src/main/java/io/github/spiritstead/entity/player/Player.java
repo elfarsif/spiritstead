@@ -1,8 +1,5 @@
 package io.github.spiritstead.entity.player;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.entity.*;
 import io.github.spiritstead.main.GamePanel;
@@ -17,16 +14,13 @@ public class Player extends Entity {
     private Sprite solidAreaOutlineSprite;
     public int hasKey = 0;
     public NPCInteraction NPCInteraction;
-    private EntityRenderer entityRenderer;
+    private EntityDrawer entityDrawer;
     private EntityMover entityMover;
-    private EntityAnimator entityAnimator;
+    private PlayerAnimator playerAnimator;
     private EntitySpriteLoader entitySpriteLoader;
     public PlayerObjectInteractor playerObjectInteractor;
     private EntityCollisionSetChecker entityCollisionSetChecker;
     private PlayerSolidAreaOutline playerSolidAreaOutline;
-
-    public final int screenX;
-    public final int screenY;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -34,9 +28,9 @@ public class Player extends Entity {
         this.keyH = keyH;
         this.npcs = gp.system.aSetter.npcs;
         this.NPCInteraction = new NPCInteraction(gp);
-        this.entityRenderer = new EntityRenderer(gp, this);
-        this.entityMover = new EntityMover(this, keyH);
-        this.entityAnimator = new EntityAnimator(this);
+        this.entityDrawer = new EntityDrawer(gp, this);
+        this.entityMover = new EntityMover(this);
+        this.playerAnimator = new PlayerAnimator(this);
         this.entitySpriteLoader = new EntitySpriteLoader(this);
         this.playerObjectInteractor = new PlayerObjectInteractor(gp, this);
         this.entityCollisionSetChecker = new EntityCollisionSetChecker(gp, this, npcs);
@@ -72,15 +66,15 @@ public class Player extends Entity {
 
     public void update() {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-            entityMover.assignKeyPressToDirection();
+            entityMover.assignKeyPressToDirection(keyH);
             entityCollisionSetChecker.checkAll();
             entityMover.move();
-            entityAnimator.update();
+            playerAnimator.update();
         }
     }
 
     public void draw() {
-        entityRenderer.draw();
+        entityDrawer.draw();
         playerSolidAreaOutline.draw();
     }
 

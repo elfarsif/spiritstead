@@ -1,9 +1,11 @@
-package io.github.spiritstead.entity;
+package io.github.spiritstead.entity.player;
 
-public class EntityAnimator {
+import io.github.spiritstead.entity.Entity;
+
+public class PlayerAnimator {
     Entity entity;
 
-    public EntityAnimator(Entity entity) {
+    public PlayerAnimator(Entity entity) {
         this.entity = entity;
     }
 
