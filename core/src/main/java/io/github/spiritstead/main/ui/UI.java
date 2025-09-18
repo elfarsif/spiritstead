@@ -2,6 +2,7 @@ package io.github.spiritstead.main.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ui.dialogue.DialogueUI;
 
 /**
  * This class manages the different UI elements in different states
@@ -20,7 +21,6 @@ public class UI {
         this.batch = gp.batch;
         this.gameScreenUI = new GameScreenUI(gp);
         dialogueUI = new DialogueUI(gp);
-
         uiScreen = gameScreenUI;
     }
 
@@ -30,5 +30,6 @@ public class UI {
 
     public void dispose() {
         gameScreenUI.dispose();
+        dialogueUI.dispose();
     }
 }

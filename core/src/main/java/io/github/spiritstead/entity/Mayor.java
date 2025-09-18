@@ -10,12 +10,14 @@ import java.util.Random;
 public class Mayor extends Entity {
     GamePanel gp;
     public int actionLockCounter = 0;
+    MayorDialogue dialogue;
 
     public Mayor(GamePanel gp) {
         super(gp);
         this.gp = gp;
         direction = Direction.LEFT;
         speed = 1;
+        dialogue = new MayorDialogue();
         loadPlayerTextures();
 
     }
@@ -76,6 +78,12 @@ public class Mayor extends Entity {
 
     }
 
+    public void speak() {
+        gp.system.ui.dialogueUI.text.currentDialogue = dialogue.array[dialogue.index];
+        dialogue.index++;
+
+    }
+
     private void checkPlayerCollision() {
         collisionOn = false;
         gp.system.cChecker.checkEntityIsCollidingWithCollidableTile(this);
@@ -84,7 +92,7 @@ public class Mayor extends Entity {
 
     }
 
-    public void draw(SpriteBatch batch) {
+    public void draw() {
 
         //Calculate where on the screen to draw the tile relative to the player
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
@@ -129,7 +137,7 @@ public class Mayor extends Entity {
                 default:
                     currentSprite = down1;
             }
-            batch.draw(currentSprite, screenX, screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
+            gp.batch.draw(currentSprite, screenX, screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
         }
 
     }

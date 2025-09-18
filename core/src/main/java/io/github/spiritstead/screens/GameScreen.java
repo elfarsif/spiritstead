@@ -1,6 +1,6 @@
 package io.github.spiritstead.screens;
 
-import io.github.spiritstead.entity.Player;
+import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.AssetSetter;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.GameSystem;
@@ -24,7 +24,7 @@ public class GameScreen implements Screen {
         system.tileM.draw(gp.batch);
         drawObjects();
         drawNPCS();
-        player.draw(gp.batch);
+        player.draw();
         system.eHandler.draw(gp.batch);
         system.ui.draw();
     }
@@ -42,7 +42,7 @@ public class GameScreen implements Screen {
     private void drawNPCS() {
         for (int i = 0; i < assetSetter.npcs.length; i++) {
             if (assetSetter.npcs[i] != null) {
-                assetSetter.npcs[i].draw(gp.batch);
+                assetSetter.npcs[i].draw();
             }
         }
     }

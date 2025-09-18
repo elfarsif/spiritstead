@@ -1,7 +1,6 @@
 package io.github.spiritstead.main.collision;
 
 import io.github.spiritstead.entity.Entity;
-import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.object.GameObject;
 

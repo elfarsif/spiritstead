@@ -1,8 +1,9 @@
-package io.github.spiritstead.main.ui;
+package io.github.spiritstead.main.ui.dialogue;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
 
 /**
@@ -10,12 +11,14 @@ import io.github.spiritstead.main.GamePanel;
  */
 public class DialogueWindow {
     private GamePanel gp;
+    private SpriteBatch batch;
     private Pixmap pixmap;
     Texture texture;
     int x, y, width, height;
 
     public DialogueWindow(GamePanel gp) {
         this.gp = gp;
+        this.batch = gp.batch;
         initializeDimensions();
         createWindowPixmap();
     }
@@ -31,9 +34,8 @@ public class DialogueWindow {
     private void createWindowPixmap() {
         pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
 
-        pixmap.setColor(Color.BLACK);
+        pixmap.setColor(0, 0, 0, 0.75f);
         pixmap.fill();
-
         drawWindowBorder();
 
         texture = new Texture(pixmap);
@@ -44,6 +46,14 @@ public class DialogueWindow {
     private void drawWindowBorder() {
         pixmap.setColor(Color.WHITE);
         pixmap.drawRectangle(3, 3, width - 6, height - 6);
+    }
+
+    public void draw() {
+        batch.draw(texture, x, y, width, height);
+    }
+
+    public void dispose() {
+        pixmap.dispose();
     }
 
 }

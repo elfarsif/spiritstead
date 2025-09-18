@@ -2,6 +2,7 @@ package io.github.spiritstead.entity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.entity.player.PlayerObjectInteractor;
 import io.github.spiritstead.main.GamePanel;
 
 import java.awt.*;
@@ -28,8 +29,14 @@ public class Entity {
 
     public boolean collisionOn = false;
 
+    String dialogues[] = new String[20];
+
     public Entity(GamePanel gp) {
         solidArea = new Rectangle(0, 0, gp.sSetting.tileSize, gp.sSetting.tileSize);
+
+    }
+
+    public void speak() {
 
     }
 
@@ -41,7 +48,7 @@ public class Entity {
 
     }
 
-    public void draw(SpriteBatch batch) {
+    public void draw() {
 
     }
 }

@@ -1,30 +1,32 @@
-package io.github.spiritstead.main.ui;
+package io.github.spiritstead.main.ui.dialogue;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ui.UIScreen;
 
 public class DialogueUI implements UIScreen {
     private GamePanel gp;
     private SpriteBatch batch;
     private DialogueWindow dialogueWindow;
+    public DialogueUIText text;
 
     public DialogueUI(GamePanel gp) {
         this.gp = gp;
         this.batch = gp.batch;
         this.dialogueWindow = new DialogueWindow(gp);
-
+        this.text = new DialogueUIText(gp, dialogueWindow);
     }
 
     @Override
     public void draw() {
-        batch.draw(dialogueWindow.texture, dialogueWindow.x, dialogueWindow.y, dialogueWindow.width, dialogueWindow.height);
+        dialogueWindow.draw();
+        text.draw();
 
     }
 
     public void dispose() {
+        dialogueWindow.dispose();
+        text.dispose();
     }
 
 }

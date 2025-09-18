@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.ui.TitleScreenOptions;
+import io.github.spiritstead.main.TitleScreenOptions;
 import io.github.spiritstead.main.ui.UIUtilities;
 
 public class TitleScreen implements Screen {
