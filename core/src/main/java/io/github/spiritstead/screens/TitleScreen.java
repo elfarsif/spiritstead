@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.cutscene.BlackTexture;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.ui.UIUtilities;
 
@@ -13,6 +14,7 @@ public class TitleScreen implements Screen {
     private BitmapFont titleFont;
     private GlyphLayout layout = new GlyphLayout();
     private SpriteBatch batch;
+    private BlackTexture blackTexture;
 
     public int commandNum = 0;
 
@@ -20,10 +22,13 @@ public class TitleScreen implements Screen {
         this.gp = gp;
         font = UIUtilities.initializeFont(font, "fonts/maruMonicaBold.fnt");
         titleFont = UIUtilities.initializeFont(font, "fonts/maruMonicaBold.fnt");
+        this.blackTexture = new BlackTexture(gp.sSetting.screenWidth, gp.sSetting.screenHeight);
         this.batch = gp.batch;
     }
 
     private void drawTitleScreen() {
+        batch.draw(blackTexture.texture, 0, 0);
+
         //TITLE NAME placment
         titleFont.getData().setScale(3f);
         String text = "Spiritstead";
