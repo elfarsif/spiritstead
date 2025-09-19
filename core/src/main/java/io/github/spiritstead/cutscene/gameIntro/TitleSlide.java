@@ -1,10 +1,13 @@
 package io.github.spiritstead.cutscene.gameIntro;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.ui.UIUtilities;
+import io.github.spiritstead.ui.UIUtilities;
 
 import java.util.ArrayList;
 
@@ -21,9 +24,9 @@ public class TitleSlide implements Slide {
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
+    public void draw() {
         float x = UIUtilities.getXforCenteredText(font, layout, title, gp);
-        font.draw(batch, title, x, gp.sSetting.screenHeight / 2);
+        font.draw(gp.batch, title, x, gp.sSetting.screenHeight / 2);
     }
 
     @Override

@@ -1,7 +1,8 @@
 package io.github.spiritstead.main;
 
-import io.github.spiritstead.main.collision.CollisionChecker;
-import io.github.spiritstead.main.ui.UI;
+import io.github.spiritstead.audio.AudioPlayer;
+import io.github.spiritstead.collision.CollisionChecker;
+import io.github.spiritstead.ui.UI;
 import io.github.spiritstead.script.Script;
 import io.github.spiritstead.tile.TileManager;
 

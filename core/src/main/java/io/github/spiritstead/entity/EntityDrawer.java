@@ -8,6 +8,7 @@ import io.github.spiritstead.main.GamePanel;
 public class EntityDrawer {
     private GamePanel gp;
     SpriteBatch batch;
+    Sprite sprite;
     Entity entity;
     int screenX, screenY;
 
@@ -18,55 +19,46 @@ public class EntityDrawer {
     }
 
     public void draw() {
-        //Calculate where on the screen to draw the tile relative to the player
-        screenX = entity.worldX - gp.player.worldX + gp.player.screenX;
-        screenY = entity.worldY - gp.player.worldY + gp.player.screenY;
-
-        //only draw the tile if it is within the screen bounds plus one tile size to blend
-        if ((entity instanceof Player) ||
-            entity.worldX + gp.sSetting.tileSize > gp.player.worldX - gp.player.screenX &&
-                entity.worldX - gp.sSetting.tileSize < gp.player.worldX + gp.player.screenX &&
-                entity.worldY + gp.sSetting.tileSize > gp.player.worldY - gp.player.screenY &&
-                entity.worldY - gp.sSetting.tileSize < gp.player.worldY + gp.player.screenY) {
-
-            Sprite currentSprite = null;
-            switch (entity.direction) {
-                case UP:
-                    if (entity.spriteNum == 1) {
-                        currentSprite = entity.up1;
-                    } else if (entity.spriteNum == 2) {
-                        currentSprite = entity.up2;
-                    }
-                    break;
-                case DOWN:
-                    if (entity.spriteNum == 1) {
-                        currentSprite = entity.down1;
-                    } else if (entity.spriteNum == 2) {
-                        currentSprite = entity.down2;
-                    }
-                    break;
-                case LEFT:
-                    if (entity.spriteNum == 1) {
-                        currentSprite = entity.left1;
-                    } else if (entity.spriteNum == 2) {
-                        currentSprite = entity.left2;
-                    }
-                    break;
-                case RIGHT:
-                    if (entity.spriteNum == 1) {
-                        currentSprite = entity.right1;
-                    } else if (entity.spriteNum == 2) {
-                        currentSprite = entity.right2;
-                    }
-                    break;
-                default:
-                    currentSprite = entity.down1;
-            }
+        initialiazeScreenPositionRelativeToPlayer();
+        if ((entity instanceof Player) || entityIsWithinScreenBounds()) {
+            updateSprite();
             if (entity instanceof Player) {
-                batch.draw(currentSprite, entity.screenX, entity.screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
+                batch.draw(sprite, entity.screenX, entity.screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
             } else {
-                batch.draw(currentSprite, screenX, screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
+                batch.draw(sprite, screenX, screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
             }
         }
+    }
+
+    private void updateSprite() {
+        sprite = null;
+        switch (entity.direction) {
+            case UP:
+                sprite = entity.frames.get(Direction.UP)[entity.spriteNum - 1];
+                break;
+            case DOWN:
+                sprite = entity.frames.get(Direction.DOWN)[entity.spriteNum - 1];
+                break;
+            case LEFT:
+                sprite = entity.frames.get(Direction.LEFT)[entity.spriteNum - 1];
+                break;
+            case RIGHT:
+                sprite = entity.frames.get(Direction.RIGHT)[entity.spriteNum - 1];
+                break;
+            default:
+                sprite = entity.down1;
+        }
+    }
+
+    private boolean entityIsWithinScreenBounds() {
+        return entity.worldX + gp.sSetting.tileSize > gp.player.worldX - gp.player.screenX &&
+            entity.worldX - gp.sSetting.tileSize < gp.player.worldX + gp.player.screenX &&
+            entity.worldY + gp.sSetting.tileSize > gp.player.worldY - gp.player.screenY &&
+            entity.worldY - gp.sSetting.tileSize < gp.player.worldY + gp.player.screenY;
+    }
+
+    private void initialiazeScreenPositionRelativeToPlayer() {
+        screenX = entity.worldX - gp.player.worldX + gp.player.screenX;
+        screenY = entity.worldY - gp.player.worldY + gp.player.screenY;
     }
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.main.GamePanel;
 
 import java.awt.*;
+import java.util.EnumMap;
 
 /**
  * This class represents an entity in the game. It is a parent class for players, monsters, npcs
@@ -27,6 +28,8 @@ public class Entity {
     public boolean collisionOn = false;
 
     String dialogues[] = new String[20];
+
+    public EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
 
     public int screenX;
     public int screenY;

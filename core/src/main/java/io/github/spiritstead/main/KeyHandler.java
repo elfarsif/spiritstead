@@ -2,6 +2,7 @@ package io.github.spiritstead.main;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import io.github.spiritstead.screens.TitleScreenOptions;
 
 /*
 This class handles the key inputs for the game.

@@ -18,7 +18,6 @@ public class CutsceneScreen implements Screen {
     }
 
     public void draw() {
-        gameIntro.draw(gp.batch);
-
+        gameIntro.draw();
     }
 }

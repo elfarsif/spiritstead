@@ -1,5 +1,6 @@
 package io.github.spiritstead.entity.mayor;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.entity.*;
 import io.github.spiritstead.main.GamePanel;
 
@@ -24,6 +25,11 @@ public class Mayor extends Entity {
         direction = Direction.LEFT;
         speed = 1;
         dialogue = new MayorDialogue();
+
+        frames.put(Direction.UP, new Sprite[]{up1, up2});
+        frames.put(Direction.DOWN, new Sprite[]{down1, down2});
+        frames.put(Direction.LEFT, new Sprite[]{left1, left2});
+        frames.put(Direction.RIGHT, new Sprite[]{right1, right2});
 
     }
 

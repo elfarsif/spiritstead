@@ -1,4 +1,4 @@
-package io.github.spiritstead.main.ui.dialogue;
+package io.github.spiritstead.ui.dialogue;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;

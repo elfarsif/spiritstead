@@ -1,8 +1,8 @@
-package io.github.spiritstead.main.ui.dialogue;
+package io.github.spiritstead.ui.dialogue;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.ui.UIScreen;
+import io.github.spiritstead.ui.UIScreen;
 
 public class DialogueUI implements UIScreen {
     private GamePanel gp;

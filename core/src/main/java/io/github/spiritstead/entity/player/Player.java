@@ -44,6 +44,12 @@ public class Player extends Entity {
 
         setDefaultPlayerValues();
         entitySpriteLoader.load();
+
+        frames.put(Direction.UP, new Sprite[]{up1, up2});
+        frames.put(Direction.DOWN, new Sprite[]{down1, down2});
+        frames.put(Direction.LEFT, new Sprite[]{left1, left2});
+        frames.put(Direction.RIGHT, new Sprite[]{right1, right2});
+
     }
 
     private void setSolidArea() {

@@ -1,8 +1,8 @@
-package io.github.spiritstead.main.ui;
+package io.github.spiritstead.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.ui.dialogue.DialogueUI;
+import io.github.spiritstead.ui.dialogue.DialogueUI;
 
 /**
  * This class manages the different UI elements in different states

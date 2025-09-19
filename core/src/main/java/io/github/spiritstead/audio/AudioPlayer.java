@@ -1,4 +1,4 @@
-package io.github.spiritstead.main;
+package io.github.spiritstead.audio;
 
 public class AudioPlayer {
     SoundWrapper music;

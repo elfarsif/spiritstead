@@ -1,4 +1,4 @@
-package io.github.spiritstead.main.collision;
+package io.github.spiritstead.collision;
 
 import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.GamePanel;

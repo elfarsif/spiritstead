@@ -1,9 +1,9 @@
-package io.github.spiritstead.main.ui.dialogue;
+package io.github.spiritstead.ui.dialogue;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.ui.UIUtilities;
+import io.github.spiritstead.ui.UIUtilities;
 
 public class DialogueUIText {
     GamePanel gp;

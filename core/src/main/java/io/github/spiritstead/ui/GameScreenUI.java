@@ -1,4 +1,4 @@
-package io.github.spiritstead.main.ui;
+package io.github.spiritstead.ui;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;

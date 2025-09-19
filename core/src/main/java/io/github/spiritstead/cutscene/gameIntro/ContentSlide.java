@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.ui.UIUtilities;
+import io.github.spiritstead.ui.UIUtilities;
 
 import java.util.ArrayList;
 
@@ -29,6 +29,7 @@ public class ContentSlide implements Slide {
 
     public ContentSlide(GamePanel gp, String imageFileName, ArrayList<String> texts) {
         this.gp = gp;
+        this.batch = gp.batch;
         font = UIUtilities.initializeFont(font, "fonts/maruMonica.fnt");
         setImage(imageFileName);
         this.texts = texts;
@@ -96,8 +97,7 @@ public class ContentSlide implements Slide {
         return finalText;
     }
 
-    public void draw(SpriteBatch batch) {
-        this.batch = batch;
+    public void draw() {
 
         batch.draw(image1, image1X, image1Y, image1.getWidth(), image1.getHeight());
         displayText(textCounter);
