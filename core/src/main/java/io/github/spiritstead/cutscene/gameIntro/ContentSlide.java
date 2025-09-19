@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.cutscene.FadeBlack;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.ui.UIUtilities;
 
@@ -13,12 +14,14 @@ import java.util.ArrayList;
 public class ContentSlide implements Slide {
     BitmapFont font;
     GamePanel gp;
+    GameIntro gameIntro;
     Sprite image1;
     float image1X, image1Y;
     ArrayList<String> texts;
     private SpriteBatch batch;
     StringBuilder wrappedText = new StringBuilder();
     GlyphLayout layout = new GlyphLayout();
+    FadeBlack fadeBlack;
 
     public int textCounter = 0;
     public boolean completed = false;
@@ -27,10 +30,13 @@ public class ContentSlide implements Slide {
     int charIndex = 0;
     String combinedText = "";
 
-    public ContentSlide(GamePanel gp, String imageFileName, ArrayList<String> texts) {
+    public ContentSlide(GamePanel gp, GameIntro gameIntro, String imageFileName, ArrayList<String> texts) {
         this.gp = gp;
         this.batch = gp.batch;
+        this.gameIntro = gameIntro;
+        this.fadeBlack = new FadeBlack(gp);
         font = UIUtilities.initializeFont(font, "fonts/maruMonica.fnt");
+
         setImage(imageFileName);
         this.texts = texts;
     }
@@ -99,32 +105,23 @@ public class ContentSlide implements Slide {
 
     public void draw() {
 
+        if (gp.system.keyH.spacePressed) {
+
+            if (textCounter < texts.size() - 1) {
+                textCounter += 1;
+                displayedText = "";
+                charIndex = 0;
+                combinedText = "";
+            } else {
+                gameIntro.slideCounter++;
+            }
+
+            gp.system.keyH.spacePressed = false;
+        }
         batch.draw(image1, image1X, image1Y, image1.getWidth(), image1.getHeight());
         displayText(textCounter);
+        fadeBlack.draw();
 
     }
 
-    public ArrayList<String> getTexts() {
-        return texts;
-    }
-
-    public void setDisplayedText(String displayedText) {
-        this.displayedText = displayedText;
-    }
-
-    public void setCharIndex(int charIndex) {
-        this.charIndex = charIndex;
-    }
-
-    public void setCombinedText(String combinedText) {
-        this.combinedText = combinedText;
-    }
-
-    public int getTextCounter() {
-        return textCounter;
-    }
-
-    public void setTextCounter(int textCounter) {
-        this.textCounter = textCounter;
-    }
 }
