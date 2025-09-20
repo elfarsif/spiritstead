@@ -3,6 +3,7 @@ package io.github.spiritstead.object;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ScreenSetting;
 
 import java.awt.*;
 
@@ -21,12 +22,12 @@ public class GameObject {
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
         //only draw the tile if it is within the screen bounds plus one tile size to blend
-        if (worldX + gp.sSetting.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
-            worldX - gp.sSetting.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
-            worldY + gp.sSetting.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
-            worldY - gp.sSetting.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
+        if (worldX + ScreenSetting.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
+            worldX - ScreenSetting.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
+            worldY + ScreenSetting.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
+            worldY - ScreenSetting.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
 
-            batch.draw(image, screenX, screenY, gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE);
+            batch.draw(image, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
         }
     }
 }

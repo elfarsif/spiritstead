@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.cutscene.FadeBlack;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ScreenSetting;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class ContentSlide implements Slide {
     public void setImage(String fileName) {
         try {
             image1 = new Sprite(new Texture(fileName));
-            image1.setSize(gp.sSetting.TILE_SIZE * 10, gp.sSetting.TILE_SIZE * 6);
+            image1.setSize(ScreenSetting.TILE_SIZE * 10, ScreenSetting.TILE_SIZE * 6);
 
             image1X = gp.sSetting.screenWidth / 2 - image1.getWidth() / 2;
             image1Y = gp.sSetting.screenHeight / 2 - image1.getHeight() / 4;

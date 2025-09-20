@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.entity.*;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.KeyHandler;
+import io.github.spiritstead.main.ScreenSetting;
 
 import java.awt.*;
 
@@ -34,8 +35,8 @@ public class Player extends Entity {
         this.playerObjectInteractor = new PlayerObjectInteractor(gp, this);
         this.entityCollisionSetChecker = new EntityCollisionSetChecker(gp, this, npcs);
 
-        screenX = gp.sSetting.screenWidth / 2 - gp.sSetting.TILE_SIZE / 2;
-        screenY = gp.sSetting.screenHeight / 2 - gp.sSetting.TILE_SIZE / 2;
+        screenX = gp.sSetting.screenWidth / 2 - ScreenSetting.TILE_SIZE / 2;
+        screenY = gp.sSetting.screenHeight / 2 - ScreenSetting.TILE_SIZE / 2;
 
         setSolidArea();
 
@@ -53,18 +54,18 @@ public class Player extends Entity {
 
     private void setSolidArea() {
         solidArea = new Rectangle();
-        solidArea.x = 5 * gp.sSetting.scale;
+        solidArea.x = 5 * gp.sSetting.SCALE;
         solidArea.y = 0;
         //record default values to change solid area
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 6 * gp.sSetting.scale;
-        solidArea.height = 6 * gp.sSetting.scale;
+        solidArea.width = 6 * gp.sSetting.SCALE;
+        solidArea.height = 6 * gp.sSetting.SCALE;
     }
 
     private void setDefaultPlayerValues() {
-        worldX = gp.sSetting.TILE_SIZE * 28;
-        worldY = gp.sSetting.TILE_SIZE * 13;
+        worldX = ScreenSetting.TILE_SIZE * 28;
+        worldY = ScreenSetting.TILE_SIZE * 13;
         speed = 4;
         direction = direction.DOWN;
     }

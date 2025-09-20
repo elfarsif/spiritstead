@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.cutscene.BlackTexture;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ScreenSetting;
 
 public class TitleScreen implements Screen {
     private GamePanel gp;
@@ -44,7 +45,7 @@ public class TitleScreen implements Screen {
         titleFont.getBitmapFont().draw(batch, text, x, y);
 
         //Character image
-        float imageSize = gp.sSetting.TILE_SIZE * 2;
+        float imageSize = ScreenSetting.TILE_SIZE * 2;
         x = gp.sSetting.screenWidth / 2 - imageSize / 2;
         y = gp.sSetting.screenHeight / 2 - imageSize / 2;
         batch.draw(gp.player.down1, x, y, imageSize, imageSize);
@@ -54,26 +55,26 @@ public class TitleScreen implements Screen {
 
         text = "NEW GAME";
         x = getXforCenteredText(font.getBitmapFont(), text);
-        y -= gp.sSetting.TILE_SIZE;
+        y -= ScreenSetting.TILE_SIZE;
         font.getBitmapFont().draw(batch, text, x, y);
         if (commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
-            font.getBitmapFont().draw(batch, ">", x - gp.sSetting.TILE_SIZE, y);
+            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
         }
 
         text = "LOAD GAME";
         x = getXforCenteredText(font.getBitmapFont(), text);
-        y -= gp.sSetting.TILE_SIZE;
+        y -= ScreenSetting.TILE_SIZE;
         font.getBitmapFont().draw(batch, text, x, y);
         if (commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
-            font.getBitmapFont().draw(batch, ">", x - gp.sSetting.TILE_SIZE, y);
+            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
         }
 
         text = "QUIT";
         x = getXforCenteredText(font.getBitmapFont(), text);
-        y -= gp.sSetting.TILE_SIZE;
+        y -= ScreenSetting.TILE_SIZE;
         font.getBitmapFont().draw(batch, text, x, y);
         if (commandNum == TitleScreenOptions.QUIT.getValue()) {
-            font.getBitmapFont().draw(batch, ">", x - gp.sSetting.TILE_SIZE, y);
+            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
         }
 
     }

@@ -3,6 +3,7 @@ package io.github.spiritstead.cutscene.gameIntro;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ScreenSetting;
 
 import java.util.ArrayList;
 
@@ -53,7 +54,7 @@ public class ContentSlideText {
             frameGate.reset();
         }
 
-        font.getBitmapFont().draw(gp.batch, displayedText, contentSlide.image1X - gp.sSetting.TILE_SIZE, contentSlide.image1Y - gp.sSetting.TILE_SIZE);
+        font.getBitmapFont().draw(gp.batch, displayedText, contentSlide.image1X - ScreenSetting.TILE_SIZE, contentSlide.image1Y - ScreenSetting.TILE_SIZE);
     }
 
     public void draw() {

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ScreenSetting;
 
 /**
  * This class builds a window with a border, with specific size and placement
@@ -24,10 +25,10 @@ public class DialogueWindow {
     }
 
     private void initializeDimensions() {
-        x = gp.sSetting.TILE_SIZE * 2;
-        y = gp.sSetting.TILE_SIZE / 2;
-        width = gp.sSetting.screenWidth - gp.sSetting.TILE_SIZE * 4;
-        height = gp.sSetting.TILE_SIZE * 3;
+        x = ScreenSetting.TILE_SIZE * 2;
+        y = ScreenSetting.TILE_SIZE / 2;
+        width = gp.sSetting.screenWidth - ScreenSetting.TILE_SIZE * 4;
+        height = ScreenSetting.TILE_SIZE * 3;
 
     }
 

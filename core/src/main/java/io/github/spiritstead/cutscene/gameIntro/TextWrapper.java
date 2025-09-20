@@ -10,7 +10,6 @@ import io.github.spiritstead.main.ScreenSetting;
 public class TextWrapper {
     String originalText;
     String text;
-    ScreenSetting screenSetting;
 
     int width;
 
@@ -34,7 +33,7 @@ public class TextWrapper {
         String originalText = this.originalText;
 
         //TODO: maxwidth should be tilesize, make tile size a global final variable
-        float maxWidth = width + screenSetting.TILE_SIZE * 2; // or set manually
+        float maxWidth = width + ScreenSetting.TILE_SIZE * 2; // or set manually
         String[] words = originalText.split(" ");
         String line = "";
 

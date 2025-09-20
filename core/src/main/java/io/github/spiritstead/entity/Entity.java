@@ -2,6 +2,7 @@ package io.github.spiritstead.entity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ScreenSetting;
 
 import java.awt.*;
 import java.util.EnumMap;
@@ -34,7 +35,7 @@ public class Entity {
     public int screenY;
 
     public Entity(GamePanel gp) {
-        solidArea = new Rectangle(0, 0, gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE);
+        solidArea = new Rectangle(0, 0, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
 
     }
 

@@ -2,6 +2,7 @@ package io.github.spiritstead.collision;
 
 import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.tile.TileManager;
 
 public class TileCollision {
@@ -38,7 +39,7 @@ public class TileCollision {
     }
 
     private void checkRightCollision(Entity entity) {
-        entityRightCol = (entityRightWorldX + entity.speed) / gp.sSetting.TILE_SIZE;
+        entityRightCol = (entityRightWorldX + entity.speed) / ScreenSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityRightCol][entityTopRow];
         tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
@@ -49,7 +50,7 @@ public class TileCollision {
     }
 
     private void checkLeftCollision(Entity entity) {
-        entityLeftCol = (entityLeftWorldX - entity.speed) / gp.sSetting.TILE_SIZE;
+        entityLeftCol = (entityLeftWorldX - entity.speed) / ScreenSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityLeftCol][entityTopRow];
         tileNum2 = tileM.mapTileNum[entityLeftCol][entityBottomRow];
@@ -60,7 +61,7 @@ public class TileCollision {
     }
 
     private void checkDownCollision(Entity entity) {
-        entityBottomRow = (entityBottomWorldY - entity.speed) / gp.sSetting.TILE_SIZE;
+        entityBottomRow = (entityBottomWorldY - entity.speed) / ScreenSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityLeftCol][entityBottomRow];
         tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
@@ -71,7 +72,7 @@ public class TileCollision {
     }
 
     private void checkUpCollision(Entity entity) {
-        entityTopRow = (entityTopWorldY + entity.speed) / gp.sSetting.TILE_SIZE;
+        entityTopRow = (entityTopWorldY + entity.speed) / ScreenSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityLeftCol][entityTopRow];
         tileNum2 = tileM.mapTileNum[entityRightCol][entityTopRow];
@@ -82,10 +83,10 @@ public class TileCollision {
     }
 
     private void intializeLinesForCollisionDetection() {
-        entityLeftCol = entityLeftWorldX / gp.sSetting.TILE_SIZE;
-        entityRightCol = entityRightWorldX / gp.sSetting.TILE_SIZE;
-        entityTopRow = entityTopWorldY / gp.sSetting.TILE_SIZE;
-        entityBottomRow = entityBottomWorldY / gp.sSetting.TILE_SIZE;
+        entityLeftCol = entityLeftWorldX / ScreenSetting.TILE_SIZE;
+        entityRightCol = entityRightWorldX / ScreenSetting.TILE_SIZE;
+        entityTopRow = entityTopWorldY / ScreenSetting.TILE_SIZE;
+        entityBottomRow = entityBottomWorldY / ScreenSetting.TILE_SIZE;
     }
 
     private void initializeEntitySolidArea(Entity entity) {

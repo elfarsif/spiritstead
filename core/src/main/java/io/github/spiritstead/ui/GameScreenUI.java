@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.object.Key;
 
 public class GameScreenUI implements UIScreen {
@@ -39,7 +40,7 @@ public class GameScreenUI implements UIScreen {
         if (messageOn) {
             float scale = font.getBitmapFont().getScaleX();
             font.getBitmapFont().getData().setScale(0.75f);
-            font.getBitmapFont().draw(batch, message, gp.sSetting.TILE_SIZE, gp.sSetting.screenHeight - (3 * gp.sSetting.TILE_SIZE));
+            font.getBitmapFont().draw(batch, message, ScreenSetting.TILE_SIZE, gp.sSetting.screenHeight - (3 * ScreenSetting.TILE_SIZE));
             font.getBitmapFont().getData().setScale(scale);
 
             messageCounter++;
@@ -52,8 +53,8 @@ public class GameScreenUI implements UIScreen {
     }
 
     private void drawKeyInventory() {
-        batch.draw(keyImage, 10, gp.sSetting.screenHeight - gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE);
-        font.getBitmapFont().draw(batch, Integer.toString(gp.player.hasKey), 2 * gp.sSetting.TILE_SIZE, gp.sSetting.screenHeight - 10);
+        batch.draw(keyImage, 10, gp.sSetting.screenHeight - ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+        font.getBitmapFont().draw(batch, Integer.toString(gp.player.hasKey), 2 * ScreenSetting.TILE_SIZE, gp.sSetting.screenHeight - 10);
 
     }
 
@@ -68,9 +69,9 @@ public class GameScreenUI implements UIScreen {
             y += lineHeight;
             font.getBitmapFont().draw(batch, "Player Y: " + gp.player.worldY, x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Col: " + (gp.player.worldX + gp.player.solidArea.x) / gp.sSetting.TILE_SIZE, x, y);
+            font.getBitmapFont().draw(batch, "Player Col: " + (gp.player.worldX + gp.player.solidArea.x) / ScreenSetting.TILE_SIZE, x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Row: " + (gp.player.worldY + gp.player.solidArea.y) / gp.sSetting.TILE_SIZE, x, y);
+            font.getBitmapFont().draw(batch, "Player Row: " + (gp.player.worldY + gp.player.solidArea.y) / ScreenSetting.TILE_SIZE, x, y);
         }
     }
 

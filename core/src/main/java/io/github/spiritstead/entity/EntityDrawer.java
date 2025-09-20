@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ScreenSetting;
 
 public class EntityDrawer {
     private GamePanel gp;
@@ -23,9 +24,9 @@ public class EntityDrawer {
         if ((entity instanceof Player) || entityIsWithinScreenBounds()) {
             updateSprite();
             if (entity instanceof Player) {
-                batch.draw(sprite, entity.screenX, entity.screenY, gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE);
+                batch.draw(sprite, entity.screenX, entity.screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
             } else {
-                batch.draw(sprite, screenX, screenY, gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE);
+                batch.draw(sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
             }
         }
     }
@@ -51,10 +52,10 @@ public class EntityDrawer {
     }
 
     private boolean entityIsWithinScreenBounds() {
-        return entity.worldX + gp.sSetting.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
-            entity.worldX - gp.sSetting.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
-            entity.worldY + gp.sSetting.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
-            entity.worldY - gp.sSetting.TILE_SIZE < gp.player.worldY + gp.player.screenY;
+        return entity.worldX + ScreenSetting.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
+            entity.worldX - ScreenSetting.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
+            entity.worldY + ScreenSetting.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
+            entity.worldY - ScreenSetting.TILE_SIZE < gp.player.worldY + gp.player.screenY;
     }
 
     private void initialiazeScreenPositionRelativeToPlayer() {
