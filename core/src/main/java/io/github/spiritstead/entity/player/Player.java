@@ -11,7 +11,6 @@ public class Player extends Entity {
     private GamePanel gp;
     private KeyHandler keyH;
     private Entity npcs[];
-    private Sprite solidAreaOutlineSprite;
     public int hasKey = 0;
     public NPCInteraction NPCInteraction;
     private EntityDrawer entityDrawer;

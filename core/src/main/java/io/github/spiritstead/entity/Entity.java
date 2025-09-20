@@ -1,6 +1,7 @@
 package io.github.spiritstead.entity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
 
 import java.awt.*;
@@ -17,7 +18,6 @@ public class Entity {
     public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
     public Direction direction;
 
-    public int spriteCounter = 0;
     public int spriteNum = 1;
 
     public Rectangle solidArea;

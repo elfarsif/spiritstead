@@ -2,17 +2,19 @@ package io.github.spiritstead.entity.mayor;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.entity.*;
+import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
 
+import java.awt.*;
 import java.util.Random;
 
 public class Mayor extends Entity {
     GamePanel gp;
-    public int actionLockCounter = 0;
     MayorDialogue dialogue;
     private EntitySpriteLoader entitySpriteLoader;
     private EntityMover entityMover;
     private EntityDrawer entityDrawer;
+    private FrameGate frameGate;
 
     public Mayor(GamePanel gp) {
         super(gp);
@@ -20,6 +22,7 @@ public class Mayor extends Entity {
         this.entitySpriteLoader = new EntitySpriteLoader(this);
         this.entityMover = new EntityMover(this);
         this.entityDrawer = new EntityDrawer(gp, this);
+        this.frameGate = new FrameGate(120);
 
         entitySpriteLoader.load();
         direction = Direction.LEFT;
@@ -34,9 +37,7 @@ public class Mayor extends Entity {
     }
 
     public void setAction() {
-        actionLockCounter++;
-
-        if (actionLockCounter == 120) {
+        if (frameGate.tick()) {
             Random random = new Random();
             int i = random.nextInt(100);
 
@@ -46,7 +47,7 @@ public class Mayor extends Entity {
             if (i > 50) {
                 direction = Direction.UP;
             }
-            actionLockCounter = 0;
+            frameGate.reset();
         }
 
     }

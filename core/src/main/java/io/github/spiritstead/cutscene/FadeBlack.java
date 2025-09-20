@@ -2,6 +2,7 @@ package io.github.spiritstead.cutscene;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
@@ -11,15 +12,14 @@ public class FadeBlack {
     GamePanel gp;
     ScreenSetting screenSetting;
     Pixmap pixmap;
-    int fadeCounter = 0;
     int frameCounter = 0;
-    int transitionSpeed = 10;
+    private FrameGate fadeFrameGate;
     ArrayList<Texture> frames = new ArrayList<>();
 
     public FadeBlack(GamePanel gp) {
         this.gp = gp;
         this.screenSetting = gp.sSetting;
-
+        this.fadeFrameGate = new FrameGate(10);
         initializeFrames();
 
     }
@@ -37,10 +37,9 @@ public class FadeBlack {
     }
 
     public void draw() {
-        fadeCounter++;
-        if (fadeCounter == transitionSpeed && frameCounter < frames.size() - 1) {
+        if (fadeFrameGate.tick() && frameCounter < frames.size() - 1) {
             frameCounter++;
-            fadeCounter = 0;
+            fadeFrameGate.reset();
         }
 
         gp.batch.draw(frames.get(frameCounter), 0, 0);
