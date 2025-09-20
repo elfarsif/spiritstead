@@ -1,8 +1,8 @@
 package io.github.spiritstead.audio;
 
 public class AudioPlayer {
-    SoundWrapper music;
-    SoundWrapper se;
+    private SoundWrapper music;
+    private SoundWrapper se;
 
     public AudioPlayer() {
         this.music = new SoundWrapper();
@@ -10,17 +10,17 @@ public class AudioPlayer {
     }
 
     public void playMusic(int i) {
-        music.setFile(i);
-        music.play();
-        music.loop();
+        this.music.setFile(i);
+        this.music.play();
+        this.music.loop();
     }
 
     public void stopMusic() {
-        music.stop();
+        this.music.stop();
     }
 
     public void playSE(int i) {
-        se.setFile(i);
-        se.play();
+        this.se.setFile(i);
+        this.se.play();
     }
 }
