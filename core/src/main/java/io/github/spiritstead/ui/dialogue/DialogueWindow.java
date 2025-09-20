@@ -24,10 +24,10 @@ public class DialogueWindow {
     }
 
     private void initializeDimensions() {
-        x = gp.sSetting.tileSize * 2;
-        y = gp.sSetting.tileSize / 2;
-        width = gp.sSetting.screenWidth - gp.sSetting.tileSize * 4;
-        height = gp.sSetting.tileSize * 3;
+        x = gp.sSetting.TILE_SIZE * 2;
+        y = gp.sSetting.TILE_SIZE / 2;
+        width = gp.sSetting.screenWidth - gp.sSetting.TILE_SIZE * 4;
+        height = gp.sSetting.TILE_SIZE * 3;
 
     }
 

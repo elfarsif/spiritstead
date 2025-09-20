@@ -1,6 +1,5 @@
 package io.github.spiritstead.cutscene.gameIntro;
 
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
@@ -54,7 +53,7 @@ public class ContentSlideText {
             frameGate.reset();
         }
 
-        font.getBitmapFont().draw(gp.batch, displayedText, contentSlide.image1X - gp.sSetting.tileSize, contentSlide.image1Y - gp.sSetting.tileSize);
+        font.getBitmapFont().draw(gp.batch, displayedText, contentSlide.image1X - gp.sSetting.TILE_SIZE, contentSlide.image1Y - gp.sSetting.TILE_SIZE);
     }
 
     public void draw() {

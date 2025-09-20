@@ -21,8 +21,8 @@ public class DialogueUIText {
     }
 
     public void draw() {
-        x = dialogueWindow.x + gp.sSetting.tileSize;
-        y = dialogueWindow.y + dialogueWindow.height - gp.sSetting.tileSize;
+        x = dialogueWindow.x + gp.sSetting.TILE_SIZE;
+        y = dialogueWindow.y + dialogueWindow.height - gp.sSetting.TILE_SIZE;
         font.getBitmapFont().getData().setScale(1f);
         font.getBitmapFont().draw(batch, currentDialogue, x, y);
     }

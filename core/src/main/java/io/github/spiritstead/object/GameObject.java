@@ -21,12 +21,12 @@ public class GameObject {
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
         //only draw the tile if it is within the screen bounds plus one tile size to blend
-        if (worldX + gp.sSetting.tileSize > gp.player.worldX - gp.player.screenX &&
-            worldX - gp.sSetting.tileSize < gp.player.worldX + gp.player.screenX &&
-            worldY + gp.sSetting.tileSize > gp.player.worldY - gp.player.screenY &&
-            worldY - gp.sSetting.tileSize < gp.player.worldY + gp.player.screenY) {
+        if (worldX + gp.sSetting.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
+            worldX - gp.sSetting.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
+            worldY + gp.sSetting.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
+            worldY - gp.sSetting.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
 
-            batch.draw(image, screenX, screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
+            batch.draw(image, screenX, screenY, gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE);
         }
     }
 }

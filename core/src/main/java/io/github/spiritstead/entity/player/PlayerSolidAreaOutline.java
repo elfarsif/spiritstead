@@ -18,9 +18,9 @@ public class PlayerSolidAreaOutline {
     }
 
     private void generateSolidAreaOutline() {
-        Pixmap solidAreaPixmap = new Pixmap(gp.sSetting.tileSize, gp.sSetting.tileSize, Pixmap.Format.RGBA8888);
+        Pixmap solidAreaPixmap = new Pixmap(gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE, Pixmap.Format.RGBA8888);
         solidAreaPixmap.setColor(Color.WHITE);
-        solidAreaPixmap.drawRectangle(player.solidArea.x, gp.sSetting.tileSize - player.solidArea.height, player.solidArea.width, player.solidArea.height);
+        solidAreaPixmap.drawRectangle(player.solidArea.x, gp.sSetting.TILE_SIZE - player.solidArea.height, player.solidArea.width, player.solidArea.height);
         Sprite solidAreaSprite = new Sprite(new Texture(solidAreaPixmap));
         solidAreaPixmap.dispose();
         this.sprite = solidAreaSprite;

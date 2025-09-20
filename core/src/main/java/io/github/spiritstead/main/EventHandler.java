@@ -23,13 +23,13 @@ public class EventHandler {
         eventRect = new Rectangle();
         eventRect.x = 0;
         eventRect.y = 0;
-        eventRect.width = gp.sSetting.tileSize;
-        eventRect.height = gp.sSetting.tileSize;
+        eventRect.width = gp.sSetting.TILE_SIZE;
+        eventRect.height = gp.sSetting.TILE_SIZE;
         eventRectDefaultX = eventRect.x;
         eventRectDefaultY = eventRect.y;
 
-        e1WorldX = 3 * gp.sSetting.tileSize;
-        e1WorldY = 3 * gp.sSetting.tileSize;
+        e1WorldX = 3 * gp.sSetting.TILE_SIZE;
+        e1WorldY = 3 * gp.sSetting.TILE_SIZE;
 
         generateSolidAreaOutline();
 
@@ -46,8 +46,8 @@ public class EventHandler {
 
         gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
         gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
-        eventRect.x = eventCol * gp.sSetting.tileSize + eventRect.x;
-        eventRect.y = eventRow * gp.sSetting.tileSize + eventRect.y;
+        eventRect.x = eventCol * gp.sSetting.TILE_SIZE + eventRect.x;
+        eventRect.y = eventRow * gp.sSetting.TILE_SIZE + eventRect.y;
 
         if (gp.player.solidArea.intersects(eventRect)) {
             if ((gp.player.direction == reqDirection)) {
@@ -67,7 +67,7 @@ public class EventHandler {
     }
 
     private void generateSolidAreaOutline() {
-        Pixmap solidAreaPixmap = new Pixmap(gp.sSetting.tileSize, gp.sSetting.tileSize, Pixmap.Format.RGBA8888);
+        Pixmap solidAreaPixmap = new Pixmap(gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE, Pixmap.Format.RGBA8888);
         solidAreaPixmap.setColor(Color.RED);
         solidAreaPixmap.drawRectangle(eventRect.x, eventRect.y, eventRect.width, eventRect.height);
         Sprite solidAreaSprite = new Sprite(new Texture(solidAreaPixmap));

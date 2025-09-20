@@ -2,6 +2,7 @@ package io.github.spiritstead.cutscene.gameIntro;
 
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import io.github.spiritstead.font.Font;
+import io.github.spiritstead.main.ScreenSetting;
 
 /**
  * This class adds \n to string to wrap at a certain width
@@ -9,6 +10,7 @@ import io.github.spiritstead.font.Font;
 public class TextWrapper {
     String originalText;
     String text;
+    ScreenSetting screenSetting;
 
     int width;
 
@@ -32,7 +34,7 @@ public class TextWrapper {
         String originalText = this.originalText;
 
         //TODO: maxwidth should be tilesize, make tile size a global final variable
-        float maxWidth = width + 48 * 2; // or set manually
+        float maxWidth = width + screenSetting.TILE_SIZE * 2; // or set manually
         String[] words = originalText.split(" ");
         String line = "";
 

@@ -38,7 +38,7 @@ public class TileCollision {
     }
 
     private void checkRightCollision(Entity entity) {
-        entityRightCol = (entityRightWorldX + entity.speed) / gp.sSetting.tileSize;
+        entityRightCol = (entityRightWorldX + entity.speed) / gp.sSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityRightCol][entityTopRow];
         tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
@@ -49,7 +49,7 @@ public class TileCollision {
     }
 
     private void checkLeftCollision(Entity entity) {
-        entityLeftCol = (entityLeftWorldX - entity.speed) / gp.sSetting.tileSize;
+        entityLeftCol = (entityLeftWorldX - entity.speed) / gp.sSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityLeftCol][entityTopRow];
         tileNum2 = tileM.mapTileNum[entityLeftCol][entityBottomRow];
@@ -60,7 +60,7 @@ public class TileCollision {
     }
 
     private void checkDownCollision(Entity entity) {
-        entityBottomRow = (entityBottomWorldY - entity.speed) / gp.sSetting.tileSize;
+        entityBottomRow = (entityBottomWorldY - entity.speed) / gp.sSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityLeftCol][entityBottomRow];
         tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
@@ -71,7 +71,7 @@ public class TileCollision {
     }
 
     private void checkUpCollision(Entity entity) {
-        entityTopRow = (entityTopWorldY + entity.speed) / gp.sSetting.tileSize;
+        entityTopRow = (entityTopWorldY + entity.speed) / gp.sSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityLeftCol][entityTopRow];
         tileNum2 = tileM.mapTileNum[entityRightCol][entityTopRow];
@@ -82,10 +82,10 @@ public class TileCollision {
     }
 
     private void intializeLinesForCollisionDetection() {
-        entityLeftCol = entityLeftWorldX / gp.sSetting.tileSize;
-        entityRightCol = entityRightWorldX / gp.sSetting.tileSize;
-        entityTopRow = entityTopWorldY / gp.sSetting.tileSize;
-        entityBottomRow = entityBottomWorldY / gp.sSetting.tileSize;
+        entityLeftCol = entityLeftWorldX / gp.sSetting.TILE_SIZE;
+        entityRightCol = entityRightWorldX / gp.sSetting.TILE_SIZE;
+        entityTopRow = entityTopWorldY / gp.sSetting.TILE_SIZE;
+        entityBottomRow = entityBottomWorldY / gp.sSetting.TILE_SIZE;
     }
 
     private void initializeEntitySolidArea(Entity entity) {

@@ -75,19 +75,19 @@ public class TileManager {
         while (worldCol < gp.worldSettings.maxWorldCol && worldRow < gp.worldSettings.maxWorldRow) {
             int tileNum = mapTileNum[worldCol][worldRow];
 
-            int worldX = worldCol * gp.sSetting.tileSize;
-            int worldY = worldRow * gp.sSetting.tileSize;
+            int worldX = worldCol * gp.sSetting.TILE_SIZE;
+            int worldY = worldRow * gp.sSetting.TILE_SIZE;
             //Calculate where on the screen to draw the tile relative to the player
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
             //only draw the tile if it is within the screen bounds plus one tile size to blend
-            if (worldX + gp.sSetting.tileSize > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.sSetting.tileSize < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.sSetting.tileSize > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.sSetting.tileSize < gp.player.worldY + gp.player.screenY) {
+            if (worldX + gp.sSetting.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
+                worldX - gp.sSetting.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
+                worldY + gp.sSetting.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
+                worldY - gp.sSetting.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
 
-                batch.draw(tile[tileNum].image, screenX, screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
+                batch.draw(tile[tileNum].image, screenX, screenY, gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE);
 
             }
 

@@ -23,9 +23,9 @@ public class EntityDrawer {
         if ((entity instanceof Player) || entityIsWithinScreenBounds()) {
             updateSprite();
             if (entity instanceof Player) {
-                batch.draw(sprite, entity.screenX, entity.screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
+                batch.draw(sprite, entity.screenX, entity.screenY, gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE);
             } else {
-                batch.draw(sprite, screenX, screenY, gp.sSetting.tileSize, gp.sSetting.tileSize);
+                batch.draw(sprite, screenX, screenY, gp.sSetting.TILE_SIZE, gp.sSetting.TILE_SIZE);
             }
         }
     }
@@ -51,10 +51,10 @@ public class EntityDrawer {
     }
 
     private boolean entityIsWithinScreenBounds() {
-        return entity.worldX + gp.sSetting.tileSize > gp.player.worldX - gp.player.screenX &&
-            entity.worldX - gp.sSetting.tileSize < gp.player.worldX + gp.player.screenX &&
-            entity.worldY + gp.sSetting.tileSize > gp.player.worldY - gp.player.screenY &&
-            entity.worldY - gp.sSetting.tileSize < gp.player.worldY + gp.player.screenY;
+        return entity.worldX + gp.sSetting.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
+            entity.worldX - gp.sSetting.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
+            entity.worldY + gp.sSetting.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
+            entity.worldY - gp.sSetting.TILE_SIZE < gp.player.worldY + gp.player.screenY;
     }
 
     private void initialiazeScreenPositionRelativeToPlayer() {

@@ -34,8 +34,8 @@ public class Player extends Entity {
         this.playerObjectInteractor = new PlayerObjectInteractor(gp, this);
         this.entityCollisionSetChecker = new EntityCollisionSetChecker(gp, this, npcs);
 
-        screenX = gp.sSetting.screenWidth / 2 - gp.sSetting.tileSize / 2;
-        screenY = gp.sSetting.screenHeight / 2 - gp.sSetting.tileSize / 2;
+        screenX = gp.sSetting.screenWidth / 2 - gp.sSetting.TILE_SIZE / 2;
+        screenY = gp.sSetting.screenHeight / 2 - gp.sSetting.TILE_SIZE / 2;
 
         setSolidArea();
 
@@ -63,8 +63,8 @@ public class Player extends Entity {
     }
 
     private void setDefaultPlayerValues() {
-        worldX = gp.sSetting.tileSize * 28;
-        worldY = gp.sSetting.tileSize * 13;
+        worldX = gp.sSetting.TILE_SIZE * 28;
+        worldY = gp.sSetting.TILE_SIZE * 13;
         speed = 4;
         direction = direction.DOWN;
     }
