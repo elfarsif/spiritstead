@@ -4,16 +4,16 @@ import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.GamePanel;
 
 public class EntityCollision {
-    GamePanel gp;
-    int index;
-    Entity entity;
+    private GamePanel gp;
+    private int index;
+    private Entity entity;
 
     public EntityCollision(GamePanel gp) {
         this.gp = gp;
     }
 
     public int check(Entity entity, Entity[] targets) {
-        index = 9999;
+        this.index = 9999;
         this.entity = entity;
 
         for (int i = 0; i < targets.length; i++) {
@@ -28,8 +28,8 @@ public class EntityCollision {
     }
 
     private void intializeEntitySolidArea() {
-        entity.solidArea.x = entity.worldX + entity.solidArea.x;
-        entity.solidArea.y = entity.worldY + entity.solidArea.y;
+        this.entity.solidArea.x = this.entity.worldX + this.entity.solidArea.x;
+        this.entity.solidArea.y = this.entity.worldY + this.entity.solidArea.y;
     }
 
     private void initializeTargetEntitySolidArea(Entity target) {
@@ -65,7 +65,7 @@ public class EntityCollision {
         entity.solidArea.x += entity.speed;
         if (entity.solidArea.intersects(target[i].solidArea)) {
             entity.collisionOn = true;
-            index = i;
+            this.index = i;
         }
     }
 
@@ -73,7 +73,7 @@ public class EntityCollision {
         entity.solidArea.x -= entity.speed;
         if (entity.solidArea.intersects(target[i].solidArea)) {
             entity.collisionOn = true;
-            index = i;
+            this.index = i;
         }
     }
 
@@ -81,7 +81,7 @@ public class EntityCollision {
         entity.solidArea.y -= entity.speed;
         if (entity.solidArea.intersects(target[i].solidArea)) {
             entity.collisionOn = true;
-            index = i;
+            this.index = i;
         }
     }
 
@@ -89,7 +89,7 @@ public class EntityCollision {
         entity.solidArea.y += entity.speed;
         if (entity.solidArea.intersects(target[i].solidArea)) {
             entity.collisionOn = true;
-            index = i;
+            this.index = i;
         }
     }
 }

@@ -16,18 +16,18 @@ public class ObjectCollision {
 
     public int check(Entity entity, boolean player) {
         this.entity = entity;
-        index = 9999;
+        this.index = 9999;
 
-        for (int i = 0; i < gp.system.aSetter.objects.length; i++) {
-            if (gp.system.aSetter.objects[i] != null) {
-                gameObject = gp.system.aSetter.objects[i];
+        for (int i = 0; i < this.gp.system.aSetter.objects.length; i++) {
+            if (this.gp.system.aSetter.objects[i] != null) {
+                this.gameObject = this.gp.system.aSetter.objects[i];
                 intializeEntitySolidArea();
                 initializeObjectSolidArea(i);
                 checkCollisionForAllDirections(entity, player, i);
                 restoreDefaultAreaValues(entity, i);
             }
         }
-        return index;
+        return this.index;
     }
 
     private void checkCollisionForAllDirections(Entity entity, boolean player, int i) {
