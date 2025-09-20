@@ -13,6 +13,7 @@ public class SoundWrapper {
         sounds[0] = Gdx.audio.newSound(Gdx.files.internal("sounds/theme1.wav"));
         sounds[1] = Gdx.audio.newSound(Gdx.files.internal("sounds/coin.wav"));
         sounds[2] = Gdx.audio.newSound(Gdx.files.internal("sounds/powerup.wav"));
+        sounds[3] = Gdx.audio.newSound(Gdx.files.internal("sounds/dialogue.wav"));
     }
 
     public void setFile(int i) {

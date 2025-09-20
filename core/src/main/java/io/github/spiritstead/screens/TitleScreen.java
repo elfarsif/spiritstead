@@ -22,7 +22,7 @@ public class TitleScreen implements Screen {
     public TitleScreen(GamePanel gp) {
         this.gp = gp;
         font = new Font("fonts/maruMonicaBold.fnt");
-        titleFont = new Font("fonts/maruMonicaBold.fnt");
+        titleFont = new Font("fonts/alagard_60.fnt");
         this.blackTexture = new BlackTexture(gp.sSetting.screenWidth, gp.sSetting.screenHeight);
         this.batch = gp.batch;
     }
@@ -31,14 +31,14 @@ public class TitleScreen implements Screen {
         batch.draw(blackTexture.texture, 0, 0);
 
         //TITLE NAME placment
-        titleFont.getBitmapFont().getData().setScale(3f);
-        String text = "Spiritstead";
+        titleFont.getBitmapFont().getData().setScale(1.5f);
+        String text = "Spiritvale";
         float x = getXforCenteredText(titleFont.getBitmapFont(), text);
         float y = gp.sSetting.screenHeight * 3 / 4 + layout.height / 2;
 
         //Shadow
         titleFont.getBitmapFont().setColor(Color.GRAY);
-        titleFont.getBitmapFont().draw(batch, text, x + 3, y - 3);
+        titleFont.getBitmapFont().draw(batch, text, x + 2, y - 2);
 
         //Title
         titleFont.getBitmapFont().setColor(Color.WHITE);
