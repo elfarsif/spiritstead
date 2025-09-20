@@ -5,13 +5,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.cutscene.BlackTexture;
+import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.ui.UIUtilities;
 
 public class TitleScreen implements Screen {
     private GamePanel gp;
-    private BitmapFont font;
-    private BitmapFont titleFont;
+    private Font font;
+    private Font titleFont;
     private GlyphLayout layout = new GlyphLayout();
     private SpriteBatch batch;
     private BlackTexture blackTexture;
@@ -20,8 +21,8 @@ public class TitleScreen implements Screen {
 
     public TitleScreen(GamePanel gp) {
         this.gp = gp;
-        font = UIUtilities.initializeFont(font, "fonts/maruMonicaBold.fnt");
-        titleFont = UIUtilities.initializeFont(font, "fonts/maruMonicaBold.fnt");
+        font = new Font("fonts/maruMonicaBold.fnt");
+        titleFont = new Font("fonts/maruMonicaBold.fnt");
         this.blackTexture = new BlackTexture(gp.sSetting.screenWidth, gp.sSetting.screenHeight);
         this.batch = gp.batch;
     }
@@ -30,18 +31,18 @@ public class TitleScreen implements Screen {
         batch.draw(blackTexture.texture, 0, 0);
 
         //TITLE NAME placment
-        titleFont.getData().setScale(3f);
+        titleFont.getBitmapFont().getData().setScale(3f);
         String text = "Spiritstead";
-        float x = getXforCenteredText(titleFont, text);
+        float x = getXforCenteredText(titleFont.getBitmapFont(), text);
         float y = gp.sSetting.screenHeight * 3 / 4 + layout.height / 2;
 
         //Shadow
-        titleFont.setColor(Color.GRAY);
-        titleFont.draw(batch, text, x + 3, y - 3);
+        titleFont.getBitmapFont().setColor(Color.GRAY);
+        titleFont.getBitmapFont().draw(batch, text, x + 3, y - 3);
 
         //Title
-        titleFont.setColor(Color.WHITE);
-        titleFont.draw(batch, text, x, y);
+        titleFont.getBitmapFont().setColor(Color.WHITE);
+        titleFont.getBitmapFont().draw(batch, text, x, y);
 
         //Character image
         float imageSize = gp.sSetting.tileSize * 2;
@@ -50,30 +51,30 @@ public class TitleScreen implements Screen {
         batch.draw(gp.player.down1, x, y, imageSize, imageSize);
 
         //MENU
-        font.getData().setScale(1f);
+        font.getBitmapFont().getData().setScale(1f);
 
         text = "NEW GAME";
-        x = getXforCenteredText(font, text);
+        x = getXforCenteredText(font.getBitmapFont(), text);
         y -= gp.sSetting.tileSize;
-        font.draw(batch, text, x, y);
+        font.getBitmapFont().draw(batch, text, x, y);
         if (commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
-            font.draw(batch, ">", x - gp.sSetting.tileSize, y);
+            font.getBitmapFont().draw(batch, ">", x - gp.sSetting.tileSize, y);
         }
 
         text = "LOAD GAME";
-        x = getXforCenteredText(font, text);
+        x = getXforCenteredText(font.getBitmapFont(), text);
         y -= gp.sSetting.tileSize;
-        font.draw(batch, text, x, y);
+        font.getBitmapFont().draw(batch, text, x, y);
         if (commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
-            font.draw(batch, ">", x - gp.sSetting.tileSize, y);
+            font.getBitmapFont().draw(batch, ">", x - gp.sSetting.tileSize, y);
         }
 
         text = "QUIT";
-        x = getXforCenteredText(font, text);
+        x = getXforCenteredText(font.getBitmapFont(), text);
         y -= gp.sSetting.tileSize;
-        font.draw(batch, text, x, y);
+        font.getBitmapFont().draw(batch, text, x, y);
         if (commandNum == TitleScreenOptions.QUIT.getValue()) {
-            font.draw(batch, ">", x - gp.sSetting.tileSize, y);
+            font.getBitmapFont().draw(batch, ">", x - gp.sSetting.tileSize, y);
         }
 
     }
@@ -89,8 +90,8 @@ public class TitleScreen implements Screen {
     }
 
     public void dispose() {
-        font.dispose();
-        titleFont.dispose();
+        font.getBitmapFont().dispose();
+        titleFont.getBitmapFont().dispose();
     }
 
 }

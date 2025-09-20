@@ -3,13 +3,14 @@ package io.github.spiritstead.ui;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.object.Key;
 
 public class GameScreenUI implements UIScreen {
 
     GamePanel gp;
-    BitmapFont font;
+    Font font;
     Sprite keyImage;
     SpriteBatch batch;
     public boolean messageOn = false;
@@ -21,7 +22,7 @@ public class GameScreenUI implements UIScreen {
         this.gp = gp;
         this.batch = gp.batch;
         loadKeyImage();
-        font = UIUtilities.initializeFont(font, "fonts/maruMonicaBold.fnt");
+        font = new Font("fonts/maruMonicaBold.fnt");
 
     }
 
@@ -37,10 +38,10 @@ public class GameScreenUI implements UIScreen {
 
     private void drawMessages() {
         if (messageOn) {
-            float scale = font.getScaleX();
-            font.getData().setScale(0.75f);
-            font.draw(batch, message, gp.sSetting.tileSize, gp.sSetting.screenHeight - (3 * gp.sSetting.tileSize));
-            font.getData().setScale(scale);
+            float scale = font.getBitmapFont().getScaleX();
+            font.getBitmapFont().getData().setScale(0.75f);
+            font.getBitmapFont().draw(batch, message, gp.sSetting.tileSize, gp.sSetting.screenHeight - (3 * gp.sSetting.tileSize));
+            font.getBitmapFont().getData().setScale(scale);
 
             messageCounter++;
 
@@ -53,7 +54,7 @@ public class GameScreenUI implements UIScreen {
 
     private void drawKeyInventory() {
         batch.draw(keyImage, 10, gp.sSetting.screenHeight - gp.sSetting.tileSize, gp.sSetting.tileSize, gp.sSetting.tileSize);
-        font.draw(batch, Integer.toString(gp.player.hasKey), 2 * gp.sSetting.tileSize, gp.sSetting.screenHeight - 10);
+        font.getBitmapFont().draw(batch, Integer.toString(gp.player.hasKey), 2 * gp.sSetting.tileSize, gp.sSetting.screenHeight - 10);
 
     }
 
@@ -64,17 +65,17 @@ public class GameScreenUI implements UIScreen {
             int x = 10;
             int y = 40;
             int lineHeight = 30;
-            font.draw(batch, "Player X: " + gp.player.worldX, x, y);
+            font.getBitmapFont().draw(batch, "Player X: " + gp.player.worldX, x, y);
             y += lineHeight;
-            font.draw(batch, "Player Y: " + gp.player.worldY, x, y);
+            font.getBitmapFont().draw(batch, "Player Y: " + gp.player.worldY, x, y);
             y += lineHeight;
-            font.draw(batch, "Player Col: " + (gp.player.worldX + gp.player.solidArea.x) / gp.sSetting.tileSize, x, y);
+            font.getBitmapFont().draw(batch, "Player Col: " + (gp.player.worldX + gp.player.solidArea.x) / gp.sSetting.tileSize, x, y);
             y += lineHeight;
-            font.draw(batch, "Player Row: " + (gp.player.worldY + gp.player.solidArea.y) / gp.sSetting.tileSize, x, y);
+            font.getBitmapFont().draw(batch, "Player Row: " + (gp.player.worldY + gp.player.solidArea.y) / gp.sSetting.tileSize, x, y);
         }
     }
 
     public void dispose() {
-        font.dispose();
+        font.getBitmapFont().dispose();
     }
 }

@@ -1,18 +1,17 @@
 package io.github.spiritstead.cutscene.gameIntro;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.cutscene.FadeBlack;
+import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.ui.UIUtilities;
 
 import java.util.ArrayList;
 
 public class ContentSlide implements Slide {
-    BitmapFont font;
     GamePanel gp;
     GameIntro gameIntro;
     Sprite image1;
@@ -22,6 +21,7 @@ public class ContentSlide implements Slide {
     StringBuilder wrappedText = new StringBuilder();
     GlyphLayout layout = new GlyphLayout();
     FadeBlack fadeBlack;
+    Font font;
 
     public int textCounter = 0;
     public boolean completed = false;
@@ -35,7 +35,7 @@ public class ContentSlide implements Slide {
         this.batch = gp.batch;
         this.gameIntro = gameIntro;
         this.fadeBlack = new FadeBlack(gp);
-        font = UIUtilities.initializeFont(font, "fonts/maruMonica.fnt");
+        font = new Font("fonts/MaruMonica.fnt");
 
         setImage(imageFileName);
         this.texts = texts;
@@ -75,7 +75,7 @@ public class ContentSlide implements Slide {
 //            gp.playSoundEffect(4);
             charIndex++;
         }
-        font.draw(batch, displayedText, image1X - gp.sSetting.tileSize, image1Y - gp.sSetting.tileSize);
+        font.getBitmapFont().draw(batch, displayedText, image1X - gp.sSetting.tileSize, image1Y - gp.sSetting.tileSize);
     }
 
     private String wrapTextToSizeWithLineBreaks(String text, int imageWidth) {
@@ -87,7 +87,7 @@ public class ContentSlide implements Slide {
 
         for (String word : words) {
             String testLine = line.isEmpty() ? word : line + " " + word;
-            layout.setText(font, testLine);
+            layout.setText(font.getBitmapFont(), testLine);
 
             if (layout.width > maxWidth) {
                 wrappedText.append(line).append("\n");
