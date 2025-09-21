@@ -3,16 +3,16 @@ package io.github.spiritstead.collision;
 import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.GamePanel;
 
-public class PlayerCollision {
+public class PlayerCollision implements Collision {
     GamePanel gp;
     Entity entity;
 
-    public PlayerCollision(GamePanel gp) {
+    public PlayerCollision(GamePanel gp, Entity entity) {
         this.gp = gp;
+        this.entity = entity;
     }
 
-    public void check(Entity entity) {
-        this.entity = entity;
+    public void check() {
         intializeEntitySolidArea();
         initializePlayerSolidArea();
         checkCollisionForAllDirections(entity);

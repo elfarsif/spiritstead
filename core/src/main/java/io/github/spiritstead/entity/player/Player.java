@@ -19,7 +19,7 @@ public class Player extends Entity {
     private PlayerAnimator playerAnimator;
     private EntitySpriteLoader entitySpriteLoader;
     public PlayerObjectInteractor playerObjectInteractor;
-    private EntityCollisionSetChecker entityCollisionSetChecker;
+    private PlayerCollisionHandler playerCollisionHandler;
     private PlayerSolidAreaOutline playerSolidAreaOutline;
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -33,10 +33,10 @@ public class Player extends Entity {
         this.playerAnimator = new PlayerAnimator(this);
         this.entitySpriteLoader = new EntitySpriteLoader(this);
         this.playerObjectInteractor = new PlayerObjectInteractor(gp, this);
-        this.entityCollisionSetChecker = new EntityCollisionSetChecker(gp, this, npcs);
+        this.playerCollisionHandler = new PlayerCollisionHandler(gp, this, npcs);
 
-        screenX = gp.sSetting.screenWidth / 2 - ScreenSetting.TILE_SIZE / 2;
-        screenY = gp.sSetting.screenHeight / 2 - ScreenSetting.TILE_SIZE / 2;
+        screenX = gp.sSetting.SCREEN_WIDTH / 2 - ScreenSetting.TILE_SIZE / 2;
+        screenY = gp.sSetting.SCREEN_HEIGHT / 2 - ScreenSetting.TILE_SIZE / 2;
 
         setSolidArea();
 
@@ -73,7 +73,7 @@ public class Player extends Entity {
     public void update() {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             entityMover.assignKeyPressToDirection(keyH);
-            entityCollisionSetChecker.checkAll();
+            playerCollisionHandler.checkAll();
             entityMover.move();
             playerAnimator.update();
         }

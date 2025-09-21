@@ -1,22 +1,26 @@
 package io.github.spiritstead.collision;
 
 import io.github.spiritstead.entity.Entity;
+import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.object.GameObject;
 
-public class ObjectCollision {
+public class ObjectCollision implements Collision {
     private GamePanel gp;
     private Entity entity;
+
     private int index;
+
     private GameObject gameObject;
 
-    public ObjectCollision(GamePanel gp) {
+    public ObjectCollision(GamePanel gp, Entity entity) {
         this.gp = gp;
+        this.entity = entity;
     }
 
-    public int check(Entity entity, boolean player) {
-        this.entity = entity;
+    public void check() {
         this.index = 9999;
+        boolean player = entity instanceof Player;
 
         for (int i = 0; i < this.gp.system.aSetter.objects.length; i++) {
             if (this.gp.system.aSetter.objects[i] != null) {
@@ -27,7 +31,6 @@ public class ObjectCollision {
                 restoreDefaultAreaValues(entity, i);
             }
         }
-        return this.index;
     }
 
     private void checkCollisionForAllDirections(Entity entity, boolean player, int i) {
@@ -110,6 +113,10 @@ public class ObjectCollision {
     private void intializeEntitySolidArea() {
         entity.solidArea.x = entity.worldX + entity.solidArea.x;
         entity.solidArea.y = entity.worldY + entity.solidArea.y;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
 }

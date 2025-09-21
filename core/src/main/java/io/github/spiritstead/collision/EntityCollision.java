@@ -3,18 +3,19 @@ package io.github.spiritstead.collision;
 import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.GamePanel;
 
-public class EntityCollision {
-    private GamePanel gp;
+public class EntityCollision implements Collision {
     private int index;
-    private Entity entity;
 
-    public EntityCollision(GamePanel gp) {
-        this.gp = gp;
+    private Entity entity;
+    private Entity[] targets;
+
+    public EntityCollision(Entity entity, Entity[] targets) {
+        this.entity = entity;
+        this.targets = targets;
     }
 
-    public int check(Entity entity, Entity[] targets) {
+    public void check() {
         this.index = 9999;
-        this.entity = entity;
 
         for (int i = 0; i < targets.length; i++) {
             if (targets[i] != null) {
@@ -24,7 +25,6 @@ public class EntityCollision {
                 restoreDefaultAreaValues(entity, targets[i]);
             }
         }
-        return index;
     }
 
     private void intializeEntitySolidArea() {
@@ -91,5 +91,9 @@ public class EntityCollision {
             entity.collisionOn = true;
             this.index = i;
         }
+    }
+
+    public int getIndex() {
+        return index;
     }
 }

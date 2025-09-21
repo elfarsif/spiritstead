@@ -1,6 +1,5 @@
 package io.github.spiritstead.cutscene.gameIntro;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import io.github.spiritstead.cutscene.FadeBlack;
 import io.github.spiritstead.font.Font;
@@ -14,6 +13,7 @@ public class TitleSlide implements Slide {
     String title;
     GlyphLayout layout = new GlyphLayout();
     FadeBlack fadeBlack;
+    private ToolTip toolTip;
 
     public TitleSlide(GamePanel gp, String title, GameIntro gameIntro) {
         this.gp = gp;
@@ -21,6 +21,7 @@ public class TitleSlide implements Slide {
         this.gameIntro = gameIntro;
         font = new Font("fonts/maruMonica.fnt");
         fadeBlack = new FadeBlack(gp);
+        this.toolTip = new ToolTip(gp.batch);
     }
 
     @Override
@@ -30,7 +31,8 @@ public class TitleSlide implements Slide {
             gp.system.keyH.spacePressed = false;
         }
         float x = UIUtilities.getXforCenteredText(font.getBitmapFont(), layout, title, gp);
-        font.getBitmapFont().draw(gp.batch, title, x, gp.sSetting.screenHeight / 2);
+        font.getBitmapFont().draw(gp.batch, title, x, gp.sSetting.SCREEN_HEIGHT / 2);
+        toolTip.draw();
         fadeBlack.draw();
     }
 

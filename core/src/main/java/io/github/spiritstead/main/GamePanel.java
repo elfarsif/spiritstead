@@ -23,7 +23,7 @@ public class GamePanel extends ApplicationAdapter {
 
     @Override
     public void create() {
-        Gdx.graphics.setWindowedMode(sSetting.screenWidth, sSetting.screenHeight);
+        Gdx.graphics.setWindowedMode(sSetting.SCREEN_WIDTH, sSetting.SCREEN_HEIGHT);
         batch = new SpriteBatch();
 
         system = new GameSystem(this);
@@ -55,8 +55,8 @@ public class GamePanel extends ApplicationAdapter {
     public void resize(int width, int height) {
         // Resize the default camera viewport to match the new window size
         // This is necessary to ensure that the game scales correctly when the window is resized.
-        Gdx.gl.glViewport(0, 0, sSetting.screenWidth, sSetting.screenHeight);
-        batch.getProjectionMatrix().setToOrtho2D(0, 0, sSetting.screenWidth, sSetting.screenHeight);
+        Gdx.gl.glViewport(0, 0, sSetting.SCREEN_WIDTH, sSetting.SCREEN_HEIGHT);
+        batch.getProjectionMatrix().setToOrtho2D(0, 0, sSetting.SCREEN_WIDTH, sSetting.SCREEN_HEIGHT);
     }
 
     @Override

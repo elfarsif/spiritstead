@@ -5,19 +5,20 @@ import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.tile.TileManager;
 
-public class TileCollision {
+public class TileCollision implements Collision {
     GamePanel gp;
     int entityLeftWorldX, entityRightWorldX, entityTopWorldY, entityBottomWorldY;
     int entityLeftCol, entityRightCol, entityTopRow, entityBottomRow;
     int tileNum1, tileNum2;
     TileManager tileM;
+    private Entity entity;
 
-    public TileCollision(GamePanel gp) {
+    public TileCollision(GamePanel gp, Entity entity) {
         this.gp = gp;
-
+        this.entity = entity;
     }
 
-    public void check(Entity entity) {
+    public void check() {
         this.tileM = gp.system.tileM;
         initializeEntitySolidArea(entity);
         intializeLinesForCollisionDetection();

@@ -1,20 +1,30 @@
 package io.github.spiritstead.entity.player;
 
+import io.github.spiritstead.collision.EntityCollision;
+import io.github.spiritstead.collision.ObjectCollision;
+import io.github.spiritstead.collision.TileCollision;
 import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.GamePanel;
 
 /**
  * This class checks all the different Types of collision that a given entity should check
  */
-public class EntityCollisionSetChecker {
+public class PlayerCollisionHandler {
     GamePanel gp;
     Player player;
     Entity npcs[];
 
-    public EntityCollisionSetChecker(GamePanel gp, Player player, Entity npcs[]) {
+    private TileCollision tileCollision;
+    private ObjectCollision objectCollision;
+    private EntityCollision entityCollision;
+
+    public PlayerCollisionHandler(GamePanel gp, Player player, Entity npcs[]) {
         this.gp = gp;
         this.player = player;
         this.npcs = npcs;
+        this.tileCollision = new TileCollision(gp, player);
+        this.objectCollision = new ObjectCollision(gp, player);
+        this.entityCollision = new EntityCollision(player, npcs);
     }
 
     public void checkAll() {
@@ -24,8 +34,8 @@ public class EntityCollisionSetChecker {
     }
 
     private void checkNPCCollision() {
-        int npcIndex = gp.system.cChecker.checkPlayerIsCollidingWithEntity(player, npcs);
-        interactNPC(npcIndex);
+        this.entityCollision.check();
+        interactNPC(this.entityCollision.getIndex());
 
     }
 
@@ -38,9 +48,9 @@ public class EntityCollisionSetChecker {
 
     private void checkTileCollision() {
         player.collisionOn = false;
-        gp.system.cChecker.checkEntityIsCollidingWithCollidableTile(player);
-        int objIndex = gp.system.cChecker.checkEntityIsCollidingWithObject(player, true);
-        player.playerObjectInteractor.setIndex(objIndex);
+        this.tileCollision.check();
+        this.objectCollision.check();
+        player.playerObjectInteractor.setIndex(this.objectCollision.getIndex());
         player.playerObjectInteractor.interact();
 
     }

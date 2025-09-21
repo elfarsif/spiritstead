@@ -1,11 +1,12 @@
 package io.github.spiritstead.entity.mayor;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import io.github.spiritstead.collision.*;
 import io.github.spiritstead.entity.*;
 import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
 
-import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Mayor extends Entity {
@@ -15,6 +16,7 @@ public class Mayor extends Entity {
     private EntityMover entityMover;
     private EntityDrawer entityDrawer;
     private FrameGate frameGate;
+    private ArrayList<Collision> collisionTypes = new ArrayList<>();
 
     public Mayor(GamePanel gp) {
         super(gp);
@@ -23,6 +25,9 @@ public class Mayor extends Entity {
         this.entityMover = new EntityMover(this);
         this.entityDrawer = new EntityDrawer(gp, this);
         this.frameGate = new FrameGate(120);
+        this.collisionTypes.add(new TileCollision(this.gp, this));
+        this.collisionTypes.add(new ObjectCollision(this.gp, this));
+        this.collisionTypes.add(new PlayerCollision(this.gp, this));
 
         entitySpriteLoader.load();
         direction = Direction.LEFT;
@@ -54,7 +59,7 @@ public class Mayor extends Entity {
 
     public void update() {
         setAction();
-        checkPlayerCollision();
+        checkCollisions();
         entityMover.move();
 
     }
@@ -64,12 +69,11 @@ public class Mayor extends Entity {
         dialogue.index++;
     }
 
-    private void checkPlayerCollision() {
-        collisionOn = false;
-        gp.system.cChecker.checkEntityIsCollidingWithCollidableTile(this);
-        gp.system.cChecker.checkEntityIsCollidingWithObject(this, false);
-        gp.system.cChecker.checkEntityIsCollidingWithPlayer(this);
-
+    private void checkCollisions() {
+        super.collisionOn = false;
+        for (Collision collision : this.collisionTypes) {
+            collision.check();
+        }
     }
 
     public void draw() {

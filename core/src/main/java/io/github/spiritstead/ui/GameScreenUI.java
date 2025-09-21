@@ -40,7 +40,7 @@ public class GameScreenUI implements UIScreen {
         if (messageOn) {
             float scale = font.getBitmapFont().getScaleX();
             font.getBitmapFont().getData().setScale(0.75f);
-            font.getBitmapFont().draw(batch, message, ScreenSetting.TILE_SIZE, gp.sSetting.screenHeight - (3 * ScreenSetting.TILE_SIZE));
+            font.getBitmapFont().draw(batch, message, ScreenSetting.TILE_SIZE, gp.sSetting.SCREEN_HEIGHT - (3 * ScreenSetting.TILE_SIZE));
             font.getBitmapFont().getData().setScale(scale);
 
             messageCounter++;
@@ -53,8 +53,8 @@ public class GameScreenUI implements UIScreen {
     }
 
     private void drawKeyInventory() {
-        batch.draw(keyImage, 10, gp.sSetting.screenHeight - ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
-        font.getBitmapFont().draw(batch, Integer.toString(gp.player.hasKey), 2 * ScreenSetting.TILE_SIZE, gp.sSetting.screenHeight - 10);
+        batch.draw(keyImage, 10, gp.sSetting.SCREEN_HEIGHT - ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+        font.getBitmapFont().draw(batch, Integer.toString(gp.player.hasKey), 2 * ScreenSetting.TILE_SIZE, gp.sSetting.SCREEN_HEIGHT - 10);
 
     }
 

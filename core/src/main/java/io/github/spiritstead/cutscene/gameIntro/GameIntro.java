@@ -24,7 +24,7 @@ public class GameIntro implements Cutscene {
         slides.add(new ContentSlide(gp, this, "intro/townMap.png", new ArrayList<>(gp.system.script.getChapter1().get(4))));
         slides.add(new ContentSlide(gp, this, "intro/introSlide.png", new ArrayList<>(gp.system.script.getChapter1().get(5))));
 
-        this.blackTexture = new BlackTexture(gp.sSetting.screenWidth, gp.sSetting.screenHeight);
+        this.blackTexture = new BlackTexture(gp.sSetting.SCREEN_WIDTH, gp.sSetting.SCREEN_HEIGHT);
     }
 
     @Override

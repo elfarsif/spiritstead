@@ -1,17 +1,17 @@
 // this is a comment
 // Chapter 1 Game intro slides
-1.In one of the small nooks on the maps of our world lied a town full of characters and adventures.
-1.The town was called Spiritstead and those who stumbled into its ravines and grass fields often ended up there without intending to.
-1.The  mountains made good work of keeping the town hidden from the dangers beyond the valley.  Few could ever intentionally find their way there.
-1.Though direction was a hard thing to come by in this world, if you stumbled into Spiritstead it was certainly because you were lost.
-1.Frank was no exception
-2.Frank was a young farmer. He aspired to be the greatest farmer in all of the maps!
-2.However, he did not have a farm and he had been looking for work as farmer for quite some time.
-3. Although he could’ve sworn his map directed him to a large city full of buildings, moving parts and most importantly farms, he found himself wandering through a forest path and greeted by something entirely different.
-4. What lay before him was a small village nestled at the feet of mountains.
-4.The opening of the forest had been only an hour behind him, but he did not recall mountains being nearby.
+1.In one of the small nooks of our world lies a town full of peculiar characters and fantastic adventures.
+1.This little town was called Spiritstead. Those who stumbled into its lush ravines and flowing fields often ended up there without intending.
+1.The mountains shrouded the hidden town from eyes beyond the valley. Few ever intentionally found their way there.
+1.Though direction can be a hard thing to discover in this world, if you stumbled into Spiritstead it was certainly because you were lost.
+1.Simran was no exception.
+2.Simran is a young farmer. He aspired to be the greatest farmer in the entire world!
+2.However, he did not have a farm although he had been looking for one for quite some time.
+3.Simran could’ve sworn his map had directed him to a large city with plenty of farms nearby, but he instead found himself wandering through a forested path, encountering something entirely different.
+4.What lay before him was a small village nestled at the foot of a mountain.
+4.The opening of the forest had been only an hour behind him, and he did not recall mountains being nearby.
 4.Where was he?
-4. How had he ended up there?
+4.How had he ended up here?
 5.Among the scenery his eyes found an unkept FARM!
 5.With hungry eyes, he made him way towards the town.
 

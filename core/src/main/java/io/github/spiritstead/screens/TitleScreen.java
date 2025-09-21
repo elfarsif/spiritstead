@@ -23,7 +23,7 @@ public class TitleScreen implements Screen {
         this.gp = gp;
         font = new Font("fonts/maruMonicaBold.fnt");
         titleFont = new Font("fonts/alagard_60.fnt");
-        this.blackTexture = new BlackTexture(gp.sSetting.screenWidth, gp.sSetting.screenHeight);
+        this.blackTexture = new BlackTexture(gp.sSetting.SCREEN_WIDTH, gp.sSetting.SCREEN_HEIGHT);
         this.batch = gp.batch;
     }
 
@@ -34,7 +34,7 @@ public class TitleScreen implements Screen {
         titleFont.getBitmapFont().getData().setScale(1.5f);
         String text = "Spiritvale";
         float x = getXforCenteredText(titleFont.getBitmapFont(), text);
-        float y = gp.sSetting.screenHeight * 3 / 4 + layout.height / 2;
+        float y = gp.sSetting.SCREEN_HEIGHT * 3 / 4 + layout.height / 2;
 
         //Shadow
         titleFont.getBitmapFont().setColor(Color.GRAY);
@@ -46,8 +46,8 @@ public class TitleScreen implements Screen {
 
         //Character image
         float imageSize = ScreenSetting.TILE_SIZE * 2;
-        x = gp.sSetting.screenWidth / 2 - imageSize / 2;
-        y = gp.sSetting.screenHeight / 2 - imageSize / 2;
+        x = gp.sSetting.SCREEN_WIDTH / 2 - imageSize / 2;
+        y = gp.sSetting.SCREEN_HEIGHT / 2 - imageSize / 2;
         batch.draw(gp.player.down1, x, y, imageSize, imageSize);
 
         //MENU
@@ -81,7 +81,7 @@ public class TitleScreen implements Screen {
 
     private float getXforCenteredText(BitmapFont font, String text) {
         layout.setText(font, text);
-        return gp.sSetting.screenWidth / 2 - layout.width / 2;
+        return gp.sSetting.SCREEN_WIDTH / 2 - layout.width / 2;
 
     }
 

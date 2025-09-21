@@ -27,8 +27,6 @@ public class Entity {
 
     public boolean collisionOn = false;
 
-    String dialogues[] = new String[20];
-
     public EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
 
     public int screenX;

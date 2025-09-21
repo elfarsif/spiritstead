@@ -18,7 +18,7 @@ public class UIUtilities {
 
     static public float getXforCenteredText(BitmapFont font, GlyphLayout layout, String text, GamePanel gp) {
         layout.setText(font, text);
-        return gp.sSetting.screenWidth / 2 - layout.width / 2;
+        return gp.sSetting.SCREEN_WIDTH / 2 - layout.width / 2;
 
     }
 }

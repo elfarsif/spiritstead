@@ -46,7 +46,7 @@ public class FadeBlack {
     }
 
     private void generateBlackPixmap(float alpha) {
-        pixmap = new Pixmap(screenSetting.screenWidth, screenSetting.screenHeight, Pixmap.Format.RGBA8888);
+        pixmap = new Pixmap(screenSetting.SCREEN_WIDTH, screenSetting.SCREEN_HEIGHT, Pixmap.Format.RGBA8888);
         pixmap.setColor(0, 0, 0, alpha);
         pixmap.fill();
     }

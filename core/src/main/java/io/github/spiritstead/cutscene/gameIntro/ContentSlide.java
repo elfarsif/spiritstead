@@ -35,8 +35,8 @@ public class ContentSlide implements Slide {
             image1 = new Sprite(new Texture(fileName));
             image1.setSize(ScreenSetting.TILE_SIZE * 10, ScreenSetting.TILE_SIZE * 6);
 
-            image1X = gp.sSetting.screenWidth / 2 - image1.getWidth() / 2;
-            image1Y = gp.sSetting.screenHeight / 2 - image1.getHeight() / 4;
+            image1X = gp.sSetting.SCREEN_WIDTH / 2 - image1.getWidth() / 2;
+            image1Y = gp.sSetting.SCREEN_HEIGHT / 2 - image1.getHeight() / 4;
         } catch (Exception e) {
 
             System.out.println(e.getMessage());

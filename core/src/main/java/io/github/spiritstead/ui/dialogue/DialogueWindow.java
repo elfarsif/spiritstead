@@ -27,7 +27,7 @@ public class DialogueWindow {
     private void initializeDimensions() {
         x = ScreenSetting.TILE_SIZE * 2;
         y = ScreenSetting.TILE_SIZE / 2;
-        width = gp.sSetting.screenWidth - ScreenSetting.TILE_SIZE * 4;
+        width = gp.sSetting.SCREEN_WIDTH - ScreenSetting.TILE_SIZE * 4;
         height = ScreenSetting.TILE_SIZE * 3;
 
     }
