@@ -7,13 +7,13 @@ import io.github.spiritstead.object.GameObject;
 
 public class ObjectCollision implements Collision {
     private GamePanel gp;
-    private Entity entity;
+    private ObjectColliadable entity;
 
     private int index;
 
     private GameObject gameObject;
 
-    public ObjectCollision(GamePanel gp, Entity entity) {
+    public ObjectCollision(GamePanel gp, ObjectColliadable entity) {
         this.gp = gp;
         this.entity = entity;
     }
@@ -27,41 +27,41 @@ public class ObjectCollision implements Collision {
                 this.gameObject = this.gp.system.aSetter.objects[i];
                 intializeEntitySolidArea();
                 initializeObjectSolidArea(i);
-                checkCollisionForAllDirections(entity, player, i);
-                restoreDefaultAreaValues(entity, i);
+                checkCollisionForAllDirections(player, i);
+                restoreDefaultAreaValues(i);
             }
         }
     }
 
-    private void checkCollisionForAllDirections(Entity entity, boolean player, int i) {
-        switch (entity.direction) {
+    private void checkCollisionForAllDirections(boolean player, int i) {
+        switch (entity.getDirection()) {
             case UP:
-                checkUpCollision(entity, player, i);
+                checkUpCollision(player, i);
                 break;
             case DOWN:
-                checkDownCollision(entity, player, i);
+                checkDownCollision(player, i);
                 break;
             case LEFT:
-                checkLeftCollision(entity, player, i);
+                checkLeftCollision(player, i);
                 break;
             case RIGHT:
-                checkRightCollision(entity, player, i);
+                checkRightCollision(player, i);
                 break;
         }
     }
 
-    private void restoreDefaultAreaValues(Entity entity, int i) {
-        entity.solidArea.x = entity.solidAreaDefaultX;
-        entity.solidArea.y = entity.solidAreaDefaultY;
+    private void restoreDefaultAreaValues(int i) {
+        entity.getSolidArea().x = entity.getSolidAreadDefaultX();
+        entity.getSolidArea().y = entity.getSolidAreadDefaultY();
         gameObject.solidArea.x = gameObject.solidAreaDefaultX;
         gameObject.solidArea.y = gameObject.solidAreaDefaultY;
     }
 
-    private void checkRightCollision(Entity entity, boolean player, int i) {
-        entity.solidArea.x += entity.speed;
-        if (entity.solidArea.intersects(gameObject.solidArea)) {
+    private void checkRightCollision(boolean player, int i) {
+        entity.getSolidArea().x += entity.getSpeed();
+        if (entity.getSolidArea().intersects(gameObject.solidArea)) {
             if (gameObject.collision == true) {
-                entity.collisionOn = true;
+                entity.setCollisionOn(true);
             }
             if (player) {
                 index = i;
@@ -69,11 +69,11 @@ public class ObjectCollision implements Collision {
         }
     }
 
-    private void checkLeftCollision(Entity entity, boolean player, int i) {
-        entity.solidArea.x -= entity.speed;
-        if (entity.solidArea.intersects(gameObject.solidArea)) {
+    private void checkLeftCollision(boolean player, int i) {
+        entity.getSolidArea().x -= entity.getSpeed();
+        if (entity.getSolidArea().intersects(gameObject.solidArea)) {
             if (gameObject.collision == true) {
-                entity.collisionOn = true;
+                entity.setCollisionOn(true);
             }
             if (player) {
                 index = i;
@@ -81,11 +81,11 @@ public class ObjectCollision implements Collision {
         }
     }
 
-    private void checkDownCollision(Entity entity, boolean player, int i) {
-        entity.solidArea.y -= entity.speed;
-        if (entity.solidArea.intersects(gameObject.solidArea)) {
+    private void checkDownCollision(boolean player, int i) {
+        entity.getSolidArea().y -= entity.getSpeed();
+        if (entity.getSolidArea().intersects(gameObject.solidArea)) {
             if (gameObject.collision == true) {
-                entity.collisionOn = true;
+                entity.setCollisionOn(true);
             }
             if (player) {
                 index = i;
@@ -93,11 +93,11 @@ public class ObjectCollision implements Collision {
         }
     }
 
-    private void checkUpCollision(Entity entity, boolean player, int i) {
-        entity.solidArea.y += entity.speed;
-        if (entity.solidArea.intersects(gameObject.solidArea)) {
+    private void checkUpCollision(boolean player, int i) {
+        entity.getSolidArea().y += entity.getSpeed();
+        if (entity.getSolidArea().intersects(gameObject.solidArea)) {
             if (gameObject.collision == true) {
-                entity.collisionOn = true;
+                entity.setCollisionOn(true);
             }
             if (player) {
                 index = i;
@@ -111,8 +111,8 @@ public class ObjectCollision implements Collision {
     }
 
     private void intializeEntitySolidArea() {
-        entity.solidArea.x = entity.worldX + entity.solidArea.x;
-        entity.solidArea.y = entity.worldY + entity.solidArea.y;
+        entity.getSolidArea().x = entity.getWorldX() + entity.getSolidArea().x;
+        entity.getSolidArea().y = entity.getWorldY() + entity.getSolidArea().y;
     }
 
     public int getIndex() {

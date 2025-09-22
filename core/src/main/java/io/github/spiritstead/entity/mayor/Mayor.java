@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Mayor extends Entity implements Updatable, Drawable, TileColliadable {
+public class Mayor extends Entity implements Updatable, Drawable, TileColliadable, ObjectColliadable {
     GamePanel gp;
     MayorDialogue dialogue;
     private EntitySpriteLoader entitySpriteLoader;
@@ -84,8 +84,18 @@ public class Mayor extends Entity implements Updatable, Drawable, TileColliadabl
     }
 
     @Override
+    public boolean isPlayer() {
+        return false;
+    }
+
+    @Override
     public Direction getDirection() {
         return super.direction;
+    }
+
+    @Override
+    public void setSolidArea(Rectangle solidArea) {
+        super.solidArea = solidArea;
     }
 
     @Override
@@ -94,8 +104,23 @@ public class Mayor extends Entity implements Updatable, Drawable, TileColliadabl
     }
 
     @Override
+    public int getSolidAreadDefaultX() {
+        return this.solidAreaDefaultX;
+    }
+
+    @Override
+    public int getSolidAreadDefaultY() {
+        return this.solidAreaDefaultY;
+    }
+
+    @Override
     public boolean isCollisionOn() {
         return super.collisionOn;
+    }
+
+    @Override
+    public void setCollisionOn(boolean collisionOn) {
+        this.collisionOn = collisionOn;
     }
 
     @Override

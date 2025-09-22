@@ -1,6 +1,6 @@
 package io.github.spiritstead.entity.player;
 
-import io.github.spiritstead.collision.EntityCollision;
+import io.github.spiritstead.collision.NPCCollision;
 import io.github.spiritstead.collision.ObjectCollision;
 import io.github.spiritstead.collision.TileCollision;
 import io.github.spiritstead.entity.Entity;
@@ -16,7 +16,7 @@ public class PlayerCollisionHandler {
 
     private TileCollision tileCollision;
     private ObjectCollision objectCollision;
-    private EntityCollision entityCollision;
+    private NPCCollision NPCCollision;
 
     public PlayerCollisionHandler(GamePanel gp, Player player, Entity npcs[]) {
         this.gp = gp;
@@ -24,7 +24,7 @@ public class PlayerCollisionHandler {
         this.npcs = npcs;
         this.tileCollision = new TileCollision(gp, player);
         this.objectCollision = new ObjectCollision(gp, player);
-        this.entityCollision = new EntityCollision(player, npcs);
+        this.NPCCollision = new NPCCollision(player, npcs);
     }
 
     public void checkAll() {
@@ -34,8 +34,8 @@ public class PlayerCollisionHandler {
     }
 
     private void checkNPCCollision() {
-        this.entityCollision.check();
-        interactNPC(this.entityCollision.getIndex());
+        this.NPCCollision.check();
+        interactNPC(this.NPCCollision.getIndex());
 
     }
 

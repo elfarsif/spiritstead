@@ -1,6 +1,7 @@
 package io.github.spiritstead.entity.player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import io.github.spiritstead.collision.ObjectColliadable;
 import io.github.spiritstead.entity.*;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.KeyHandler;
@@ -8,7 +9,7 @@ import io.github.spiritstead.main.ScreenSetting;
 
 import java.awt.*;
 
-public class Player extends Entity implements Updatable, Drawable, TileColliadable {
+public class Player extends Entity implements Updatable, Drawable, TileColliadable, ObjectColliadable {
     private GamePanel gp;
     private KeyHandler keyH;
     private Entity npcs[];
@@ -85,8 +86,18 @@ public class Player extends Entity implements Updatable, Drawable, TileColliadab
     }
 
     @Override
+    public boolean isPlayer() {
+        return true;
+    }
+
+    @Override
     public Direction getDirection() {
         return super.direction;
+    }
+
+    @Override
+    public void setSolidArea(Rectangle solidArea) {
+        super.solidArea = solidArea;
     }
 
     @Override
@@ -95,8 +106,23 @@ public class Player extends Entity implements Updatable, Drawable, TileColliadab
     }
 
     @Override
+    public int getSolidAreadDefaultX() {
+        return this.solidAreaDefaultX;
+    }
+
+    @Override
+    public int getSolidAreadDefaultY() {
+        return this.solidAreaDefaultY;
+    }
+
+    @Override
     public boolean isCollisionOn() {
         return super.collisionOn;
+    }
+
+    @Override
+    public void setCollisionOn(boolean collisionOn) {
+        this.collisionOn = collisionOn;
     }
 
     @Override
