@@ -10,8 +10,7 @@ import java.util.EnumMap;
 /**
  * This class represents an entity in the game. It is a parent class for players, monsters, npcs
  **/
-public class Entity {
-    //world 0,0 is bottom left
+public class Entity implements Updatable, Drawable {
     public int worldX, worldY;
     public int speed;
 

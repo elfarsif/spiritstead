@@ -8,16 +8,16 @@ import io.github.spiritstead.main.ScreenSetting;
 
 import java.awt.*;
 
-public class Player extends Entity {
+public class Player extends Entity implements Updatable, Drawable, TileColliadable {
     private GamePanel gp;
     private KeyHandler keyH;
     private Entity npcs[];
     public int hasKey = 0;
     public NPCInteraction NPCInteraction;
-    private EntityDrawer entityDrawer;
-    private EntityMover entityMover;
+    private PlayerDrawer playerDrawer;
+    private PlayerMover playerMover;
     private PlayerAnimator playerAnimator;
-    private EntitySpriteLoader entitySpriteLoader;
+    private PlayerSpriteLoader playerSpriteLoader;
     public PlayerObjectInteractor playerObjectInteractor;
     private PlayerCollisionHandler playerCollisionHandler;
     private PlayerSolidAreaOutline playerSolidAreaOutline;
@@ -28,10 +28,10 @@ public class Player extends Entity {
         this.keyH = keyH;
         this.npcs = gp.system.aSetter.npcs;
         this.NPCInteraction = new NPCInteraction(gp);
-        this.entityDrawer = new EntityDrawer(gp, this);
-        this.entityMover = new EntityMover(this);
+        this.playerDrawer = new PlayerDrawer(gp.batch, this);
+        this.playerMover = new PlayerMover(this);
         this.playerAnimator = new PlayerAnimator(this);
-        this.entitySpriteLoader = new EntitySpriteLoader(this);
+        this.playerSpriteLoader = new PlayerSpriteLoader(this);
         this.playerObjectInteractor = new PlayerObjectInteractor(gp, this);
         this.playerCollisionHandler = new PlayerCollisionHandler(gp, this, npcs);
 
@@ -43,7 +43,7 @@ public class Player extends Entity {
         this.playerSolidAreaOutline = new PlayerSolidAreaOutline(gp, this);
 
         setDefaultPlayerValues();
-        entitySpriteLoader.load();
+        playerSpriteLoader.load();
 
         frames.put(Direction.UP, new Sprite[]{up1, up2});
         frames.put(Direction.DOWN, new Sprite[]{down1, down2});
@@ -72,16 +72,51 @@ public class Player extends Entity {
 
     public void update() {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-            entityMover.assignKeyPressToDirection(keyH);
+            playerMover.assignKeyPressToDirection(keyH);
             playerCollisionHandler.checkAll();
-            entityMover.move();
+            playerMover.move();
             playerAnimator.update();
         }
     }
 
     public void draw() {
-        entityDrawer.draw();
+        playerDrawer.draw();
         playerSolidAreaOutline.draw();
+    }
+
+    @Override
+    public Direction getDirection() {
+        return super.direction;
+    }
+
+    @Override
+    public int getSpeed() {
+        return super.speed;
+    }
+
+    @Override
+    public boolean isCollisionOn() {
+        return super.collisionOn;
+    }
+
+    @Override
+    public int getWorldX() {
+        return super.worldX;
+    }
+
+    @Override
+    public int getWorldY() {
+        return super.worldY;
+    }
+
+    @Override
+    public Rectangle getSolidArea() {
+        return super.solidArea;
+    }
+
+    @Override
+    public void setCollisonOn(boolean collisonOn) {
+        this.collisionOn = collisonOn;
     }
 
 }

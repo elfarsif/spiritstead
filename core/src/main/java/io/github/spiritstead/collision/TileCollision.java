@@ -1,6 +1,7 @@
 package io.github.spiritstead.collision;
 
 import io.github.spiritstead.entity.Entity;
+import io.github.spiritstead.entity.player.TileColliadable;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.tile.TileManager;
@@ -11,75 +12,75 @@ public class TileCollision implements Collision {
     int entityLeftCol, entityRightCol, entityTopRow, entityBottomRow;
     int tileNum1, tileNum2;
     TileManager tileM;
-    private Entity entity;
+    private TileColliadable entity;
 
-    public TileCollision(GamePanel gp, Entity entity) {
+    public TileCollision(GamePanel gp, TileColliadable entity) {
         this.gp = gp;
         this.entity = entity;
     }
 
     public void check() {
         this.tileM = gp.system.tileM;
-        initializeEntitySolidArea(entity);
+        initializeEntitySolidArea();
         intializeLinesForCollisionDetection();
-        switch (entity.direction) {
+        switch (entity.getDirection()) {
             case UP:
-                checkUpCollision(entity);
+                checkUpCollision();
                 break;
             case DOWN:
-                checkDownCollision(entity);
+                checkDownCollision();
                 break;
             case LEFT:
-                checkLeftCollision(entity);
+                checkLeftCollision();
                 break;
             case RIGHT:
-                checkRightCollision(entity);
+                checkRightCollision();
                 break;
         }
 
     }
 
-    private void checkRightCollision(Entity entity) {
-        entityRightCol = (entityRightWorldX + entity.speed) / ScreenSetting.TILE_SIZE;
+    private void checkRightCollision() {
+        entityRightCol = (entityRightWorldX + entity.getSpeed()) / ScreenSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityRightCol][entityTopRow];
         tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.collisionOn = true;
+            entity.setCollisonOn(true);
         }
     }
 
-    private void checkLeftCollision(Entity entity) {
-        entityLeftCol = (entityLeftWorldX - entity.speed) / ScreenSetting.TILE_SIZE;
+    private void checkLeftCollision() {
+        entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / ScreenSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityLeftCol][entityTopRow];
         tileNum2 = tileM.mapTileNum[entityLeftCol][entityBottomRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.collisionOn = true;
+            entity.setCollisonOn(true);
         }
     }
 
-    private void checkDownCollision(Entity entity) {
-        entityBottomRow = (entityBottomWorldY - entity.speed) / ScreenSetting.TILE_SIZE;
+    private void checkDownCollision() {
+        entityBottomRow = (entityBottomWorldY - entity.getSpeed()) / ScreenSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityLeftCol][entityBottomRow];
         tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.collisionOn = true;
+            entity.setCollisonOn(true);
         }
     }
 
-    private void checkUpCollision(Entity entity) {
-        entityTopRow = (entityTopWorldY + entity.speed) / ScreenSetting.TILE_SIZE;
+    private void checkUpCollision() {
+        entityTopRow = (entityTopWorldY + entity.getSpeed()) / ScreenSetting.TILE_SIZE;
 
         tileNum1 = tileM.mapTileNum[entityLeftCol][entityTopRow];
         tileNum2 = tileM.mapTileNum[entityRightCol][entityTopRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.collisionOn = true;
+            entity.setCollisonOn(true);
         }
     }
 
@@ -90,10 +91,10 @@ public class TileCollision implements Collision {
         entityBottomRow = entityBottomWorldY / ScreenSetting.TILE_SIZE;
     }
 
-    private void initializeEntitySolidArea(Entity entity) {
-        entityLeftWorldX = entity.worldX + entity.solidArea.x;
-        entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
-        entityTopWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
-        entityBottomWorldY = entity.worldY + entity.solidArea.y;
+    private void initializeEntitySolidArea() {
+        entityLeftWorldX = entity.getWorldX() + entity.getSolidArea().x;
+        entityRightWorldX = entity.getWorldX() + entity.getSolidArea().x + entity.getSolidArea().width;
+        entityTopWorldY = entity.getWorldY() + entity.getSolidArea().y + entity.getSolidArea().height;
+        entityBottomWorldY = entity.getWorldY() + entity.getSolidArea().y;
     }
 }

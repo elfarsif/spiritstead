@@ -1,23 +1,22 @@
 package io.github.spiritstead.entity.player;
 
-import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.FrameGate;
 
 public class PlayerAnimator {
-    Entity entity;
+    Player player;
     FrameGate frameGate;
 
-    public PlayerAnimator(Entity entity) {
-        this.entity = entity;
+    public PlayerAnimator(Player player) {
+        this.player = player;
         this.frameGate = new FrameGate(15);
     }
 
     public void update() {
         if (frameGate.tick()) {
-            if (entity.spriteNum == 1) {
-                entity.spriteNum = 2;
-            } else if (entity.spriteNum == 2) {
-                entity.spriteNum = 1;
+            if (player.spriteNum == 1) {
+                player.spriteNum = 2;
+            } else if (player.spriteNum == 2) {
+                player.spriteNum = 1;
             }
             frameGate.reset();
         }

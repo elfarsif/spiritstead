@@ -1,13 +1,14 @@
 package io.github.spiritstead.main;
 
-import io.github.spiritstead.entity.Entity;
+import io.github.spiritstead.entity.Drawable;
 import io.github.spiritstead.entity.mayor.Mayor;
 import io.github.spiritstead.object.*;
 
 public class AssetSetter {
     private GamePanel gp;
     public GameObject objects[] = new GameObject[10];
-    public Entity npcs[] = new Entity[10];
+    public Mayor npcs[] = new Mayor[10];
+    public Drawable drawable[] = new Mayor[10];
 
     public AssetSetter(GamePanel gp) {
         this.gp = gp;

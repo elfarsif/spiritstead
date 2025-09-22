@@ -3,13 +3,15 @@ package io.github.spiritstead.entity.mayor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
 import io.github.spiritstead.entity.*;
+import io.github.spiritstead.entity.player.TileColliadable;
 import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Mayor extends Entity {
+public class Mayor extends Entity implements Updatable, Drawable, TileColliadable {
     GamePanel gp;
     MayorDialogue dialogue;
     private EntitySpriteLoader entitySpriteLoader;
@@ -79,6 +81,41 @@ public class Mayor extends Entity {
     public void draw() {
         entityDrawer.draw();
 
+    }
+
+    @Override
+    public Direction getDirection() {
+        return super.direction;
+    }
+
+    @Override
+    public int getSpeed() {
+        return super.speed;
+    }
+
+    @Override
+    public boolean isCollisionOn() {
+        return super.collisionOn;
+    }
+
+    @Override
+    public int getWorldX() {
+        return super.worldX;
+    }
+
+    @Override
+    public int getWorldY() {
+        return super.worldY;
+    }
+
+    @Override
+    public Rectangle getSolidArea() {
+        return super.solidArea;
+    }
+
+    @Override
+    public void setCollisonOn(boolean collisonOn) {
+        this.collisionOn = collisonOn;
     }
 
 }
