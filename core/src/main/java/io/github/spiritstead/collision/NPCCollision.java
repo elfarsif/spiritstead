@@ -1,15 +1,15 @@
 package io.github.spiritstead.collision;
 
-import io.github.spiritstead.entity.Entity;
+import io.github.spiritstead.entity.PlayerInteractable;
 import io.github.spiritstead.entity.player.Player;
 
 public class NPCCollision implements Collision {
     private int index;
 
     private Player player;
-    private Entity[] targets;
+    private PlayerInteractable[] targets;
 
-    public NPCCollision(Player player, Entity[] targets) {
+    public NPCCollision(Player player, PlayerInteractable[] targets) {
         this.player = player;
         this.targets = targets;
     }
@@ -32,12 +32,12 @@ public class NPCCollision implements Collision {
         this.player.solidArea.y = this.player.worldY + this.player.solidArea.y;
     }
 
-    private void initializeTargetEntitySolidArea(Entity target) {
-        target.solidArea.x = target.worldX + target.solidArea.x;
-        target.solidArea.y = target.worldY + target.solidArea.y;
+    private void initializeTargetEntitySolidArea(PlayerInteractable target) {
+        target.getSolidArea().x = target.getWorldX() + target.getSolidArea().x;
+        target.getSolidArea().y = target.getWorldY() + target.getSolidArea().y;
     }
 
-    private void checkCollisionForAllDirections(Entity[] target, int i) {
+    private void checkCollisionForAllDirections(PlayerInteractable[] target, int i) {
         switch (player.direction) {
             case UP:
                 checkUpCollision(target, i);
@@ -54,40 +54,40 @@ public class NPCCollision implements Collision {
         }
     }
 
-    private void restoreDefaultAreaValues(Entity target) {
+    private void restoreDefaultAreaValues(PlayerInteractable target) {
         player.solidArea.x = player.solidAreaDefaultX;
         player.solidArea.y = player.solidAreaDefaultY;
-        target.solidArea.x = target.solidAreaDefaultX;
-        target.solidArea.y = target.solidAreaDefaultY;
+        target.getSolidArea().x = target.getSolidAreadDefaultX();
+        target.getSolidArea().y = target.getSolidAreadDefaultY();
     }
 
-    private void checkRightCollision(Entity[] target, int i) {
+    private void checkRightCollision(PlayerInteractable[] target, int i) {
         player.solidArea.x += player.speed;
-        if (player.solidArea.intersects(target[i].solidArea)) {
+        if (player.solidArea.intersects(target[i].getSolidArea())) {
             player.collisionOn = true;
             this.index = i;
         }
     }
 
-    private void checkLeftCollision(Entity[] target, int i) {
+    private void checkLeftCollision(PlayerInteractable[] target, int i) {
         player.solidArea.x -= player.speed;
-        if (player.solidArea.intersects(target[i].solidArea)) {
+        if (player.solidArea.intersects(target[i].getSolidArea())) {
             player.collisionOn = true;
             this.index = i;
         }
     }
 
-    private void checkDownCollision(Entity[] target, int i) {
+    private void checkDownCollision(PlayerInteractable[] target, int i) {
         player.solidArea.y -= player.speed;
-        if (player.solidArea.intersects(target[i].solidArea)) {
+        if (player.solidArea.intersects(target[i].getSolidArea())) {
             player.collisionOn = true;
             this.index = i;
         }
     }
 
-    private void checkUpCollision(Entity[] target, int i) {
+    private void checkUpCollision(PlayerInteractable[] target, int i) {
         player.solidArea.y += player.speed;
-        if (player.solidArea.intersects(target[i].solidArea)) {
+        if (player.solidArea.intersects(target[i].getSolidArea())) {
             player.collisionOn = true;
             this.index = i;
         }

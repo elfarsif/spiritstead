@@ -6,12 +6,33 @@ import io.github.spiritstead.entity.*;
 import io.github.spiritstead.entity.player.TileColliadable;
 import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.main.ScreenSetting;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.Random;
 
-public class Mayor extends Entity implements Updatable, Drawable, TileColliadable, ObjectColliadable {
+public class Mayor implements Updatable, Drawable, TileColliadable,
+    ObjectColliadable, PlayerInteractable {
+    public int worldX, worldY;
+
+    public int speed;
+    public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
+
+    public Direction direction;
+
+    public int spriteNum = 1;
+
+    public Rectangle solidArea;
+    //allows to change solid area for collision detection and store original values to restore area
+    public int solidAreaDefaultX;
+    public int solidAreaDefaultY;
+
+    public boolean collisionOn = false;
+    public EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
+
+    //
     GamePanel gp;
     MayorDialogue dialogue;
     private EntitySpriteLoader entitySpriteLoader;
@@ -21,7 +42,6 @@ public class Mayor extends Entity implements Updatable, Drawable, TileColliadabl
     private ArrayList<Collision> collisionTypes = new ArrayList<>();
 
     public Mayor(GamePanel gp) {
-        super(gp);
         this.gp = gp;
         this.entitySpriteLoader = new EntitySpriteLoader(this);
         this.entityMover = new EntityMover(this);
@@ -30,6 +50,8 @@ public class Mayor extends Entity implements Updatable, Drawable, TileColliadabl
         this.collisionTypes.add(new TileCollision(this.gp, this));
         this.collisionTypes.add(new ObjectCollision(this.gp, this));
         this.collisionTypes.add(new PlayerCollision(this.gp, this));
+
+        solidArea = new Rectangle(0, 0, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
 
         entitySpriteLoader.load();
         direction = Direction.LEFT;
@@ -72,7 +94,7 @@ public class Mayor extends Entity implements Updatable, Drawable, TileColliadabl
     }
 
     private void checkCollisions() {
-        super.collisionOn = false;
+        this.collisionOn = false;
         for (Collision collision : this.collisionTypes) {
             collision.check();
         }
@@ -90,17 +112,77 @@ public class Mayor extends Entity implements Updatable, Drawable, TileColliadabl
 
     @Override
     public Direction getDirection() {
-        return super.direction;
+        return this.direction;
     }
 
     @Override
     public void setSolidArea(Rectangle solidArea) {
-        super.solidArea = solidArea;
+        this.solidArea = solidArea;
     }
 
     @Override
     public int getSpeed() {
-        return super.speed;
+        return this.speed;
+    }
+
+    @Override
+    public int getSpriteNum() {
+        return this.spriteNum;
+    }
+
+    @Override
+    public Sprite getDown1() {
+        return this.down1;
+    }
+
+    @Override
+    public void setUp1(Sprite up1) {
+        this.up1 = up1;
+    }
+
+    @Override
+    public void setUp2(Sprite up2) {
+        this.up2 = up2;
+    }
+
+    @Override
+    public void setDown1(Sprite down1) {
+        this.down1 = down1;
+    }
+
+    @Override
+    public void setDown2(Sprite down2) {
+        this.down2 = down2;
+    }
+
+    @Override
+    public void setLeft1(Sprite left1) {
+        this.left1 = left1;
+    }
+
+    @Override
+    public void setLeft2(Sprite left2) {
+        this.left2 = left2;
+    }
+
+    @Override
+    public void setRight1(Sprite right1) {
+        this.right1 = right1;
+    }
+
+    @Override
+    public void setRight2(Sprite right2) {
+        this.right2 = right2;
+    }
+
+    @Override
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    @Override
+    public EnumMap<Direction, Sprite[]> getFrames() {
+        return this.frames;
     }
 
     @Override
@@ -115,7 +197,7 @@ public class Mayor extends Entity implements Updatable, Drawable, TileColliadabl
 
     @Override
     public boolean isCollisionOn() {
-        return super.collisionOn;
+        return this.collisionOn;
     }
 
     @Override
@@ -125,17 +207,27 @@ public class Mayor extends Entity implements Updatable, Drawable, TileColliadabl
 
     @Override
     public int getWorldX() {
-        return super.worldX;
+        return this.worldX;
     }
 
     @Override
     public int getWorldY() {
-        return super.worldY;
+        return this.worldY;
+    }
+
+    @Override
+    public void setWorldX(int worldX) {
+        this.worldX = worldX;
+    }
+
+    @Override
+    public void setWorldY(int worldY) {
+        this.worldY = worldY;
     }
 
     @Override
     public Rectangle getSolidArea() {
-        return super.solidArea;
+        return this.solidArea;
     }
 
     @Override

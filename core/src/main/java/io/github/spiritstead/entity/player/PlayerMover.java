@@ -1,6 +1,5 @@
 package io.github.spiritstead.entity.player;
 
-import io.github.spiritstead.entity.Entity;
 import io.github.spiritstead.main.KeyHandler;
 
 public class PlayerMover {

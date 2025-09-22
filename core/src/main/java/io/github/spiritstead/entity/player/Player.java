@@ -8,11 +8,12 @@ import io.github.spiritstead.main.KeyHandler;
 import io.github.spiritstead.main.ScreenSetting;
 
 import java.awt.*;
+import java.util.EnumMap;
 
-public class Player extends Entity implements Updatable, Drawable, TileColliadable, ObjectColliadable {
+public class Player implements Updatable, Drawable, TileColliadable, ObjectColliadable {
     private GamePanel gp;
     private KeyHandler keyH;
-    private Entity npcs[];
+    private PlayerInteractable npcs[];
     public int hasKey = 0;
     public NPCInteraction NPCInteraction;
     private PlayerDrawer playerDrawer;
@@ -23,8 +24,28 @@ public class Player extends Entity implements Updatable, Drawable, TileColliadab
     private PlayerCollisionHandler playerCollisionHandler;
     private PlayerSolidAreaOutline playerSolidAreaOutline;
 
+    //entity
+    public int worldX, worldY;
+    public int speed;
+
+    public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
+    public Direction direction;
+
+    public int spriteNum = 1;
+
+    public Rectangle solidArea;
+    //allows to change solid area for collision detection and store original values to restore area
+    public int solidAreaDefaultX;
+    public int solidAreaDefaultY;
+
+    public boolean collisionOn = false;
+
+    public EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
+
+    public int screenX;
+    public int screenY;
+
     public Player(GamePanel gp, KeyHandler keyH) {
-        super(gp);
         this.gp = gp;
         this.keyH = keyH;
         this.npcs = gp.system.aSetter.npcs;
@@ -92,17 +113,17 @@ public class Player extends Entity implements Updatable, Drawable, TileColliadab
 
     @Override
     public Direction getDirection() {
-        return super.direction;
+        return this.direction;
     }
 
     @Override
     public void setSolidArea(Rectangle solidArea) {
-        super.solidArea = solidArea;
+        this.solidArea = solidArea;
     }
 
     @Override
     public int getSpeed() {
-        return super.speed;
+        return this.speed;
     }
 
     @Override
@@ -117,7 +138,7 @@ public class Player extends Entity implements Updatable, Drawable, TileColliadab
 
     @Override
     public boolean isCollisionOn() {
-        return super.collisionOn;
+        return this.collisionOn;
     }
 
     @Override
@@ -127,17 +148,17 @@ public class Player extends Entity implements Updatable, Drawable, TileColliadab
 
     @Override
     public int getWorldX() {
-        return super.worldX;
+        return this.worldX;
     }
 
     @Override
     public int getWorldY() {
-        return super.worldY;
+        return this.worldY;
     }
 
     @Override
     public Rectangle getSolidArea() {
-        return super.solidArea;
+        return this.solidArea;
     }
 
     @Override

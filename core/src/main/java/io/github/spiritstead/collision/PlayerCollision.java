@@ -1,13 +1,13 @@
 package io.github.spiritstead.collision;
 
-import io.github.spiritstead.entity.Entity;
+import io.github.spiritstead.entity.PlayerInteractable;
 import io.github.spiritstead.main.GamePanel;
 
 public class PlayerCollision implements Collision {
     GamePanel gp;
-    Entity entity;
+    PlayerInteractable entity;
 
-    public PlayerCollision(GamePanel gp, Entity entity) {
+    public PlayerCollision(GamePanel gp, PlayerInteractable entity) {
         this.gp = gp;
         this.entity = entity;
     }
@@ -20,8 +20,8 @@ public class PlayerCollision implements Collision {
 
     }
 
-    private void checkCollisionForAllDirections(Entity entity) {
-        switch (entity.direction) {
+    private void checkCollisionForAllDirections(PlayerInteractable entity) {
+        switch (entity.getDirection()) {
             case UP:
                 checkUpCollision();
                 break;
@@ -38,8 +38,8 @@ public class PlayerCollision implements Collision {
     }
 
     private void intializeEntitySolidArea() {
-        entity.solidArea.x = entity.worldX + entity.solidArea.x;
-        entity.solidArea.y = entity.worldY + entity.solidArea.y;
+        entity.getSolidArea().x = entity.getWorldX() + entity.getSolidArea().x;
+        entity.getSolidArea().y = entity.getWorldY() + entity.getSolidArea().y;
     }
 
     private void initializePlayerSolidArea() {
@@ -48,36 +48,36 @@ public class PlayerCollision implements Collision {
     }
 
     private void checkUpCollision() {
-        entity.solidArea.y += entity.speed;
-        if (entity.solidArea.intersects(gp.player.solidArea)) {
-            entity.collisionOn = true;
+        entity.getSolidArea().y += entity.getSpeed();
+        if (entity.getSolidArea().intersects(gp.player.solidArea)) {
+            entity.setCollisionOn(true);
         }
     }
 
     private void checkDownCollision() {
-        entity.solidArea.y -= entity.speed;
-        if (entity.solidArea.intersects(gp.player.solidArea)) {
-            entity.collisionOn = true;
+        entity.getSolidArea().y -= entity.getSpeed();
+        if (entity.getSolidArea().intersects(gp.player.solidArea)) {
+            entity.setCollisionOn(true);
         }
     }
 
     private void checkLeftCollision() {
-        entity.solidArea.x -= entity.speed;
-        if (entity.solidArea.intersects(gp.player.solidArea)) {
-            entity.collisionOn = true;
+        entity.getSolidArea().x -= entity.getSpeed();
+        if (entity.getSolidArea().intersects(gp.player.solidArea)) {
+            entity.setCollisionOn(true);
         }
     }
 
     private void checkRightCollision() {
-        entity.solidArea.x += entity.speed;
-        if (entity.solidArea.intersects(gp.player.solidArea)) {
-            entity.collisionOn = true;
+        entity.getSolidArea().x += entity.getSpeed();
+        if (entity.getSolidArea().intersects(gp.player.solidArea)) {
+            entity.setCollisionOn(true);
         }
     }
 
     private void restoreDefaultSolidAreaValues() {
-        entity.solidArea.x = entity.solidAreaDefaultX;
-        entity.solidArea.y = entity.solidAreaDefaultY;
+        entity.getSolidArea().x = entity.getSolidAreadDefaultX();
+        entity.getSolidArea().y = entity.getSolidAreadDefaultY();
         gp.player.solidArea.x = gp.player.solidAreaDefaultX;
         gp.player.solidArea.y = gp.player.solidAreaDefaultY;
     }

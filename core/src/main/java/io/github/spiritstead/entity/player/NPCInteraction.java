@@ -1,18 +1,18 @@
 package io.github.spiritstead.entity.player;
 
-import io.github.spiritstead.entity.Entity;
+import io.github.spiritstead.entity.PlayerInteractable;
 import io.github.spiritstead.main.GamePanel;
 
 public class NPCInteraction {
     GamePanel gp;
-    Entity npc;
+    PlayerInteractable npc;
 
     public NPCInteraction(GamePanel gp) {
         this.gp = gp;
 
     }
 
-    public void setNpc(Entity npc) {
+    public void setNpc(PlayerInteractable npc) {
         this.npc = npc;
     }
 

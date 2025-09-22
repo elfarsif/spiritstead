@@ -1,14 +1,14 @@
 package io.github.spiritstead.main;
 
 import io.github.spiritstead.entity.Drawable;
+import io.github.spiritstead.entity.PlayerInteractable;
 import io.github.spiritstead.entity.mayor.Mayor;
 import io.github.spiritstead.object.*;
 
 public class AssetSetter {
     private GamePanel gp;
     public GameObject objects[] = new GameObject[10];
-    public Mayor npcs[] = new Mayor[10];
-    public Drawable drawable[] = new Mayor[10];
+    public PlayerInteractable npcs[] = new Mayor[10];
 
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
@@ -45,7 +45,7 @@ public class AssetSetter {
 
     public void setNPCs() {
         npcs[0] = new Mayor(gp);
-        npcs[0].worldX = 22 * ScreenSetting.TILE_SIZE;
-        npcs[0].worldY = 14 * ScreenSetting.TILE_SIZE;
+        npcs[0].setWorldX(22 * ScreenSetting.TILE_SIZE);
+        npcs[0].setWorldY(14 * ScreenSetting.TILE_SIZE);
     }
 }

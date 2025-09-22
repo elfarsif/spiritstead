@@ -4,38 +4,38 @@ import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.KeyHandler;
 
 public class EntityMover {
-    Entity entity;
+    PlayerInteractable entity;
 
-    public EntityMover(Entity entity) {
+    public EntityMover(PlayerInteractable entity) {
         this.entity = entity;
     }
 
     public void assignKeyPressToDirection(KeyHandler keyH) {
         if (keyH.upPressed) {
-            entity.direction = entity.direction.UP;
+            entity.setDirection(Direction.UP);
         } else if (keyH.downPressed) {
-            entity.direction = entity.direction.DOWN;
+            entity.setDirection(Direction.DOWN);
         } else if (keyH.leftPressed) {
-            entity.direction = entity.direction.LEFT;
+            entity.setDirection(Direction.LEFT);
         } else if (keyH.rightPressed) {
-            entity.direction = entity.direction.RIGHT;
+            entity.setDirection(Direction.RIGHT);
         }
     }
 
     public void move() {
-        if (!entity.collisionOn) {
-            switch (entity.direction) {
+        if (!entity.isCollisionOn()) {
+            switch (entity.getDirection()) {
                 case UP:
-                    entity.worldY += entity.speed;
+                    entity.setWorldY(entity.getWorldY() + entity.getSpeed());
                     break;
                 case DOWN:
-                    entity.worldY -= entity.speed;
+                    entity.setWorldY(entity.getWorldY() - entity.getSpeed());
                     break;
                 case LEFT:
-                    entity.worldX -= entity.speed;
+                    entity.setWorldX(entity.getWorldX() - entity.getSpeed());
                     break;
                 case RIGHT:
-                    entity.worldX += entity.speed;
+                    entity.setWorldX(entity.getWorldX() + entity.getSpeed());
                     break;
             }
         }

@@ -2,7 +2,6 @@ package io.github.spiritstead.entity.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import io.github.spiritstead.entity.Entity;
 
 public class PlayerSpriteLoader {
     Player player;

@@ -3,7 +3,7 @@ package io.github.spiritstead.entity.player;
 import io.github.spiritstead.collision.NPCCollision;
 import io.github.spiritstead.collision.ObjectCollision;
 import io.github.spiritstead.collision.TileCollision;
-import io.github.spiritstead.entity.Entity;
+import io.github.spiritstead.entity.PlayerInteractable;
 import io.github.spiritstead.main.GamePanel;
 
 /**
@@ -12,13 +12,13 @@ import io.github.spiritstead.main.GamePanel;
 public class PlayerCollisionHandler {
     GamePanel gp;
     Player player;
-    Entity npcs[];
+    PlayerInteractable npcs[];
 
     private TileCollision tileCollision;
     private ObjectCollision objectCollision;
     private NPCCollision NPCCollision;
 
-    public PlayerCollisionHandler(GamePanel gp, Player player, Entity npcs[]) {
+    public PlayerCollisionHandler(GamePanel gp, Player player, PlayerInteractable npcs[]) {
         this.gp = gp;
         this.player = player;
         this.npcs = npcs;
