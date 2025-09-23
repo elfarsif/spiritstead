@@ -9,16 +9,25 @@ import java.util.Map;
 public class SoundWrapper {
     private long id;
     private Sound currentSound;
-    private Sound sounds[] = new Sound[10];
     private final Map<SoundEffect, Sound> soundEffects = new EnumMap<>(SoundEffect.class);
     private final Map<Music, Sound> music = new EnumMap<>(Music.class);
 
     public SoundWrapper() {
-        this.sounds[0] = Gdx.audio.newSound(Gdx.files.internal("sounds/theme1.wav"));
-        this.sounds[2] = Gdx.audio.newSound(Gdx.files.internal("sounds/powerup.wav"));
-        this.sounds[3] = Gdx.audio.newSound(Gdx.files.internal("sounds/dialogue.wav"));
-        this.soundEffects.put(SoundEffect.COIN, Gdx.audio.newSound(Gdx.files.internal("sounds/coin.wav")));
-        this.soundEffects.put(SoundEffect.POWERUP, Gdx.audio.newSound(Gdx.files.internal("sounds/powerup.wav")));
+        loadMusic();
+        loadSounds();
+    }
+
+    private void loadMusic() {
+        for (Music music : Music.values()) {
+            this.music.put(music, Gdx.audio.newSound(Gdx.files.internal(music.getFileName())));
+        }
+
+    }
+
+    private void loadSounds() {
+        for (SoundEffect soundEffect : SoundEffect.values()) {
+            this.soundEffects.put(soundEffect, Gdx.audio.newSound(Gdx.files.internal(soundEffect.getFileName())));
+        }
     }
 
     public void play() {
