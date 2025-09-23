@@ -1,6 +1,4 @@
-package io.github.spiritstead.collision;
-
-import io.github.spiritstead.entity.Direction;
+package io.github.spiritstead.entity;
 
 import java.awt.*;
 

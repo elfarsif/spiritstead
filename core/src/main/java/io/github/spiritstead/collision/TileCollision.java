@@ -1,6 +1,6 @@
 package io.github.spiritstead.collision;
 
-import io.github.spiritstead.entity.player.TileColliadable;
+import io.github.spiritstead.entity.TileColliadable;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.tile.TileManager;

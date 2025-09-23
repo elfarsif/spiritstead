@@ -1,9 +1,13 @@
-package io.github.spiritstead.entity.mayor;
+package io.github.spiritstead.entity.npc.mayor;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
 import io.github.spiritstead.entity.*;
-import io.github.spiritstead.entity.player.TileColliadable;
+import io.github.spiritstead.entity.TileColliadable;
+import io.github.spiritstead.entity.npc.NPC;
+import io.github.spiritstead.entity.npc.NPCDrawer;
+import io.github.spiritstead.entity.npc.NPCMover;
+import io.github.spiritstead.entity.npc.NPCSpriteLoader;
 import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
@@ -13,8 +17,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Random;
 
-public class Mayor implements Updatable, Drawable, TileColliadable,
-    ObjectColliadable, PlayerInteractable {
+public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     public int worldX, worldY;
 
     public int speed;
@@ -35,17 +38,17 @@ public class Mayor implements Updatable, Drawable, TileColliadable,
     //
     GamePanel gp;
     MayorDialogue dialogue;
-    private EntitySpriteLoader entitySpriteLoader;
-    private EntityMover entityMover;
-    private EntityDrawer entityDrawer;
+    private NPCSpriteLoader NPCSpriteLoader;
+    private NPCMover NPCMover;
+    private NPCDrawer NPCDrawer;
     private FrameGate frameGate;
     private ArrayList<Collision> collisionTypes = new ArrayList<>();
 
     public Mayor(GamePanel gp) {
         this.gp = gp;
-        this.entitySpriteLoader = new EntitySpriteLoader(this);
-        this.entityMover = new EntityMover(this);
-        this.entityDrawer = new EntityDrawer(gp, this);
+        this.NPCSpriteLoader = new NPCSpriteLoader(this);
+        this.NPCMover = new NPCMover(this);
+        this.NPCDrawer = new NPCDrawer(gp, this);
         this.frameGate = new FrameGate(120);
         this.collisionTypes.add(new TileCollision(this.gp, this));
         this.collisionTypes.add(new ObjectCollision(this.gp, this));
@@ -53,7 +56,7 @@ public class Mayor implements Updatable, Drawable, TileColliadable,
 
         solidArea = new Rectangle(0, 0, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
 
-        entitySpriteLoader.load();
+        NPCSpriteLoader.load();
         direction = Direction.LEFT;
         speed = 1;
         dialogue = new MayorDialogue();
@@ -84,7 +87,7 @@ public class Mayor implements Updatable, Drawable, TileColliadable,
     public void update() {
         setAction();
         checkCollisions();
-        entityMover.move();
+        NPCMover.move();
 
     }
 
@@ -101,7 +104,7 @@ public class Mayor implements Updatable, Drawable, TileColliadable,
     }
 
     public void draw() {
-        entityDrawer.draw();
+        NPCDrawer.draw();
 
     }
 

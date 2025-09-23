@@ -1,11 +1,12 @@
-package io.github.spiritstead.entity;
+package io.github.spiritstead.entity.npc;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import io.github.spiritstead.entity.Direction;
 
 import java.awt.*;
 import java.util.EnumMap;
 
-public interface PlayerInteractable {
+public interface NPC {
     void speak();
 
     Rectangle getSolidArea();

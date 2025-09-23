@@ -1,8 +1,9 @@
 package io.github.spiritstead.entity.player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import io.github.spiritstead.collision.ObjectColliadable;
+import io.github.spiritstead.entity.ObjectColliadable;
 import io.github.spiritstead.entity.*;
+import io.github.spiritstead.entity.npc.NPC;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.KeyHandler;
 import io.github.spiritstead.main.ScreenSetting;
@@ -10,10 +11,10 @@ import io.github.spiritstead.main.ScreenSetting;
 import java.awt.*;
 import java.util.EnumMap;
 
-public class Player implements Updatable, Drawable, TileColliadable, ObjectColliadable {
+public class Player implements TileColliadable, ObjectColliadable {
     private GamePanel gp;
     private KeyHandler keyH;
-    private PlayerInteractable npcs[];
+    private NPC npcs[];
     public int hasKey = 0;
     public NPCInteraction NPCInteraction;
     private PlayerDrawer playerDrawer;

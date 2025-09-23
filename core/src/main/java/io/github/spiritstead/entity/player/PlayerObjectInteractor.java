@@ -1,6 +1,8 @@
 package io.github.spiritstead.entity.player;
 
 import com.badlogic.gdx.Game;
+import io.github.spiritstead.audio.AudioPlayer;
+import io.github.spiritstead.audio.SoundEffect;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.object.GameObject;
 
@@ -8,10 +10,12 @@ public class PlayerObjectInteractor {
     private Player player;
     private int index;
     private GamePanel gp;
+    private AudioPlayer audioPlayer;
 
     public PlayerObjectInteractor(GamePanel gp, Player player) {
         this.gp = gp;
         this.player = player;
+        this.audioPlayer = new AudioPlayer();
     }
 
     public void setIndex(int index) {
@@ -25,7 +29,7 @@ public class PlayerObjectInteractor {
                 case "Key":
                     player.hasKey++;
                     gp.system.aSetter.objects[index] = null;
-                    gp.system.audioPlayer.playSE(1);
+                    this.audioPlayer.playSE(SoundEffect.COIN);
                     gp.system.ui.gameScreenUI.showMessage("You got a key!");
                     break;
                 case "Door":
@@ -40,12 +44,12 @@ public class PlayerObjectInteractor {
                 case "Boots":
                     player.speed += 2;
                     gp.system.aSetter.objects[index] = null;
-                    gp.system.audioPlayer.playSE(2);
+                    this.audioPlayer.playSE(SoundEffect.POWERUP);
                     gp.system.ui.gameScreenUI.showMessage("YOU ARE FAST");
                     break;
                 case "Chest":
                     gp.system.ui.gameScreenUI.gameFinished = true;
-                    gp.system.audioPlayer.playSE(2);
+                    this.audioPlayer.playSE(SoundEffect.POWERUP);
                     break;
 
             }

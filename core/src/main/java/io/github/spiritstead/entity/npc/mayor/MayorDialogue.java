@@ -1,4 +1,4 @@
-package io.github.spiritstead.entity.mayor;
+package io.github.spiritstead.entity.npc.mayor;
 
 public class MayorDialogue {
     public String[] array = new String[20];

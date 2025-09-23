@@ -1,13 +1,13 @@
 package io.github.spiritstead.collision;
 
-import io.github.spiritstead.entity.PlayerInteractable;
+import io.github.spiritstead.entity.npc.NPC;
 import io.github.spiritstead.main.GamePanel;
 
 public class PlayerCollision implements Collision {
     GamePanel gp;
-    PlayerInteractable entity;
+    NPC entity;
 
-    public PlayerCollision(GamePanel gp, PlayerInteractable entity) {
+    public PlayerCollision(GamePanel gp, NPC entity) {
         this.gp = gp;
         this.entity = entity;
     }
@@ -20,7 +20,7 @@ public class PlayerCollision implements Collision {
 
     }
 
-    private void checkCollisionForAllDirections(PlayerInteractable entity) {
+    private void checkCollisionForAllDirections(NPC entity) {
         switch (entity.getDirection()) {
             case UP:
                 checkUpCollision();

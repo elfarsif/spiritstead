@@ -1,5 +1,7 @@
 package io.github.spiritstead.audio;
 
+import java.util.Map;
+
 public class AudioPlayer {
     private SoundWrapper music;
     private SoundWrapper se;
@@ -9,8 +11,8 @@ public class AudioPlayer {
         this.se = new SoundWrapper();
     }
 
-    public void playMusic(int i) {
-        this.music.setFile(i);
+    public void playMusic(Music music) {
+        this.music.setFile(music);
         this.music.play();
         this.music.loop();
     }
@@ -19,8 +21,9 @@ public class AudioPlayer {
         this.music.stop();
     }
 
-    public void playSE(int i) {
-        this.se.setFile(i);
+    public void playSE(SoundEffect soundEffect) {
+        this.se.setFile(soundEffect);
         this.se.play();
     }
+
 }

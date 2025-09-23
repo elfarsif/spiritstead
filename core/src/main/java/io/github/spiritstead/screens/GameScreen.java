@@ -1,7 +1,5 @@
 package io.github.spiritstead.screens;
 
-import io.github.spiritstead.entity.Drawable;
-import io.github.spiritstead.entity.Updatable;
 import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.AssetSetter;
 import io.github.spiritstead.main.GamePanel;
@@ -12,16 +10,12 @@ public class GameScreen implements Screen {
     private GameSystem system;
     private AssetSetter assetSetter;
     private Player player;
-    private Updatable playerUpdate;
-    private Drawable drawablePlayer;
 
     public GameScreen(GamePanel gp, GameSystem system, Player player) {
         this.gp = gp;
         this.system = system;
         this.assetSetter = system.aSetter;
         this.player = player;
-        this.playerUpdate = player;
-        this.drawablePlayer = player;
 
     }
 
@@ -30,13 +24,13 @@ public class GameScreen implements Screen {
         system.tileM.draw(gp.batch);
         drawObjects();
         drawNPCS();
-        this.drawablePlayer.draw();
+        player.draw();
         system.eHandler.draw(gp.batch);
         system.ui.draw();
     }
 
     public void update() {
-        playerUpdate.update();
+        player.update();
         updateNPCs();
 
     }
