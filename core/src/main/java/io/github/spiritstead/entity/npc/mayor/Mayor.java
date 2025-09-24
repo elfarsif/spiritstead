@@ -59,7 +59,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
         NPCSpriteLoader.load();
         direction = Direction.LEFT;
         speed = 1;
-        mayorDialogue = new MayorDialogue(gp.ui.dialogueUI.text.font, gp.ui.dialogueUI.text.getDialogueWindow().getWidth() - ScreenSetting.TILE_SIZE);
+        mayorDialogue = new MayorDialogue();
 
         frames.put(Direction.UP, new Sprite[]{up1, up2});
         frames.put(Direction.DOWN, new Sprite[]{down1, down2});

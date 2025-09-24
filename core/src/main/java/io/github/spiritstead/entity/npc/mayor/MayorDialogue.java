@@ -1,32 +1,14 @@
 package io.github.spiritstead.entity.npc.mayor;
 
-import io.github.spiritstead.cutscene.gameIntro.TextWrapper;
-import io.github.spiritstead.font.Font;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class MayorDialogue {
     public Map<Integer, String> array = new HashMap<>();
     private int index = 0;
-    private int width;
-    private TextWrapper textWrapper;
-    private Font font;
 
-    public MayorDialogue(Font font, int width) {
-        this.font = font;
-        this.width = width;
+    public MayorDialogue() {
         initializeDialogues();
-        wrapDialogues();
-    }
-
-    private void wrapDialogues() {
-        textWrapper = new TextWrapper(font, this.width);
-        for (int i = 0; i < array.size(); i++) {
-            textWrapper.setText(array.get(i));
-            textWrapper.wrap();
-            array.put(i, textWrapper.wrappedText);
-        }
     }
 
     private void initializeDialogues() {

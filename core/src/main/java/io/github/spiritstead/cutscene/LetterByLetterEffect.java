@@ -42,7 +42,6 @@ public class LetterByLetterEffect {
 
         if (allTextIsDisplayed()) {
             inputGate.open();
-
         }
         this.font.getBitmapFont().draw(batch, displayedText, x, y);
     }

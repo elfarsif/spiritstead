@@ -53,6 +53,7 @@ public class ContentSlideText {
 
             if (textCounter < texts.size() - 1) {
                 textCounter += 1;
+                this.letterByLetterEffect.reset();
             } else {
                 gameIntro.slideCounter++;
             }
