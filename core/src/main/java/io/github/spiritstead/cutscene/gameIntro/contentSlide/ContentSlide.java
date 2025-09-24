@@ -1,16 +1,17 @@
-package io.github.spiritstead.cutscene.gameIntro;
+package io.github.spiritstead.cutscene.gameIntro.contentSlide;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.cutscene.FadeBlack;
+import io.github.spiritstead.cutscene.gameIntro.GameIntro;
+import io.github.spiritstead.cutscene.gameIntro.Slide;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
 import java.util.ArrayList;
 
 public class ContentSlide implements Slide {
-    GamePanel gp;
     GameIntro gameIntro;
     Sprite image1;
     float image1X, image1Y;
@@ -20,10 +21,9 @@ public class ContentSlide implements Slide {
     ContentSlideText contentSlideText;
 
     public ContentSlide(GamePanel gp, GameIntro gameIntro, String imageFileName, ArrayList<String> texts) {
-        this.gp = gp;
         this.batch = gp.batch;
         this.gameIntro = gameIntro;
-        this.fadeBlack = new FadeBlack(gp);
+        this.fadeBlack = new FadeBlack(gp.batch);
         this.contentSlideText = new ContentSlideText(gp, gameIntro, this, texts);
 
         setImage(imageFileName);
@@ -35,8 +35,8 @@ public class ContentSlide implements Slide {
             image1 = new Sprite(new Texture(fileName));
             image1.setSize(ScreenSetting.TILE_SIZE * 10, ScreenSetting.TILE_SIZE * 6);
 
-            image1X = gp.sSetting.SCREEN_WIDTH / 2 - image1.getWidth() / 2;
-            image1Y = gp.sSetting.SCREEN_HEIGHT / 2 - image1.getHeight() / 4;
+            image1X = ScreenSetting.SCREEN_WIDTH / 2 - image1.getWidth() / 2;
+            image1Y = ScreenSetting.SCREEN_HEIGHT / 2 - image1.getHeight() / 4;
         } catch (Exception e) {
 
             System.out.println(e.getMessage());

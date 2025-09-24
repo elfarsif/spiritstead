@@ -8,21 +8,25 @@ import io.github.spiritstead.main.ScreenSetting;
  * This class adds \n to string to wrap at a certain width
  */
 public class TextWrapper {
-    String originalText;
     String text;
-
+    public String wrappedText;
     int width;
 
     GlyphLayout layout = new GlyphLayout();
-    StringBuilder wrappedText = new StringBuilder();
+    StringBuilder wrappedTextStringBuilder = new StringBuilder();
     Font font;
 
     public TextWrapper(Font font) {
         this.font = font;
     }
 
-    public void setOriginalText(String originalText) {
-        this.originalText = originalText;
+    public TextWrapper(Font font, int width) {
+        this.font = font;
+        this.width = width;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public void setWidth(int width) {
@@ -30,7 +34,7 @@ public class TextWrapper {
     }
 
     public String wrap() {
-        String originalText = this.originalText;
+        String originalText = this.text;
 
         //TODO: maxwidth should be tilesize, make tile size a global final variable
         float maxWidth = width + ScreenSetting.TILE_SIZE * 2; // or set manually
@@ -42,17 +46,17 @@ public class TextWrapper {
             layout.setText(font.getBitmapFont(), testLine);
 
             if (layout.width > maxWidth) {
-                wrappedText.append(line).append("\n");
+                wrappedTextStringBuilder.append(line).append("\n");
                 line = word; // Start new line with the current word
             } else {
                 line = testLine;
             }
         }
-        wrappedText.append(line); // append the last line
+        wrappedTextStringBuilder.append(line); // append the last line
 
-        String finalText = wrappedText.toString();
-        wrappedText.setLength(0);
-        text = finalText;
+        String finalText = wrappedTextStringBuilder.toString();
+        wrappedTextStringBuilder.setLength(0);
+        wrappedText = finalText;
         return finalText;
     }
 

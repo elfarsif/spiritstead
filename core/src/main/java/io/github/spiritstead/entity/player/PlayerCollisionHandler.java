@@ -22,7 +22,7 @@ public class PlayerCollisionHandler {
         this.gp = gp;
         this.player = player;
         this.npcs = npcs;
-        this.tileCollision = new TileCollision(gp, player);
+        this.tileCollision = new TileCollision(gp.tileM, player);
         this.objectCollision = new ObjectCollision(gp, player);
         this.NPCCollision = new NPCCollision(player, npcs);
     }
@@ -56,7 +56,7 @@ public class PlayerCollisionHandler {
     }
 
     private void checkEventCollision() {
-        gp.system.eHandler.checkEvent();
+        gp.eHandler.checkEvent();
     }
 
 }

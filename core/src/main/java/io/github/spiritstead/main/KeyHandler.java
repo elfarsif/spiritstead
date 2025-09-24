@@ -2,7 +2,7 @@ package io.github.spiritstead.main;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import io.github.spiritstead.screens.TitleScreenOptions;
+import io.github.spiritstead.screens.titleScreen.TitleScreenOptions;
 
 /*
 This class handles the key inputs for the game.
@@ -39,7 +39,7 @@ public class KeyHandler extends InputAdapter {
             if (code == Input.Keys.SPACE) {
                 spacePressed = true;
                 gp.screenManager.screen = gp.screenManager.gameScreen;
-                gp.system.ui.uiScreen = gp.system.ui.gameScreenUI;
+                gp.ui.uiScreen = gp.ui.gameScreenUI;
                 System.out.println("pressed space");
 
             }

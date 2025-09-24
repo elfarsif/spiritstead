@@ -20,7 +20,8 @@ public class UI {
         this.gp = gp;
         this.batch = gp.batch;
         this.gameScreenUI = new GameScreenUI(gp);
-        dialogueUI = new DialogueUI(gp);
+        this.dialogueUI = new DialogueUI(gp);
+
         uiScreen = gameScreenUI;
     }
 

@@ -49,7 +49,7 @@ public class Player implements TileColliadable, ObjectColliadable {
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
-        this.npcs = gp.system.aSetter.npcs;
+        this.npcs = gp.aSetter.npcs;
         this.NPCInteraction = new NPCInteraction(gp);
         this.playerDrawer = new PlayerDrawer(gp.batch, this);
         this.playerMover = new PlayerMover(this);

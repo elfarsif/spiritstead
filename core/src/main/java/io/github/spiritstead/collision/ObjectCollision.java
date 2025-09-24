@@ -8,9 +8,7 @@ import io.github.spiritstead.object.GameObject;
 public class ObjectCollision implements Collision {
     private GamePanel gp;
     private ObjectColliadable entity;
-
     private int index;
-
     private GameObject gameObject;
 
     public ObjectCollision(GamePanel gp, ObjectColliadable entity) {
@@ -22,9 +20,9 @@ public class ObjectCollision implements Collision {
         this.index = 9999;
         boolean player = entity instanceof Player;
 
-        for (int i = 0; i < this.gp.system.aSetter.objects.length; i++) {
-            if (this.gp.system.aSetter.objects[i] != null) {
-                this.gameObject = this.gp.system.aSetter.objects[i];
+        for (int i = 0; i < this.gp.aSetter.objects.length; i++) {
+            if (this.gp.aSetter.objects[i] != null) {
+                this.gameObject = this.gp.aSetter.objects[i];
                 intializeEntitySolidArea();
                 initializeObjectSolidArea(i);
                 checkCollisionForAllDirections(player, i);
@@ -36,16 +34,20 @@ public class ObjectCollision implements Collision {
     private void checkCollisionForAllDirections(boolean player, int i) {
         switch (entity.getDirection()) {
             case UP:
-                checkUpCollision(player, i);
+                entity.getSolidArea().y += entity.getSpeed();
+                checkCollision(player, i);
                 break;
             case DOWN:
-                checkDownCollision(player, i);
+                entity.getSolidArea().y -= entity.getSpeed();
+                checkCollision(player, i);
                 break;
             case LEFT:
-                checkLeftCollision(player, i);
+                entity.getSolidArea().x -= entity.getSpeed();
+                checkCollision(player, i);
                 break;
             case RIGHT:
-                checkRightCollision(player, i);
+                entity.getSolidArea().x += entity.getSpeed();
+                checkCollision(player, i);
                 break;
         }
     }
@@ -57,44 +59,7 @@ public class ObjectCollision implements Collision {
         gameObject.solidArea.y = gameObject.solidAreaDefaultY;
     }
 
-    private void checkRightCollision(boolean player, int i) {
-        entity.getSolidArea().x += entity.getSpeed();
-        if (entity.getSolidArea().intersects(gameObject.solidArea)) {
-            if (gameObject.collision == true) {
-                entity.setCollisionOn(true);
-            }
-            if (player) {
-                index = i;
-            }
-        }
-    }
-
-    private void checkLeftCollision(boolean player, int i) {
-        entity.getSolidArea().x -= entity.getSpeed();
-        if (entity.getSolidArea().intersects(gameObject.solidArea)) {
-            if (gameObject.collision == true) {
-                entity.setCollisionOn(true);
-            }
-            if (player) {
-                index = i;
-            }
-        }
-    }
-
-    private void checkDownCollision(boolean player, int i) {
-        entity.getSolidArea().y -= entity.getSpeed();
-        if (entity.getSolidArea().intersects(gameObject.solidArea)) {
-            if (gameObject.collision == true) {
-                entity.setCollisionOn(true);
-            }
-            if (player) {
-                index = i;
-            }
-        }
-    }
-
-    private void checkUpCollision(boolean player, int i) {
-        entity.getSolidArea().y += entity.getSpeed();
+    private void checkCollision(boolean player, int i) {
         if (entity.getSolidArea().intersects(gameObject.solidArea)) {
             if (gameObject.collision == true) {
                 entity.setCollisionOn(true);

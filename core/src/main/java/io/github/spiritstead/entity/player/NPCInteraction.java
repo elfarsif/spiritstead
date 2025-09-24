@@ -17,7 +17,7 @@ public class NPCInteraction {
     }
 
     public void handle() {
-        gp.system.ui.uiScreen = gp.system.ui.dialogueUI;
+        gp.ui.uiScreen = gp.ui.dialogueUI;
         gp.screenManager.screen = gp.screenManager.dialogueScreen;
         npc.speak();
 

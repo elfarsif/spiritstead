@@ -1,0 +1,61 @@
+package io.github.spiritstead.cutscene;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.font.Font;
+import io.github.spiritstead.main.FrameGate;
+
+public class LetterByLetterEffect {
+    private SpriteBatch batch;
+    private String text;
+    private FrameGate frameGate;
+    private int charIndex = 0;
+    private String combinedText = "";
+    private String displayedText = "";
+    private Font font;
+    public InputGate inputGate;
+    private char[] characters;
+    private String s;
+
+    public LetterByLetterEffect(SpriteBatch batch, Font font) {
+        this.batch = batch;
+        this.font = font;
+        this.inputGate = new InputGate();
+        this.frameGate = new FrameGate(2);
+    }
+
+    public void draw(float x, float y) {
+
+        this.characters = text.toCharArray();
+        if (frameGate.tick()) {
+            if (charIndex < characters.length) {
+                s = String.valueOf(characters[charIndex]);
+                combinedText += s;
+                displayedText = combinedText;
+//                gp.audioPlayer.playSE(SoundEffect.DIALOGUE);
+                charIndex++;
+            }
+            frameGate.reset();
+        }
+
+        if (allTextIsDisplayed()) {
+            inputGate.open();
+
+        }
+        this.font.getBitmapFont().draw(batch, displayedText, x, y);
+    }
+
+    public void reset() {
+        displayedText = "";
+        charIndex = 0;
+        combinedText = "";
+    }
+
+    private boolean allTextIsDisplayed() {
+        return displayedText.length() == text.length();
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+}

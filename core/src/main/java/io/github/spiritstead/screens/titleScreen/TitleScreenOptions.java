@@ -1,4 +1,4 @@
-package io.github.spiritstead.screens;
+package io.github.spiritstead.screens.titleScreen;
 
 public enum TitleScreenOptions {
     NEW_GAME(0),

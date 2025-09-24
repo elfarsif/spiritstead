@@ -23,16 +23,20 @@ public class PlayerCollision implements Collision {
     private void checkCollisionForAllDirections(NPC entity) {
         switch (entity.getDirection()) {
             case UP:
-                checkUpCollision();
+                entity.getSolidArea().y += entity.getSpeed();
+                checkCollision();
                 break;
             case DOWN:
-                checkDownCollision();
+                entity.getSolidArea().y -= entity.getSpeed();
+                checkCollision();
                 break;
             case LEFT:
-                checkLeftCollision();
+                entity.getSolidArea().x -= entity.getSpeed();
+                checkCollision();
                 break;
             case RIGHT:
-                checkRightCollision();
+                entity.getSolidArea().x += entity.getSpeed();
+                checkCollision();
                 break;
         }
     }
@@ -47,29 +51,7 @@ public class PlayerCollision implements Collision {
         gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
     }
 
-    private void checkUpCollision() {
-        entity.getSolidArea().y += entity.getSpeed();
-        if (entity.getSolidArea().intersects(gp.player.solidArea)) {
-            entity.setCollisionOn(true);
-        }
-    }
-
-    private void checkDownCollision() {
-        entity.getSolidArea().y -= entity.getSpeed();
-        if (entity.getSolidArea().intersects(gp.player.solidArea)) {
-            entity.setCollisionOn(true);
-        }
-    }
-
-    private void checkLeftCollision() {
-        entity.getSolidArea().x -= entity.getSpeed();
-        if (entity.getSolidArea().intersects(gp.player.solidArea)) {
-            entity.setCollisionOn(true);
-        }
-    }
-
-    private void checkRightCollision() {
-        entity.getSolidArea().x += entity.getSpeed();
+    private void checkCollision() {
         if (entity.getSolidArea().intersects(gp.player.solidArea)) {
             entity.setCollisionOn(true);
         }

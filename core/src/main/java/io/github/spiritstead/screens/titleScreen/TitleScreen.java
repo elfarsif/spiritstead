@@ -1,4 +1,4 @@
-package io.github.spiritstead.screens;
+package io.github.spiritstead.screens.titleScreen;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -8,6 +8,7 @@ import io.github.spiritstead.cutscene.BlackTexture;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
+import io.github.spiritstead.screens.Screen;
 
 public class TitleScreen implements Screen {
     private GamePanel gp;

@@ -15,7 +15,8 @@ public class DialogueWindow {
     private SpriteBatch batch;
     private Pixmap pixmap;
     Texture texture;
-    int x, y, width, height;
+    int x, y, height;
+    private int width;
 
     public DialogueWindow(GamePanel gp) {
         this.gp = gp;
@@ -55,6 +56,10 @@ public class DialogueWindow {
 
     public void dispose() {
         pixmap.dispose();
+    }
+
+    public int getWidth() {
+        return width;
     }
 
 }

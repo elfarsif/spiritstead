@@ -37,7 +37,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
 
     //
     GamePanel gp;
-    MayorDialogue dialogue;
+    MayorDialogue mayorDialogue;
     private NPCSpriteLoader NPCSpriteLoader;
     private NPCMover NPCMover;
     private NPCDrawer NPCDrawer;
@@ -50,7 +50,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
         this.NPCMover = new NPCMover(this);
         this.NPCDrawer = new NPCDrawer(gp, this);
         this.frameGate = new FrameGate(120);
-        this.collisionTypes.add(new TileCollision(this.gp, this));
+        this.collisionTypes.add(new TileCollision(this.gp.tileM, this));
         this.collisionTypes.add(new ObjectCollision(this.gp, this));
         this.collisionTypes.add(new PlayerCollision(this.gp, this));
 
@@ -59,7 +59,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
         NPCSpriteLoader.load();
         direction = Direction.LEFT;
         speed = 1;
-        dialogue = new MayorDialogue();
+        mayorDialogue = new MayorDialogue(gp.ui.dialogueUI.text.font, gp.ui.dialogueUI.text.getDialogueWindow().getWidth() - ScreenSetting.TILE_SIZE);
 
         frames.put(Direction.UP, new Sprite[]{up1, up2});
         frames.put(Direction.DOWN, new Sprite[]{down1, down2});
@@ -85,15 +85,15 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     }
 
     public void update() {
-        setAction();
+//        setAction();
         checkCollisions();
         NPCMover.move();
 
     }
 
     public void speak() {
-        gp.system.ui.dialogueUI.text.currentDialogue = dialogue.array[dialogue.index];
-        dialogue.index++;
+        gp.ui.dialogueUI.text.currentDialogue = mayorDialogue.getCurrentDialogue();
+        mayorDialogue.increment();
     }
 
     private void checkCollisions() {

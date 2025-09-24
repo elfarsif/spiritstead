@@ -4,8 +4,12 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import io.github.spiritstead.audio.AudioPlayer;
 import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.screens.ScreenManager;
+import io.github.spiritstead.script.Script;
+import io.github.spiritstead.tile.TileManager;
+import io.github.spiritstead.ui.UI;
 
 /**
  * This class is the main class that handles all aspects of game logic.
@@ -16,8 +20,14 @@ public class GamePanel extends ApplicationAdapter {
     public ScreenSetting sSetting = new ScreenSetting();
     public WorldSettings worldSettings = new WorldSettings();
     public ScreenManager screenManager;
-    public GameSystem system;
-
+    //System
+    public KeyHandler keyH;
+    public AudioPlayer audioPlayer;
+    public UI ui;
+    public EventHandler eHandler;
+    public Script script = new Script();
+    public AssetSetter aSetter;
+    public TileManager tileM;
     //Entities
     public Player player;
 
@@ -26,13 +36,20 @@ public class GamePanel extends ApplicationAdapter {
         Gdx.graphics.setWindowedMode(sSetting.SCREEN_WIDTH, sSetting.SCREEN_HEIGHT);
         batch = new SpriteBatch();
 
-        system = new GameSystem(this);
-        player = new Player(this, system.keyH);
-        screenManager = new ScreenManager(this, system, player);
+        audioPlayer = new AudioPlayer();
+
+        tileM = new TileManager(this);
+        keyH = new KeyHandler(this);
+        ui = new UI(this);
+        eHandler = new EventHandler(this);
+        aSetter = new AssetSetter(this);
+
+        player = new Player(this, this.keyH);
+        screenManager = new ScreenManager(this, player);
 
 //        system.audioPlayer.playMusic(0);
 
-        Gdx.input.setInputProcessor(system.keyH);
+        Gdx.input.setInputProcessor(this.keyH);
     }
 
     @Override

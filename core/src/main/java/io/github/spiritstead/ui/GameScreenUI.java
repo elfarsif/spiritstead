@@ -61,7 +61,7 @@ public class GameScreenUI implements UIScreen {
     public void draw() {
         drawKeyInventory();
         drawMessages();
-        if (gp.system.keyH.tPressed) {
+        if (gp.keyH.tPressed) {
             int x = 10;
             int y = 40;
             int lineHeight = 30;

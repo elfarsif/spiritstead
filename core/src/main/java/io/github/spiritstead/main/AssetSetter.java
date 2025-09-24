@@ -7,7 +7,7 @@ import io.github.spiritstead.object.*;
 public class AssetSetter {
     private GamePanel gp;
     public GameObject objects[] = new GameObject[10];
-    public NPC npcs[] = new Mayor[10];
+    public NPC[] npcs = new NPC[10];
 
     public AssetSetter(GamePanel gp) {
         this.gp = gp;

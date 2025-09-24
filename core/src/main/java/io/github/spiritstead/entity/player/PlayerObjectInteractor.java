@@ -15,7 +15,7 @@ public class PlayerObjectInteractor {
     public PlayerObjectInteractor(GamePanel gp, Player player) {
         this.gp = gp;
         this.player = player;
-        this.audioPlayer = new AudioPlayer();
+        this.audioPlayer = gp.audioPlayer;
     }
 
     public void setIndex(int index) {
@@ -24,31 +24,31 @@ public class PlayerObjectInteractor {
 
     public void interact() {
         if (index != 9999) {
-            String objName = gp.system.aSetter.objects[index].name;
+            String objName = gp.aSetter.objects[index].name;
             switch (objName) {
                 case "Key":
                     player.hasKey++;
-                    gp.system.aSetter.objects[index] = null;
+                    gp.aSetter.objects[index] = null;
                     this.audioPlayer.playSE(SoundEffect.COIN);
-                    gp.system.ui.gameScreenUI.showMessage("You got a key!");
+                    gp.ui.gameScreenUI.showMessage("You got a key!");
                     break;
                 case "Door":
                     if (player.hasKey > 0) {
-                        gp.system.aSetter.objects[index] = null;
+                        gp.aSetter.objects[index] = null;
                         player.hasKey--;
-                        gp.system.ui.gameScreenUI.showMessage("You opened the door!");
+                        gp.ui.gameScreenUI.showMessage("You opened the door!");
                     } else {
-                        gp.system.ui.gameScreenUI.showMessage("You need a key");
+                        gp.ui.gameScreenUI.showMessage("You need a key");
                     }
                     break;
                 case "Boots":
                     player.speed += 2;
-                    gp.system.aSetter.objects[index] = null;
+                    gp.aSetter.objects[index] = null;
                     this.audioPlayer.playSE(SoundEffect.POWERUP);
-                    gp.system.ui.gameScreenUI.showMessage("YOU ARE FAST");
+                    gp.ui.gameScreenUI.showMessage("YOU ARE FAST");
                     break;
                 case "Chest":
-                    gp.system.ui.gameScreenUI.gameFinished = true;
+                    gp.ui.gameScreenUI.gameFinished = true;
                     this.audioPlayer.playSE(SoundEffect.POWERUP);
                     break;
 

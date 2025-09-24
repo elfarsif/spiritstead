@@ -8,8 +8,10 @@ import io.github.spiritstead.main.ScreenSetting;
 public class DialogueUIText {
     GamePanel gp;
     SpriteBatch batch;
-    DialogueWindow dialogueWindow;
-    private Font font;
+
+    private DialogueWindow dialogueWindow;
+
+    public Font font;
     public String currentDialogue = "";
     int x, y;
 
@@ -22,9 +24,9 @@ public class DialogueUIText {
     }
 
     public void draw() {
-        x = dialogueWindow.x + ScreenSetting.TILE_SIZE;
+        x = dialogueWindow.x + ScreenSetting.TILE_SIZE / 2;
         y = dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE;
-        font.getBitmapFont().getData().setScale(1f);
+        font.getBitmapFont().getData().setScale(0.9f);
         font.getBitmapFont().draw(batch, currentDialogue, x, y);
     }
 
@@ -32,4 +34,7 @@ public class DialogueUIText {
         font.getBitmapFont().dispose();
     }
 
+    public DialogueWindow getDialogueWindow() {
+        return dialogueWindow;
+    }
 }

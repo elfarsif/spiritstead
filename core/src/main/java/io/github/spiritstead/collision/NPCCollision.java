@@ -40,17 +40,28 @@ public class NPCCollision implements Collision {
     private void checkCollisionForAllDirections(NPC[] target, int i) {
         switch (player.direction) {
             case UP:
-                checkUpCollision(target, i);
+                player.solidArea.y += player.speed;
+                checkCollision(target, i);
                 break;
             case DOWN:
-                checkDownCollision(target, i);
+                player.solidArea.y -= player.speed;
+                checkCollision(target, i);
                 break;
             case LEFT:
-                checkLeftCollision(target, i);
+                player.solidArea.x -= player.speed;
+                checkCollision(target, i);
                 break;
             case RIGHT:
-                checkRightCollision(target, i);
+                player.solidArea.x += player.speed;
+                checkCollision(target, i);
                 break;
+        }
+    }
+
+    private void checkCollision(NPC[] target, int i) {
+        if (player.solidArea.intersects(target[i].getSolidArea())) {
+            player.collisionOn = true;
+            this.index = i;
         }
     }
 
@@ -59,38 +70,6 @@ public class NPCCollision implements Collision {
         player.solidArea.y = player.solidAreaDefaultY;
         target.getSolidArea().x = target.getSolidAreadDefaultX();
         target.getSolidArea().y = target.getSolidAreadDefaultY();
-    }
-
-    private void checkRightCollision(NPC[] target, int i) {
-        player.solidArea.x += player.speed;
-        if (player.solidArea.intersects(target[i].getSolidArea())) {
-            player.collisionOn = true;
-            this.index = i;
-        }
-    }
-
-    private void checkLeftCollision(NPC[] target, int i) {
-        player.solidArea.x -= player.speed;
-        if (player.solidArea.intersects(target[i].getSolidArea())) {
-            player.collisionOn = true;
-            this.index = i;
-        }
-    }
-
-    private void checkDownCollision(NPC[] target, int i) {
-        player.solidArea.y -= player.speed;
-        if (player.solidArea.intersects(target[i].getSolidArea())) {
-            player.collisionOn = true;
-            this.index = i;
-        }
-    }
-
-    private void checkUpCollision(NPC[] target, int i) {
-        player.solidArea.y += player.speed;
-        if (player.solidArea.intersects(target[i].getSolidArea())) {
-            player.collisionOn = true;
-            this.index = i;
-        }
     }
 
     public int getIndex() {
