@@ -44,7 +44,6 @@ public class KeyHandler extends InputAdapter {
                     spacePressed = true;
                     gp.screenManager.screen = gp.screenManager.gameScreen;
                     gp.ui.uiScreen = gp.ui.gameScreenUI;
-                    System.out.println("pressed space");
 
                 }
             }

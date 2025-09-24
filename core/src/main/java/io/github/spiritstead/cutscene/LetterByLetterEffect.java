@@ -40,10 +40,11 @@ public class LetterByLetterEffect {
             frameGate.reset();
         }
 
+        this.font.getBitmapFont().draw(batch, displayedText, x, y);
+
         if (allTextIsDisplayed()) {
             inputGate.open();
         }
-        this.font.getBitmapFont().draw(batch, displayedText, x, y);
     }
 
     public void reset() {
@@ -59,5 +60,4 @@ public class LetterByLetterEffect {
     public void setText(String text) {
         this.text = text;
     }
-
 }

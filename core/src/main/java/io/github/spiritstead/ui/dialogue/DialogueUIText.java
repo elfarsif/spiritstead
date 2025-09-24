@@ -1,6 +1,8 @@
 package io.github.spiritstead.ui.dialogue;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.cutscene.InputGate;
+import io.github.spiritstead.cutscene.LetterByLetterEffect;
 import io.github.spiritstead.cutscene.gameIntro.TextWrapper;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.GamePanel;
@@ -16,6 +18,7 @@ public class DialogueUIText {
     public String currentDialogue = "";
     int x, y;
     TextWrapper textWrapper;
+    LetterByLetterEffect letterByLetterEffect;
 
     public DialogueUIText(GamePanel gp, DialogueWindow dialogueWindow) {
         this.font = new Font("fonts/maruMonica.fnt");
@@ -24,12 +27,16 @@ public class DialogueUIText {
         this.dialogueWindow = dialogueWindow;
         this.batch = gp.batch;
         this.textWrapper = new TextWrapper(font);
+        this.letterByLetterEffect = new LetterByLetterEffect(gp, font);
     }
 
     public void draw() {
+
         x = dialogueWindow.x + ScreenSetting.TILE_SIZE / 2;
         y = dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE;
         wrapText();
+//        this.letterByLetterEffect.setText(textWrapper.wrappedText);
+//        this.letterByLetterEffect.draw(x, y);
         font.getBitmapFont().draw(batch, textWrapper.wrappedText, x, y);
     }
 

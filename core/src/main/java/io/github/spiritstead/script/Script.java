@@ -11,9 +11,11 @@ import java.util.HashMap;
 public class Script {
 
     HashMap<Integer, ArrayList<String>> chapter1 = new HashMap<>();
+    public HashMap<Integer, String> mayorDialogue = new HashMap<>();
 
     public Script() {
         loadScript();
+        loadMayorDialogue();
     }
 
     // in script file '//' will be interpreted as comments
@@ -53,6 +55,26 @@ public class Script {
 
         }
 
+    }
+
+    private void loadMayorDialogue() {
+        try {
+            InputStream is = getClass().getResourceAsStream("/script/mayor.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+            String line;
+            int lineNum = 0;
+            while ((line = br.readLine()) != null && !line.isEmpty()) {
+                mayorDialogue.put(lineNum, line);
+                lineNum++;
+            }
+
+            System.out.println(mayorDialogue);
+            br.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
     }
 
     public HashMap<Integer, ArrayList<String>> getChapter1() {

@@ -59,7 +59,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
         NPCSpriteLoader.load();
         direction = Direction.LEFT;
         speed = 1;
-        mayorDialogue = new MayorDialogue();
+        mayorDialogue = new MayorDialogue(gp.script.mayorDialogue);
 
         frames.put(Direction.UP, new Sprite[]{up1, up2});
         frames.put(Direction.DOWN, new Sprite[]{down1, down2});
@@ -93,7 +93,6 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
 
     public void speak() {
         gp.ui.dialogueUI.text.currentDialogue = mayorDialogue.getCurrentDialogue();
-        mayorDialogue.increment();
     }
 
     private void checkCollisions() {
