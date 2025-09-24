@@ -27,7 +27,7 @@ public class ContentSlideText {
         this.contentSlide = contentSlide;
         font = new Font("fonts/maruMonica.fnt");
         this.textWrapper = new TextWrapper(font);
-        this.letterByLetterEffect = new LetterByLetterEffect(gp.batch, this.font);
+        this.letterByLetterEffect = new LetterByLetterEffect(gp, this.font);
     }
 
     private void displayText() {
@@ -51,11 +51,9 @@ public class ContentSlideText {
     public void draw() {
         if (gp.keyH.spacePressed) {
 
-            if (this.letterByLetterEffect.inputGate.isOpen() && textCounter < texts.size() - 1) {
-                this.letterByLetterEffect.inputGate.close();
+            if (textCounter < texts.size() - 1) {
                 textCounter += 1;
-                this.letterByLetterEffect.reset();
-            } else if (this.letterByLetterEffect.inputGate.isOpen()) {
+            } else {
                 gameIntro.slideCounter++;
             }
 

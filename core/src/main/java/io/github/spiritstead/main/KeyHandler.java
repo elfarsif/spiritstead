@@ -2,6 +2,7 @@ package io.github.spiritstead.main;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import io.github.spiritstead.cutscene.InputGate;
 import io.github.spiritstead.screens.titleScreen.TitleScreenOptions;
 
 /*
@@ -12,36 +13,40 @@ It can be used to check if a key is pressed or released.
 public class KeyHandler extends InputAdapter {
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, tPressed;
+    public InputGate inputGate;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
+        this.inputGate = new InputGate();
     }
 
     @Override
     public boolean keyDown(int code) {
-        //Title State
-        if (gp.screenManager.screen == gp.screenManager.titleScreen) {
-            titleState(code);
-        }
-        //PlayState
-        else if (gp.screenManager.screen == gp.screenManager.gameScreen) {
-            playState(code);
-        }
-        //Cutscene
-        else if (gp.screenManager.screen == gp.screenManager.cutsceneScreen) {
-            if (code == Input.Keys.SPACE) {
-                spacePressed = true;
-
+        if (inputGate.isOpen()) {
+            //Title State
+            if (gp.screenManager.screen == gp.screenManager.titleScreen) {
+                titleState(code);
             }
-        }
-        //Dialogue
-        else if (gp.screenManager.screen == gp.screenManager.dialogueScreen) {
-            if (code == Input.Keys.SPACE) {
-                spacePressed = true;
-                gp.screenManager.screen = gp.screenManager.gameScreen;
-                gp.ui.uiScreen = gp.ui.gameScreenUI;
-                System.out.println("pressed space");
+            //PlayState
+            else if (gp.screenManager.screen == gp.screenManager.gameScreen) {
+                playState(code);
+            }
+            //Cutscene
+            else if (gp.screenManager.screen == gp.screenManager.cutsceneScreen) {
+                if (code == Input.Keys.SPACE) {
+                    spacePressed = true;
 
+                }
+            }
+            //Dialogue
+            else if (gp.screenManager.screen == gp.screenManager.dialogueScreen) {
+                if (code == Input.Keys.SPACE) {
+                    spacePressed = true;
+                    gp.screenManager.screen = gp.screenManager.gameScreen;
+                    gp.ui.uiScreen = gp.ui.gameScreenUI;
+                    System.out.println("pressed space");
+
+                }
             }
         }
 

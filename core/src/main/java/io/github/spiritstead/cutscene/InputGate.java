@@ -1,7 +1,7 @@
 package io.github.spiritstead.cutscene;
 
 public class InputGate {
-    private boolean isOpen = false;
+    private boolean isOpen = true;
 
     public boolean isOpen() {
         return isOpen;
