@@ -28,7 +28,7 @@ public class PlayerSolidAreaOutline {
     }
 
     public void draw() {
-        gp.batch.draw(sprite, player.screenX, player.screenY);
+        gp.batch.draw(sprite, player.screenPosition.getX(), player.screenPosition.getY());
 
     }
 }

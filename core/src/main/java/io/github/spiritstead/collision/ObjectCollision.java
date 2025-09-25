@@ -76,8 +76,8 @@ public class ObjectCollision implements Collision {
     }
 
     private void intializeEntitySolidArea() {
-        entity.getSolidArea().x = entity.getWorldX() + entity.getSolidArea().x;
-        entity.getSolidArea().y = entity.getWorldY() + entity.getSolidArea().y;
+        entity.getSolidArea().x = entity.getWorldPosition().getX() + entity.getSolidArea().x;
+        entity.getSolidArea().y = entity.getWorldPosition().getY() + entity.getSolidArea().y;
     }
 
     public int getIndex() {

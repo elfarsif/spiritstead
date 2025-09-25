@@ -11,16 +11,16 @@ public class NPCMover {
         if (!npc.isCollisionOn()) {
             switch (npc.getDirection()) {
                 case UP:
-                    npc.setWorldY(npc.getWorldY() + npc.getSpeed());
+                    npc.getWorldPosition().setY(npc.getWorldPosition().getY() + npc.getSpeed());
                     break;
                 case DOWN:
-                    npc.setWorldY(npc.getWorldY() - npc.getSpeed());
+                    npc.getWorldPosition().setY(npc.getWorldPosition().getY() - npc.getSpeed());
                     break;
                 case LEFT:
-                    npc.setWorldX(npc.getWorldX() - npc.getSpeed());
+                    npc.getWorldPosition().setX(npc.getWorldPosition().getX() - npc.getSpeed());
                     break;
                 case RIGHT:
-                    npc.setWorldX(npc.getWorldX() + npc.getSpeed());
+                    npc.getWorldPosition().setX(npc.getWorldPosition().getX() + npc.getSpeed());
                     break;
             }
         }

@@ -44,8 +44,8 @@ public class EventHandler {
     public boolean hit(int eventCol, int eventRow, Direction reqDirection) {
         boolean hit = false;
 
-        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+        gp.player.solidArea.x = gp.player.getWorldPosition().getX() + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.getWorldPosition().getY() + gp.player.solidArea.y;
         eventRect.x = eventCol * ScreenSetting.TILE_SIZE + eventRect.x;
         eventRect.y = eventRow * ScreenSetting.TILE_SIZE + eventRect.y;
 
@@ -77,8 +77,8 @@ public class EventHandler {
 
     public void draw(SpriteBatch batch) {
         //calculate where on the screen to draw the tile relative to player, from tile manage class
-        int screenX = e1WorldX - gp.player.worldX + gp.player.screenX;
-        int screenY = e1WorldY - gp.player.worldY + gp.player.screenY;
+        int screenX = e1WorldX - gp.player.getWorldPosition().getX() + gp.player.screenPosition.getX();
+        int screenY = e1WorldY - gp.player.getWorldPosition().getY() + gp.player.screenPosition.getY();
 
         batch.draw(solidAreaOutlineSprite, screenX, screenY);
 

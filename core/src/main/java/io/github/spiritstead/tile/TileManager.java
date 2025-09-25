@@ -79,14 +79,14 @@ public class TileManager {
             int worldX = worldCol * ScreenSetting.TILE_SIZE;
             int worldY = worldRow * ScreenSetting.TILE_SIZE;
             //Calculate where on the screen to draw the tile relative to the player
-            int screenX = worldX - gp.player.worldX + gp.player.screenX;
-            int screenY = worldY - gp.player.worldY + gp.player.screenY;
+            int screenX = worldX - gp.player.getWorldPosition().getX() + gp.player.screenPosition.getX();
+            int screenY = worldY - gp.player.getWorldPosition().getY() + gp.player.screenPosition.getY();
 
             //only draw the tile if it is within the screen bounds plus one tile size to blend
-            if (worldX + ScreenSetting.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
-                worldX - ScreenSetting.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
-                worldY + ScreenSetting.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
-                worldY - ScreenSetting.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
+            if (worldX + ScreenSetting.TILE_SIZE > gp.player.getWorldPosition().getX() - gp.player.screenPosition.getX() &&
+                worldX - ScreenSetting.TILE_SIZE < gp.player.getWorldPosition().getX() + gp.player.screenPosition.getX() &&
+                worldY + ScreenSetting.TILE_SIZE > gp.player.getWorldPosition().getY() - gp.player.screenPosition.getY() &&
+                worldY - ScreenSetting.TILE_SIZE < gp.player.getWorldPosition().getY() + gp.player.screenPosition.getY()) {
 
                 batch.draw(tile[tileNum].image, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
 

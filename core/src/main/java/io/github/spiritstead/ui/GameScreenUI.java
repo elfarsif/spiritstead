@@ -65,13 +65,13 @@ public class GameScreenUI implements UIScreen {
             int x = 10;
             int y = 40;
             int lineHeight = 30;
-            font.getBitmapFont().draw(batch, "Player X: " + gp.player.worldX, x, y);
+            font.getBitmapFont().draw(batch, "Player X: " + gp.player.getWorldPosition().getX(), x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Y: " + gp.player.worldY, x, y);
+            font.getBitmapFont().draw(batch, "Player Y: " + gp.player.getWorldPosition().getY(), x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Col: " + (gp.player.worldX + gp.player.solidArea.x) / ScreenSetting.TILE_SIZE, x, y);
+            font.getBitmapFont().draw(batch, "Player Col: " + (gp.player.getWorldPosition().getX() + gp.player.solidArea.x) / ScreenSetting.TILE_SIZE, x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Row: " + (gp.player.worldY + gp.player.solidArea.y) / ScreenSetting.TILE_SIZE, x, y);
+            font.getBitmapFont().draw(batch, "Player Row: " + (gp.player.getWorldPosition().getY() + gp.player.solidArea.y) / ScreenSetting.TILE_SIZE, x, y);
         }
     }
 

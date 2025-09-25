@@ -1,5 +1,7 @@
 package io.github.spiritstead.entity;
 
+import io.github.spiritstead.entity.player.WorldPosition;
+
 import java.awt.*;
 
 public interface ObjectColliadable {
@@ -17,11 +19,10 @@ public interface ObjectColliadable {
 
     int getSpeed();
 
+    WorldPosition getWorldPosition();
+
     int getSolidAreadDefaultX();
 
     int getSolidAreadDefaultY();
 
-    int getWorldX();
-
-    int getWorldY();
 }

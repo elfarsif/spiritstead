@@ -28,13 +28,13 @@ public class NPCCollision implements Collision {
     }
 
     private void intializeEntitySolidArea() {
-        this.player.solidArea.x = this.player.worldX + this.player.solidArea.x;
-        this.player.solidArea.y = this.player.worldY + this.player.solidArea.y;
+        this.player.solidArea.x = this.player.getWorldPosition().getX() + this.player.solidArea.x;
+        this.player.solidArea.y = this.player.getWorldPosition().getY() + this.player.solidArea.y;
     }
 
     private void initializeTargetEntitySolidArea(NPC target) {
-        target.getSolidArea().x = target.getWorldX() + target.getSolidArea().x;
-        target.getSolidArea().y = target.getWorldY() + target.getSolidArea().y;
+        target.getSolidArea().x = target.getWorldPosition().getX() + target.getSolidArea().x;
+        target.getSolidArea().y = target.getWorldPosition().getY() + target.getSolidArea().y;
     }
 
     private void checkCollisionForAllDirections(NPC[] target, int i) {

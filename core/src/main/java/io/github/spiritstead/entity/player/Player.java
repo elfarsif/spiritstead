@@ -17,34 +17,24 @@ public class Player implements TileColliadable, ObjectColliadable {
     private NPC npcs[];
     public int hasKey = 0;
     public NPCInteraction NPCInteraction;
-    private PlayerDrawer playerDrawer;
     private PlayerMover playerMover;
     private PlayerAnimator playerAnimator;
     private PlayerSpriteLoader playerSpriteLoader;
     public PlayerObjectInteractor playerObjectInteractor;
     private PlayerCollisionHandler playerCollisionHandler;
     private PlayerSolidAreaOutline playerSolidAreaOutline;
-
-    //entity
-    public int worldX, worldY;
+    private PlayerDrawer playerDrawer;
+    private WorldPosition worldPosition = new WorldPosition();
     public int speed;
-
     public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
     public Direction direction;
-
     public int spriteNum = 1;
-
     public Rectangle solidArea;
-    //allows to change solid area for collision detection and store original values to restore area
     public int solidAreaDefaultX;
     public int solidAreaDefaultY;
-
     public boolean collisionOn = false;
-
     public EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
-
-    public int screenX;
-    public int screenY;
+    public ScreenPosition screenPosition = new ScreenPosition();
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -58,8 +48,8 @@ public class Player implements TileColliadable, ObjectColliadable {
         this.playerObjectInteractor = new PlayerObjectInteractor(gp, this);
         this.playerCollisionHandler = new PlayerCollisionHandler(gp, this, npcs);
 
-        screenX = gp.sSetting.SCREEN_WIDTH / 2 - ScreenSetting.TILE_SIZE / 2;
-        screenY = gp.sSetting.SCREEN_HEIGHT / 2 - ScreenSetting.TILE_SIZE / 2;
+        this.screenPosition.setX(gp.sSetting.SCREEN_WIDTH / 2 - ScreenSetting.TILE_SIZE / 2);
+        this.screenPosition.setY(gp.sSetting.SCREEN_HEIGHT / 2 - ScreenSetting.TILE_SIZE / 2);
 
         setSolidArea();
 
@@ -87,8 +77,8 @@ public class Player implements TileColliadable, ObjectColliadable {
     }
 
     private void setDefaultPlayerValues() {
-        worldX = ScreenSetting.TILE_SIZE * 28;
-        worldY = ScreenSetting.TILE_SIZE * 13;
+        this.worldPosition.setX(ScreenSetting.TILE_SIZE * 28);
+        this.worldPosition.setY(ScreenSetting.TILE_SIZE * 13);
         speed = 4;
         direction = direction.DOWN;
     }
@@ -143,18 +133,13 @@ public class Player implements TileColliadable, ObjectColliadable {
     }
 
     @Override
+    public WorldPosition getWorldPosition() {
+        return this.worldPosition;
+    }
+
+    @Override
     public void setCollisionOn(boolean collisionOn) {
         this.collisionOn = collisionOn;
-    }
-
-    @Override
-    public int getWorldX() {
-        return this.worldX;
-    }
-
-    @Override
-    public int getWorldY() {
-        return this.worldY;
     }
 
     @Override

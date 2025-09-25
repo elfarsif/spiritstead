@@ -17,7 +17,7 @@ public class PlayerDrawer {
 
     public void draw() {
         updateSprite();
-        batch.draw(sprite, player.screenX, player.screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+        batch.draw(sprite, player.screenPosition.getX(), player.screenPosition.getY(), ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
     }
 
     private void updateSprite() {

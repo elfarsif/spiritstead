@@ -8,10 +8,10 @@ import io.github.spiritstead.main.ScreenSetting;
 
 public class NPCDrawer {
     private GamePanel gp;
-    SpriteBatch batch;
-    Sprite sprite;
-    NPC npc;
-    int screenX, screenY;
+    private SpriteBatch batch;
+    private Sprite sprite;
+    private NPC npc;
+    private int screenX, screenY;
 
     public NPCDrawer(GamePanel gp, NPC npc) {
         this.gp = gp;
@@ -50,14 +50,14 @@ public class NPCDrawer {
     }
 
     private boolean entityIsWithinScreenBounds() {
-        return npc.getWorldX() + ScreenSetting.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
-            npc.getWorldX() - ScreenSetting.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
-            npc.getWorldY() + ScreenSetting.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
-            npc.getWorldY() - ScreenSetting.TILE_SIZE < gp.player.worldY + gp.player.screenY;
+        return npc.getWorldPosition().getX() + ScreenSetting.TILE_SIZE > gp.player.getWorldPosition().getX() - gp.player.screenPosition.getX() &&
+            npc.getWorldPosition().getX() - ScreenSetting.TILE_SIZE < gp.player.getWorldPosition().getX() + gp.player.screenPosition.getX() &&
+            npc.getWorldPosition().getY() + ScreenSetting.TILE_SIZE > gp.player.getWorldPosition().getY() - gp.player.screenPosition.getY() &&
+            npc.getWorldPosition().getY() - ScreenSetting.TILE_SIZE < gp.player.getWorldPosition().getX() + gp.player.screenPosition.getY();
     }
 
     private void initialiazeScreenPositionRelativeToPlayer() {
-        screenX = npc.getWorldX() - gp.player.worldX + gp.player.screenX;
-        screenY = npc.getWorldY() - gp.player.worldY + gp.player.screenY;
+        this.screenX = npc.getWorldPosition().getX() - gp.player.getWorldPosition().getX() + gp.player.screenPosition.getX();
+        this.screenY = npc.getWorldPosition().getY() - gp.player.getWorldPosition().getY() + gp.player.screenPosition.getY();
     }
 }

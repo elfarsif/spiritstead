@@ -8,6 +8,7 @@ import io.github.spiritstead.entity.npc.NPC;
 import io.github.spiritstead.entity.npc.NPCDrawer;
 import io.github.spiritstead.entity.npc.NPCMover;
 import io.github.spiritstead.entity.npc.NPCSpriteLoader;
+import io.github.spiritstead.entity.player.WorldPosition;
 import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
@@ -18,7 +19,7 @@ import java.util.EnumMap;
 import java.util.Random;
 
 public class Mayor implements TileColliadable, ObjectColliadable, NPC {
-    public int worldX, worldY;
+    private WorldPosition worldPosition = new WorldPosition();
 
     public int speed;
     public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
@@ -203,28 +204,13 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     }
 
     @Override
+    public WorldPosition getWorldPosition() {
+        return this.worldPosition;
+    }
+
+    @Override
     public void setCollisionOn(boolean collisionOn) {
         this.collisionOn = collisionOn;
-    }
-
-    @Override
-    public int getWorldX() {
-        return this.worldX;
-    }
-
-    @Override
-    public int getWorldY() {
-        return this.worldY;
-    }
-
-    @Override
-    public void setWorldX(int worldX) {
-        this.worldX = worldX;
-    }
-
-    @Override
-    public void setWorldY(int worldY) {
-        this.worldY = worldY;
     }
 
     @Override

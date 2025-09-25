@@ -89,9 +89,9 @@ public class TileCollision implements Collision {
     }
 
     private void initializeEntitySolidArea() {
-        entityLeftWorldX = entity.getWorldX() + entity.getSolidArea().x;
-        entityRightWorldX = entity.getWorldX() + entity.getSolidArea().x + entity.getSolidArea().width;
-        entityTopWorldY = entity.getWorldY() + entity.getSolidArea().y + entity.getSolidArea().height;
-        entityBottomWorldY = entity.getWorldY() + entity.getSolidArea().y;
+        entityLeftWorldX = entity.getWorldPosition().getX() + entity.getSolidArea().x;
+        entityRightWorldX = entity.getWorldPosition().getX() + entity.getSolidArea().x + entity.getSolidArea().width;
+        entityTopWorldY = entity.getWorldPosition().getY() + entity.getSolidArea().y + entity.getSolidArea().height;
+        entityBottomWorldY = entity.getWorldPosition().getY() + entity.getSolidArea().y;
     }
 }

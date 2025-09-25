@@ -2,6 +2,7 @@ package io.github.spiritstead.entity.npc;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.entity.Direction;
+import io.github.spiritstead.entity.player.WorldPosition;
 
 import java.awt.*;
 import java.util.EnumMap;
@@ -11,13 +12,7 @@ public interface NPC {
 
     Rectangle getSolidArea();
 
-    int getWorldX();
-
-    int getWorldY();
-
-    void setWorldX(int worldX);
-
-    void setWorldY(int worldY);
+    WorldPosition getWorldPosition();
 
     int getSolidAreadDefaultX();
 

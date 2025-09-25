@@ -25,16 +25,16 @@ public class PlayerMover {
         if (!player.collisionOn) {
             switch (player.direction) {
                 case UP:
-                    player.worldY += player.speed;
+                    player.getWorldPosition().setY(player.getWorldPosition().getY() + player.speed);
                     break;
                 case DOWN:
-                    player.worldY -= player.speed;
+                    player.getWorldPosition().setY(player.getWorldPosition().getY() - player.speed);
                     break;
                 case LEFT:
-                    player.worldX -= player.speed;
+                    player.getWorldPosition().setX(player.getWorldPosition().getX() - player.speed);
                     break;
                 case RIGHT:
-                    player.worldX += player.speed;
+                    player.getWorldPosition().setX(player.getWorldPosition().getX() + player.speed);
                     break;
             }
         }

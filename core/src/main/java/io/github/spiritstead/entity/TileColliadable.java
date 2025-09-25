@@ -1,5 +1,7 @@
 package io.github.spiritstead.entity;
 
+import io.github.spiritstead.entity.player.WorldPosition;
+
 import java.awt.*;
 
 public interface TileColliadable {
@@ -9,9 +11,7 @@ public interface TileColliadable {
 
     boolean isCollisionOn();
 
-    int getWorldX();
-
-    int getWorldY();
+    WorldPosition getWorldPosition();
 
     Rectangle getSolidArea();
 

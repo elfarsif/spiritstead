@@ -42,13 +42,13 @@ public class PlayerCollision implements Collision {
     }
 
     private void intializeEntitySolidArea() {
-        entity.getSolidArea().x = entity.getWorldX() + entity.getSolidArea().x;
-        entity.getSolidArea().y = entity.getWorldY() + entity.getSolidArea().y;
+        entity.getSolidArea().x = entity.getWorldPosition().getX() + entity.getSolidArea().x;
+        entity.getSolidArea().y = entity.getWorldPosition().getY() + entity.getSolidArea().y;
     }
 
     private void initializePlayerSolidArea() {
-        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+        gp.player.solidArea.x = gp.player.getWorldPosition().getX() + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.getWorldPosition().getY() + gp.player.solidArea.y;
     }
 
     private void checkCollision() {
