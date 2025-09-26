@@ -37,28 +37,28 @@ public class EventHandler {
 
     public void checkEvent() {
         if (hit(3, 3, Direction.ANY)) {
-            gp.ui.gameScreenUI.showMessage("You have hit an event");
+            Game.ui.gameScreenUI.showMessage("You have hit an event");
         }
     }
 
     public boolean hit(int eventCol, int eventRow, Direction reqDirection) {
         boolean hit = false;
 
-        gp.player.getSolidArea().getRect().x = gp.player.getWorldPosition().getX() + gp.player.getSolidArea().getRect().x;
-        gp.player.getSolidArea().getRect().y = gp.player.getWorldPosition().getY() + gp.player.getSolidArea().getRect().y;
+        Game.player.getSolidArea().getRect().x = Game.player.getWorldPosition().getX() + Game.player.getSolidArea().getRect().x;
+        Game.player.getSolidArea().getRect().y = Game.player.getWorldPosition().getY() + Game.player.getSolidArea().getRect().y;
         eventRect.x = eventCol * ScreenSetting.TILE_SIZE + eventRect.x;
         eventRect.y = eventRow * ScreenSetting.TILE_SIZE + eventRect.y;
 
-        if (gp.player.getSolidArea().getRect().intersects(eventRect)) {
-            if ((gp.player.direction == reqDirection)) {
+        if (Game.player.getSolidArea().getRect().intersects(eventRect)) {
+            if ((Game.player.direction == reqDirection)) {
                 hit = true;
             } else if (reqDirection == Direction.ANY) {
                 hit = true;
 
             }
         }
-        gp.player.getSolidArea().getRect().x = gp.player.getSolidArea().getDefaultX();
-        gp.player.getSolidArea().getRect().y = gp.player.getSolidArea().getDefaultY();
+        Game.player.getSolidArea().getRect().x = Game.player.getSolidArea().getDefaultX();
+        Game.player.getSolidArea().getRect().y = Game.player.getSolidArea().getDefaultY();
         eventRect.x = eventRectDefaultX;
         eventRect.y = eventRectDefaultX;
 
@@ -77,8 +77,8 @@ public class EventHandler {
 
     public void draw(SpriteBatch batch) {
         //calculate where on the screen to draw the tile relative to player, from tile manage class
-        int screenX = e1WorldX - gp.player.getWorldPosition().getX() + gp.player.screenPosition.getX();
-        int screenY = e1WorldY - gp.player.getWorldPosition().getY() + gp.player.screenPosition.getY();
+        int screenX = e1WorldX - Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX();
+        int screenY = e1WorldY - Game.player.getWorldPosition().getY() + Game.player.screenPosition.getY();
 
         batch.draw(solidAreaOutlineSprite, screenX, screenY);
 

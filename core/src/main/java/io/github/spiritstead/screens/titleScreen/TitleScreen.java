@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.cutscene.BlackTexture;
 import io.github.spiritstead.font.Font;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.screens.Screen;
@@ -25,7 +26,7 @@ public class TitleScreen implements Screen {
         font = new Font("fonts/maruMonicaBold.fnt");
         titleFont = new Font("fonts/alagard_60.fnt");
         this.blackTexture = new BlackTexture(gp.sSetting.SCREEN_WIDTH, gp.sSetting.SCREEN_HEIGHT);
-        this.batch = gp.batch;
+        this.batch = Game.batch;
     }
 
     private void drawTitleScreen() {
@@ -49,7 +50,7 @@ public class TitleScreen implements Screen {
         float imageSize = ScreenSetting.TILE_SIZE * 2;
         x = gp.sSetting.SCREEN_WIDTH / 2 - imageSize / 2;
         y = gp.sSetting.SCREEN_HEIGHT / 2 - imageSize / 2;
-        batch.draw(gp.player.down1, x, y, imageSize, imageSize);
+        batch.draw(Game.player.sprites.down1, x, y, imageSize, imageSize);
 
         //MENU
         font.getBitmapFont().getData().setScale(1f);

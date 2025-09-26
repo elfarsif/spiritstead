@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.cutscene.FadeBlack;
 import io.github.spiritstead.cutscene.gameIntro.GameIntro;
 import io.github.spiritstead.cutscene.gameIntro.Slide;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
@@ -21,9 +22,9 @@ public class ContentSlide implements Slide {
     ContentSlideText contentSlideText;
 
     public ContentSlide(GamePanel gp, GameIntro gameIntro, String imageFileName, ArrayList<String> texts) {
-        this.batch = gp.batch;
+        this.batch = Game.batch;
         this.gameIntro = gameIntro;
-        this.fadeBlack = new FadeBlack(gp.batch);
+        this.fadeBlack = new FadeBlack(Game.batch);
         this.contentSlideText = new ContentSlideText(gp, gameIntro, this, texts);
 
         setImage(imageFileName);

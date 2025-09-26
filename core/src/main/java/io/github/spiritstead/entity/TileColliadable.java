@@ -5,12 +5,10 @@ public interface TileColliadable {
 
     int getSpeed();
 
-    boolean isCollisionOn();
-
     WorldPosition getWorldPosition();
 
     SolidArea getSolidArea();
 
-    void setCollisonOn(boolean collisonOn);
+    void setCollisionOn(boolean collisonOn);
 
 }

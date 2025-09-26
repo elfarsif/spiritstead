@@ -4,7 +4,7 @@ import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.screens.titleScreen.TitleScreen;
 
-public class ScreenManager {
+public class Screens {
     private GamePanel gp;
     public Screen screen;
     public TitleScreen titleScreen;
@@ -12,13 +12,12 @@ public class ScreenManager {
     public GameScreen gameScreen;
     public DialogueScreen dialogueScreen;
 
-    public ScreenManager(GamePanel gp, Player player) {
+    public Screens(GamePanel gp, Player player) {
         this.gp = gp;
         titleScreen = new TitleScreen(gp);
         cutsceneScreen = new CutsceneScreen(gp);
         gameScreen = new GameScreen(gp, player);
         this.dialogueScreen = new DialogueScreen(gameScreen);
-
         screen = titleScreen;
     }
 

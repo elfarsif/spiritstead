@@ -6,6 +6,7 @@ import io.github.spiritstead.cutscene.gameIntro.GameIntro;
 import io.github.spiritstead.cutscene.gameIntro.Slide;
 import io.github.spiritstead.cutscene.gameIntro.ToolTip;
 import io.github.spiritstead.font.Font;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.ui.UIUtilities;
 
@@ -23,18 +24,18 @@ public class TitleSlide implements Slide {
         this.title = title;
         this.gameIntro = gameIntro;
         font = new Font("fonts/maruMonica.fnt");
-        fadeBlack = new FadeBlack(gp.batch);
-        this.toolTip = new ToolTip(gp.batch);
+        fadeBlack = new FadeBlack(Game.batch);
+        this.toolTip = new ToolTip(Game.batch);
     }
 
     @Override
     public void draw() {
-        if (gp.keyH.spacePressed) {
+        if (Game.keyH.spacePressed) {
             gameIntro.slideCounter++;
-            gp.keyH.spacePressed = false;
+            Game.keyH.spacePressed = false;
         }
         float x = UIUtilities.getXforCenteredText(font.getBitmapFont(), layout, title, gp);
-        font.getBitmapFont().draw(gp.batch, title, x, gp.sSetting.SCREEN_HEIGHT / 2);
+        font.getBitmapFont().draw(Game.batch, title, x, gp.sSetting.SCREEN_HEIGHT / 2);
         toolTip.draw();
         fadeBlack.draw();
     }

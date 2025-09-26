@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
@@ -20,7 +21,7 @@ public class DialogueWindow {
 
     public DialogueWindow(GamePanel gp) {
         this.gp = gp;
-        this.batch = gp.batch;
+        this.batch = Game.batch;
         initializeDimensions();
         createWindowPixmap();
     }

@@ -1,6 +1,7 @@
 package io.github.spiritstead.collision;
 
 import io.github.spiritstead.entity.npc.NPC;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 
 public class PlayerCollision implements Collision {
@@ -47,12 +48,12 @@ public class PlayerCollision implements Collision {
     }
 
     private void initializePlayerSolidArea() {
-        gp.player.getSolidArea().getRect().x = gp.player.getWorldPosition().getX() + gp.player.getSolidArea().getRect().x;
-        gp.player.getSolidArea().getRect().y = gp.player.getWorldPosition().getY() + gp.player.getSolidArea().getRect().y;
+        Game.player.getSolidArea().getRect().x = Game.player.getWorldPosition().getX() + Game.player.getSolidArea().getRect().x;
+        Game.player.getSolidArea().getRect().y = Game.player.getWorldPosition().getY() + Game.player.getSolidArea().getRect().y;
     }
 
     private void checkCollision() {
-        if (entity.getSolidArea().getRect().intersects(gp.player.getSolidArea().getRect())) {
+        if (entity.getSolidArea().getRect().intersects(Game.player.getSolidArea().getRect())) {
             entity.setCollisionOn(true);
         }
     }
@@ -60,7 +61,7 @@ public class PlayerCollision implements Collision {
     private void restoreDefaultSolidAreaValues() {
         entity.getSolidArea().getRect().x = entity.getSolidArea().getDefaultX();
         entity.getSolidArea().getRect().y = entity.getSolidArea().getDefaultY();
-        gp.player.getSolidArea().getRect().x = gp.player.getSolidArea().getDefaultX();
-        gp.player.getSolidArea().getRect().y = gp.player.getSolidArea().getDefaultY();
+        Game.player.getSolidArea().getRect().x = Game.player.getSolidArea().getDefaultX();
+        Game.player.getSolidArea().getRect().y = Game.player.getSolidArea().getDefaultY();
     }
 }

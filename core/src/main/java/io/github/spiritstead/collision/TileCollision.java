@@ -1,7 +1,6 @@
 package io.github.spiritstead.collision;
 
 import io.github.spiritstead.entity.TileColliadable;
-import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.tile.TileManager;
 
@@ -44,7 +43,7 @@ public class TileCollision implements Collision {
         tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.setCollisonOn(true);
+            entity.setCollisionOn(true);
         }
     }
 
@@ -55,7 +54,7 @@ public class TileCollision implements Collision {
         tileNum2 = tileM.mapTileNum[entityLeftCol][entityBottomRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.setCollisonOn(true);
+            entity.setCollisionOn(true);
         }
     }
 
@@ -66,7 +65,7 @@ public class TileCollision implements Collision {
         tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.setCollisonOn(true);
+            entity.setCollisionOn(true);
         }
     }
 
@@ -77,7 +76,7 @@ public class TileCollision implements Collision {
         tileNum2 = tileM.mapTileNum[entityRightCol][entityTopRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.setCollisonOn(true);
+            entity.setCollisionOn(true);
         }
     }
 

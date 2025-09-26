@@ -4,6 +4,7 @@ import io.github.spiritstead.cutscene.LetterByLetterEffect;
 import io.github.spiritstead.cutscene.gameIntro.GameIntro;
 import io.github.spiritstead.cutscene.gameIntro.TextWrapper;
 import io.github.spiritstead.font.Font;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
@@ -49,7 +50,7 @@ public class ContentSlideText {
     }
 
     public void draw() {
-        if (gp.keyH.spacePressed) {
+        if (Game.keyH.spacePressed) {
 
             if (textCounter < texts.size() - 1) {
                 textCounter += 1;
@@ -58,7 +59,7 @@ public class ContentSlideText {
                 gameIntro.slideCounter++;
             }
 
-            gp.keyH.spacePressed = false;
+            Game.keyH.spacePressed = false;
         }
 
         displayText();

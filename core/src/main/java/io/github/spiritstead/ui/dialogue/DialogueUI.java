@@ -1,6 +1,7 @@
 package io.github.spiritstead.ui.dialogue;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.ui.UIScreen;
 
@@ -12,7 +13,7 @@ public class DialogueUI implements UIScreen {
 
     public DialogueUI(GamePanel gp) {
         this.gp = gp;
-        this.batch = gp.batch;
+        this.batch = Game.batch;
         this.dialogueWindow = new DialogueWindow(gp);
         this.text = new DialogueUIText(gp, dialogueWindow);
     }

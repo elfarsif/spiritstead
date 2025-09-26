@@ -1,6 +1,7 @@
 package io.github.spiritstead.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.ui.dialogue.DialogueUI;
 
@@ -18,7 +19,7 @@ public class UI {
 
     public UI(GamePanel gp) {
         this.gp = gp;
-        this.batch = gp.batch;
+        this.batch = Game.batch;
         this.gameScreenUI = new GameScreenUI(gp);
         this.dialogueUI = new DialogueUI(gp);
 

@@ -2,17 +2,16 @@ package io.github.spiritstead.collision;
 
 import io.github.spiritstead.entity.ObjectColliadable;
 import io.github.spiritstead.entity.player.Player;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.object.GameObject;
 
 public class ObjectCollision implements Collision {
-    private GamePanel gp;
     private ObjectColliadable entity;
     private int index;
     private GameObject gameObject;
 
-    public ObjectCollision(GamePanel gp, ObjectColliadable entity) {
-        this.gp = gp;
+    public ObjectCollision(ObjectColliadable entity) {
         this.entity = entity;
     }
 
@@ -20,9 +19,9 @@ public class ObjectCollision implements Collision {
         this.index = 9999;
         boolean player = entity instanceof Player;
 
-        for (int i = 0; i < this.gp.aSetter.objects.length; i++) {
-            if (this.gp.aSetter.objects[i] != null) {
-                this.gameObject = this.gp.aSetter.objects[i];
+        for (int i = 0; i < Game.aSetter.objects.length; i++) {
+            if (Game.aSetter.objects[i] != null) {
+                this.gameObject = Game.aSetter.objects[i];
                 intializeEntitySolidArea();
                 initializeObjectSolidArea(i);
                 checkCollisionForAllDirections(player, i);

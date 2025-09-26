@@ -5,6 +5,7 @@ import io.github.spiritstead.cutscene.InputGate;
 import io.github.spiritstead.cutscene.LetterByLetterEffect;
 import io.github.spiritstead.cutscene.gameIntro.TextWrapper;
 import io.github.spiritstead.font.Font;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
@@ -25,7 +26,7 @@ public class DialogueUIText {
         this.font.getBitmapFont().getData().setScale(0.9f);
         this.gp = gp;
         this.dialogueWindow = dialogueWindow;
-        this.batch = gp.batch;
+        this.batch = Game.batch;
         this.textWrapper = new TextWrapper(font);
         this.letterByLetterEffect = new LetterByLetterEffect(gp, font);
     }

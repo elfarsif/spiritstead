@@ -3,6 +3,7 @@ package io.github.spiritstead.cutscene;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.FrameGate;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 
 public class LetterByLetterEffect {
@@ -20,9 +21,9 @@ public class LetterByLetterEffect {
 
     public LetterByLetterEffect(GamePanel gp, Font font) {
         this.gp = gp;
-        this.batch = gp.batch;
+        this.batch = Game.batch;
         this.font = font;
-        this.inputGate = gp.keyH.inputGate;
+        this.inputGate = Game.keyH.inputGate;
         this.frameGate = new FrameGate(2);
     }
 

@@ -11,6 +11,7 @@ import io.github.spiritstead.entity.npc.NPCSpriteLoader;
 import io.github.spiritstead.entity.SolidArea;
 import io.github.spiritstead.entity.WorldPosition;
 import io.github.spiritstead.main.FrameGate;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
@@ -41,8 +42,8 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
         this.NPCMover = new NPCMover(this);
         this.NPCDrawer = new NPCDrawer(gp, this);
         this.frameGate = new FrameGate(120);
-        this.collisionTypes.add(new TileCollision(this.gp.tileM, this));
-        this.collisionTypes.add(new ObjectCollision(this.gp, this));
+        this.collisionTypes.add(new TileCollision(Game.tileM, this));
+        this.collisionTypes.add(new ObjectCollision(this));
         this.collisionTypes.add(new PlayerCollision(this.gp, this));
 
         solidArea = new SolidArea(0, 0, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
@@ -50,7 +51,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
         NPCSpriteLoader.load();
         direction = Direction.LEFT;
         speed = 1;
-        mayorDialogue = new MayorDialogue(gp.script.mayorDialogue);
+        mayorDialogue = new MayorDialogue(Game.script.mayorDialogue);
 
         frames.put(Direction.UP, new Sprite[]{up1, up2});
         frames.put(Direction.DOWN, new Sprite[]{down1, down2});
@@ -83,7 +84,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     }
 
     public void speak() {
-        gp.ui.dialogueUI.text.currentDialogue = mayorDialogue.getCurrentDialogue();
+        Game.ui.dialogueUI.text.currentDialogue = mayorDialogue.getCurrentDialogue();
     }
 
     private void checkCollisions() {
@@ -99,18 +100,8 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     }
 
     @Override
-    public boolean isPlayer() {
-        return false;
-    }
-
-    @Override
     public Direction getDirection() {
         return this.direction;
-    }
-
-    @Override
-    public void setSolidArea(SolidArea solidArea) {
-        this.solidArea = solidArea;
     }
 
     @Override
@@ -196,11 +187,6 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     @Override
     public SolidArea getSolidArea() {
         return this.solidArea;
-    }
-
-    @Override
-    public void setCollisonOn(boolean collisonOn) {
-        this.collisionOn = collisonOn;
     }
 
 }

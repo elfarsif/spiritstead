@@ -24,26 +24,26 @@ public class KeyHandler extends InputAdapter {
     public boolean keyDown(int code) {
         if (inputGate.isOpen()) {
             //Title State
-            if (gp.screenManager.screen == gp.screenManager.titleScreen) {
+            if (Game.screens.screen == Game.screens.titleScreen) {
                 titleState(code);
             }
             //PlayState
-            else if (gp.screenManager.screen == gp.screenManager.gameScreen) {
+            else if (Game.screens.screen == Game.screens.gameScreen) {
                 playState(code);
             }
             //Cutscene
-            else if (gp.screenManager.screen == gp.screenManager.cutsceneScreen) {
+            else if (Game.screens.screen == Game.screens.cutsceneScreen) {
                 if (code == Input.Keys.SPACE) {
                     spacePressed = true;
 
                 }
             }
             //Dialogue
-            else if (gp.screenManager.screen == gp.screenManager.dialogueScreen) {
+            else if (Game.screens.screen == Game.screens.dialogueScreen) {
                 if (code == Input.Keys.SPACE) {
                     spacePressed = true;
-                    gp.screenManager.screen = gp.screenManager.gameScreen;
-                    gp.ui.uiScreen = gp.ui.gameScreenUI;
+                    Game.screens.screen = Game.screens.gameScreen;
+                    Game.ui.uiScreen = Game.ui.gameScreenUI;
 
                 }
             }
@@ -62,7 +62,7 @@ public class KeyHandler extends InputAdapter {
         } else if (code == Input.Keys.D) {
             rightPressed = true;
         } else if (code == Input.Keys.P) {
-            if (gp.screenManager.screen == gp.screenManager.gameScreen) {
+            if (Game.screens.screen == Game.screens.gameScreen) {
                 System.out.println("pause state");
             }
         } else if (code == Input.Keys.T) {
@@ -73,26 +73,26 @@ public class KeyHandler extends InputAdapter {
     private void titleState(int code) {
         //move this logic to a seperate class for title state
         if (code == Input.Keys.W) {
-            gp.screenManager.titleScreen.commandNum--;
-            if (gp.screenManager.titleScreen.commandNum < TitleScreenOptions.NEW_GAME.getValue()) {
-                gp.screenManager.titleScreen.commandNum = TitleScreenOptions.QUIT.getValue();
+            Game.screens.titleScreen.commandNum--;
+            if (Game.screens.titleScreen.commandNum < TitleScreenOptions.NEW_GAME.getValue()) {
+                Game.screens.titleScreen.commandNum = TitleScreenOptions.QUIT.getValue();
             }
         } else if (code == Input.Keys.S) {
-            gp.screenManager.titleScreen.commandNum++;
-            if (gp.screenManager.titleScreen.commandNum > TitleScreenOptions.QUIT.getValue()) {
-                gp.screenManager.titleScreen.commandNum = TitleScreenOptions.NEW_GAME.getValue();
+            Game.screens.titleScreen.commandNum++;
+            if (Game.screens.titleScreen.commandNum > TitleScreenOptions.QUIT.getValue()) {
+                Game.screens.titleScreen.commandNum = TitleScreenOptions.NEW_GAME.getValue();
             }
         }
         if (code == Input.Keys.ENTER) {
-            if (gp.screenManager.titleScreen.commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
-                gp.screenManager.screen = gp.screenManager.cutsceneScreen;
+            if (Game.screens.titleScreen.commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
+                Game.screens.screen = Game.screens.cutsceneScreen;
 
             }
-            if (gp.screenManager.titleScreen.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
-                gp.screenManager.screen = gp.screenManager.gameScreen;
+            if (Game.screens.titleScreen.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
+                Game.screens.screen = Game.screens.gameScreen;
 
             }
-            if (gp.screenManager.titleScreen.commandNum == TitleScreenOptions.QUIT.getValue()) {
+            if (Game.screens.titleScreen.commandNum == TitleScreenOptions.QUIT.getValue()) {
                 System.exit(0);
             }
         }

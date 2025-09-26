@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
@@ -18,7 +19,6 @@ public class PlayerSolidAreaOutline {
         generateSolidAreaOutline();
     }
 
-
     private void generateSolidAreaOutline() {
         Pixmap solidAreaPixmap = new Pixmap(ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE, Pixmap.Format.RGBA8888);
         solidAreaPixmap.setColor(Color.WHITE);
@@ -26,11 +26,10 @@ public class PlayerSolidAreaOutline {
         Sprite solidAreaSprite = new Sprite(new Texture(solidAreaPixmap));
         solidAreaPixmap.dispose();
         this.sprite = solidAreaSprite;
-        Game
     }
 
     public void draw() {
-        gp.batch.draw(sprite, player.screenPosition.getX(), player.screenPosition.getY());
+        Game.batch.draw(sprite, player.screenPosition.getX(), player.screenPosition.getY());
 
     }
 }

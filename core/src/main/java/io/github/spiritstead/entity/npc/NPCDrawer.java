@@ -3,6 +3,7 @@ package io.github.spiritstead.entity.npc;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.entity.Direction;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
@@ -16,7 +17,7 @@ public class NPCDrawer {
     public NPCDrawer(GamePanel gp, NPC npc) {
         this.gp = gp;
         this.npc = npc;
-        this.batch = gp.batch;
+        this.batch = Game.batch;
     }
 
     public void draw() {
@@ -50,14 +51,14 @@ public class NPCDrawer {
     }
 
     private boolean entityIsWithinScreenBounds() {
-        return npc.getWorldPosition().getX() + ScreenSetting.TILE_SIZE > gp.player.getWorldPosition().getX() - gp.player.screenPosition.getX() &&
-            npc.getWorldPosition().getX() - ScreenSetting.TILE_SIZE < gp.player.getWorldPosition().getX() + gp.player.screenPosition.getX() &&
-            npc.getWorldPosition().getY() + ScreenSetting.TILE_SIZE > gp.player.getWorldPosition().getY() - gp.player.screenPosition.getY() &&
-            npc.getWorldPosition().getY() - ScreenSetting.TILE_SIZE < gp.player.getWorldPosition().getX() + gp.player.screenPosition.getY();
+        return npc.getWorldPosition().getX() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getX() - Game.player.screenPosition.getX() &&
+            npc.getWorldPosition().getX() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX() &&
+            npc.getWorldPosition().getY() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getY() - Game.player.screenPosition.getY() &&
+            npc.getWorldPosition().getY() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.screenPosition.getY();
     }
 
     private void initialiazeScreenPositionRelativeToPlayer() {
-        this.screenX = npc.getWorldPosition().getX() - gp.player.getWorldPosition().getX() + gp.player.screenPosition.getX();
-        this.screenY = npc.getWorldPosition().getY() - gp.player.getWorldPosition().getY() + gp.player.screenPosition.getY();
+        this.screenX = npc.getWorldPosition().getX() - Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX();
+        this.screenY = npc.getWorldPosition().getY() - Game.player.getWorldPosition().getY() + Game.player.screenPosition.getY();
     }
 }

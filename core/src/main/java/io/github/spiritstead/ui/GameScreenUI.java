@@ -3,6 +3,7 @@ package io.github.spiritstead.ui;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.font.Font;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.object.Key;
@@ -20,7 +21,7 @@ public class GameScreenUI implements UIScreen {
 
     public GameScreenUI(GamePanel gp) {
         this.gp = gp;
-        this.batch = gp.batch;
+        this.batch = Game.batch;
         loadKeyImage();
         font = new Font("fonts/maruMonicaBold.fnt");
 
@@ -54,24 +55,24 @@ public class GameScreenUI implements UIScreen {
 
     private void drawKeyInventory() {
         batch.draw(keyImage, 10, gp.sSetting.SCREEN_HEIGHT - ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
-        font.getBitmapFont().draw(batch, Integer.toString(gp.player.hasKey), 2 * ScreenSetting.TILE_SIZE, gp.sSetting.SCREEN_HEIGHT - 10);
+        font.getBitmapFont().draw(batch, Integer.toString(Game.player.hasKey), 2 * ScreenSetting.TILE_SIZE, gp.sSetting.SCREEN_HEIGHT - 10);
 
     }
 
     public void draw() {
         drawKeyInventory();
         drawMessages();
-        if (gp.keyH.tPressed) {
+        if (Game.keyH.tPressed) {
             int x = 10;
             int y = 40;
             int lineHeight = 30;
-            font.getBitmapFont().draw(batch, "Player X: " + gp.player.getWorldPosition().getX(), x, y);
+            font.getBitmapFont().draw(batch, "Player X: " + Game.player.getWorldPosition().getX(), x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Y: " + gp.player.getWorldPosition().getY(), x, y);
+            font.getBitmapFont().draw(batch, "Player Y: " + Game.player.getWorldPosition().getY(), x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Col: " + (gp.player.getWorldPosition().getX() + gp.player.getSolidArea().getRect().x) / ScreenSetting.TILE_SIZE, x, y);
+            font.getBitmapFont().draw(batch, "Player Col: " + (Game.player.getWorldPosition().getX() + Game.player.getSolidArea().getRect().x) / ScreenSetting.TILE_SIZE, x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Row: " + (gp.player.getWorldPosition().getY() + gp.player.getSolidArea().getRect().y) / ScreenSetting.TILE_SIZE, x, y);
+            font.getBitmapFont().draw(batch, "Player Row: " + (Game.player.getWorldPosition().getY() + Game.player.getSolidArea().getRect().y) / ScreenSetting.TILE_SIZE, x, y);
         }
     }
 

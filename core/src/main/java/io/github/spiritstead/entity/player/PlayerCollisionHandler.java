@@ -4,13 +4,13 @@ import io.github.spiritstead.collision.NPCCollision;
 import io.github.spiritstead.collision.ObjectCollision;
 import io.github.spiritstead.collision.TileCollision;
 import io.github.spiritstead.entity.npc.NPC;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 
 /**
  * This class checks all the different Types of collision that a given entity should check
  */
 public class PlayerCollisionHandler {
-    GamePanel gp;
     Player player;
     NPC npcs[];
 
@@ -18,12 +18,11 @@ public class PlayerCollisionHandler {
     private ObjectCollision objectCollision;
     private NPCCollision NPCCollision;
 
-    public PlayerCollisionHandler(GamePanel gp, Player player, NPC npcs[]) {
-        this.gp = gp;
+    public PlayerCollisionHandler(Player player, NPC npcs[]) {
         this.player = player;
         this.npcs = npcs;
-        this.tileCollision = new TileCollision(gp.tileM, player);
-        this.objectCollision = new ObjectCollision(gp, player);
+        this.tileCollision = new TileCollision(Game.tileM, player);
+        this.objectCollision = new ObjectCollision(player);
         this.NPCCollision = new NPCCollision(player, npcs);
     }
 
@@ -41,8 +40,7 @@ public class PlayerCollisionHandler {
 
     private void interactNPC(int npcIndex) {
         if (npcIndex != 9999) {
-            player.NPCInteraction.setNpc(npcs[npcIndex]);
-            player.NPCInteraction.handle();
+            player.interact(npcs[npcIndex]);
         }
     }
 
@@ -50,13 +48,12 @@ public class PlayerCollisionHandler {
         player.collisionOn = false;
         this.tileCollision.check();
         this.objectCollision.check();
-        player.playerObjectInteractor.setIndex(this.objectCollision.getIndex());
-        player.playerObjectInteractor.interact();
+        player.interactObject(this.objectCollision.getIndex());
 
     }
 
     private void checkEventCollision() {
-        gp.eHandler.checkEvent();
+        Game.eHandler.checkEvent();
     }
 
 }

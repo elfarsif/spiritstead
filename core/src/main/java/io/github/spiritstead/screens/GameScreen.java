@@ -2,6 +2,7 @@ package io.github.spiritstead.screens;
 
 import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.AssetSetter;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 
 public class GameScreen implements Screen {
@@ -11,19 +12,19 @@ public class GameScreen implements Screen {
 
     public GameScreen(GamePanel gp, Player player) {
         this.gp = gp;
-        this.assetSetter = gp.aSetter;
+        this.assetSetter = Game.aSetter;
         this.player = player;
 
     }
 
     @Override
     public void draw() {
-        gp.tileM.draw(gp.batch);
+        Game.tileM.draw(Game.batch);
         drawObjects();
         drawNPCS();
         player.draw();
-        gp.eHandler.draw(gp.batch);
-        gp.ui.draw();
+        Game.eHandler.draw(Game.batch);
+        Game.ui.draw();
     }
 
     public void update() {
@@ -33,29 +34,29 @@ public class GameScreen implements Screen {
     }
 
     public void dispose() {
-        gp.ui.dispose();
+        Game.ui.dispose();
     }
 
     private void drawNPCS() {
-        for (int i = 0; i < gp.aSetter.npcs.length; i++) {
-            if (gp.aSetter.npcs[i] != null) {
-                gp.aSetter.npcs[i].draw();
+        for (int i = 0; i < Game.aSetter.npcs.length; i++) {
+            if (Game.aSetter.npcs[i] != null) {
+                Game.aSetter.npcs[i].draw();
             }
         }
     }
 
     private void drawObjects() {
-        for (int i = 0; i < gp.aSetter.objects.length; i++) {
+        for (int i = 0; i < Game.aSetter.objects.length; i++) {
             if (assetSetter.objects[i] != null) {
-                assetSetter.objects[i].draw(gp.batch, this.gp);
+                assetSetter.objects[i].draw(Game.batch, this.gp);
             }
         }
     }
 
     private void updateNPCs() {
-        for (int i = 0; i < gp.aSetter.npcs.length; i++) {
-            if (gp.aSetter.npcs[i] != null) {
-                gp.aSetter.npcs[i].update();
+        for (int i = 0; i < Game.aSetter.npcs.length; i++) {
+            if (Game.aSetter.npcs[i] != null) {
+                Game.aSetter.npcs[i].update();
             }
         }
     }

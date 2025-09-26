@@ -8,10 +8,13 @@ import io.github.spiritstead.main.ScreenSetting;
 public class PlayerDrawer {
     private SpriteBatch batch;
     private Sprite sprite;
+    private Sprites sprites;
     private Player player;
+    private int spriteNum = 1;
 
-    public PlayerDrawer(SpriteBatch batch, Player player) {
+    public PlayerDrawer(SpriteBatch batch, Player player, Sprites sprites) {
         this.player = player;
+        this.sprites = sprites;
         this.batch = batch;
     }
 
@@ -24,19 +27,19 @@ public class PlayerDrawer {
         sprite = null;
         switch (player.direction) {
             case UP:
-                sprite = player.frames.get(Direction.UP)[player.spriteNum - 1];
+                sprite = sprites.frames.get(Direction.UP)[spriteNum - 1];
                 break;
             case DOWN:
-                sprite = player.frames.get(Direction.DOWN)[player.spriteNum - 1];
+                sprite = sprites.frames.get(Direction.DOWN)[spriteNum - 1];
                 break;
             case LEFT:
-                sprite = player.frames.get(Direction.LEFT)[player.spriteNum - 1];
+                sprite = sprites.frames.get(Direction.LEFT)[spriteNum - 1];
                 break;
             case RIGHT:
-                sprite = player.frames.get(Direction.RIGHT)[player.spriteNum - 1];
+                sprite = sprites.frames.get(Direction.RIGHT)[spriteNum - 1];
                 break;
             default:
-                sprite = player.down1;
+                sprite = sprites.down1;
         }
     }
 

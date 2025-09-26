@@ -1,40 +1,37 @@
 package io.github.spiritstead.entity.player;
 
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.KeyHandler;
 
 public class PlayerMover {
-    Player player;
-
-    public PlayerMover(Player player) {
-        this.player = player;
-    }
+    Player player = Game.player;
 
     public void assignKeyPressToDirection(KeyHandler keyH) {
         if (keyH.upPressed) {
-            player.direction = player.direction.UP;
+            Game.player.direction = Game.player.direction.UP;
         } else if (keyH.downPressed) {
-            player.direction = player.direction.DOWN;
+            Game.player.direction = Game.player.direction.DOWN;
         } else if (keyH.leftPressed) {
-            player.direction = player.direction.LEFT;
+            Game.player.direction = Game.player.direction.LEFT;
         } else if (keyH.rightPressed) {
-            player.direction = player.direction.RIGHT;
+            Game.player.direction = Game.player.direction.RIGHT;
         }
     }
 
     public void move() {
-        if (!player.collisionOn) {
-            switch (player.direction) {
+        if (!Game.player.collisionOn) {
+            switch (Game.player.direction) {
                 case UP:
-                    player.getWorldPosition().setY(player.getWorldPosition().getY() + player.speed);
+                    Game.player.getWorldPosition().setY(Game.player.getWorldPosition().getY() + Game.player.speed);
                     break;
                 case DOWN:
-                    player.getWorldPosition().setY(player.getWorldPosition().getY() - player.speed);
+                    Game.player.getWorldPosition().setY(Game.player.getWorldPosition().getY() - Game.player.speed);
                     break;
                 case LEFT:
-                    player.getWorldPosition().setX(player.getWorldPosition().getX() - player.speed);
+                    Game.player.getWorldPosition().setX(Game.player.getWorldPosition().getX() - Game.player.speed);
                     break;
                 case RIGHT:
-                    player.getWorldPosition().setX(player.getWorldPosition().getX() + player.speed);
+                    Game.player.getWorldPosition().setX(Game.player.getWorldPosition().getX() + Game.player.speed);
                     break;
             }
         }
