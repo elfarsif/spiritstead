@@ -1,8 +1,10 @@
-package io.github.spiritstead.entity.player;
+package io.github.spiritstead.entity.player.drawer;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.entity.Direction;
+import io.github.spiritstead.entity.player.Player;
+import io.github.spiritstead.entity.Sprites;
 import io.github.spiritstead.main.ScreenSetting;
 
 public class PlayerDrawer {
@@ -25,7 +27,7 @@ public class PlayerDrawer {
 
     private void updateSprite() {
         sprite = null;
-        switch (player.direction) {
+        switch (player.getValues().direction) {
             case UP:
                 sprite = sprites.frames.get(Direction.UP)[spriteNum - 1];
                 break;

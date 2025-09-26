@@ -38,7 +38,7 @@ public class PlayerObjectInteractor {
                     }
                     break;
                 case "Boots":
-                    player.speed += 2;
+                    player.getValues().speed += 2;
                     Game.aSetter.objects[this.index] = null;
                     this.audioPlayer.playSE(SoundEffect.POWERUP);
                     Game.ui.gameScreenUI.showMessage("YOU ARE FAST");

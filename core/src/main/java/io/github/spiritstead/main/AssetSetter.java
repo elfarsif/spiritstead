@@ -44,7 +44,7 @@ public class AssetSetter {
 
     public void setNPCs() {
         npcs[0] = new Mayor(gp);
-        npcs[0].getWorldPosition().setX(22 * ScreenSetting.TILE_SIZE);
-        npcs[0].getWorldPosition().setY(14 * ScreenSetting.TILE_SIZE);
+        npcs[0].getValues().getWorldPosition().setX(22 * ScreenSetting.TILE_SIZE);
+        npcs[0].getValues().getWorldPosition().setY(14 * ScreenSetting.TILE_SIZE);
     }
 }

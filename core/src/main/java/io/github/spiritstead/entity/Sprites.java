@@ -1,19 +1,13 @@
-package io.github.spiritstead.entity.player;
+package io.github.spiritstead.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import io.github.spiritstead.entity.Direction;
 
 import java.util.EnumMap;
 
 public class Sprites {
-    Player player;
     public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
     public EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
-
-    public Sprites(Player player) {
-        this.player = player;
-    }
 
     public void load() {
         up1 = new Sprite(new Texture("player/up1.png"));

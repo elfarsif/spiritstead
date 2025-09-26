@@ -1,5 +1,6 @@
-package io.github.spiritstead.entity.player;
+package io.github.spiritstead.entity.player.updator;
 
+import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.FrameGate;
 
 public class PlayerAnimator {

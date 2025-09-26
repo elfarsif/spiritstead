@@ -9,18 +9,18 @@ public class NPCMover {
 
     public void move() {
         if (!npc.isCollisionOn()) {
-            switch (npc.getDirection()) {
+            switch (npc.getValues().getDirection()) {
                 case UP:
-                    npc.getWorldPosition().setY(npc.getWorldPosition().getY() + npc.getSpeed());
+                    npc.getValues().getWorldPosition().setY(npc.getValues().getWorldPosition().getY() + npc.getValues().getSpeed());
                     break;
                 case DOWN:
-                    npc.getWorldPosition().setY(npc.getWorldPosition().getY() - npc.getSpeed());
+                    npc.getValues().getWorldPosition().setY(npc.getValues().getWorldPosition().getY() - npc.getValues().getSpeed());
                     break;
                 case LEFT:
-                    npc.getWorldPosition().setX(npc.getWorldPosition().getX() - npc.getSpeed());
+                    npc.getValues().getWorldPosition().setX(npc.getValues().getWorldPosition().getX() - npc.getValues().getSpeed());
                     break;
                 case RIGHT:
-                    npc.getWorldPosition().setX(npc.getWorldPosition().getX() + npc.getSpeed());
+                    npc.getValues().getWorldPosition().setX(npc.getValues().getWorldPosition().getX() + npc.getValues().getSpeed());
                     break;
             }
         }

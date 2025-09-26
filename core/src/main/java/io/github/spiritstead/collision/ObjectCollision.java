@@ -1,17 +1,16 @@
 package io.github.spiritstead.collision;
 
-import io.github.spiritstead.entity.ObjectColliadable;
+import io.github.spiritstead.entity.Collidable;
 import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.object.GameObject;
 
 public class ObjectCollision implements Collision {
-    private ObjectColliadable entity;
+    private Collidable entity;
     private int index;
     private GameObject gameObject;
 
-    public ObjectCollision(ObjectColliadable entity) {
+    public ObjectCollision(Collidable entity) {
         this.entity = entity;
     }
 
@@ -31,21 +30,21 @@ public class ObjectCollision implements Collision {
     }
 
     private void checkCollisionForAllDirections(boolean player, int i) {
-        switch (entity.getDirection()) {
+        switch (entity.getValues().getDirection()) {
             case UP:
-                entity.getSolidArea().getRect().y += entity.getSpeed();
+                entity.getSolidArea().getRect().y += entity.getValues().getSpeed();
                 checkCollision(player, i);
                 break;
             case DOWN:
-                entity.getSolidArea().getRect().y -= entity.getSpeed();
+                entity.getSolidArea().getRect().y -= entity.getValues().getSpeed();
                 checkCollision(player, i);
                 break;
             case LEFT:
-                entity.getSolidArea().getRect().x -= entity.getSpeed();
+                entity.getSolidArea().getRect().x -= entity.getValues().getSpeed();
                 checkCollision(player, i);
                 break;
             case RIGHT:
-                entity.getSolidArea().getRect().x += entity.getSpeed();
+                entity.getSolidArea().getRect().x += entity.getValues().getSpeed();
                 checkCollision(player, i);
                 break;
         }
@@ -75,8 +74,8 @@ public class ObjectCollision implements Collision {
     }
 
     private void intializeEntitySolidArea() {
-        entity.getSolidArea().getRect().x = entity.getWorldPosition().getX() + entity.getSolidArea().getRect().x;
-        entity.getSolidArea().getRect().y = entity.getWorldPosition().getY() + entity.getSolidArea().getRect().y;
+        entity.getSolidArea().getRect().x = entity.getValues().getWorldPosition().getX() + entity.getSolidArea().getRect().x;
+        entity.getSolidArea().getRect().y = entity.getValues().getWorldPosition().getY() + entity.getSolidArea().getRect().y;
     }
 
     public int getIndex() {

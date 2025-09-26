@@ -40,7 +40,7 @@ public class GameIntro implements Cutscene {
 
         } else {
             Game.screens.screen = Game.screens.gameScreen;
-            Game.player.direction = Direction.LEFT;
+            Game.player.getValues().direction = Direction.LEFT;
         }
 
     }

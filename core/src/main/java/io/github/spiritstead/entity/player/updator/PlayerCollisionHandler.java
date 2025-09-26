@@ -1,11 +1,11 @@
-package io.github.spiritstead.entity.player;
+package io.github.spiritstead.entity.player.updator;
 
 import io.github.spiritstead.collision.NPCCollision;
 import io.github.spiritstead.collision.ObjectCollision;
 import io.github.spiritstead.collision.TileCollision;
 import io.github.spiritstead.entity.npc.NPC;
+import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
 
 /**
  * This class checks all the different Types of collision that a given entity should check

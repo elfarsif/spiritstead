@@ -66,13 +66,13 @@ public class GameScreenUI implements UIScreen {
             int x = 10;
             int y = 40;
             int lineHeight = 30;
-            font.getBitmapFont().draw(batch, "Player X: " + Game.player.getWorldPosition().getX(), x, y);
+            font.getBitmapFont().draw(batch, "Player X: " + Game.player.values.getWorldPosition().getX(), x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Y: " + Game.player.getWorldPosition().getY(), x, y);
+            font.getBitmapFont().draw(batch, "Player Y: " + Game.player.values.getWorldPosition().getY(), x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Col: " + (Game.player.getWorldPosition().getX() + Game.player.getSolidArea().getRect().x) / ScreenSetting.TILE_SIZE, x, y);
+            font.getBitmapFont().draw(batch, "Player Col: " + (Game.player.values.getWorldPosition().getX() + Game.player.getSolidArea().getRect().x) / ScreenSetting.TILE_SIZE, x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Row: " + (Game.player.getWorldPosition().getY() + Game.player.getSolidArea().getRect().y) / ScreenSetting.TILE_SIZE, x, y);
+            font.getBitmapFont().draw(batch, "Player Row: " + (Game.player.values.getWorldPosition().getY() + Game.player.getSolidArea().getRect().y) / ScreenSetting.TILE_SIZE, x, y);
         }
     }
 

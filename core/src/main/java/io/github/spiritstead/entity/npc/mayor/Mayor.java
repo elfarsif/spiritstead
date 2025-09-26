@@ -1,36 +1,29 @@
 package io.github.spiritstead.entity.npc.mayor;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
 import io.github.spiritstead.entity.*;
-import io.github.spiritstead.entity.TileColliadable;
 import io.github.spiritstead.entity.npc.NPC;
 import io.github.spiritstead.entity.npc.NPCDrawer;
 import io.github.spiritstead.entity.npc.NPCMover;
-import io.github.spiritstead.entity.npc.NPCSpriteLoader;
 import io.github.spiritstead.entity.SolidArea;
-import io.github.spiritstead.entity.WorldPosition;
+import io.github.spiritstead.entity.Values;
+import io.github.spiritstead.entity.Sprites;
 import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.Random;
 
-public class Mayor implements TileColliadable, ObjectColliadable, NPC {
-    private WorldPosition worldPosition = new WorldPosition();
-    public int speed;
-    public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
-    public Direction direction;
+public class Mayor implements Collidable, NPC {
+    Sprites sprites;
     public int spriteNum = 1;
     private SolidArea solidArea;
     public boolean collisionOn = false;
-    public EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
+    private Values values;
     GamePanel gp;
     MayorDialogue mayorDialogue;
-    private NPCSpriteLoader NPCSpriteLoader;
     private NPCMover NPCMover;
     private NPCDrawer NPCDrawer;
     private FrameGate frameGate;
@@ -38,25 +31,21 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
 
     public Mayor(GamePanel gp) {
         this.gp = gp;
-        this.NPCSpriteLoader = new NPCSpriteLoader(this);
+        this.sprites = new Sprites();
         this.NPCMover = new NPCMover(this);
-        this.NPCDrawer = new NPCDrawer(gp, this);
+        this.NPCDrawer = new NPCDrawer(gp, this, sprites);
         this.frameGate = new FrameGate(120);
         this.collisionTypes.add(new TileCollision(Game.tileM, this));
         this.collisionTypes.add(new ObjectCollision(this));
         this.collisionTypes.add(new PlayerCollision(this.gp, this));
+        this.values = new Values();
 
         solidArea = new SolidArea(0, 0, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
 
-        NPCSpriteLoader.load();
-        direction = Direction.LEFT;
-        speed = 1;
+        sprites.load();
+        this.values.setSpeed(1);
+        this.values.setDirection(Direction.LEFT);
         mayorDialogue = new MayorDialogue(Game.script.mayorDialogue);
-
-        frames.put(Direction.UP, new Sprite[]{up1, up2});
-        frames.put(Direction.DOWN, new Sprite[]{down1, down2});
-        frames.put(Direction.LEFT, new Sprite[]{left1, left2});
-        frames.put(Direction.RIGHT, new Sprite[]{right1, right2});
 
     }
 
@@ -66,10 +55,10 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
             int i = random.nextInt(100);
 
             if (i < 50) {
-                direction = Direction.UP;
+                this.values.direction = Direction.UP;
             }
             if (i > 50) {
-                direction = Direction.UP;
+                this.values.direction = Direction.UP;
             }
             frameGate.reset();
         }
@@ -77,7 +66,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     }
 
     public void update() {
-//        setAction();
+        setAction();
         checkCollisions();
         NPCMover.move();
 
@@ -96,17 +85,11 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
 
     public void draw() {
         NPCDrawer.draw();
-
     }
 
     @Override
-    public Direction getDirection() {
-        return this.direction;
-    }
-
-    @Override
-    public int getSpeed() {
-        return this.speed;
+    public Values getValues() {
+        return this.values;
     }
 
     @Override
@@ -115,68 +98,13 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     }
 
     @Override
-    public Sprite getDown1() {
-        return this.down1;
-    }
-
-    @Override
-    public void setUp1(Sprite up1) {
-        this.up1 = up1;
-    }
-
-    @Override
-    public void setUp2(Sprite up2) {
-        this.up2 = up2;
-    }
-
-    @Override
-    public void setDown1(Sprite down1) {
-        this.down1 = down1;
-    }
-
-    @Override
-    public void setDown2(Sprite down2) {
-        this.down2 = down2;
-    }
-
-    @Override
-    public void setLeft1(Sprite left1) {
-        this.left1 = left1;
-    }
-
-    @Override
-    public void setLeft2(Sprite left2) {
-        this.left2 = left2;
-    }
-
-    @Override
-    public void setRight1(Sprite right1) {
-        this.right1 = right1;
-    }
-
-    @Override
-    public void setRight2(Sprite right2) {
-        this.right2 = right2;
-    }
-
-    @Override
     public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
-    @Override
-    public EnumMap<Direction, Sprite[]> getFrames() {
-        return this.frames;
+        this.getValues().direction = direction;
     }
 
     @Override
     public boolean isCollisionOn() {
         return this.collisionOn;
-    }
-
-    @Override
-    public WorldPosition getWorldPosition() {
-        return this.worldPosition;
     }
 
     @Override

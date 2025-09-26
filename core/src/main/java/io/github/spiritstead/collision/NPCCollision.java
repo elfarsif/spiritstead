@@ -2,6 +2,7 @@ package io.github.spiritstead.collision;
 
 import io.github.spiritstead.entity.npc.NPC;
 import io.github.spiritstead.entity.player.Player;
+import io.github.spiritstead.main.Game;
 
 public class NPCCollision implements Collision {
     private int index;
@@ -28,31 +29,31 @@ public class NPCCollision implements Collision {
     }
 
     private void intializeEntitySolidArea() {
-        this.player.getSolidArea().getRect().x = this.player.getWorldPosition().getX() + this.player.getSolidArea().getRect().x;
-        this.player.getSolidArea().getRect().y = this.player.getWorldPosition().getY() + this.player.getSolidArea().getRect().y;
+        this.player.getSolidArea().getRect().x = this.player.getValues().getWorldPosition().getX() + this.player.getSolidArea().getRect().x;
+        this.player.getSolidArea().getRect().y = this.player.getValues().getWorldPosition().getY() + this.player.getSolidArea().getRect().y;
     }
 
     private void initializeTargetEntitySolidArea(NPC target) {
-        target.getSolidArea().getRect().x = target.getWorldPosition().getX() + target.getSolidArea().getRect().x;
-        target.getSolidArea().getRect().y = target.getWorldPosition().getY() + target.getSolidArea().getRect().y;
+        target.getSolidArea().getRect().x = target.getValues().getWorldPosition().getX() + target.getSolidArea().getRect().x;
+        target.getSolidArea().getRect().y = target.getValues().getWorldPosition().getY() + target.getSolidArea().getRect().y;
     }
 
     private void checkCollisionForAllDirections(NPC[] target, int i) {
-        switch (player.direction) {
+        switch (player.getValues().direction) {
             case UP:
-                player.getSolidArea().getRect().y += player.speed;
+                player.getSolidArea().getRect().y += player.getValues().speed;
                 checkCollision(target, i);
                 break;
             case DOWN:
-                player.getSolidArea().getRect().y -= player.speed;
+                player.getSolidArea().getRect().y -= player.getValues().speed;
                 checkCollision(target, i);
                 break;
             case LEFT:
-                player.getSolidArea().getRect().x -= player.speed;
+                player.getSolidArea().getRect().x -= player.getValues().speed;
                 checkCollision(target, i);
                 break;
             case RIGHT:
-                player.getSolidArea().getRect().x += player.speed;
+                player.getSolidArea().getRect().x += player.getValues().speed;
                 checkCollision(target, i);
                 break;
         }
@@ -60,7 +61,7 @@ public class NPCCollision implements Collision {
 
     private void checkCollision(NPC[] target, int i) {
         if (player.getSolidArea().getRect().intersects(target[i].getSolidArea().getRect())) {
-            player.collisionOn = true;
+            player.setCollisionOn(true);
             this.index = i;
         }
     }

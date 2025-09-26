@@ -22,34 +22,34 @@ public class PlayerCollision implements Collision {
     }
 
     private void checkCollisionForAllDirections(NPC entity) {
-        switch (entity.getDirection()) {
+        switch (entity.getValues().getDirection()) {
             case UP:
-                entity.getSolidArea().getRect().y += entity.getSpeed();
+                entity.getSolidArea().getRect().y += entity.getValues().getSpeed();
                 checkCollision();
                 break;
             case DOWN:
-                entity.getSolidArea().getRect().y -= entity.getSpeed();
+                entity.getSolidArea().getRect().y -= entity.getValues().getSpeed();
                 checkCollision();
                 break;
             case LEFT:
-                entity.getSolidArea().getRect().x -= entity.getSpeed();
+                entity.getSolidArea().getRect().x -= entity.getValues().getSpeed();
                 checkCollision();
                 break;
             case RIGHT:
-                entity.getSolidArea().getRect().x += entity.getSpeed();
+                entity.getSolidArea().getRect().x += entity.getValues().getSpeed();
                 checkCollision();
                 break;
         }
     }
 
     private void intializeEntitySolidArea() {
-        entity.getSolidArea().getRect().x = entity.getWorldPosition().getX() + entity.getSolidArea().getRect().x;
-        entity.getSolidArea().getRect().y = entity.getWorldPosition().getY() + entity.getSolidArea().getRect().y;
+        entity.getSolidArea().getRect().x = entity.getValues().getWorldPosition().getX() + entity.getSolidArea().getRect().x;
+        entity.getSolidArea().getRect().y = entity.getValues().getWorldPosition().getY() + entity.getSolidArea().getRect().y;
     }
 
     private void initializePlayerSolidArea() {
-        Game.player.getSolidArea().getRect().x = Game.player.getWorldPosition().getX() + Game.player.getSolidArea().getRect().x;
-        Game.player.getSolidArea().getRect().y = Game.player.getWorldPosition().getY() + Game.player.getSolidArea().getRect().y;
+        Game.player.getSolidArea().getRect().x = Game.player.values.getWorldPosition().getX() + Game.player.getSolidArea().getRect().x;
+        Game.player.getSolidArea().getRect().y = Game.player.values.getWorldPosition().getY() + Game.player.getSolidArea().getRect().y;
     }
 
     private void checkCollision() {
