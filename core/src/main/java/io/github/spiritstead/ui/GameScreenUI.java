@@ -69,9 +69,9 @@ public class GameScreenUI implements UIScreen {
             y += lineHeight;
             font.getBitmapFont().draw(batch, "Player Y: " + gp.player.getWorldPosition().getY(), x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Col: " + (gp.player.getWorldPosition().getX() + gp.player.solidArea.x) / ScreenSetting.TILE_SIZE, x, y);
+            font.getBitmapFont().draw(batch, "Player Col: " + (gp.player.getWorldPosition().getX() + gp.player.getSolidArea().getRect().x) / ScreenSetting.TILE_SIZE, x, y);
             y += lineHeight;
-            font.getBitmapFont().draw(batch, "Player Row: " + (gp.player.getWorldPosition().getY() + gp.player.solidArea.y) / ScreenSetting.TILE_SIZE, x, y);
+            font.getBitmapFont().draw(batch, "Player Row: " + (gp.player.getWorldPosition().getY() + gp.player.getSolidArea().getRect().y) / ScreenSetting.TILE_SIZE, x, y);
         }
     }
 

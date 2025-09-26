@@ -8,35 +8,25 @@ import io.github.spiritstead.entity.npc.NPC;
 import io.github.spiritstead.entity.npc.NPCDrawer;
 import io.github.spiritstead.entity.npc.NPCMover;
 import io.github.spiritstead.entity.npc.NPCSpriteLoader;
-import io.github.spiritstead.entity.player.WorldPosition;
+import io.github.spiritstead.entity.SolidArea;
+import io.github.spiritstead.entity.WorldPosition;
 import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Random;
 
 public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     private WorldPosition worldPosition = new WorldPosition();
-
     public int speed;
     public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
-
     public Direction direction;
-
     public int spriteNum = 1;
-
-    public Rectangle solidArea;
-    //allows to change solid area for collision detection and store original values to restore area
-    public int solidAreaDefaultX;
-    public int solidAreaDefaultY;
-
+    private SolidArea solidArea;
     public boolean collisionOn = false;
     public EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
-
-    //
     GamePanel gp;
     MayorDialogue mayorDialogue;
     private NPCSpriteLoader NPCSpriteLoader;
@@ -55,7 +45,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
         this.collisionTypes.add(new ObjectCollision(this.gp, this));
         this.collisionTypes.add(new PlayerCollision(this.gp, this));
 
-        solidArea = new Rectangle(0, 0, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+        solidArea = new SolidArea(0, 0, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
 
         NPCSpriteLoader.load();
         direction = Direction.LEFT;
@@ -119,7 +109,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     }
 
     @Override
-    public void setSolidArea(Rectangle solidArea) {
+    public void setSolidArea(SolidArea solidArea) {
         this.solidArea = solidArea;
     }
 
@@ -189,16 +179,6 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     }
 
     @Override
-    public int getSolidAreadDefaultX() {
-        return this.solidAreaDefaultX;
-    }
-
-    @Override
-    public int getSolidAreadDefaultY() {
-        return this.solidAreaDefaultY;
-    }
-
-    @Override
     public boolean isCollisionOn() {
         return this.collisionOn;
     }
@@ -214,7 +194,7 @@ public class Mayor implements TileColliadable, ObjectColliadable, NPC {
     }
 
     @Override
-    public Rectangle getSolidArea() {
+    public SolidArea getSolidArea() {
         return this.solidArea;
     }
 

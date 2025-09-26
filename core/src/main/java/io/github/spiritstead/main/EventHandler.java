@@ -44,12 +44,12 @@ public class EventHandler {
     public boolean hit(int eventCol, int eventRow, Direction reqDirection) {
         boolean hit = false;
 
-        gp.player.solidArea.x = gp.player.getWorldPosition().getX() + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.getWorldPosition().getY() + gp.player.solidArea.y;
+        gp.player.getSolidArea().getRect().x = gp.player.getWorldPosition().getX() + gp.player.getSolidArea().getRect().x;
+        gp.player.getSolidArea().getRect().y = gp.player.getWorldPosition().getY() + gp.player.getSolidArea().getRect().y;
         eventRect.x = eventCol * ScreenSetting.TILE_SIZE + eventRect.x;
         eventRect.y = eventRow * ScreenSetting.TILE_SIZE + eventRect.y;
 
-        if (gp.player.solidArea.intersects(eventRect)) {
+        if (gp.player.getSolidArea().getRect().intersects(eventRect)) {
             if ((gp.player.direction == reqDirection)) {
                 hit = true;
             } else if (reqDirection == Direction.ANY) {
@@ -57,8 +57,8 @@ public class EventHandler {
 
             }
         }
-        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+        gp.player.getSolidArea().getRect().x = gp.player.getSolidArea().getDefaultX();
+        gp.player.getSolidArea().getRect().y = gp.player.getSolidArea().getDefaultY();
         eventRect.x = eventRectDefaultX;
         eventRect.y = eventRectDefaultX;
 

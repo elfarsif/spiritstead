@@ -18,13 +18,15 @@ public class PlayerSolidAreaOutline {
         generateSolidAreaOutline();
     }
 
+
     private void generateSolidAreaOutline() {
         Pixmap solidAreaPixmap = new Pixmap(ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE, Pixmap.Format.RGBA8888);
         solidAreaPixmap.setColor(Color.WHITE);
-        solidAreaPixmap.drawRectangle(player.solidArea.x, ScreenSetting.TILE_SIZE - player.solidArea.height, player.solidArea.width, player.solidArea.height);
+        solidAreaPixmap.drawRectangle(player.getSolidArea().getRect().x, ScreenSetting.TILE_SIZE - player.getSolidArea().getRect().height, player.getSolidArea().getRect().width, player.getSolidArea().getRect().height);
         Sprite solidAreaSprite = new Sprite(new Texture(solidAreaPixmap));
         solidAreaPixmap.dispose();
         this.sprite = solidAreaSprite;
+        Game
     }
 
     public void draw() {

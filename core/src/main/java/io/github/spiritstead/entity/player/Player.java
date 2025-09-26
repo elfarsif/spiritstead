@@ -8,7 +8,6 @@ import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.KeyHandler;
 import io.github.spiritstead.main.ScreenSetting;
 
-import java.awt.*;
 import java.util.EnumMap;
 
 public class Player implements TileColliadable, ObjectColliadable {
@@ -29,9 +28,7 @@ public class Player implements TileColliadable, ObjectColliadable {
     public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
     public Direction direction;
     public int spriteNum = 1;
-    public Rectangle solidArea;
-    public int solidAreaDefaultX;
-    public int solidAreaDefaultY;
+    private SolidArea solidArea;
     public boolean collisionOn = false;
     public EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
     public ScreenPosition screenPosition = new ScreenPosition();
@@ -51,7 +48,7 @@ public class Player implements TileColliadable, ObjectColliadable {
         this.screenPosition.setX(gp.sSetting.SCREEN_WIDTH / 2 - ScreenSetting.TILE_SIZE / 2);
         this.screenPosition.setY(gp.sSetting.SCREEN_HEIGHT / 2 - ScreenSetting.TILE_SIZE / 2);
 
-        setSolidArea();
+        this.solidArea = new SolidArea(5 * ScreenSetting.SCALE, 0, 6 * ScreenSetting.SCALE, 6 * ScreenSetting.SCALE);
 
         this.playerSolidAreaOutline = new PlayerSolidAreaOutline(gp, this);
 
@@ -63,17 +60,6 @@ public class Player implements TileColliadable, ObjectColliadable {
         frames.put(Direction.LEFT, new Sprite[]{left1, left2});
         frames.put(Direction.RIGHT, new Sprite[]{right1, right2});
 
-    }
-
-    private void setSolidArea() {
-        solidArea = new Rectangle();
-        solidArea.x = 5 * gp.sSetting.SCALE;
-        solidArea.y = 0;
-        //record default values to change solid area
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
-        solidArea.width = 6 * gp.sSetting.SCALE;
-        solidArea.height = 6 * gp.sSetting.SCALE;
     }
 
     private void setDefaultPlayerValues() {
@@ -108,23 +94,13 @@ public class Player implements TileColliadable, ObjectColliadable {
     }
 
     @Override
-    public void setSolidArea(Rectangle solidArea) {
+    public void setSolidArea(SolidArea solidArea) {
         this.solidArea = solidArea;
     }
 
     @Override
     public int getSpeed() {
         return this.speed;
-    }
-
-    @Override
-    public int getSolidAreadDefaultX() {
-        return this.solidAreaDefaultX;
-    }
-
-    @Override
-    public int getSolidAreadDefaultY() {
-        return this.solidAreaDefaultY;
     }
 
     @Override
@@ -143,7 +119,7 @@ public class Player implements TileColliadable, ObjectColliadable {
     }
 
     @Override
-    public Rectangle getSolidArea() {
+    public SolidArea getSolidArea() {
         return this.solidArea;
     }
 

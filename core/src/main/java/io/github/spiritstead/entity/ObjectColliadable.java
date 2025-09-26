@@ -1,17 +1,13 @@
 package io.github.spiritstead.entity;
 
-import io.github.spiritstead.entity.player.WorldPosition;
-
-import java.awt.*;
-
 public interface ObjectColliadable {
     boolean isPlayer();
 
     Direction getDirection();
 
-    void setSolidArea(Rectangle solidArea);
+    void setSolidArea(SolidArea solidArea);
 
-    Rectangle getSolidArea();
+    SolidArea getSolidArea();
 
     boolean isCollisionOn();
 
@@ -20,9 +16,5 @@ public interface ObjectColliadable {
     int getSpeed();
 
     WorldPosition getWorldPosition();
-
-    int getSolidAreadDefaultX();
-
-    int getSolidAreadDefaultY();
 
 }

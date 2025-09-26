@@ -1,4 +1,4 @@
-package io.github.spiritstead.entity.player;
+package io.github.spiritstead.entity;
 
 public class WorldPosition {
     private int x, y;

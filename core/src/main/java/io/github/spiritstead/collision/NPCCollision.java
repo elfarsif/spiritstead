@@ -28,48 +28,48 @@ public class NPCCollision implements Collision {
     }
 
     private void intializeEntitySolidArea() {
-        this.player.solidArea.x = this.player.getWorldPosition().getX() + this.player.solidArea.x;
-        this.player.solidArea.y = this.player.getWorldPosition().getY() + this.player.solidArea.y;
+        this.player.getSolidArea().getRect().x = this.player.getWorldPosition().getX() + this.player.getSolidArea().getRect().x;
+        this.player.getSolidArea().getRect().y = this.player.getWorldPosition().getY() + this.player.getSolidArea().getRect().y;
     }
 
     private void initializeTargetEntitySolidArea(NPC target) {
-        target.getSolidArea().x = target.getWorldPosition().getX() + target.getSolidArea().x;
-        target.getSolidArea().y = target.getWorldPosition().getY() + target.getSolidArea().y;
+        target.getSolidArea().getRect().x = target.getWorldPosition().getX() + target.getSolidArea().getRect().x;
+        target.getSolidArea().getRect().y = target.getWorldPosition().getY() + target.getSolidArea().getRect().y;
     }
 
     private void checkCollisionForAllDirections(NPC[] target, int i) {
         switch (player.direction) {
             case UP:
-                player.solidArea.y += player.speed;
+                player.getSolidArea().getRect().y += player.speed;
                 checkCollision(target, i);
                 break;
             case DOWN:
-                player.solidArea.y -= player.speed;
+                player.getSolidArea().getRect().y -= player.speed;
                 checkCollision(target, i);
                 break;
             case LEFT:
-                player.solidArea.x -= player.speed;
+                player.getSolidArea().getRect().x -= player.speed;
                 checkCollision(target, i);
                 break;
             case RIGHT:
-                player.solidArea.x += player.speed;
+                player.getSolidArea().getRect().x += player.speed;
                 checkCollision(target, i);
                 break;
         }
     }
 
     private void checkCollision(NPC[] target, int i) {
-        if (player.solidArea.intersects(target[i].getSolidArea())) {
+        if (player.getSolidArea().getRect().intersects(target[i].getSolidArea().getRect())) {
             player.collisionOn = true;
             this.index = i;
         }
     }
 
     private void restoreDefaultAreaValues(NPC target) {
-        player.solidArea.x = player.solidAreaDefaultX;
-        player.solidArea.y = player.solidAreaDefaultY;
-        target.getSolidArea().x = target.getSolidAreadDefaultX();
-        target.getSolidArea().y = target.getSolidAreadDefaultY();
+        player.getSolidArea().getRect().x = player.getSolidArea().getDefaultX();
+        player.getSolidArea().getRect().y = player.getSolidArea().getDefaultY();
+        target.getSolidArea().getRect().x = target.getSolidArea().getDefaultX();
+        target.getSolidArea().getRect().y = target.getSolidArea().getDefaultY();
     }
 
     public int getIndex() {

@@ -1,9 +1,5 @@
 package io.github.spiritstead.entity;
 
-import io.github.spiritstead.entity.player.WorldPosition;
-
-import java.awt.*;
-
 public interface TileColliadable {
     Direction getDirection();
 
@@ -13,7 +9,7 @@ public interface TileColliadable {
 
     WorldPosition getWorldPosition();
 
-    Rectangle getSolidArea();
+    SolidArea getSolidArea();
 
     void setCollisonOn(boolean collisonOn);
 

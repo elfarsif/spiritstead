@@ -34,33 +34,33 @@ public class ObjectCollision implements Collision {
     private void checkCollisionForAllDirections(boolean player, int i) {
         switch (entity.getDirection()) {
             case UP:
-                entity.getSolidArea().y += entity.getSpeed();
+                entity.getSolidArea().getRect().y += entity.getSpeed();
                 checkCollision(player, i);
                 break;
             case DOWN:
-                entity.getSolidArea().y -= entity.getSpeed();
+                entity.getSolidArea().getRect().y -= entity.getSpeed();
                 checkCollision(player, i);
                 break;
             case LEFT:
-                entity.getSolidArea().x -= entity.getSpeed();
+                entity.getSolidArea().getRect().x -= entity.getSpeed();
                 checkCollision(player, i);
                 break;
             case RIGHT:
-                entity.getSolidArea().x += entity.getSpeed();
+                entity.getSolidArea().getRect().x += entity.getSpeed();
                 checkCollision(player, i);
                 break;
         }
     }
 
     private void restoreDefaultAreaValues(int i) {
-        entity.getSolidArea().x = entity.getSolidAreadDefaultX();
-        entity.getSolidArea().y = entity.getSolidAreadDefaultY();
+        entity.getSolidArea().getRect().x = entity.getSolidArea().getDefaultX();
+        entity.getSolidArea().getRect().y = entity.getSolidArea().getDefaultY();
         gameObject.solidArea.x = gameObject.solidAreaDefaultX;
         gameObject.solidArea.y = gameObject.solidAreaDefaultY;
     }
 
     private void checkCollision(boolean player, int i) {
-        if (entity.getSolidArea().intersects(gameObject.solidArea)) {
+        if (entity.getSolidArea().getRect().intersects(gameObject.solidArea)) {
             if (gameObject.collision == true) {
                 entity.setCollisionOn(true);
             }
@@ -76,8 +76,8 @@ public class ObjectCollision implements Collision {
     }
 
     private void intializeEntitySolidArea() {
-        entity.getSolidArea().x = entity.getWorldPosition().getX() + entity.getSolidArea().x;
-        entity.getSolidArea().y = entity.getWorldPosition().getY() + entity.getSolidArea().y;
+        entity.getSolidArea().getRect().x = entity.getWorldPosition().getX() + entity.getSolidArea().getRect().x;
+        entity.getSolidArea().getRect().y = entity.getWorldPosition().getY() + entity.getSolidArea().getRect().y;
     }
 
     public int getIndex() {

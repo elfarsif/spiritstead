@@ -23,44 +23,44 @@ public class PlayerCollision implements Collision {
     private void checkCollisionForAllDirections(NPC entity) {
         switch (entity.getDirection()) {
             case UP:
-                entity.getSolidArea().y += entity.getSpeed();
+                entity.getSolidArea().getRect().y += entity.getSpeed();
                 checkCollision();
                 break;
             case DOWN:
-                entity.getSolidArea().y -= entity.getSpeed();
+                entity.getSolidArea().getRect().y -= entity.getSpeed();
                 checkCollision();
                 break;
             case LEFT:
-                entity.getSolidArea().x -= entity.getSpeed();
+                entity.getSolidArea().getRect().x -= entity.getSpeed();
                 checkCollision();
                 break;
             case RIGHT:
-                entity.getSolidArea().x += entity.getSpeed();
+                entity.getSolidArea().getRect().x += entity.getSpeed();
                 checkCollision();
                 break;
         }
     }
 
     private void intializeEntitySolidArea() {
-        entity.getSolidArea().x = entity.getWorldPosition().getX() + entity.getSolidArea().x;
-        entity.getSolidArea().y = entity.getWorldPosition().getY() + entity.getSolidArea().y;
+        entity.getSolidArea().getRect().x = entity.getWorldPosition().getX() + entity.getSolidArea().getRect().x;
+        entity.getSolidArea().getRect().y = entity.getWorldPosition().getY() + entity.getSolidArea().getRect().y;
     }
 
     private void initializePlayerSolidArea() {
-        gp.player.solidArea.x = gp.player.getWorldPosition().getX() + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.getWorldPosition().getY() + gp.player.solidArea.y;
+        gp.player.getSolidArea().getRect().x = gp.player.getWorldPosition().getX() + gp.player.getSolidArea().getRect().x;
+        gp.player.getSolidArea().getRect().y = gp.player.getWorldPosition().getY() + gp.player.getSolidArea().getRect().y;
     }
 
     private void checkCollision() {
-        if (entity.getSolidArea().intersects(gp.player.solidArea)) {
+        if (entity.getSolidArea().getRect().intersects(gp.player.getSolidArea().getRect())) {
             entity.setCollisionOn(true);
         }
     }
 
     private void restoreDefaultSolidAreaValues() {
-        entity.getSolidArea().x = entity.getSolidAreadDefaultX();
-        entity.getSolidArea().y = entity.getSolidAreadDefaultY();
-        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+        entity.getSolidArea().getRect().x = entity.getSolidArea().getDefaultX();
+        entity.getSolidArea().getRect().y = entity.getSolidArea().getDefaultY();
+        gp.player.getSolidArea().getRect().x = gp.player.getSolidArea().getDefaultX();
+        gp.player.getSolidArea().getRect().y = gp.player.getSolidArea().getDefaultY();
     }
 }
