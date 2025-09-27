@@ -1,7 +1,7 @@
 package io.github.spiritstead.main;
 
-import io.github.spiritstead.entity.npc.NPC;
-import io.github.spiritstead.entity.npc.mayor.Mayor;
+import io.github.spiritstead.entity.NPC;
+import io.github.spiritstead.entity.Mayor;
 import io.github.spiritstead.object.*;
 
 public class AssetSetter {
@@ -44,7 +44,7 @@ public class AssetSetter {
 
     public void setNPCs() {
         npcs[0] = new Mayor(gp);
-        npcs[0].getValues().getWorldPosition().setX(22 * ScreenSetting.TILE_SIZE);
-        npcs[0].getValues().getWorldPosition().setY(14 * ScreenSetting.TILE_SIZE);
+        npcs[0].getWorldPosition().setX(22 * ScreenSetting.TILE_SIZE);
+        npcs[0].getWorldPosition().setY(14 * ScreenSetting.TILE_SIZE);
     }
 }

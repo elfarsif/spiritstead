@@ -3,7 +3,7 @@ package io.github.spiritstead.main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.audio.AudioPlayer;
-import io.github.spiritstead.entity.player.Player;
+import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.screens.Screens;
 import io.github.spiritstead.script.Script;
 import io.github.spiritstead.tile.TileManager;

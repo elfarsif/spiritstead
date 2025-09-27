@@ -12,18 +12,18 @@ public class Mover {
 
     public void move() {
         if (!moveable.isCollisionOn()) {
-            switch (moveable.getValues().direction) {
+            switch (moveable.getDirection()) {
                 case UP:
-                    moveable.getValues().getWorldPosition().setY(moveable.getValues().getWorldPosition().getY() + moveable.getValues().speed);
+                    moveable.getWorldPosition().setY(moveable.getWorldPosition().getY() + moveable.getSpeed());
                     break;
                 case DOWN:
-                    moveable.getValues().getWorldPosition().setY(moveable.getValues().getWorldPosition().getY() - moveable.getValues().speed);
+                    moveable.getWorldPosition().setY(moveable.getWorldPosition().getY() - moveable.getSpeed());
                     break;
                 case LEFT:
-                    moveable.getValues().getWorldPosition().setX(moveable.getValues().getWorldPosition().getX() - moveable.getValues().speed);
+                    moveable.getWorldPosition().setX(moveable.getWorldPosition().getX() - moveable.getSpeed());
                     break;
                 case RIGHT:
-                    moveable.getValues().getWorldPosition().setX(moveable.getValues().getWorldPosition().getX() + moveable.getValues().speed);
+                    moveable.getWorldPosition().setX(moveable.getWorldPosition().getX() + moveable.getSpeed());
                     break;
             }
         }

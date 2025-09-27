@@ -1,0 +1,164 @@
+@startuml
+enum io.github.spiritstead.entity.Direction {
++  UP
++  DOWN
++  LEFT
++  RIGHT
++  ANY
+}
+
+class io.github.spiritstead.entity.Mover {
+- Moveable moveable
++ void move()
+}
+
+
+interface io.github.spiritstead.entity.Collidable {
+~ SolidArea getSolidArea()
+~ void setCollisionOn(boolean)
+~ WorldPosition getWorldPosition()
+~ int getSpeed()
+~ Direction getDirection()
+}
+
+class io.github.spiritstead.entity.ScreenPosition {
+- int x
++ int getX()
++ void setX(int)
++ int getY()
++ void setY(int)
+}
+
+
+interface io.github.spiritstead.entity.NPC {
+~ void speak()
+~ SolidArea getSolidArea()
+~ void setCollisionOn(boolean)
+~ void draw()
+~ void update()
+}
+
+class io.github.spiritstead.entity.WorldPosition {
+- int x
++ int getX()
++ void setX(int)
++ int getY()
++ void setY(int)
+}
+
+
+class io.github.spiritstead.entity.Mayor {
+- Sprite sprite
+~ Sprites sprites
+- Mover mover
++ int spriteNum
+- SolidArea solidArea
++ boolean collisionOn
+- int speed
+- Direction direction
+~ GamePanel gp
+- FrameGate frameGate
+- ArrayList<CollisionType> collisionTypeTypes
+- Collision collision
++ WorldPosition worldPosition
++ Map<Integer,String> allDialogue
+- int index
+~ String currentDialogue
+- int screenX
++ void setAction()
++ void update()
++ void speak()
++ String getCurrentDialogue()
+- void checkCollisions()
++ void draw()
+- void updateSprite()
+- boolean entityIsWithinScreenBounds()
+- void initialiazeScreenPositionRelativeToPlayer()
++ boolean isCollisionOn()
++ int getSpeed()
++ Direction getDirection()
++ void setCollisionOn(boolean)
++ WorldPosition getWorldPosition()
++ SolidArea getSolidArea()
+}
+
+
+class io.github.spiritstead.entity.Sprites {
++ Sprite up1
++ EnumMap<Direction,Sprite[]> frames
++ void load()
+}
+
+
+class io.github.spiritstead.entity.Player {
++ Sprites sprites
+~ Sprite currentSprite
++ int hasKey
++ int speed
++ int spriteNum
++ ScreenPosition screenPosition
++ boolean collisionOn
+- SolidArea solidArea
+- Sprite solidAreaOutline
+- Mover mover
+~ FrameGate frameGate
++ Direction direction
+- Collision collision
+- TileCollisionType tileCollision
+- ObjectCollisionType objectCollision
++ WorldPosition worldPosition
++ void interactObject(int)
++ void interact(NPC)
++ void update()
+- void checkObjectCollision()
++ void updateSprite()
++ void assignKeyPressToDirection(KeyHandler)
++ void checkNPCCollision()
+- void interactNPC(int)
++ void checkTileCollision()
+- void checkEventCollision()
++ void draw()
+- void drawPlayer()
+- void drawSolidArea()
+- void generateSolidAreaOutline()
++ void setCollisionOn(boolean)
++ WorldPosition getWorldPosition()
++ Direction getDirection()
++ SolidArea getSolidArea()
++ boolean isCollisionOn()
++ int getSpeed()
+}
+
+
+interface io.github.spiritstead.entity.Moveable {
+~ boolean isCollisionOn()
+~ int getSpeed()
+~ SolidArea getSolidArea()
+~ void setCollisionOn(boolean)
+~ WorldPosition getWorldPosition()
+~ Direction getDirection()
+}
+
+class io.github.spiritstead.entity.SolidArea {
+- Rectangle rect
+- int defaultX
+- int defaultY
++ Rectangle getRect()
++ void setRect(Rectangle)
++ int getDefaultX()
++ void setDefaultX(int)
++ int getDefaultY()
++ void setDefaultY(int)
+}
+
+
+
+
+io.github.spiritstead.entity.Collidable <|-- io.github.spiritstead.entity.NPC
+io.github.spiritstead.entity.Moveable <|-- io.github.spiritstead.entity.NPC
+io.github.spiritstead.entity.Collidable <|.. io.github.spiritstead.entity.Mayor
+io.github.spiritstead.entity.Moveable <|.. io.github.spiritstead.entity.Mayor
+io.github.spiritstead.entity.NPC <|.. io.github.spiritstead.entity.Mayor
+io.github.spiritstead.entity.Collidable <|.. io.github.spiritstead.entity.Player
+io.github.spiritstead.entity.Moveable <|.. io.github.spiritstead.entity.Player
+@enduml

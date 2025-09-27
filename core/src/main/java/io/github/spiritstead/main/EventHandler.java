@@ -44,13 +44,13 @@ public class EventHandler {
     public boolean hit(int eventCol, int eventRow, Direction reqDirection) {
         boolean hit = false;
 
-        Game.player.getSolidArea().getRect().x = Game.player.getValues().getWorldPosition().getX() + Game.player.getSolidArea().getRect().x;
-        Game.player.getSolidArea().getRect().y = Game.player.getValues().getWorldPosition().getY() + Game.player.getSolidArea().getRect().y;
+        Game.player.getSolidArea().getRect().x = Game.player.getWorldPosition().getX() + Game.player.getSolidArea().getRect().x;
+        Game.player.getSolidArea().getRect().y = Game.player.getWorldPosition().getY() + Game.player.getSolidArea().getRect().y;
         eventRect.x = eventCol * ScreenSetting.TILE_SIZE + eventRect.x;
         eventRect.y = eventRow * ScreenSetting.TILE_SIZE + eventRect.y;
 
         if (Game.player.getSolidArea().getRect().intersects(eventRect)) {
-            if ((Game.player.getValues().direction == reqDirection)) {
+            if ((Game.player.getDirection() == reqDirection)) {
                 hit = true;
             } else if (reqDirection == Direction.ANY) {
                 hit = true;
@@ -77,8 +77,8 @@ public class EventHandler {
 
     public void draw(SpriteBatch batch) {
         //calculate where on the screen to draw the tile relative to player, from tile manage class
-        int screenX = e1WorldX - Game.player.values.getWorldPosition().getX() + Game.player.screenPosition.getX();
-        int screenY = e1WorldY - Game.player.values.getWorldPosition().getY() + Game.player.screenPosition.getY();
+        int screenX = e1WorldX - Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX();
+        int screenY = e1WorldY - Game.player.getWorldPosition().getY() + Game.player.screenPosition.getY();
 
         batch.draw(solidAreaOutlineSprite, screenX, screenY);
 

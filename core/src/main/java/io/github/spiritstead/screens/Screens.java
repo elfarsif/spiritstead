@@ -1,6 +1,6 @@
 package io.github.spiritstead.screens;
 
-import io.github.spiritstead.entity.player.Player;
+import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.screens.titleScreen.TitleScreen;
 
