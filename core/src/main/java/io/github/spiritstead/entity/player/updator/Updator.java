@@ -7,13 +7,11 @@ import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.KeyHandler;
 
 public class Updator {
-    private PlayerMover playerMover;
     private PlayerAnimator playerAnimator;
     private PlayerCollisionHandler playerCollisionHandler;
     private Mover mover;
 
     public Updator(Player player, NPC[] npcs) {
-        this.playerMover = new PlayerMover();
         this.playerAnimator = new PlayerAnimator(player);
         this.playerCollisionHandler = new PlayerCollisionHandler(player, npcs);
         this.mover = new Mover(player);
@@ -23,10 +21,10 @@ public class Updator {
         if (Game.keyH.upPressed || Game.keyH.downPressed || Game.keyH.leftPressed || Game.keyH.rightPressed) {
             assignKeyPressToDirection(Game.keyH);
             playerCollisionHandler.checkAll();
-//            playerMover.move();
             mover.move();
             playerAnimator.update();
         }
+        playerCollisionHandler.checkNPCCollision();
     }
 
     public void assignKeyPressToDirection(KeyHandler keyH) {

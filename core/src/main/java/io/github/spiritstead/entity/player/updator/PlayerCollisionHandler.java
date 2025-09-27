@@ -1,8 +1,9 @@
 package io.github.spiritstead.entity.player.updator;
 
-import io.github.spiritstead.collision.NPCCollision;
+import io.github.spiritstead.collision.Collision2;
 import io.github.spiritstead.collision.ObjectCollision;
 import io.github.spiritstead.collision.TileCollision;
+import io.github.spiritstead.entity.Moveable;
 import io.github.spiritstead.entity.npc.NPC;
 import io.github.spiritstead.entity.player.Player;
 import io.github.spiritstead.main.Game;
@@ -14,38 +15,37 @@ public class PlayerCollisionHandler {
     Player player;
     NPC npcs[];
 
+    private Collision2 collision2;
     private TileCollision tileCollision;
     private ObjectCollision objectCollision;
-    private NPCCollision NPCCollision;
 
     public PlayerCollisionHandler(Player player, NPC npcs[]) {
         this.player = player;
         this.npcs = npcs;
+        this.collision2 = new Collision2();
         this.tileCollision = new TileCollision(Game.tileM, player);
         this.objectCollision = new ObjectCollision(player);
-        this.NPCCollision = new NPCCollision(player, npcs);
     }
 
     public void checkAll() {
         checkTileCollision();
-        checkNPCCollision();
         checkEventCollision();
     }
 
-    private void checkNPCCollision() {
-        this.NPCCollision.check();
-        interactNPC(this.NPCCollision.getIndex());
+    public void checkNPCCollision() {
+        for (int i = 0; i < npcs.length - 9; i++) {
+            if (collision2.check(this.player, npcs[i])) {
+                interactNPC(i);
+            }
+        }
 
     }
 
     private void interactNPC(int npcIndex) {
-        if (npcIndex != 9999) {
-            player.interact(npcs[npcIndex]);
-        }
+        player.interact(npcs[npcIndex]);
     }
 
-    private void checkTileCollision() {
-        player.collisionOn = false;
+    public void checkTileCollision() {
         this.tileCollision.check();
         this.objectCollision.check();
         player.interactObject(this.objectCollision.getIndex());

@@ -5,7 +5,15 @@ dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
 // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
   implementation("org.xerial:sqlite-jdbc:3.50.3.0")
-  if(enableGraalNative == 'true') {
+  if (enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
+  }
+
+
+  // https://mvnrepository.com/artifact/junit/junit
+  testImplementation("junit:junit:4.13.2")
+
+  test {
+    useJUnit()
   }
 }

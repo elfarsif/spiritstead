@@ -1,18 +1,17 @@
 package io.github.spiritstead.audio;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 
 import java.util.EnumMap;
 import java.util.Map;
 
-public class SoundWrapper {
+public class Sound {
     private long id;
-    private Sound currentSound;
-    private final Map<SoundEffect, Sound> soundEffects = new EnumMap<>(SoundEffect.class);
-    private final Map<Music, Sound> music = new EnumMap<>(Music.class);
+    private com.badlogic.gdx.audio.Sound currentSound;
+    private final Map<SoundEffect, com.badlogic.gdx.audio.Sound> soundEffects = new EnumMap<>(SoundEffect.class);
+    private final Map<Music, com.badlogic.gdx.audio.Sound> music = new EnumMap<>(Music.class);
 
-    public SoundWrapper() {
+    public Sound() {
         loadMusic();
         loadSounds();
     }

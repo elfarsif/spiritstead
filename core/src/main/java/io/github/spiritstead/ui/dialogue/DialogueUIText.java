@@ -36,8 +36,6 @@ public class DialogueUIText {
         x = dialogueWindow.x + ScreenSetting.TILE_SIZE / 2;
         y = dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE;
         wrapText();
-//        this.letterByLetterEffect.setText(textWrapper.wrappedText);
-//        this.letterByLetterEffect.draw(x, y);
         font.getBitmapFont().draw(batch, textWrapper.wrappedText, x, y);
     }
 

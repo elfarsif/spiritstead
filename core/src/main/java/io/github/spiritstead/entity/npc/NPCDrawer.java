@@ -27,7 +27,6 @@ public class NPCDrawer {
         initialiazeScreenPositionRelativeToPlayer();
         if (entityIsWithinScreenBounds()) {
             updateSprite();
-
             batch.draw(sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
 
         }

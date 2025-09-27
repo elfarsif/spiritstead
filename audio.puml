@@ -1,0 +1,42 @@
+@startuml
+enum io.github.spiritstead.audio.Music {
++  THEME_SONG
+- String fileName
++ String getFileName()
+}
+
+
+enum io.github.spiritstead.audio.SoundEffect {
++  COIN
++  POWERUP
++  DIALOGUE
+- String fileName
++ String getFileName()
+}
+
+
+class io.github.spiritstead.audio.AudioPlayer {
+- SoundWrapper music
+- SoundWrapper se
++ void playMusic(Music)
++ void stopMusic()
++ void playSE(SoundEffect)
+}
+
+
+class io.github.spiritstead.audio.SoundWrapper {
+- long id
+- Sound currentSound
+- Map<SoundEffect,Sound> soundEffects
+- Map<Music,Sound> music
+- void loadMusic()
+- void loadSounds()
++ void play()
++ void loop()
++ void stop()
++ void setFile(SoundEffect)
++ void setFile(Music)
+}
+
+
+@enduml

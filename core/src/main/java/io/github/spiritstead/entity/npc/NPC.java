@@ -1,14 +1,11 @@
 package io.github.spiritstead.entity.npc;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import io.github.spiritstead.entity.Collidable;
 import io.github.spiritstead.entity.Direction;
 import io.github.spiritstead.entity.SolidArea;
-import io.github.spiritstead.entity.WorldPosition;
 import io.github.spiritstead.entity.Values;
 
-import java.util.EnumMap;
-
-public interface NPC {
+public interface NPC extends Collidable {
     void speak();
 
     SolidArea getSolidArea();
@@ -20,8 +17,6 @@ public interface NPC {
     int getSpriteNum();
 
     void setDirection(Direction direction);
-
-    boolean isCollisionOn();
 
     void draw();
 

@@ -1,0 +1,69 @@
+@startuml
+class io.github.spiritstead.collision.NPCCollision {
+- int index
+- Player player
+- NPC[] targets
+- SolidArea playerSolidArea
++ void check()
+- void intializeEntitySolidArea()
+- void initializeTargetEntitySolidArea(NPC)
+- void checkCollisionForAllDirections(NPC[],int)
+- void checkCollision(NPC[],int)
+- void restoreDefaultAreaValues(NPC)
++ int getIndex()
+}
+
+
+class io.github.spiritstead.collision.PlayerCollision {
+~ GamePanel gp
+~ NPC entity
++ void check()
+- void checkCollisionForAllDirections(NPC)
+- void intializeEntitySolidArea()
+- void initializePlayerSolidArea()
+- void checkCollision()
+- void restoreDefaultSolidAreaValues()
+}
+
+
+class io.github.spiritstead.collision.ObjectCollision {
+- Collidable entity
+- int index
+- GameObject gameObject
++ void check()
+- void checkCollisionForAllDirections(boolean,int)
+- void restoreDefaultAreaValues(int)
+- void checkCollision(boolean,int)
+- void initializeObjectSolidArea(int)
+- void intializeEntitySolidArea()
++ int getIndex()
+}
+
+
+class io.github.spiritstead.collision.TileCollision {
+~ int entityLeftWorldX
+~ int entityLeftCol
+~ int tileNum1
+~ TileManager tileM
+- Collidable entity
++ void check()
+- void checkRightCollision()
+- void checkLeftCollision()
+- void checkDownCollision()
+- void checkUpCollision()
+- void intializeLinesForCollisionDetection()
+- void initializeEntitySolidArea()
+}
+
+
+interface io.github.spiritstead.collision.Collision {
++ void check()
+}
+
+
+
+io.github.spiritstead.collision.Collision <|.. io.github.spiritstead.collision.NPCCollision
+io.github.spiritstead.collision.Collision <|.. io.github.spiritstead.collision.PlayerCollision
+io.github.spiritstead.collision.Collision <|.. io.github.spiritstead.collision.ObjectCollision
+io.github.spiritstead.collision.Collision <|.. io.github.spiritstead.collision.TileCollision
+@enduml

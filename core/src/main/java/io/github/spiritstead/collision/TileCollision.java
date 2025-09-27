@@ -17,6 +17,7 @@ public class TileCollision implements Collision {
     }
 
     public void check() {
+        entity.setCollisionOn(false);
         initializeEntitySolidArea();
         intializeLinesForCollisionDetection();
         switch (entity.getValues().getDirection()) {

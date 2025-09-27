@@ -30,7 +30,6 @@ public class GameScreen implements Screen {
     public void update() {
         player.update();
         updateNPCs();
-
     }
 
     public void dispose() {

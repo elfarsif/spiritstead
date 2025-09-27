@@ -31,18 +31,14 @@ public class DialogueWindow {
         y = ScreenSetting.TILE_SIZE / 2;
         width = gp.sSetting.SCREEN_WIDTH - ScreenSetting.TILE_SIZE * 4;
         height = ScreenSetting.TILE_SIZE * 3;
-
     }
 
     private void createWindowPixmap() {
         pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-
         pixmap.setColor(0, 0, 0, 0.75f);
         pixmap.fill();
         drawWindowBorder();
-
         texture = new Texture(pixmap);
-
         pixmap.dispose();
     }
 

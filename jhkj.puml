@@ -1,0 +1,107 @@
+@startuml
+class io.github.spiritstead.entity.player.PlayerSolidAreaOutline {
+~ GamePanel gp
+~ Sprite sprite
+~ Player player
+- void generateSolidAreaOutline()
++ void draw()
+}
+
+
+class io.github.spiritstead.entity.player.updator.PlayerAnimator {
+~ Player player
+~ FrameGate frameGate
++ void update()
+}
+
+
+class io.github.spiritstead.entity.player.updator.PlayerCollisionHandler {
+~ Player player
+~ NPC[] npcs
+- TileCollision tileCollision
+- ObjectCollision objectCollision
+- NPCCollision NPCCollision
++ void checkAll()
++ void checkNPCCollision()
+- void interactNPC(int)
++ void checkTileCollision()
+- void checkEventCollision()
+}
+
+
+class io.github.spiritstead.entity.player.ScreenPosition {
+- int x
++ int getX()
++ void setX(int)
++ int getY()
++ void setY(int)
+}
+
+
+class io.github.spiritstead.entity.player.Player {
+- Updator updator
++ Sprites sprites
++ PlayerObjectInteractor playerObjectInteractor
+- PlayerSolidAreaOutline playerSolidAreaOutline
+- Interactor interactor
+- PlayerDrawer playerDrawer
++ int hasKey
++ Values values
++ int spriteNum
++ ScreenPosition screenPosition
++ boolean collisionOn
+- SolidArea solidArea
++ void interactObject(int)
++ void interact(NPC)
++ void update()
++ void draw()
++ void setCollisionOn(boolean)
++ SolidArea getSolidArea()
++ boolean isCollisionOn()
++ Values getValues()
+}
+
+
+class io.github.spiritstead.entity.player.PlayerObjectInteractor {
+- Player player
+- int index
+- GamePanel gp
+- AudioPlayer audioPlayer
++ void interact(int)
+}
+
+
+class io.github.spiritstead.entity.player.Interactor {
+- Player player
+- NPC npc
++ void setNpc(NPC)
++ void interact()
+- void changeGameState()
+}
+
+
+class io.github.spiritstead.entity.player.drawer.PlayerDrawer {
+- SpriteBatch batch
+- Sprite sprite
+- Sprites sprites
+- Player player
+- int spriteNum
++ void draw()
+- void updateSprite()
+}
+
+
+class io.github.spiritstead.entity.player.updator.Updator {
+- PlayerAnimator playerAnimator
+- PlayerCollisionHandler playerCollisionHandler
+- Mover mover
++ void update()
++ void assignKeyPressToDirection(KeyHandler)
+}
+
+
+
+
+io.github.spiritstead.entity.Collidable <|.. io.github.spiritstead.entity.player.Player
+io.github.spiritstead.entity.player.Moveable <|.. io.github.spiritstead.entity.player.Player
+@enduml

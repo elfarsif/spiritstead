@@ -1,14 +1,12 @@
 package io.github.spiritstead.audio;
 
-import java.util.Map;
-
 public class AudioPlayer {
-    private SoundWrapper music;
-    private SoundWrapper se;
+    private Sound music;
+    private Sound se;
 
     public AudioPlayer() {
-        this.music = new SoundWrapper();
-        this.se = new SoundWrapper();
+        this.music = new Sound();
+        this.se = new Sound();
     }
 
     public void playMusic(Music music) {

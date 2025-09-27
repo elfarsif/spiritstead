@@ -25,4 +25,7 @@ public class FrameGate {
         counter = 0;
     }
 
+    public void setWaitFrames(int waitFrames) {
+        this.waitFrames = waitFrames;
+    }
 }

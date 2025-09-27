@@ -14,6 +14,7 @@ public class Player implements Collidable, Moveable {
     public Sprites sprites;
     public PlayerObjectInteractor playerObjectInteractor;
     private PlayerSolidAreaOutline playerSolidAreaOutline;
+    private Interactor interactor;
     private PlayerDrawer playerDrawer;
     public int hasKey = 0;
     public Values values = new Values();
@@ -35,6 +36,7 @@ public class Player implements Collidable, Moveable {
         this.values.setSpeed(4);
         this.values.getWorldPosition().setX(ScreenSetting.TILE_SIZE * 28);
         this.values.getWorldPosition().setY(ScreenSetting.TILE_SIZE * 13);
+        this.interactor = new Interactor(this);
 
         sprites.load();
     }
@@ -44,9 +46,8 @@ public class Player implements Collidable, Moveable {
     }
 
     public void interact(NPC npc) {
-        Game.ui.uiScreen = Game.ui.dialogueUI;
-        Game.screens.screen = Game.screens.dialogueScreen;
-        npc.speak();
+        interactor.setNpc(npc);
+        interactor.interact();
     }
 
     public void update() {

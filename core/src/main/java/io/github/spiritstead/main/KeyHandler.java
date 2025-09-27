@@ -67,6 +67,8 @@ public class KeyHandler extends InputAdapter {
             }
         } else if (code == Input.Keys.T) {
             tPressed = !tPressed;
+        } else if (code == Input.Keys.SPACE) {
+            spacePressed = true;
         }
     }
 
