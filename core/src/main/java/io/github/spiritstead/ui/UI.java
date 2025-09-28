@@ -16,12 +16,14 @@ public class UI {
     public UIScreen uiScreen;
     public GameScreenUI gameScreenUI;
     public DialogueUI dialogueUI;
+    public PlayerDialogueUI playerDialogueUI;
 
     public UI(GamePanel gp) {
         this.gp = gp;
         this.batch = Game.batch;
         this.gameScreenUI = new GameScreenUI(gp);
         this.dialogueUI = new DialogueUI(gp);
+        this.playerDialogueUI = new PlayerDialogueUI();
 
         uiScreen = gameScreenUI;
     }

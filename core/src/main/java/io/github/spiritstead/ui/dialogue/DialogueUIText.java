@@ -10,31 +10,34 @@ import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
 public class DialogueUIText {
-    GamePanel gp;
     SpriteBatch batch;
 
     private DialogueWindow dialogueWindow;
 
     public Font font;
     public String currentDialogue = "";
-    int x, y;
+    public int x, y;
     TextWrapper textWrapper;
     LetterByLetterEffect letterByLetterEffect;
 
-    public DialogueUIText(GamePanel gp, DialogueWindow dialogueWindow) {
+    public DialogueUIText(DialogueWindow dialogueWindow) {
         this.font = new Font("fonts/maruMonica.fnt");
         this.font.getBitmapFont().getData().setScale(0.9f);
-        this.gp = gp;
         this.dialogueWindow = dialogueWindow;
         this.batch = Game.batch;
         this.textWrapper = new TextWrapper(font);
-        this.letterByLetterEffect = new LetterByLetterEffect(gp, font);
+        this.letterByLetterEffect = new LetterByLetterEffect(font);
+        x = dialogueWindow.x + ScreenSetting.TILE_SIZE / 2;
+        y = dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE;
+    }
+
+    public DialogueUIText(DialogueWindow dialogueWindow, int x, int y) {
+        this(dialogueWindow);
+        this.x = x;
+        this.y = y;
     }
 
     public void draw() {
-
-        x = dialogueWindow.x + ScreenSetting.TILE_SIZE / 2;
-        y = dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE;
         wrapText();
         font.getBitmapFont().draw(batch, textWrapper.wrappedText, x, y);
     }

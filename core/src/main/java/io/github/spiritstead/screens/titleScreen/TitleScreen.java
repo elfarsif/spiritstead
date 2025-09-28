@@ -1,5 +1,6 @@
 package io.github.spiritstead.screens.titleScreen;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -9,6 +10,7 @@ import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
+import io.github.spiritstead.screens.OptionCursor;
 import io.github.spiritstead.screens.Screen;
 
 public class TitleScreen implements Screen {
@@ -18,8 +20,7 @@ public class TitleScreen implements Screen {
     private GlyphLayout layout = new GlyphLayout();
     private SpriteBatch batch;
     private BlackTexture blackTexture;
-
-    public int commandNum = 0;
+    public OptionCursor optionCursor;
 
     public TitleScreen(GamePanel gp) {
         this.gp = gp;
@@ -27,6 +28,7 @@ public class TitleScreen implements Screen {
         titleFont = new Font("fonts/alagard_60.fnt");
         this.blackTexture = new BlackTexture(gp.sSetting.SCREEN_WIDTH, gp.sSetting.SCREEN_HEIGHT);
         this.batch = Game.batch;
+        this.optionCursor = new OptionCursor(this.font);
     }
 
     private void drawTitleScreen() {
@@ -59,24 +61,27 @@ public class TitleScreen implements Screen {
         x = getXforCenteredText(font.getBitmapFont(), text);
         y -= ScreenSetting.TILE_SIZE;
         font.getBitmapFont().draw(batch, text, x, y);
-        if (commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
-            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
+        if (optionCursor.optionNum == TitleScreenOptions.NEW_GAME.getValue()) {
+//            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
+            optionCursor.draw(x - ScreenSetting.TILE_SIZE, y);
         }
 
         text = "LOAD GAME";
         x = getXforCenteredText(font.getBitmapFont(), text);
         y -= ScreenSetting.TILE_SIZE;
         font.getBitmapFont().draw(batch, text, x, y);
-        if (commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
-            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
+        if (optionCursor.optionNum == TitleScreenOptions.LOAD_GAME.getValue()) {
+//            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
+            optionCursor.draw(x - ScreenSetting.TILE_SIZE, y);
         }
 
         text = "QUIT";
         x = getXforCenteredText(font.getBitmapFont(), text);
         y -= ScreenSetting.TILE_SIZE;
         font.getBitmapFont().draw(batch, text, x, y);
-        if (commandNum == TitleScreenOptions.QUIT.getValue()) {
-            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
+        if (optionCursor.optionNum == TitleScreenOptions.QUIT.getValue()) {
+//            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
+            optionCursor.draw(x - ScreenSetting.TILE_SIZE, y);
         }
 
     }
@@ -96,49 +101,4 @@ public class TitleScreen implements Screen {
         titleFont.getBitmapFont().dispose();
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
-        System.out.println("titlekeysk");
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
-    }
 }

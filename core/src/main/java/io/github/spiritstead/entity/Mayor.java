@@ -8,7 +8,6 @@ import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,11 +61,17 @@ public class Mayor implements NPC {
     }
 
     public void interact() {
-        if (dialogue.node != null) {
-            Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.dialogue;
-            this.dialogue.node = this.dialogue.node.left;
+        if (this.dialogue.node != null) {
+            if (dialogue.node.dialogue.charAt(0) == 'M') {
+                Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.dialogue;
+                Game.ui.playerDialogueUI.dialogueUIText1.currentDialogue = this.dialogue.node.left.dialogue;
+                Game.ui.playerDialogueUI.dialogueUIText2.currentDialogue = this.dialogue.node.right.dialogue;
+                this.dialogue.node = this.dialogue.node.left;
+            } else if (dialogue.node.dialogue.charAt(0) == 'P') {
+                Game.ui.uiScreen = Game.ui.playerDialogueUI;
+//                Game.ui.playerDialogueUI.dialogueUIText1.currentDialogue = dialogue.node.dialogue;
+            }
         } else {
-            System.out.println("play game");
             Game.screens.setScreen(Game.screens.gameScreen);
             Game.ui.uiScreen = Game.ui.gameScreenUI;
         }

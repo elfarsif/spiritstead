@@ -7,7 +7,6 @@ import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 
 public class LetterByLetterEffect {
-    private GamePanel gp;
     private SpriteBatch batch;
     private String text;
     private FrameGate frameGate;
@@ -19,8 +18,7 @@ public class LetterByLetterEffect {
     private char[] characters;
     private String s;
 
-    public LetterByLetterEffect(GamePanel gp, Font font) {
-        this.gp = gp;
+    public LetterByLetterEffect(Font font) {
         this.batch = Game.batch;
         this.font = font;
         this.inputGate = Game.keyH.inputGate;

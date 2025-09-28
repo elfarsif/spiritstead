@@ -1,5 +1,6 @@
 package io.github.spiritstead.main;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
@@ -41,13 +42,22 @@ public class KeyHandler implements InputProcessor {
             }
             //Dialogue
             else if (Game.screens.screen == Game.screens.dialogueScreen) {
-                if (code == Input.Keys.SPACE) {
-                    Game.aSetter.npcs[0].interact();
-                }
+                dialogueScreen(code);
+
             }
         }
 
         return true;
+    }
+
+    private void dialogueScreen(int code) {
+        if (code == Input.Keys.SPACE) {
+            Game.aSetter.npcs[0].interact();
+        } else if (code == Input.Keys.W) {
+            Game.ui.playerDialogueUI.optionCursor.optionNum--;
+        } else if (code == Input.Keys.S) {
+            Game.ui.playerDialogueUI.optionCursor.optionNum++;
+        }
     }
 
     private void playState(int code) {
@@ -73,26 +83,26 @@ public class KeyHandler implements InputProcessor {
     private void titleState(int code) {
         //move this logic to a seperate class for title state
         if (code == Input.Keys.W) {
-            Game.screens.titleScreen.commandNum--;
-            if (Game.screens.titleScreen.commandNum < TitleScreenOptions.NEW_GAME.getValue()) {
-                Game.screens.titleScreen.commandNum = TitleScreenOptions.QUIT.getValue();
+            Game.screens.titleScreen.optionCursor.optionNum--;
+            if (Game.screens.titleScreen.optionCursor.optionNum < TitleScreenOptions.NEW_GAME.getValue()) {
+                Game.screens.titleScreen.optionCursor.optionNum = TitleScreenOptions.QUIT.getValue();
             }
         } else if (code == Input.Keys.S) {
-            Game.screens.titleScreen.commandNum++;
-            if (Game.screens.titleScreen.commandNum > TitleScreenOptions.QUIT.getValue()) {
-                Game.screens.titleScreen.commandNum = TitleScreenOptions.NEW_GAME.getValue();
+            Game.screens.titleScreen.optionCursor.optionNum++;
+            if (Game.screens.titleScreen.optionCursor.optionNum > TitleScreenOptions.QUIT.getValue()) {
+                Game.screens.titleScreen.optionCursor.optionNum = TitleScreenOptions.NEW_GAME.getValue();
             }
         }
         if (code == Input.Keys.ENTER) {
-            if (Game.screens.titleScreen.commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
+            if (Game.screens.titleScreen.optionCursor.optionNum == TitleScreenOptions.NEW_GAME.getValue()) {
                 Game.screens.setScreen(Game.screens.cutsceneScreen);
 
             }
-            if (Game.screens.titleScreen.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
+            if (Game.screens.titleScreen.optionCursor.optionNum == TitleScreenOptions.LOAD_GAME.getValue()) {
                 Game.screens.setScreen(Game.screens.gameScreen);
 
             }
-            if (Game.screens.titleScreen.commandNum == TitleScreenOptions.QUIT.getValue()) {
+            if (Game.screens.titleScreen.optionCursor.optionNum == TitleScreenOptions.QUIT.getValue()) {
                 System.exit(0);
             }
         }

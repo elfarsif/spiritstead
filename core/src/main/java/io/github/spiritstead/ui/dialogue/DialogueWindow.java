@@ -12,25 +12,21 @@ import io.github.spiritstead.main.ScreenSetting;
  * This class builds a window with a border, with specific size and placement
  */
 public class DialogueWindow {
-    private GamePanel gp;
     private SpriteBatch batch;
     private Pixmap pixmap;
     Texture texture;
-    int x, y, height;
+    public int x;
+    public int y;
+    public int height;
     private int width;
 
-    public DialogueWindow(GamePanel gp) {
-        this.gp = gp;
+    public DialogueWindow(int x, int y, int width, int height) {
         this.batch = Game.batch;
-        initializeDimensions();
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
         createWindowPixmap();
-    }
-
-    private void initializeDimensions() {
-        x = ScreenSetting.TILE_SIZE * 2;
-        y = ScreenSetting.TILE_SIZE / 2;
-        width = gp.sSetting.SCREEN_WIDTH - ScreenSetting.TILE_SIZE * 4;
-        height = ScreenSetting.TILE_SIZE * 3;
     }
 
     private void createWindowPixmap() {

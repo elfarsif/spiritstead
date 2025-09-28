@@ -28,7 +28,7 @@ public class ContentSlideText {
         this.contentSlide = contentSlide;
         font = new Font("fonts/maruMonica.fnt");
         this.textWrapper = new TextWrapper(font);
-        this.letterByLetterEffect = new LetterByLetterEffect(gp, this.font);
+        this.letterByLetterEffect = new LetterByLetterEffect(this.font);
     }
 
     private void displayText() {

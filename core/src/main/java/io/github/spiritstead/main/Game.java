@@ -33,6 +33,6 @@ public class Game {
         aSetter = new AssetSetter(gp);
         player = new Player(gp);
         screens = new Screens(gp, this.player);
-//        Gdx.input.setInputProcessor(this.keyH);
+        Gdx.input.setInputProcessor(this.keyH);
     }
 }

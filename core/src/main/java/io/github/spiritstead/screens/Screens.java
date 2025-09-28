@@ -24,7 +24,6 @@ public class Screens {
 
     public void setScreen(Screen screen) {
         this.screen = screen;
-        Gdx.input.setInputProcessor(screen);
     }
 
     public void drawScreen() {
