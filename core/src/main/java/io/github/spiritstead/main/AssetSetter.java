@@ -17,28 +17,28 @@ public class AssetSetter {
 
     public void setObject() {
         objects[0] = new Key();
-        objects[0].worldX = 6 * ScreenSetting.TILE_SIZE;
-        objects[0].worldY = 3 * ScreenSetting.TILE_SIZE;
+        objects[0].getWorldPosition().setX(6 * ScreenSetting.TILE_SIZE);
+        objects[0].getWorldPosition().setY(3 * ScreenSetting.TILE_SIZE);
 
         objects[1] = new Key();
-        objects[1].worldX = 8 * ScreenSetting.TILE_SIZE;
-        objects[1].worldY = 3 * ScreenSetting.TILE_SIZE;
+        objects[1].getWorldPosition().setX(8 * ScreenSetting.TILE_SIZE);
+        objects[1].getWorldPosition().setY(3 * ScreenSetting.TILE_SIZE);
 
         objects[2] = new Door();
-        objects[2].worldX = 3 * ScreenSetting.TILE_SIZE;
-        objects[2].worldY = 9 * ScreenSetting.TILE_SIZE;
+        objects[2].getWorldPosition().setX(3 * ScreenSetting.TILE_SIZE);
+        objects[2].getWorldPosition().setY(9 * ScreenSetting.TILE_SIZE);
 
         objects[3] = new Chest();
-        objects[3].worldX = 4 * ScreenSetting.TILE_SIZE;
-        objects[3].worldY = 12 * ScreenSetting.TILE_SIZE;
+        objects[3].getWorldPosition().setX(4 * ScreenSetting.TILE_SIZE);
+        objects[3].getWorldPosition().setY(12 * ScreenSetting.TILE_SIZE);
 
         objects[4] = new Boots();
-        objects[4].worldX = 6 * ScreenSetting.TILE_SIZE;
-        objects[4].worldY = 12 * ScreenSetting.TILE_SIZE;
+        objects[4].getWorldPosition().setX(6 * ScreenSetting.TILE_SIZE);
+        objects[4].getWorldPosition().setY(12 * ScreenSetting.TILE_SIZE);
 
         objects[5] = new Chest();
-        objects[5].worldX = 22 * ScreenSetting.TILE_SIZE;
-        objects[5].worldY = 17 * ScreenSetting.TILE_SIZE;
+        objects[5].getWorldPosition().setX(22 * ScreenSetting.TILE_SIZE);
+        objects[5].getWorldPosition().setY(17 * ScreenSetting.TILE_SIZE);
 
     }
 

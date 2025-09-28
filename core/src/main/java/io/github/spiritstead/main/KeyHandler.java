@@ -2,6 +2,7 @@ package io.github.spiritstead.main;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
 import io.github.spiritstead.cutscene.InputGate;
 import io.github.spiritstead.screens.titleScreen.TitleScreenOptions;
 
@@ -10,7 +11,7 @@ This class handles the key inputs for the game.
 It extends InputAdapter to handle key events.
 It can be used to check if a key is pressed or released.
  */
-public class KeyHandler extends InputAdapter {
+public class KeyHandler implements InputProcessor {
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, tPressed;
     public InputGate inputGate;
@@ -41,10 +42,7 @@ public class KeyHandler extends InputAdapter {
             //Dialogue
             else if (Game.screens.screen == Game.screens.dialogueScreen) {
                 if (code == Input.Keys.SPACE) {
-                    spacePressed = true;
-                    Game.screens.screen = Game.screens.gameScreen;
-                    Game.ui.uiScreen = Game.ui.gameScreenUI;
-
+                    Game.aSetter.npcs[0].interact();
                 }
             }
         }
@@ -87,11 +85,11 @@ public class KeyHandler extends InputAdapter {
         }
         if (code == Input.Keys.ENTER) {
             if (Game.screens.titleScreen.commandNum == TitleScreenOptions.NEW_GAME.getValue()) {
-                Game.screens.screen = Game.screens.cutsceneScreen;
+                Game.screens.setScreen(Game.screens.cutsceneScreen);
 
             }
             if (Game.screens.titleScreen.commandNum == TitleScreenOptions.LOAD_GAME.getValue()) {
-                Game.screens.screen = Game.screens.gameScreen;
+                Game.screens.setScreen(Game.screens.gameScreen);
 
             }
             if (Game.screens.titleScreen.commandNum == TitleScreenOptions.QUIT.getValue()) {
@@ -113,5 +111,41 @@ public class KeyHandler extends InputAdapter {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println("clicked");
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
     }
 }

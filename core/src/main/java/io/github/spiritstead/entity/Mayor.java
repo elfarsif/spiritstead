@@ -2,6 +2,7 @@ package io.github.spiritstead.entity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
+import io.github.spiritstead.dialogue.Dialogue;
 import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
@@ -22,46 +23,53 @@ public class Mayor implements NPC {
     private Direction direction;
     GamePanel gp;
     private FrameGate frameGate;
-    private ArrayList<CollisionType> collisionTypeTypes = new ArrayList<>();
+    private TileCollisionType tileCollision;
     private Collision collision;
     public WorldPosition worldPosition = new WorldPosition();
     public Map<Integer, String> allDialogue = new HashMap<>();
     private int index = 0;
     String currentDialogue;
     private int screenX, screenY;
+    public Dialogue dialogue;
 
     public Mayor(GamePanel gp) {
         this.gp = gp;
         this.mover = new Mover(this);
         this.sprites = new Sprites();
         this.frameGate = new FrameGate(120);
-        this.collisionTypeTypes.add(new TileCollisionType(Game.tileM, this));
-        this.collisionTypeTypes.add(new ObjectCollisionType(this));
+        this.tileCollision = new TileCollisionType(Game.tileM, this);
         this.collision = new Collision();
 
-        speed = 1;
-        solidArea = new SolidArea(0, 0, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
-        sprites.load();
+        this.speed = 1;
+        this.solidArea = new SolidArea(0, 0, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+        this.sprites.load();
         this.direction = Direction.LEFT;
         this.allDialogue = Game.script.mayorDialogue;
+        this.dialogue = new Dialogue();
     }
 
     public void setAction() {
-        if (frameGate.tick()) {
+        if (this.frameGate.tick()) {
             this.direction = Direction.UP;
-            frameGate.reset();
+            this.frameGate.reset();
         }
-
     }
 
     public void update() {
         setAction();
         checkCollisions();
-        mover.move();
+        this.mover.move();
     }
 
-    public void speak() {
-        Game.ui.dialogueUI.text.currentDialogue = getCurrentDialogue();
+    public void interact() {
+        if (dialogue.node != null) {
+            Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.dialogue;
+            this.dialogue.node = this.dialogue.node.left;
+        } else {
+            System.out.println("play game");
+            Game.screens.setScreen(Game.screens.gameScreen);
+            Game.ui.uiScreen = Game.ui.gameScreenUI;
+        }
     }
 
     public String getCurrentDialogue() {
@@ -72,11 +80,23 @@ public class Mayor implements NPC {
 
     private void checkCollisions() {
         this.collisionOn = false;
-        for (CollisionType collisionType : this.collisionTypeTypes) {
-            collisionType.check();
-        }
+        tileCollision.check();
+        checkPlayerCollision();
+        checkObjectCollision();
+
+    }
+
+    private void checkPlayerCollision() {
         if (collision.check(this, Game.player)) {
             this.collisionOn = true;
+        }
+    }
+
+    private void checkObjectCollision() {
+        for (int i = 0; i < Game.aSetter.objects.length; i++) {
+            if (Game.aSetter.objects[i] != null && collision.check(this, Game.aSetter.objects[i])) {
+                this.collision.check(this, Game.aSetter.objects[i]);
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package io.github.spiritstead.main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.audio.AudioPlayer;
+import io.github.spiritstead.dialogue.Dialogue;
 import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.screens.Screens;
 import io.github.spiritstead.script.Script;
@@ -32,6 +33,6 @@ public class Game {
         aSetter = new AssetSetter(gp);
         player = new Player(gp);
         screens = new Screens(gp, this.player);
-        Gdx.input.setInputProcessor(this.keyH);
+//        Gdx.input.setInputProcessor(this.keyH);
     }
 }

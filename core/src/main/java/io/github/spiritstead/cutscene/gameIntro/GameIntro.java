@@ -39,7 +39,7 @@ public class GameIntro implements Cutscene {
             slide.draw();
 
         } else {
-            Game.screens.screen = Game.screens.gameScreen;
+            Game.screens.setScreen(Game.screens.gameScreen);
             Game.player.direction = Direction.LEFT;
         }
 

@@ -6,16 +6,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.audio.SoundEffect;
 import io.github.spiritstead.collision.Collision;
-import io.github.spiritstead.collision.ObjectCollisionType;
 import io.github.spiritstead.collision.TileCollisionType;
+import io.github.spiritstead.dialogue.Dialogue;
 import io.github.spiritstead.main.*;
 
 public class Player implements Collidable, Moveable {
     public Sprites sprites;
-    Sprite currentSprite;
+    private Sprite currentSprite;
     public int hasKey = 0;
-    public int speed;
-    public int spriteNum = 1;
+    private int speed;
+    private int spriteNum = 1;
     public ScreenPosition screenPosition = new ScreenPosition();
     public boolean collisionOn = false;
     private SolidArea solidArea;
@@ -25,7 +25,6 @@ public class Player implements Collidable, Moveable {
     public Direction direction;
     private Collision collision;
     private TileCollisionType tileCollision;
-    private ObjectCollisionType objectCollision;
     public WorldPosition worldPosition = new WorldPosition();
 
     public Player(GamePanel gp) {
@@ -41,7 +40,6 @@ public class Player implements Collidable, Moveable {
         this.frameGate = new FrameGate(15);
         this.collision = new Collision();
         this.tileCollision = new TileCollisionType(Game.tileM, this);
-        this.objectCollision = new ObjectCollisionType(this);
         generateSolidAreaOutline();
         sprites.load();
     }
@@ -82,8 +80,8 @@ public class Player implements Collidable, Moveable {
 
     public void interact(NPC npc) {
         Game.ui.uiScreen = Game.ui.dialogueUI;
-        Game.screens.screen = Game.screens.dialogueScreen;
-        npc.speak();
+        Game.screens.setScreen(Game.screens.dialogueScreen);
+        npc.interact();
     }
 
     public void update() {
@@ -99,6 +97,16 @@ public class Player implements Collidable, Moveable {
     }
 
     private void checkObjectCollision() {
+        for (int i = 0; i < Game.aSetter.objects.length; i++) {
+            if (Game.aSetter.objects[i] != null && collision.check(this, Game.aSetter.objects[i])) {
+                interactObject(i);
+            }
+        }
+    }
+
+    public void checkTileCollision() {
+        this.tileCollision.check();
+
     }
 
     public void updateSprite() {
@@ -134,14 +142,7 @@ public class Player implements Collidable, Moveable {
     }
 
     private void interactNPC(int npcIndex) {
-        Game.player.interact(Game.aSetter.npcs[npcIndex]);
-    }
-
-    public void checkTileCollision() {
-        this.tileCollision.check();
-        this.objectCollision.check();
-        Game.player.interactObject(this.objectCollision.getIndex());
-
+        interact(Game.aSetter.npcs[npcIndex]);
     }
 
     private void checkEventCollision() {

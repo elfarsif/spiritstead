@@ -1,5 +1,7 @@
 package io.github.spiritstead.screens;
 
-public interface Screen {
+import com.badlogic.gdx.InputProcessor;
+
+public interface Screen extends InputProcessor {
     public void draw();
 }
