@@ -3,10 +3,9 @@ package io.github.spiritstead.entity;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
 import io.github.spiritstead.dialogue.Dialogue;
-import io.github.spiritstead.main.FrameGate;
-import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.ScreenSetting;
+import io.github.spiritstead.dialogue.DialogueController;
+import io.github.spiritstead.dialogue.DialogueNode;
+import io.github.spiritstead.main.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +29,7 @@ public class Mayor implements NPC {
     String currentDialogue;
     private int screenX, screenY;
     public Dialogue dialogue;
+    private DialogueNode tempDialogueNode;
 
     public Mayor(GamePanel gp) {
         this.gp = gp;
@@ -61,26 +61,28 @@ public class Mayor implements NPC {
     }
 
     public void interact() {
-        if (this.dialogue.node != null) {
-            if (dialogue.node.dialogue.charAt(0) == 'M') {
-                Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.dialogue;
-                Game.ui.playerDialogueUI.dialogueUIText1.currentDialogue = this.dialogue.node.left.dialogue;
-                Game.ui.playerDialogueUI.dialogueUIText2.currentDialogue = this.dialogue.node.right.dialogue;
-                this.dialogue.node = this.dialogue.node.left;
-            } else if (dialogue.node.dialogue.charAt(0) == 'P') {
-                Game.ui.uiScreen = Game.ui.playerDialogueUI;
-//                Game.ui.playerDialogueUI.dialogueUIText1.currentDialogue = dialogue.node.dialogue;
-            }
-        } else {
-            Game.screens.setScreen(Game.screens.gameScreen);
-            Game.ui.uiScreen = Game.ui.gameScreenUI;
-        }
-    }
+        if (Game.dialogueController.phase == DialogueController.Phase.STARTING) {
+            Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.dialogue;
+            Game.dialogueController.phase = DialogueController.Phase.ADVANCING;
+        } else if (Game.dialogueController.phase == DialogueController.Phase.ADVANCING) {
+            Game.ui.playerDialogueUI.dialogueUIText1.currentDialogue = this.dialogue.node.left.dialogue;
+            Game.ui.playerDialogueUI.dialogueUIText2.currentDialogue = this.dialogue.node.right.dialogue;
+            Game.dialogueController.phase = DialogueController.Phase.CHOOSING;
+            Game.ui.uiScreen = Game.ui.playerDialogueUI;
+        } else if (Game.dialogueController.phase == DialogueController.Phase.CHOOSING) {
+            if (Game.ui.playerDialogueUI.optionCursor.optionNum == 0) {
+                Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.left.left.dialogue;
+                Game.ui.uiScreen = Game.ui.dialogueUI;
 
-    public String getCurrentDialogue() {
-        this.currentDialogue = allDialogue.get(this.index);
-        this.index++;
-        return this.currentDialogue;
+            } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
+                Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.right.left.dialogue;
+                Game.ui.uiScreen = Game.ui.dialogueUI;
+            }
+            Game.dialogueController.phase = DialogueController.Phase.ENDING;
+        } else if (Game.dialogueController.phase == DialogueController.Phase.ENDING) {
+            Game.ui.uiScreen = Game.ui.gameScreenUI;
+            Game.screens.setScreen(Game.screens.gameScreen);
+        }
     }
 
     private void checkCollisions() {

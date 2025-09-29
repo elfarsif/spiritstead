@@ -37,6 +37,11 @@ public class DialogueUIText {
         this.y = y;
     }
 
+    public DialogueUIText(String text, DialogueWindow dialogueWindow, int x, int y) {
+        this(dialogueWindow, x, y);
+        this.currentDialogue = text;
+    }
+
     public void draw() {
         wrapText();
         font.getBitmapFont().draw(batch, textWrapper.wrappedText, x, y);

@@ -12,6 +12,10 @@ import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.screens.OptionCursor;
 import io.github.spiritstead.screens.Screen;
+import io.github.spiritstead.ui.Options;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TitleScreen implements Screen {
     private GamePanel gp;
@@ -21,6 +25,7 @@ public class TitleScreen implements Screen {
     private SpriteBatch batch;
     private BlackTexture blackTexture;
     public OptionCursor optionCursor;
+    private Options options;
 
     public TitleScreen(GamePanel gp) {
         this.gp = gp;
@@ -29,6 +34,11 @@ public class TitleScreen implements Screen {
         this.blackTexture = new BlackTexture(gp.sSetting.SCREEN_WIDTH, gp.sSetting.SCREEN_HEIGHT);
         this.batch = Game.batch;
         this.optionCursor = new OptionCursor(this.font);
+        this.options = new Options(font, ScreenSetting.TILE_SIZE, new ArrayList<String>(Arrays.asList(
+            TitleScreenOptions.NEW_GAME.getString(),
+            TitleScreenOptions.LOAD_GAME.getString(),
+            TitleScreenOptions.QUIT.getString()
+        )));
     }
 
     private void drawTitleScreen() {
@@ -57,31 +67,22 @@ public class TitleScreen implements Screen {
         //MENU
         font.getBitmapFont().getData().setScale(1f);
 
-        text = "NEW GAME";
         x = getXforCenteredText(font.getBitmapFont(), text);
+        options.draw(x, y - ScreenSetting.TILE_SIZE);
+
         y -= ScreenSetting.TILE_SIZE;
-        font.getBitmapFont().draw(batch, text, x, y);
         if (optionCursor.optionNum == TitleScreenOptions.NEW_GAME.getValue()) {
-//            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
-            optionCursor.draw(x - ScreenSetting.TILE_SIZE, y);
+            optionCursor.draw(options.x - ScreenSetting.TILE_SIZE, y);
         }
 
-        text = "LOAD GAME";
-        x = getXforCenteredText(font.getBitmapFont(), text);
         y -= ScreenSetting.TILE_SIZE;
-        font.getBitmapFont().draw(batch, text, x, y);
         if (optionCursor.optionNum == TitleScreenOptions.LOAD_GAME.getValue()) {
-//            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
-            optionCursor.draw(x - ScreenSetting.TILE_SIZE, y);
+            optionCursor.draw(options.x - ScreenSetting.TILE_SIZE, y);
         }
 
-        text = "QUIT";
-        x = getXforCenteredText(font.getBitmapFont(), text);
         y -= ScreenSetting.TILE_SIZE;
-        font.getBitmapFont().draw(batch, text, x, y);
         if (optionCursor.optionNum == TitleScreenOptions.QUIT.getValue()) {
-//            font.getBitmapFont().draw(batch, ">", x - ScreenSetting.TILE_SIZE, y);
-            optionCursor.draw(x - ScreenSetting.TILE_SIZE, y);
+            optionCursor.draw(options.x - ScreenSetting.TILE_SIZE, y);
         }
 
     }

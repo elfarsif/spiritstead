@@ -26,6 +26,8 @@ public class Player implements Collidable, Moveable {
     private Collision collision;
     private TileCollisionType tileCollision;
     public WorldPosition worldPosition = new WorldPosition();
+    public String playerOption1 = "in p class POO1";
+    public String playerOption2 = "in p class POO2";
 
     public Player(GamePanel gp) {
         this.sprites = new Sprites();
@@ -94,6 +96,7 @@ public class Player implements Collidable, Moveable {
             mover.move();
             updateSprite();
         }
+        checkNPCCollision();
     }
 
     private void checkObjectCollision() {
@@ -142,7 +145,9 @@ public class Player implements Collidable, Moveable {
     }
 
     private void interactNPC(int npcIndex) {
-        interact(Game.aSetter.npcs[npcIndex]);
+        if (Game.keyH.spacePressed) {
+            interact(Game.aSetter.npcs[npcIndex]);
+        }
     }
 
     private void checkEventCollision() {

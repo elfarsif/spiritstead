@@ -1,8 +1,6 @@
 package io.github.spiritstead.main;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import io.github.spiritstead.cutscene.InputGate;
 import io.github.spiritstead.screens.titleScreen.TitleScreenOptions;
@@ -37,7 +35,6 @@ public class KeyHandler implements InputProcessor {
             else if (Game.screens.screen == Game.screens.cutsceneScreen) {
                 if (code == Input.Keys.SPACE) {
                     spacePressed = true;
-
                 }
             }
             //Dialogue
@@ -53,10 +50,13 @@ public class KeyHandler implements InputProcessor {
     private void dialogueScreen(int code) {
         if (code == Input.Keys.SPACE) {
             Game.aSetter.npcs[0].interact();
+
         } else if (code == Input.Keys.W) {
             Game.ui.playerDialogueUI.optionCursor.optionNum--;
         } else if (code == Input.Keys.S) {
             Game.ui.playerDialogueUI.optionCursor.optionNum++;
+        } else if (code == Input.Keys.ENTER) {
+
         }
     }
 

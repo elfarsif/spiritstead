@@ -4,6 +4,8 @@ import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.ScreenSetting;
 
+import java.util.ArrayList;
+
 public class OptionCursor {
     private Font font;
     public int optionNum = 0;
@@ -14,11 +16,6 @@ public class OptionCursor {
     }
 
     public void draw(float x, float y) {
-        font.getBitmapFont().draw(
-            Game.batch,
-            ">",
-            x,
-            y
-        );
+        font.getBitmapFont().draw(Game.batch, ">", x, y);
     }
 }
