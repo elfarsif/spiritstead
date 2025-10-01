@@ -1,12 +1,10 @@
 package io.github.spiritstead.ui.dialogue;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import io.github.spiritstead.cutscene.InputGate;
-import io.github.spiritstead.cutscene.LetterByLetterEffect;
+import io.github.spiritstead.tools.LetterByLetterEffect;
 import io.github.spiritstead.cutscene.gameIntro.TextWrapper;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 
 public class DialogueUIText {

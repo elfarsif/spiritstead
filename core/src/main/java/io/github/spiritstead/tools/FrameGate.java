@@ -1,4 +1,4 @@
-package io.github.spiritstead.main;
+package io.github.spiritstead.tools;
 
 /**
  * This class should be used to manage effects that are required to happen over a period of time slower

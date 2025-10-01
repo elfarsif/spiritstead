@@ -2,7 +2,7 @@ package io.github.spiritstead.main;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import io.github.spiritstead.cutscene.InputGate;
+import io.github.spiritstead.tools.InputGate;
 import io.github.spiritstead.screens.titleScreen.TitleScreenOptions;
 
 /*

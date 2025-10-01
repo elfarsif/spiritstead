@@ -1,4 +1,4 @@
-package io.github.spiritstead.cutscene;
+package io.github.spiritstead.tools;
 
 public class InputGate {
     private boolean isOpen = true;

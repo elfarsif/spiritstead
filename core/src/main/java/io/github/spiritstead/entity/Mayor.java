@@ -4,13 +4,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
 import io.github.spiritstead.dialogue.Dialogue;
 import io.github.spiritstead.dialogue.DialogueController;
-import io.github.spiritstead.dialogue.DialogueNode;
 import io.github.spiritstead.main.*;
+import io.github.spiritstead.tools.FrameGate;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Mayor implements NPC {
+    private enum State {CONVERSING, MOVING, AXING}
+
+    private StateHandler stateHandler;
     private Sprite sprite;
     Sprites sprites;
     private Mover mover;
@@ -25,11 +28,10 @@ public class Mayor implements NPC {
     private Collision collision;
     public WorldPosition worldPosition = new WorldPosition();
     public Map<Integer, String> allDialogue = new HashMap<>();
-    private int index = 0;
-    String currentDialogue;
     private int screenX, screenY;
     public Dialogue dialogue;
-    private DialogueNode tempDialogueNode;
+    private boolean isConversing = false;
+    private FrameGate walkingFrameGate;
 
     public Mayor(GamePanel gp) {
         this.gp = gp;
@@ -45,6 +47,8 @@ public class Mayor implements NPC {
         this.direction = Direction.LEFT;
         this.allDialogue = Game.script.mayorDialogue;
         this.dialogue = new Dialogue();
+        this.walkingFrameGate = new FrameGate(30);
+        this.stateHandler = new StateHandler(State.MOVING);
     }
 
     public void setAction() {
@@ -52,15 +56,32 @@ public class Mayor implements NPC {
             this.direction = Direction.UP;
             this.frameGate.reset();
         }
+
     }
 
     public void update() {
         setAction();
+        updateMovePlayerAnimation();
         checkCollisions();
         this.mover.move();
     }
 
+    public void updateMovePlayerAnimation() {
+        if (this.stateHandler.isState(State.MOVING)) {
+            if (walkingFrameGate.tick()) {
+                if (this.spriteNum == 1) {
+                    this.spriteNum = 2;
+                } else if (this.spriteNum == 2) {
+                    this.spriteNum = 1;
+                }
+                this.walkingFrameGate.reset();
+            }
+        }
+
+    }
+
     public void interact() {
+        this.stateHandler.setCurrentState(State.CONVERSING);
         if (Game.dialogueController.phase == DialogueController.Phase.STARTING) {
             Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.dialogue;
             Game.dialogueController.phase = DialogueController.Phase.ADVANCING;
@@ -73,7 +94,6 @@ public class Mayor implements NPC {
             if (Game.ui.playerDialogueUI.optionCursor.optionNum == 0) {
                 Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.left.left.dialogue;
                 Game.ui.uiScreen = Game.ui.dialogueUI;
-
             } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
                 Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.right.left.dialogue;
                 Game.ui.uiScreen = Game.ui.dialogueUI;
@@ -82,6 +102,7 @@ public class Mayor implements NPC {
         } else if (Game.dialogueController.phase == DialogueController.Phase.ENDING) {
             Game.ui.uiScreen = Game.ui.gameScreenUI;
             Game.screens.setScreen(Game.screens.gameScreen);
+            this.stateHandler.setCurrentState(State.MOVING);
         }
     }
 
@@ -109,10 +130,15 @@ public class Mayor implements NPC {
 
     public void draw() {
         initialiazeScreenPositionRelativeToPlayer();
-        if (entityIsWithinScreenBounds()) {
-            updateSprite();
-            Game.batch.draw(sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
-
+        if (entityIsWithinScreenBounds() && !isConversing) {
+            if (stateHandler.isState(State.MOVING)) {
+                updateSprite();
+                Game.batch.draw(sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+            } else if (stateHandler.isState(State.CONVERSING)) {
+                Game.batch.draw(sprites.right1, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+            }
+        } else {
+            Game.batch.draw(sprites.right1, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
         }
     }
 
@@ -124,6 +150,7 @@ public class Mayor implements NPC {
                 break;
             case DOWN:
                 sprite = sprites.frames.get(Direction.DOWN)[spriteNum - 1];
+
                 break;
             case LEFT:
                 sprite = sprites.frames.get(Direction.LEFT)[spriteNum - 1];

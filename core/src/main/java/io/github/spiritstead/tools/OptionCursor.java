@@ -1,10 +1,7 @@
-package io.github.spiritstead.screens;
+package io.github.spiritstead.tools;
 
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.ScreenSetting;
-
-import java.util.ArrayList;
 
 public class OptionCursor {
     private Font font;

@@ -1,6 +1,6 @@
 package io.github.spiritstead.cutscene.gameIntro;
 
-import io.github.spiritstead.cutscene.BlackTexture;
+import io.github.spiritstead.tools.BlackTexture;
 import io.github.spiritstead.cutscene.Cutscene;
 import io.github.spiritstead.cutscene.gameIntro.contentSlide.ContentSlide;
 import io.github.spiritstead.cutscene.gameIntro.titleSlide.TitleSlide;

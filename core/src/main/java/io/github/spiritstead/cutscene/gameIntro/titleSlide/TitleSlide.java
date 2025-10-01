@@ -1,14 +1,14 @@
 package io.github.spiritstead.cutscene.gameIntro.titleSlide;
 
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import io.github.spiritstead.cutscene.FadeBlack;
+import io.github.spiritstead.tools.FadeBlack;
 import io.github.spiritstead.cutscene.gameIntro.GameIntro;
 import io.github.spiritstead.cutscene.gameIntro.Slide;
 import io.github.spiritstead.cutscene.gameIntro.ToolTip;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.ui.UIUtilities;
+import io.github.spiritstead.tools.UIUtilities;
 
 public class TitleSlide implements Slide {
     GameIntro gameIntro;

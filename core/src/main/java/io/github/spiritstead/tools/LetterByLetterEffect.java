@@ -1,10 +1,8 @@
-package io.github.spiritstead.cutscene;
+package io.github.spiritstead.tools;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.font.Font;
-import io.github.spiritstead.main.FrameGate;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
 
 public class LetterByLetterEffect {
     private SpriteBatch batch;

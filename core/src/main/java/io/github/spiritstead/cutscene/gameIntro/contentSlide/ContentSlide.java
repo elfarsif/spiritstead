@@ -3,7 +3,7 @@ package io.github.spiritstead.cutscene.gameIntro.contentSlide;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import io.github.spiritstead.cutscene.FadeBlack;
+import io.github.spiritstead.tools.FadeBlack;
 import io.github.spiritstead.cutscene.gameIntro.GameIntro;
 import io.github.spiritstead.cutscene.gameIntro.Slide;
 import io.github.spiritstead.main.Game;

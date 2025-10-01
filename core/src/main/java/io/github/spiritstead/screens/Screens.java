@@ -19,7 +19,7 @@ public class Screens {
         cutsceneScreen = new CutsceneScreen(gp);
         gameScreen = new GameScreen(gp, player);
         this.dialogueScreen = new DialogueScreen(gameScreen);
-        setScreen(titleScreen);
+        setScreen(this.gameScreen);
     }
 
     public void setScreen(Screen screen) {

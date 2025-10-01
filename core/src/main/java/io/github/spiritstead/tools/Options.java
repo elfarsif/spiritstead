@@ -1,17 +1,14 @@
-package io.github.spiritstead.ui;
+package io.github.spiritstead.tools;
 
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.screens.OptionCursor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Options {
     ArrayList<String> list = new ArrayList<>();
     Font font;
-    int yDiff;
+    public int yDiff;
     public float x;
     public float y;
 

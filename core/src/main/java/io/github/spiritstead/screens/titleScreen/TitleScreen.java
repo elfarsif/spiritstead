@@ -1,18 +1,17 @@
 package io.github.spiritstead.screens.titleScreen;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import io.github.spiritstead.cutscene.BlackTexture;
+import io.github.spiritstead.tools.BlackTexture;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
-import io.github.spiritstead.screens.OptionCursor;
+import io.github.spiritstead.tools.OptionCursor;
 import io.github.spiritstead.screens.Screen;
-import io.github.spiritstead.ui.Options;
+import io.github.spiritstead.tools.Options;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +47,7 @@ public class TitleScreen implements Screen {
         titleFont.getBitmapFont().getData().setScale(1.5f);
         String text = "Spiritvale";
         float x = getXforCenteredText(titleFont.getBitmapFont(), text);
-        float y = gp.sSetting.SCREEN_HEIGHT * 3 / 4 + layout.height / 2;
+        float y = gp.sSetting.SCREEN_HEIGHT * 2 / 3 + layout.height / 2;
 
         //Shadow
         titleFont.getBitmapFont().setColor(Color.GRAY);
@@ -59,11 +58,12 @@ public class TitleScreen implements Screen {
         titleFont.getBitmapFont().draw(batch, text, x, y);
 
         //Character image
-        float imageSize = ScreenSetting.TILE_SIZE * 2;
-        x = gp.sSetting.SCREEN_WIDTH / 2 - imageSize / 2;
-        y = gp.sSetting.SCREEN_HEIGHT / 2 - imageSize / 2;
-        batch.draw(Game.player.sprites.down1, x, y, imageSize, imageSize);
+//        float imageSize = ScreenSetting.TILE_SIZE * 2;
+//        x = gp.sSetting.SCREEN_WIDTH / 2 - imageSize / 2;
+//        y = gp.sSetting.SCREEN_HEIGHT / 2 - imageSize / 2;
+//        batch.draw(Game.player.sprites.down1, x, y, imageSize, imageSize);
 
+        y = gp.sSetting.SCREEN_HEIGHT / 2;
         //MENU
         font.getBitmapFont().getData().setScale(1f);
 

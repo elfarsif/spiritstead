@@ -2,13 +2,13 @@ package io.github.spiritstead.ui;
 
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.ScreenSetting;
-import io.github.spiritstead.screens.OptionCursor;
+import io.github.spiritstead.tools.OptionCursor;
+import io.github.spiritstead.tools.Options;
 import io.github.spiritstead.ui.dialogue.DialogueUIText;
 import io.github.spiritstead.ui.dialogue.DialogueWindow;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
 public class PlayerDialogueUI implements UIScreen {
     private DialogueWindow dialogueWindow;

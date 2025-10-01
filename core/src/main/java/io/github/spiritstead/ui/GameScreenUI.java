@@ -1,12 +1,13 @@
 package io.github.spiritstead.ui;
 
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.font.Font;
-import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.main.ScreenSetting;
+import io.github.spiritstead.main.*;
 import io.github.spiritstead.object.Key;
+import io.github.spiritstead.tools.BlackAlphaFrames;
+import io.github.spiritstead.tools.FrameGate;
 
 public class GameScreenUI implements UIScreen {
 
@@ -62,6 +63,10 @@ public class GameScreenUI implements UIScreen {
     public void draw() {
         drawKeyInventory();
         drawMessages();
+        drawDebugUI();
+    }
+
+    private void drawDebugUI() {
         if (Game.keyH.tPressed) {
             int x = 10;
             int y = 40;

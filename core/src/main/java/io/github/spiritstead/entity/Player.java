@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.audio.SoundEffect;
 import io.github.spiritstead.collision.Collision;
 import io.github.spiritstead.collision.TileCollisionType;
-import io.github.spiritstead.dialogue.Dialogue;
 import io.github.spiritstead.main.*;
+import io.github.spiritstead.tools.FrameGate;
 
 public class Player implements Collidable, Moveable {
     public Sprites sprites;

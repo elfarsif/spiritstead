@@ -1,4 +1,4 @@
-package io.github.spiritstead.cutscene;
+package io.github.spiritstead.tools;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;

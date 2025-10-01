@@ -1,6 +1,6 @@
 package io.github.spiritstead.cutscene.gameIntro.contentSlide;
 
-import io.github.spiritstead.cutscene.LetterByLetterEffect;
+import io.github.spiritstead.tools.LetterByLetterEffect;
 import io.github.spiritstead.cutscene.gameIntro.GameIntro;
 import io.github.spiritstead.cutscene.gameIntro.TextWrapper;
 import io.github.spiritstead.font.Font;
