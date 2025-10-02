@@ -3,6 +3,7 @@ package io.github.spiritstead.tools;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import io.github.spiritstead.main.Game;
 
 public class BlackTexture {
     public Texture texture;
@@ -20,5 +21,9 @@ public class BlackTexture {
         pixmap.fill();
         texture = new Texture(pixmap);
         pixmap.dispose();
+    }
+
+    public void draw(int x, int y) {
+        Game.batch.draw(texture, x, y);
     }
 }

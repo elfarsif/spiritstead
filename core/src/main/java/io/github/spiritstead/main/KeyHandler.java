@@ -70,9 +70,7 @@ public class KeyHandler implements InputProcessor {
         } else if (code == Input.Keys.D) {
             rightPressed = true;
         } else if (code == Input.Keys.P) {
-            if (Game.screens.screen == Game.screens.gameScreen) {
-                System.out.println("pause state");
-            }
+            System.out.println("pause state");
         } else if (code == Input.Keys.T) {
             tPressed = !tPressed;
         } else if (code == Input.Keys.SPACE) {

@@ -24,13 +24,11 @@ public class PlayerDialogueUI implements UIScreen {
             ScreenSetting.SCREEN_WIDTH - ScreenSetting.TILE_SIZE * 4,
             ScreenSetting.TILE_SIZE * 3);
         this.dialogueUIText1 = new DialogueUIText(
-            Game.player.playerOption1,
             dialogueWindow,
             dialogueWindow.x + ScreenSetting.TILE_SIZE / 2,
             dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE / 2
         );
         this.dialogueUIText2 = new DialogueUIText(
-            Game.player.playerOption2,
             dialogueWindow,
             dialogueWindow.x + ScreenSetting.TILE_SIZE / 2,
             dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE * 2

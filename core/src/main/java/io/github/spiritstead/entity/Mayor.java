@@ -7,6 +7,8 @@ import io.github.spiritstead.dialogue.DialogueController;
 import io.github.spiritstead.main.*;
 import io.github.spiritstead.tools.FrameGate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,8 +32,8 @@ public class Mayor implements NPC {
     public Map<Integer, String> allDialogue = new HashMap<>();
     private int screenX, screenY;
     public Dialogue dialogue;
-    private boolean isConversing = false;
     private FrameGate walkingFrameGate;
+    private Animation axeAnimation, talkingAnimation;
 
     public Mayor(GamePanel gp) {
         this.gp = gp;
@@ -48,7 +50,16 @@ public class Mayor implements NPC {
         this.allDialogue = Game.script.mayorDialogue;
         this.dialogue = new Dialogue();
         this.walkingFrameGate = new FrameGate(30);
-        this.stateHandler = new StateHandler(State.MOVING);
+        this.stateHandler = new StateHandler(State.AXING);
+
+        this.axeAnimation = new Animation(new FrameGate(30), new ArrayList<>(Arrays.asList(
+            sprites.down1,
+            sprites.down2
+        )));
+        this.talkingAnimation = new Animation(new FrameGate(30), new ArrayList<>(Arrays.asList(
+            sprites.right1
+        )));
+
     }
 
     public void setAction() {
@@ -60,22 +71,11 @@ public class Mayor implements NPC {
     }
 
     public void update() {
-        setAction();
-        updateMovePlayerAnimation();
-        checkCollisions();
-        this.mover.move();
-    }
-
-    public void updateMovePlayerAnimation() {
+//        setAction();
         if (this.stateHandler.isState(State.MOVING)) {
-            if (walkingFrameGate.tick()) {
-                if (this.spriteNum == 1) {
-                    this.spriteNum = 2;
-                } else if (this.spriteNum == 2) {
-                    this.spriteNum = 1;
-                }
-                this.walkingFrameGate.reset();
-            }
+            updateMovePlayerAnimation();
+            checkCollisions();
+            this.mover.move();
         }
 
     }
@@ -93,17 +93,33 @@ public class Mayor implements NPC {
         } else if (Game.dialogueController.phase == DialogueController.Phase.CHOOSING) {
             if (Game.ui.playerDialogueUI.optionCursor.optionNum == 0) {
                 Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.left.left.dialogue;
+                this.dialogue.node.left.left.triggerEvent();
                 Game.ui.uiScreen = Game.ui.dialogueUI;
             } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
                 Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.right.left.dialogue;
+                this.dialogue.node.left.left.triggerEvent();
                 Game.ui.uiScreen = Game.ui.dialogueUI;
             }
+            Game.dialogueController.phase = DialogueController.Phase.CHOOSINGEFFECT;
+        } else if (Game.dialogueController.phase == DialogueController.Phase.CHOOSINGEFFECT) {
             Game.dialogueController.phase = DialogueController.Phase.ENDING;
         } else if (Game.dialogueController.phase == DialogueController.Phase.ENDING) {
             Game.ui.uiScreen = Game.ui.gameScreenUI;
             Game.screens.setScreen(Game.screens.gameScreen);
-            this.stateHandler.setCurrentState(State.MOVING);
+            this.stateHandler.setCurrentState(State.AXING);
         }
+    }
+
+    public void updateMovePlayerAnimation() {
+        if (walkingFrameGate.tick()) {
+            if (this.spriteNum == 1) {
+                this.spriteNum = 2;
+            } else if (this.spriteNum == 2) {
+                this.spriteNum = 1;
+            }
+            this.walkingFrameGate.reset();
+        }
+
     }
 
     private void checkCollisions() {
@@ -130,15 +146,24 @@ public class Mayor implements NPC {
 
     public void draw() {
         initialiazeScreenPositionRelativeToPlayer();
-        if (entityIsWithinScreenBounds() && !isConversing) {
+        if (entityIsWithinScreenBounds()) {
             if (stateHandler.isState(State.MOVING)) {
                 updateSprite();
                 Game.batch.draw(sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
             } else if (stateHandler.isState(State.CONVERSING)) {
-                Game.batch.draw(sprites.right1, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+                talkingAnimation.draw(screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+                if (Game.dialogueController.phase == DialogueController.Phase.CHOOSINGEFFECT) {
+                    if (Game.ui.playerDialogueUI.optionCursor.optionNum == 0) {
+                        this.dialogue.node.left.left.drawEvent();
+                    } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
+                        this.dialogue.node.right.left.drawEvent();
+                    }
+                }
+            } else if (stateHandler.isState(State.AXING)) {
+                axeAnimation.draw(screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+
             }
-        } else {
-            Game.batch.draw(sprites.right1, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+
         }
     }
 

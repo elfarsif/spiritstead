@@ -7,10 +7,6 @@ public class StateHandler {
         this.currentState = currentState;
     }
 
-    public Enum getCurrentState() {
-        return currentState;
-    }
-
     public void setCurrentState(Enum currentState) {
         this.currentState = currentState;
     }

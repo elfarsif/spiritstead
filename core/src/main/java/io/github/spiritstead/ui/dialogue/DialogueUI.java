@@ -4,17 +4,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
+import io.github.spiritstead.tools.BlackTexture;
 import io.github.spiritstead.ui.UIScreen;
 
 public class DialogueUI implements UIScreen {
-    private GamePanel gp;
-    private SpriteBatch batch;
     private DialogueWindow dialogueWindow;
     public DialogueUIText text;
 
-    public DialogueUI(GamePanel gp) {
-        this.gp = gp;
-        this.batch = Game.batch;
+    public DialogueUI() {
         this.dialogueWindow = new DialogueWindow(
             ScreenSetting.TILE_SIZE * 2,
             ScreenSetting.TILE_SIZE / 2,
@@ -27,7 +24,6 @@ public class DialogueUI implements UIScreen {
     public void draw() {
         dialogueWindow.draw();
         text.draw();
-
     }
 
     public void dispose() {

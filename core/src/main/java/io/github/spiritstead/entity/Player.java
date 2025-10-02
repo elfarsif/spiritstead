@@ -12,6 +12,7 @@ import io.github.spiritstead.tools.FrameGate;
 
 public class Player implements Collidable, Moveable {
     public Sprites sprites;
+    public int xp = 0;
     private Sprite currentSprite;
     public int hasKey = 0;
     private int speed;
@@ -26,8 +27,7 @@ public class Player implements Collidable, Moveable {
     private Collision collision;
     private TileCollisionType tileCollision;
     public WorldPosition worldPosition = new WorldPosition();
-    public String playerOption1 = "in p class POO1";
-    public String playerOption2 = "in p class POO2";
+    public int XP = 1;
 
     public Player(GamePanel gp) {
         this.sprites = new Sprites();

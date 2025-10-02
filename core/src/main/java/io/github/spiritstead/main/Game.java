@@ -33,7 +33,7 @@ public class Game {
         aSetter = new AssetSetter(gp);
         player = new Player(gp);
         screens = new Screens(gp, this.player);
-        ui = new UI(gp);
+        ui = new UI();
         dialogueController = new DialogueController();
         Gdx.input.setInputProcessor(this.keyH);
     }

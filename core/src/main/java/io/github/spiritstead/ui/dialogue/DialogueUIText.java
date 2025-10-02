@@ -8,10 +8,8 @@ import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.ScreenSetting;
 
 public class DialogueUIText {
-    SpriteBatch batch;
-
+    private SpriteBatch batch;
     private DialogueWindow dialogueWindow;
-
     public Font font;
     public String currentDialogue = "";
     public int x, y;
@@ -33,11 +31,6 @@ public class DialogueUIText {
         this(dialogueWindow);
         this.x = x;
         this.y = y;
-    }
-
-    public DialogueUIText(String text, DialogueWindow dialogueWindow, int x, int y) {
-        this(dialogueWindow, x, y);
-        this.currentDialogue = text;
     }
 
     public void draw() {
