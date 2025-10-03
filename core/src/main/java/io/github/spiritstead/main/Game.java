@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.audio.AudioPlayer;
 import io.github.spiritstead.dialogue.DialogueController;
 import io.github.spiritstead.entity.Player;
+import io.github.spiritstead.object.GameObject;
 import io.github.spiritstead.screens.Screens;
 import io.github.spiritstead.script.Script;
 import io.github.spiritstead.tile.TileManager;

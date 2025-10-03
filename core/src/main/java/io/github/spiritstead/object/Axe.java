@@ -3,47 +3,46 @@ package io.github.spiritstead.object;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import io.github.spiritstead.audio.SoundEffect;
 import io.github.spiritstead.entity.Direction;
 import io.github.spiritstead.entity.SolidArea;
 import io.github.spiritstead.entity.WorldPosition;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 
-public class Key implements GameObject {
-    public Sprite image;
+public class Axe implements GameObject {
+    private Sprite image;
     public String name;
     public boolean collision = false;
     SolidArea solidArea = new SolidArea(0, 0, 48, 48);
     ObjectDrawer objectDrawer;
     private WorldPosition worldPosition = new WorldPosition();
 
-    public Key() {
-        name = "Key";
-        image = new Sprite(new Texture("objects/key.png"));
+    public Axe() {
+        name = "Axe";
+        this.image = new Sprite(new Texture("objects/axe.png"));
         this.objectDrawer = new ObjectDrawer(worldPosition);
     }
 
-    public Key(int worldX, int worldY) {
+    public Axe(int worldX, int worldY) {
         this();
         worldPosition.setXY(worldX, worldY);
     }
 
+    @Override
     public void draw(SpriteBatch batch, GamePanel gp) {
         objectDrawer.draw(image);
     }
 
     @Override
     public void interact() {
-        Game.player.hasKey++;
-        Game.audioPlayer.playSE(SoundEffect.COIN);
-        Game.ui.gameScreenUI.showMessage("You got a key!");
+        Game.ui.gameScreenUI.showMessage("You got an axe!");
         for (int i = 0; i < Game.aSetter.objects.length; i++) {
             if (Game.aSetter.objects[i] == this) {
                 Game.aSetter.objects[i] = null;
+                Game.player.inventory.add(this);
+                System.out.println(Game.player.inventory);
             }
         }
-
     }
 
     @Override

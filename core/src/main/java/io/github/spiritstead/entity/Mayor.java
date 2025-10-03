@@ -97,7 +97,7 @@ public class Mayor implements NPC {
                 Game.ui.uiScreen = Game.ui.dialogueUI;
             } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
                 Game.ui.dialogueUI.text.currentDialogue = this.dialogue.node.right.left.dialogue;
-                this.dialogue.node.left.left.triggerEvent();
+                this.dialogue.node.right.left.triggerEvent();
                 Game.ui.uiScreen = Game.ui.dialogueUI;
             }
             Game.dialogueController.phase = DialogueController.Phase.CHOOSINGEFFECT;

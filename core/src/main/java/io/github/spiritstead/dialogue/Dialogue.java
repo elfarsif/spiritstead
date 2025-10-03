@@ -9,9 +9,8 @@ public class Dialogue {
         node = new DialogueNode(Game.script.mayorDialogue.get(0));
         node.left = new DialogueNode(Game.script.mayorDialogue.get(1));
         node.right = new DialogueNode(Game.script.mayorDialogue.get(2));
-        node.left.left = new DialogueNode(Game.script.mayorDialogue.get(3), new IncreaseXP());
-        node.right.left = new DialogueNode(Game.script.mayorDialogue.get(4), new NoBenifit());
-
+        node.left.left = new DialogueNode(Game.script.mayorDialogue.get(3), new NoBenifit());
+        node.right.left = new DialogueNode(Game.script.mayorDialogue.get(4), new IncreaseXP());
     }
 
 }

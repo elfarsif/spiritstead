@@ -8,6 +8,7 @@ import io.github.spiritstead.audio.SoundEffect;
 import io.github.spiritstead.collision.Collision;
 import io.github.spiritstead.collision.TileCollisionType;
 import io.github.spiritstead.main.*;
+import io.github.spiritstead.object.GameObject;
 import io.github.spiritstead.tools.FrameGate;
 
 public class Player implements Collidable, Moveable {
@@ -15,7 +16,7 @@ public class Player implements Collidable, Moveable {
     public int xp = 0;
     private Sprite currentSprite;
     public int hasKey = 0;
-    private int speed;
+    public int speed;
     private int spriteNum = 1;
     public ScreenPosition screenPosition = new ScreenPosition();
     public boolean collisionOn = false;
@@ -26,8 +27,8 @@ public class Player implements Collidable, Moveable {
     public Direction direction;
     private Collision collision;
     private TileCollisionType tileCollision;
+    public Inventory inventory = new Inventory();
     public WorldPosition worldPosition = new WorldPosition();
-    public int XP = 1;
 
     public Player(GamePanel gp) {
         this.sprites = new Sprites();
@@ -46,41 +47,12 @@ public class Player implements Collidable, Moveable {
         sprites.load();
     }
 
-    public void interactObject(int index) {
-        if (index != 9999) {
-            String objName = Game.aSetter.objects[index].name;
-            switch (objName) {
-                case "Key":
-                    hasKey++;
-                    Game.aSetter.objects[index] = null;
-                    Game.audioPlayer.playSE(SoundEffect.COIN);
-                    Game.ui.gameScreenUI.showMessage("You got a key!");
-                    break;
-                case "Door":
-                    if (hasKey > 0) {
-                        Game.aSetter.objects[index] = null;
-                        hasKey--;
-                        Game.ui.gameScreenUI.showMessage("You opened the door!");
-                    } else {
-                        Game.ui.gameScreenUI.showMessage("You need a key");
-                    }
-                    break;
-                case "Boots":
-                    speed += 2;
-                    Game.aSetter.objects[index] = null;
-                    Game.audioPlayer.playSE(SoundEffect.POWERUP);
-                    Game.ui.gameScreenUI.showMessage("YOU ARE FAST");
-                    break;
-                case "Chest":
-                    Game.ui.gameScreenUI.gameFinished = true;
-                    Game.audioPlayer.playSE(SoundEffect.POWERUP);
-                    break;
+    private void interactObject(GameObject gameObject) {
+        gameObject.interact();
 
-            }
-        }
     }
 
-    public void interact(NPC npc) {
+    private void interact(NPC npc) {
         Game.ui.uiScreen = Game.ui.dialogueUI;
         Game.screens.setScreen(Game.screens.dialogueScreen);
         npc.interact();
@@ -102,17 +74,17 @@ public class Player implements Collidable, Moveable {
     private void checkObjectCollision() {
         for (int i = 0; i < Game.aSetter.objects.length; i++) {
             if (Game.aSetter.objects[i] != null && collision.check(this, Game.aSetter.objects[i])) {
-                interactObject(i);
+                interactObject(Game.aSetter.objects[i]);
             }
         }
     }
 
-    public void checkTileCollision() {
+    private void checkTileCollision() {
         this.tileCollision.check();
 
     }
 
-    public void updateSprite() {
+    private void updateSprite() {
         if (frameGate.tick()) {
             if (Game.player.spriteNum == 1) {
                 Game.player.spriteNum = 2;
@@ -123,7 +95,7 @@ public class Player implements Collidable, Moveable {
         }
     }
 
-    public void assignKeyPressToDirection(KeyHandler keyH) {
+    private void assignKeyPressToDirection(KeyHandler keyH) {
         if (keyH.upPressed) {
             this.direction = Direction.UP;
         } else if (keyH.downPressed) {
@@ -135,7 +107,7 @@ public class Player implements Collidable, Moveable {
         }
     }
 
-    public void checkNPCCollision() {
+    private void checkNPCCollision() {
         for (int i = 0; i < Game.aSetter.npcs.length - 9; i++) {
             if (collision.check(Game.player, Game.aSetter.npcs[i])) {
                 interactNPC(i);

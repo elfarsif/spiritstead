@@ -19,4 +19,9 @@ public class WorldPosition {
         this.y = y;
     }
 
+    public void setXY(int x, int y) {
+        this.setX(x);
+        this.setY(y);
+    }
+
 }
