@@ -1,5 +1,6 @@
 package io.github.spiritstead.entity;
 
+import io.github.spiritstead.object.Axe;
 import io.github.spiritstead.object.GameObject;
 
 import java.util.ArrayList;
@@ -16,5 +17,14 @@ public class Inventory {
         return "Inventory{" +
             "items=" + items +
             '}';
+    }
+
+    public boolean contains(Class objectClass) {
+        for (GameObject item : items) {
+            if (item.getClass() == objectClass) {
+                return true;
+            }
+        }
+        return false;
     }
 }

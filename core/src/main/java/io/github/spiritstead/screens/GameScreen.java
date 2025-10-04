@@ -67,9 +67,9 @@ public class GameScreen implements Screen {
     }
 
     private void drawObjects() {
-        for (int i = 0; i < Game.aSetter.objects.length; i++) {
-            if (assetSetter.objects[i] != null) {
-                assetSetter.objects[i].draw(Game.batch, this.gp);
+        for (int i = 0; i < Game.aSetter.obj.size(); i++) {
+            if (assetSetter.obj.get(i) != null) {
+                assetSetter.obj.get(i).draw(Game.batch, this.gp);
             }
         }
     }

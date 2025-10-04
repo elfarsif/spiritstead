@@ -1,16 +1,11 @@
 package io.github.spiritstead.dialogue;
 
-import io.github.spiritstead.main.Game;
-
 public class Dialogue {
-    public DialogueNode node;
+    public enum Phase {STARTING, CHOOSING, CHOOSINGEFFECT, ADVANCING, ENDING}
+
+    public Phase phase;
 
     public Dialogue() {
-        node = new DialogueNode(Game.script.mayorDialogue.get(0));
-        node.left = new DialogueNode(Game.script.mayorDialogue.get(1));
-        node.right = new DialogueNode(Game.script.mayorDialogue.get(2));
-        node.left.left = new DialogueNode(Game.script.mayorDialogue.get(3), new NoBenifit());
-        node.right.left = new DialogueNode(Game.script.mayorDialogue.get(4), new IncreaseXP());
+        this.phase = Phase.STARTING;
     }
-
 }

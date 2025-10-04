@@ -72,9 +72,9 @@ public class Player implements Collidable, Moveable {
     }
 
     private void checkObjectCollision() {
-        for (int i = 0; i < Game.aSetter.objects.length; i++) {
-            if (Game.aSetter.objects[i] != null && collision.check(this, Game.aSetter.objects[i])) {
-                interactObject(Game.aSetter.objects[i]);
+        for (int i = 0; i < Game.aSetter.obj.size(); i++) {
+            if (Game.aSetter.obj.get(i) != null && collision.check(this, Game.aSetter.obj.get(i))) {
+                interactObject(Game.aSetter.obj.get(i));
             }
         }
     }
@@ -119,6 +119,7 @@ public class Player implements Collidable, Moveable {
     private void interactNPC(int npcIndex) {
         if (Game.keyH.spacePressed) {
             interact(Game.aSetter.npcs[npcIndex]);
+            Game.keyH.spacePressed = false;
         }
     }
 

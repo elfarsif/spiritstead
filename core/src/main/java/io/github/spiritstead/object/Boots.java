@@ -38,9 +38,9 @@ public class Boots implements GameObject {
         Game.player.speed += 2;
         Game.audioPlayer.playSE(SoundEffect.POWERUP);
         Game.ui.gameScreenUI.showMessage("YOU ARE FAST");
-        for (int i = 0; i < Game.aSetter.objects.length; i++) {
-            if (Game.aSetter.objects[i] == this) {
-                Game.aSetter.objects[i] = null;
+        for (int i = 0; i < Game.aSetter.obj.size(); i++) {
+            if (Game.aSetter.obj.get(i) == this) {
+                Game.aSetter.obj.remove(i);
             }
         }
     }

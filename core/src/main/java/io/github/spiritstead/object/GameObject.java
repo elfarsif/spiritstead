@@ -14,4 +14,5 @@ public interface GameObject extends Collidable {
     public void draw(SpriteBatch batch, GamePanel gp);
 
     public void interact();
+
 }
