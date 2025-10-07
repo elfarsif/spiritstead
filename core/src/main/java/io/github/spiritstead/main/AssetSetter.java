@@ -2,6 +2,7 @@ package io.github.spiritstead.main;
 
 import io.github.spiritstead.entity.NPC;
 import io.github.spiritstead.entity.Mayor;
+import io.github.spiritstead.entity.WorldPosition;
 import io.github.spiritstead.object.*;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class AssetSetter {
         obj.add(new Chest(4 * ScreenSetting.TILE_SIZE, 12 * ScreenSetting.TILE_SIZE));
         obj.add(new Boots(6 * ScreenSetting.TILE_SIZE, 12 * ScreenSetting.TILE_SIZE));
         obj.add(new Chest(22 * ScreenSetting.TILE_SIZE, 17 * ScreenSetting.TILE_SIZE));
+        obj.add(new Tree(new WorldPosition(21 * ScreenSetting.TILE_SIZE, 13 * ScreenSetting.TILE_SIZE)));
+        obj.add(new Tree(new WorldPosition(21 * ScreenSetting.TILE_SIZE, 14 * ScreenSetting.TILE_SIZE)));
     }
 
     public void setNPCs() {

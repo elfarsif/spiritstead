@@ -47,7 +47,10 @@ public class Door implements GameObject {
             Game.ui.gameScreenUI.showMessage("You need a key");
         }
     }
-
+    @Override
+    public Sprite getImage() {
+        return this.image;
+    }
     @Override
     public SolidArea getSolidArea() {
         return this.solidArea;

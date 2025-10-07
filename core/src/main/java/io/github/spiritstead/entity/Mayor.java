@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
 import io.github.spiritstead.dialogue.*;
 import io.github.spiritstead.main.*;
-import io.github.spiritstead.object.Axe;
 import io.github.spiritstead.tools.FrameGate;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.Map;
 
 public class Mayor implements NPC {
     private StateHandler stateHandler;
-    private Dialogue dialogue;
     private Sprite sprite;
     Sprites sprites;
     private Mover mover;
@@ -33,7 +31,8 @@ public class Mayor implements NPC {
     public DialogueNode dialogueNode;
     private FrameGate walkingFrameGate;
     private Animation axeAnimation, talkingAnimation;
-    private Conversation conversation;
+    private DialogueNode dialogueNodeTempLeft;
+    private DialogueNode dialogueNodeTempRight;
 
     public Mayor(GamePanel gp) {
         this.gp = gp;
@@ -50,14 +49,13 @@ public class Mayor implements NPC {
         this.allDialogue = Game.script.mayorDialogue;
         this.walkingFrameGate = new FrameGate(30);
         this.stateHandler = new StateHandler(NpcState.AXING);
-        this.dialogue = new Dialogue();
 
         this.axeAnimation = new Animation(new FrameGate(30), new ArrayList<>(Arrays.asList(
-            sprites.down1,
-            sprites.down2
+                sprites.down1,
+                sprites.down2
         )));
         this.talkingAnimation = new Animation(new FrameGate(30), new ArrayList<>(Arrays.asList(
-            sprites.right1
+                sprites.right1
         )));
 
     }
@@ -80,64 +78,41 @@ public class Mayor implements NPC {
 
     }
 
+    @Override
+    public void setDialogueNode(DialogueNode dialogueNode) {
+        this.dialogueNode = dialogueNode;
+    }
+
     public void interact() {
         this.stateHandler.setCurrentState(NpcState.CONVERSING);
 
-        if (Game.player.inventory.contains(Axe.class)) {
-
-            this.dialogueNode = new DialogueNode("you have the axe", null, Dialogue.Phase.STARTING);
-
-            if (this.dialogue.phase == Dialogue.Phase.STARTING) {
+        if (this.dialogueNode == null) {
+            Game.ui.uiScreen = Game.ui.gameScreenUI;
+            Game.screens.setScreen(Game.screens.gameScreen);
+            this.stateHandler.setCurrentState(NpcState.AXING);
+            this.dialogueNodeTempRight = null;
+            this.dialogueNodeTempLeft = null;
+        } else if (this.dialogueNode.phase == DialoguePhase.ADVANCING) {
+            Game.ui.dialogueUI.text.currentDialogue = this.dialogueNode.text;
+            this.dialogueNode = this.dialogueNode.nextLeft();
+        } else if (this.dialogueNode.phase == DialoguePhase.CHOOSING) {
+            Game.ui.playerDialogueUI.dialogueUIText1.currentDialogue = this.dialogueNode.text;
+            Game.ui.playerDialogueUI.dialogueUIText2.currentDialogue = this.dialogueNode.prev.right.text;
+            Game.ui.uiScreen = Game.ui.playerDialogueUI;
+            this.dialogueNode = this.dialogueNode.nextLeft();
+        } else if (this.dialogueNode.phase == DialoguePhase.CHOOSINGRESPONSE) {
+            if (Game.ui.playerDialogueUI.optionCursor.optionNum == 0) {
                 Game.ui.dialogueUI.text.currentDialogue = this.dialogueNode.text;
-                this.dialogue.phase = Dialogue.Phase.ENDING;
-            } else if (this.dialogue.phase == Dialogue.Phase.ENDING) {
-                Game.ui.uiScreen = Game.ui.gameScreenUI;
-                Game.screens.setScreen(Game.screens.gameScreen);
-                this.stateHandler.setCurrentState(NpcState.AXING);
-                this.dialogue.phase = Dialogue.Phase.STARTING;
+                this.dialogueNode.triggerEvent();
+                Game.ui.uiScreen = Game.ui.dialogueUI;
+            } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
+                Game.ui.dialogueUI.text.currentDialogue = this.dialogueNode.prev.prev.right.left.text;
+                this.dialogueNode.prev.prev.right.left.triggerEvent();
+                Game.ui.uiScreen = Game.ui.dialogueUI;
             }
-
-        } else {
-            //initialize dialogue
-            this.dialogueNode = new DialogueNode(Game.script.mayorDialogue.get(0));
-            this.dialogueNode.left = new DialogueNode(Game.script.mayorDialogue.get(1));
-            this.dialogueNode.right = new DialogueNode(Game.script.mayorDialogue.get(2));
-            this.dialogueNode.left.left = new DialogueNode(Game.script.mayorDialogue.get(3), new ArrayList<>(Arrays.asList(
-                new NoBenifit(),
-                new SpawnAxe()
-            )));
-            this.dialogueNode.right.left = new DialogueNode(Game.script.mayorDialogue.get(4), new ArrayList<>(Arrays.asList(
-                new IncreaseXP(),
-                new SpawnAxe()
-            )));
-
-            if (this.dialogue.phase == Dialogue.Phase.STARTING) {
-                Game.ui.dialogueUI.text.currentDialogue = this.dialogueNode.text;
-                this.dialogue.phase = Dialogue.Phase.ADVANCING;
-            } else if (this.dialogue.phase == Dialogue.Phase.ADVANCING) {
-                Game.ui.playerDialogueUI.dialogueUIText1.currentDialogue = this.dialogueNode.left.text;
-                Game.ui.playerDialogueUI.dialogueUIText2.currentDialogue = this.dialogueNode.right.text;
-                this.dialogue.phase = Dialogue.Phase.CHOOSING;
-                Game.ui.uiScreen = Game.ui.playerDialogueUI;
-            } else if (this.dialogue.phase == Dialogue.Phase.CHOOSING) {
-                if (Game.ui.playerDialogueUI.optionCursor.optionNum == 0) {
-                    Game.ui.dialogueUI.text.currentDialogue = this.dialogueNode.left.left.text;
-                    this.dialogueNode.left.left.triggerEvent();
-                    Game.ui.uiScreen = Game.ui.dialogueUI;
-                } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
-                    Game.ui.dialogueUI.text.currentDialogue = this.dialogueNode.right.left.text;
-                    this.dialogueNode.right.left.triggerEvent();
-                    Game.ui.uiScreen = Game.ui.dialogueUI;
-                }
-                this.dialogue.phase = Dialogue.Phase.CHOOSINGEFFECT;
-            } else if (this.dialogue.phase == Dialogue.Phase.CHOOSINGEFFECT) {
-                this.dialogue.phase = Dialogue.Phase.ENDING;
-            } else if (this.dialogue.phase == Dialogue.Phase.ENDING) {
-                Game.ui.uiScreen = Game.ui.gameScreenUI;
-                Game.screens.setScreen(Game.screens.gameScreen);
-                this.stateHandler.setCurrentState(NpcState.AXING);
-                this.dialogue.phase = Dialogue.Phase.STARTING;
-            }
+            this.dialogueNodeTempLeft = new DialogueNode(this.dialogueNode.dialogueEvents);
+            this.dialogueNodeTempRight = new DialogueNode(this.dialogueNode.prev.prev.right.left.dialogueEvents);
+            this.dialogueNode = this.dialogueNode.nextLeft();
         }
 
     }
@@ -184,11 +159,11 @@ public class Mayor implements NPC {
                 Game.batch.draw(sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
             } else if (stateHandler.isState(NpcState.CONVERSING)) {
                 talkingAnimation.draw(screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
-                if (this.dialogue.phase == Dialogue.Phase.CHOOSINGEFFECT) {
+                if (this.dialogueNodeTempLeft != null) {
                     if (Game.ui.playerDialogueUI.optionCursor.optionNum == 0) {
-                        this.dialogueNode.left.left.drawEvent();
+                        this.dialogueNodeTempLeft.drawEvent();
                     } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
-                        this.dialogueNode.right.left.drawEvent();
+                        this.dialogueNodeTempRight.drawEvent();
                     }
                 }
             } else if (stateHandler.isState(NpcState.AXING)) {
@@ -222,9 +197,9 @@ public class Mayor implements NPC {
 
     private boolean entityIsWithinScreenBounds() {
         return getWorldPosition().getX() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getX() - Game.player.screenPosition.getX() &&
-            getWorldPosition().getX() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX() &&
-            getWorldPosition().getY() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getY() - Game.player.screenPosition.getY() &&
-            getWorldPosition().getY() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.screenPosition.getY();
+                getWorldPosition().getX() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX() &&
+                getWorldPosition().getY() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getY() - Game.player.screenPosition.getY() &&
+                getWorldPosition().getY() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.screenPosition.getY();
     }
 
     private void initialiazeScreenPositionRelativeToPlayer() {
@@ -233,33 +208,16 @@ public class Mayor implements NPC {
     }
 
     @Override
-    public boolean isCollisionOn() {
-        return this.collisionOn;
-    }
-
+    public void setCollisionOn(boolean collisionOn) { this.collisionOn = collisionOn; }
     @Override
-    public int getSpeed() {
-        return this.speed;
-    }
-
+    public WorldPosition getWorldPosition() { return this.worldPosition; }
     @Override
-    public Direction getDirection() {
-        return this.direction;
-    }
-
+    public Direction getDirection() { return this.direction; }
     @Override
-    public void setCollisionOn(boolean collisionOn) {
-        this.collisionOn = collisionOn;
-    }
-
+    public SolidArea getSolidArea() { return this.solidArea; }
     @Override
-    public WorldPosition getWorldPosition() {
-        return this.worldPosition;
-    }
-
+    public boolean isCollisionOn() { return this.collisionOn; }
     @Override
-    public SolidArea getSolidArea() {
-        return this.solidArea;
-    }
+    public int getSpeed() { return this.speed; }
 
 }

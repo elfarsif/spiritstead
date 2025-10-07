@@ -3,6 +3,14 @@ package io.github.spiritstead.entity;
 public class WorldPosition {
     private int x, y;
 
+    public WorldPosition() {
+    }
+
+    public WorldPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public int getX() {
         return x;
     }

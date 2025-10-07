@@ -15,4 +15,5 @@ public interface GameObject extends Collidable {
 
     public void interact();
 
+    Sprite getImage();
 }

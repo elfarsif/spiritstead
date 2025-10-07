@@ -4,31 +4,40 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import io.github.spiritstead.audio.SoundEffect;
 import io.github.spiritstead.collision.Collision;
 import io.github.spiritstead.collision.TileCollisionType;
 import io.github.spiritstead.main.*;
+import io.github.spiritstead.object.Axe;
 import io.github.spiritstead.object.GameObject;
+import io.github.spiritstead.object.Key;
+import io.github.spiritstead.object.Tree;
 import io.github.spiritstead.tools.FrameGate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Player implements Collidable, Moveable {
-    public Sprites sprites;
-    public int xp = 0;
+    private Sprites sprites;
+    private StateHandler stateHandler;
     private Sprite currentSprite;
-    public int hasKey = 0;
-    public int speed;
     private int spriteNum = 1;
-    public ScreenPosition screenPosition = new ScreenPosition();
-    public boolean collisionOn = false;
+    private boolean collisionOn = false;
     private SolidArea solidArea;
     private Sprite solidAreaOutline;
     private Mover mover;
-    FrameGate frameGate;
-    public Direction direction;
+    private FrameGate frameGate;
     private Collision collision;
     private TileCollisionType tileCollision;
-    public Inventory inventory = new Inventory();
-    public WorldPosition worldPosition = new WorldPosition();
+    private WorldPosition worldPosition = new WorldPosition();
+    private int axeAnimationCount = 0;
+    private Animation axeAnimation;
+
+    public Direction direction;
+    public Inventory inventory;
+    public int xp = 0;
+    public int hasKey = 0;
+    public int speed;
+    public ScreenPosition screenPosition = new ScreenPosition();
 
     public Player(GamePanel gp) {
         this.sprites = new Sprites();
@@ -43,32 +52,70 @@ public class Player implements Collidable, Moveable {
         this.frameGate = new FrameGate(15);
         this.collision = new Collision();
         this.tileCollision = new TileCollisionType(Game.tileM, this);
+        this.stateHandler = new StateHandler(PlayerState.NORMAL);
+        this.axeAnimation = new Animation(this.stateHandler, new ArrayList<>(Arrays.asList(
+                new Sprite(new Texture("player/right1.png")),
+                new Sprite(new Texture("player/right2.png"))
+        )));
+        this.inventory = new Inventory(new ArrayList<>(Arrays.asList(new Key())));
         generateSolidAreaOutline();
         sprites.load();
     }
 
     private void interactObject(GameObject gameObject) {
-        gameObject.interact();
+        if (gameObject instanceof Tree) {
+            if (inventory.selectedItem instanceof Axe) {
+                if (Game.keyH.spacePressed) {
+                    Game.keyH.spacePressed = false;
+                    stateHandler.setCurrentState(PlayerState.AXING);
+                    gameObject.interact();
+                }
+            }
+        } else {
+
+            gameObject.interact();
+        }
 
     }
 
     private void interact(NPC npc) {
         Game.ui.uiScreen = Game.ui.dialogueUI;
         Game.screens.setScreen(Game.screens.dialogueScreen);
+        if (inventory.contains(Axe.class)) {
+            npc.setDialogueNode(Game.dialogues.axeFoundDialog);
+        } else {
+            npc.setDialogueNode(Game.dialogues.helpFindAxe);
+        }
         npc.interact();
     }
 
     public void update() {
-        if (Game.keyH.upPressed || Game.keyH.downPressed || Game.keyH.leftPressed || Game.keyH.rightPressed) {
-            assignKeyPressToDirection(Game.keyH);
-            checkTileCollision();
-            checkEventCollision();
+        if (Game.keyH.jPressed) {
+            Game.keyH.jPressed = false;
+            inventory.setSelectedItemToPrev();
+        }
+        if (Game.keyH.kPressed) {
+            Game.keyH.kPressed = false;
+            inventory.setSelectedItemToNext();
+        }
+        if (stateHandler.isState(PlayerState.AXING)) {
+//            System.out.println("animate axing");
+            checkObjectCollision();
+
+        } else if (stateHandler.isState(PlayerState.NORMAL)) {
+            if (Game.keyH.upPressed || Game.keyH.downPressed || Game.keyH.leftPressed || Game.keyH.rightPressed) {
+                assignKeyPressToDirection(Game.keyH);
+                checkTileCollision();
+                checkEventCollision();
+                checkNPCCollision();
+                checkObjectCollision();
+                mover.move();
+                updateSprite();
+            }
             checkNPCCollision();
             checkObjectCollision();
-            mover.move();
-            updateSprite();
         }
-        checkNPCCollision();
+
     }
 
     private void checkObjectCollision() {
@@ -78,12 +125,10 @@ public class Player implements Collidable, Moveable {
             }
         }
     }
-
     private void checkTileCollision() {
         this.tileCollision.check();
 
     }
-
     private void updateSprite() {
         if (frameGate.tick()) {
             if (Game.player.spriteNum == 1) {
@@ -94,7 +139,6 @@ public class Player implements Collidable, Moveable {
             frameGate.reset();
         }
     }
-
     private void assignKeyPressToDirection(KeyHandler keyH) {
         if (keyH.upPressed) {
             this.direction = Direction.UP;
@@ -106,7 +150,6 @@ public class Player implements Collidable, Moveable {
             Game.player.direction = Game.player.direction.RIGHT;
         }
     }
-
     private void checkNPCCollision() {
         for (int i = 0; i < Game.aSetter.npcs.length - 9; i++) {
             if (collision.check(Game.player, Game.aSetter.npcs[i])) {
@@ -115,23 +158,24 @@ public class Player implements Collidable, Moveable {
         }
 
     }
-
     private void interactNPC(int npcIndex) {
         if (Game.keyH.spacePressed) {
             interact(Game.aSetter.npcs[npcIndex]);
             Game.keyH.spacePressed = false;
         }
     }
-
     private void checkEventCollision() {
         Game.eHandler.checkEvent();
     }
-
     public void draw() {
-        drawPlayer();
-        this.drawSolidArea();
-    }
+        if (stateHandler.isState(PlayerState.AXING)) {
+            this.axeAnimation.drawSingleLoop(screenPosition.getX(), screenPosition.getY(), ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+        } else if (stateHandler.isState(PlayerState.NORMAL)) {
+            drawPlayer();
+            this.drawSolidArea();
+        }
 
+    }
     private void drawPlayer() {
         currentSprite = null;
         switch (this.direction) {
@@ -152,52 +196,33 @@ public class Player implements Collidable, Moveable {
         }
         Game.batch.draw(currentSprite, screenPosition.getX(), screenPosition.getY(), ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
     }
-
     private void drawSolidArea() {
         Game.batch.draw(solidAreaOutline, screenPosition.getX(), screenPosition.getY());
     }
-
     private void generateSolidAreaOutline() {
         Pixmap solidAreaPixmap = new Pixmap(ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE, Pixmap.Format.RGBA8888);
         solidAreaPixmap.setColor(Color.WHITE);
         solidAreaPixmap.drawRectangle(
-            solidArea.getRect().x,
-            ScreenSetting.TILE_SIZE - solidArea.getRect().height,
-            solidArea.getRect().width,
-            solidArea.getRect().height);
+                solidArea.getRect().x,
+                ScreenSetting.TILE_SIZE - solidArea.getRect().height,
+                solidArea.getRect().width,
+                solidArea.getRect().height);
         Sprite solidAreaSprite = new Sprite(new Texture(solidAreaPixmap));
         solidAreaPixmap.dispose();
         this.solidAreaOutline = solidAreaSprite;
     }
 
     @Override
-    public void setCollisionOn(boolean collisionOn) {
-        this.collisionOn = collisionOn;
-    }
-
+    public void setCollisionOn(boolean collisionOn) { this.collisionOn = collisionOn; }
     @Override
-    public WorldPosition getWorldPosition() {
-        return this.worldPosition;
-    }
-
+    public WorldPosition getWorldPosition() { return this.worldPosition; }
     @Override
-    public Direction getDirection() {
-        return this.direction;
-    }
-
+    public Direction getDirection() { return this.direction; }
     @Override
-    public SolidArea getSolidArea() {
-        return this.solidArea;
-    }
-
+    public SolidArea getSolidArea() { return this.solidArea; }
     @Override
-    public boolean isCollisionOn() {
-        return this.collisionOn;
-    }
-
+    public boolean isCollisionOn() { return this.collisionOn; }
     @Override
-    public int getSpeed() {
-        return this.speed;
-    }
+    public int getSpeed() { return this.speed; }
 
 }

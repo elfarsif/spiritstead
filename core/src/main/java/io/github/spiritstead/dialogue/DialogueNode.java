@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class DialogueNode {
     public String text;
-    public Dialogue.Phase phase;
+    public DialoguePhase phase;
     public DialogueNode left;
     public DialogueNode right;
-    private ArrayList<DialogueEvent> dialogueEvents;
+    public DialogueNode prev;
+    public ArrayList<DialogueEvent> dialogueEvents;
 
-    public DialogueNode(String text) {
+    private DialogueNode(String text) {
         this.text = text;
     }
 
@@ -18,20 +19,48 @@ public class DialogueNode {
         this.dialogueEvents = dialogueEvents;
     }
 
-    public DialogueNode(String text, ArrayList<DialogueEvent> dialogueEvents, Dialogue.Phase phase) {
+    public DialogueNode(String text, DialoguePhase phase, ArrayList<DialogueEvent> dialogueEvents) {
         this(text, dialogueEvents);
         this.phase = phase;
     }
 
+    public DialogueNode(ArrayList<DialogueEvent> dialogueEvents) {
+        this.dialogueEvents = dialogueEvents;
+    }
+
+    public DialogueNode nextLeft() {
+        if (this.left != null) {
+            this.left.prev = this;
+        }
+        return this.left;
+    }
+
+    public DialogueNode nextRight() {
+        if (this.right != null) {
+            this.right.prev = this;
+        }
+        return this.right;
+    }
+
+    public DialogueNode(String text, DialoguePhase phase) {
+        this(text);
+        this.phase = phase;
+    }
+
     public void triggerEvent() {
-        for (DialogueEvent event : this.dialogueEvents) {
-            event.handle();
+        if (dialogueEvents != null) {
+            for (DialogueEvent event : this.dialogueEvents) {
+                event.handle();
+            }
         }
     }
 
     public void drawEvent() {
-        for (DialogueEvent event : this.dialogueEvents) {
-            event.draw();
+        if (dialogueEvents != null) {
+
+            for (DialogueEvent event : this.dialogueEvents) {
+                event.draw();
+            }
         }
     }
 }

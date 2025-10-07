@@ -49,7 +49,10 @@ public class Boots implements GameObject {
     public SolidArea getSolidArea() {
         return this.solidArea;
     }
-
+    @Override
+    public Sprite getImage() {
+        return this.image;
+    }
     @Override
     public void setCollisionOn(boolean collisionOn) {
 

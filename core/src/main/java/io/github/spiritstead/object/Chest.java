@@ -46,7 +46,10 @@ public class Chest implements GameObject {
     public void setCollisionOn(boolean collisionOn) {
 
     }
-
+    @Override
+    public Sprite getImage() {
+        return this.image;
+    }
     @Override
     public WorldPosition getWorldPosition() {
         return this.worldPosition;

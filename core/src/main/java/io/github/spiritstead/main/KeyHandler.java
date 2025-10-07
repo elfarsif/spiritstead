@@ -12,7 +12,8 @@ It can be used to check if a key is pressed or released.
  */
 public class KeyHandler implements InputProcessor {
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, tPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, tPressed,
+            jPressed, kPressed;
     public InputGate inputGate;
 
     public KeyHandler(GamePanel gp) {
@@ -72,9 +73,13 @@ public class KeyHandler implements InputProcessor {
         } else if (code == Input.Keys.P) {
             System.out.println("pause state");
         } else if (code == Input.Keys.T) {
-            tPressed = !tPressed;
+            tPressed = ! tPressed;
         } else if (code == Input.Keys.SPACE) {
             spacePressed = true;
+        } else if (code == Input.Keys.J) {
+            jPressed = true;
+        } else if (code == Input.Keys.K) {
+            kPressed = true;
         }
     }
 

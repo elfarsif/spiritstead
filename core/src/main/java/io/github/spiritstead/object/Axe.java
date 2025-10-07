@@ -11,14 +11,12 @@ import io.github.spiritstead.main.GamePanel;
 
 public class Axe implements GameObject {
     private Sprite image;
-    public String name;
     public boolean collision = false;
     SolidArea solidArea = new SolidArea(0, 0, 48, 48);
     ObjectDrawer objectDrawer;
     private WorldPosition worldPosition = new WorldPosition();
 
     public Axe() {
-        name = "Axe";
         this.image = new Sprite(new Texture("objects/axe.png"));
         this.objectDrawer = new ObjectDrawer(worldPosition);
     }
@@ -36,13 +34,18 @@ public class Axe implements GameObject {
     @Override
     public void interact() {
         Game.ui.gameScreenUI.showMessage("You got an axe!");
+        Game.player.inventory.add(this);
+        Game.player.inventory.selectedItem = this;
+        System.out.println(Game.player.inventory);
         for (int i = 0; i < Game.aSetter.obj.size(); i++) {
             if (Game.aSetter.obj.get(i) == this) {
                 Game.aSetter.obj.remove(i);
-                Game.player.inventory.add(this);
-                System.out.println(Game.player.inventory);
             }
         }
+    }
+    @Override
+    public Sprite getImage() {
+        return this.image;
     }
 
     @Override

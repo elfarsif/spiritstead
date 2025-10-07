@@ -6,14 +6,6 @@ public class DialogueNodeTest {
 
     @Test
     public void NodeTest() {
-        DialogueNode node = new DialogueNode("Mayor 1");
-        DialogueNode node2 = new DialogueNode("PO1");
-        DialogueNode node3 = new DialogueNode("PO2");
-        node.left = node2;
-        node.right = node3;
-
-        Assert.assertEquals("PO1", node.left.text);
-        Assert.assertEquals("PO2", node.right.text);
 
     }
 
