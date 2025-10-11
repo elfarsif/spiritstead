@@ -8,9 +8,9 @@ import io.github.spiritstead.main.ScreenSetting;
  * This class adds \n to string to wrap at a certain width
  */
 public class TextWrapper {
-    String text;
-    public String wrappedText;
-    int width;
+    private String text;
+    private String wrappedText;
+    private int width;
 
     GlyphLayout layout = new GlyphLayout();
     StringBuilder wrappedTextStringBuilder = new StringBuilder();
@@ -20,21 +20,9 @@ public class TextWrapper {
         this.font = font;
     }
 
-    public TextWrapper(Font font, int width) {
-        this.font = font;
+    public String wrap(String text, int width) {
+        String originalText = text;
         this.width = width;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public String wrap() {
-        String originalText = this.text;
 
         //TODO: maxwidth should be tilesize, make tile size a global final variable
         float maxWidth = width + ScreenSetting.TILE_SIZE * 2; // or set manually
@@ -42,7 +30,7 @@ public class TextWrapper {
         String line = "";
 
         for (String word : words) {
-            String testLine = line.isEmpty() ? word : line + " " + word;
+            String testLine = line.isEmpty() ? word:line + " " + word;
             layout.setText(font.getBitmapFont(), testLine);
 
             if (layout.width > maxWidth) {
@@ -60,4 +48,5 @@ public class TextWrapper {
         return finalText;
     }
 
+    public String getText() { return this.wrappedText; }
 }

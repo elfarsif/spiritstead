@@ -4,14 +4,14 @@ import io.github.spiritstead.main.Game;
 import jdk.internal.foreign.abi.Binding;
 
 public class Mover {
-    private Moveable moveable;
+    private final Moveable moveable;
 
     public Mover(Moveable moveable) {
         this.moveable = moveable;
     }
 
     public void move() {
-        if (!moveable.isCollisionOn()) {
+        if (! moveable.isCollisionOn()) {
             switch (moveable.getDirection()) {
                 case UP:
                     moveable.getWorldPosition().setY(moveable.getWorldPosition().getY() + moveable.getSpeed());

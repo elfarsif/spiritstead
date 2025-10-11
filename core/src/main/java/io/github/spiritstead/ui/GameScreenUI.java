@@ -10,14 +10,12 @@ import io.github.spiritstead.object.Key;
 
 public class GameScreenUI implements UIScreen {
     Font font;
-    Sprite keyImage, inventoryBar, inventoryScroller;
+    Sprite inventoryBar, inventoryScroller;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
-    public boolean gameFinished = false;
 
     public GameScreenUI() {
-        loadKeyImage();
         this.inventoryBar = new Sprite(new Texture("objects/inventory.png"));
         font = new Font("fonts/maruMonicaBold.fnt");
         generateInventoryScroller();
@@ -34,11 +32,6 @@ public class GameScreenUI implements UIScreen {
     public void showMessage(String text) {
         message = text;
         messageOn = true;
-    }
-
-    private void loadKeyImage() {
-        Key key = new Key();
-        keyImage = key.image;
     }
 
     private void drawMessages() {
@@ -78,10 +71,6 @@ public class GameScreenUI implements UIScreen {
             }
             x += ScreenSetting.TILE_SIZE;
         }
-    }
-
-    private void drawInventorySelector() {
-
     }
 
     public void draw() {

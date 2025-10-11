@@ -15,11 +15,11 @@ public class Screens {
 
     public Screens(GamePanel gp, Player player) {
         this.gp = gp;
-        titleScreen = new TitleScreen(gp);
-        cutsceneScreen = new CutsceneScreen(gp);
-        gameScreen = new GameScreen(gp, player);
+        this.titleScreen = new TitleScreen(gp);
+        this.cutsceneScreen = new CutsceneScreen(gp);
+        this.gameScreen = new GameScreen(gp, player);
         this.dialogueScreen = new DialogueScreen(gameScreen);
-        setScreen(this.gameScreen);
+        setScreen(this.titleScreen);
     }
 
     public void setScreen(Screen screen) {

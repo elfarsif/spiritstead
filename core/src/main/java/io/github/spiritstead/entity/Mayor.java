@@ -2,9 +2,12 @@ package io.github.spiritstead.entity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
-import io.github.spiritstead.dialogue.*;
+import io.github.spiritstead.dialogueTree.*;
+import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.*;
 import io.github.spiritstead.tools.FrameGate;
+import io.github.spiritstead.tools.LetterByLetterEffect;
+import io.github.spiritstead.tools.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,7 +60,6 @@ public class Mayor implements NPC {
         this.talkingAnimation = new Animation(new FrameGate(30), new ArrayList<>(Arrays.asList(
                 sprites.right1
         )));
-
     }
 
     public void setAction() {
@@ -87,26 +89,26 @@ public class Mayor implements NPC {
         this.stateHandler.setCurrentState(NpcState.CONVERSING);
 
         if (this.dialogueNode == null) {
-            Game.ui.uiScreen = Game.ui.gameScreenUI;
+            Game.ui.setUiScreen(Game.ui.gameScreenUI);
             Game.screens.setScreen(Game.screens.gameScreen);
             this.stateHandler.setCurrentState(NpcState.AXING);
             this.dialogueNodeTempRight = null;
             this.dialogueNodeTempLeft = null;
         } else if (this.dialogueNode.phase == DialoguePhase.ADVANCING) {
-            Game.ui.dialogueUI.text.currentDialogue = this.dialogueNode.text;
+            Game.ui.dialogueUI.text.setTextString(this.dialogueNode.text);
             this.dialogueNode = this.dialogueNode.nextLeft();
         } else if (this.dialogueNode.phase == DialoguePhase.CHOOSING) {
-            Game.ui.playerDialogueUI.dialogueUIText1.currentDialogue = this.dialogueNode.text;
-            Game.ui.playerDialogueUI.dialogueUIText2.currentDialogue = this.dialogueNode.prev.right.text;
+            Game.ui.playerDialogueUI.dialogueUIText1.setTextString(this.dialogueNode.text);
+            Game.ui.playerDialogueUI.dialogueUIText2.setTextString(this.dialogueNode.prev.right.text);
             Game.ui.uiScreen = Game.ui.playerDialogueUI;
             this.dialogueNode = this.dialogueNode.nextLeft();
         } else if (this.dialogueNode.phase == DialoguePhase.CHOOSINGRESPONSE) {
             if (Game.ui.playerDialogueUI.optionCursor.optionNum == 0) {
-                Game.ui.dialogueUI.text.currentDialogue = this.dialogueNode.text;
+                Game.ui.dialogueUI.text.setTextString(this.dialogueNode.text);
                 this.dialogueNode.triggerEvent();
                 Game.ui.uiScreen = Game.ui.dialogueUI;
             } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
-                Game.ui.dialogueUI.text.currentDialogue = this.dialogueNode.prev.prev.right.left.text;
+                Game.ui.dialogueUI.text.setTextString(this.dialogueNode.prev.prev.right.left.text);
                 this.dialogueNode.prev.prev.right.left.triggerEvent();
                 Game.ui.uiScreen = Game.ui.dialogueUI;
             }

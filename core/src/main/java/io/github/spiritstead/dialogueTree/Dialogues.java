@@ -1,4 +1,4 @@
-package io.github.spiritstead.dialogue;
+package io.github.spiritstead.dialogueTree;
 
 import io.github.spiritstead.main.Game;
 
@@ -17,12 +17,12 @@ public class Dialogues {
         this.helpFindAxe.left = new DialogueNode(Game.script.mayorDialogue.get(1), DialoguePhase.CHOOSING);
         this.helpFindAxe.right = new DialogueNode(Game.script.mayorDialogue.get(2), DialoguePhase.CHOOSING);
         this.helpFindAxe.left.left = new DialogueNode(Game.script.mayorDialogue.get(3), DialoguePhase.CHOOSINGRESPONSE, new ArrayList<>(Arrays.asList(
-            new NoBenifit(),
-            new SpawnAxe()
+                new NoBenifit(),
+                new SpawnAxe()
         )));
         this.helpFindAxe.right.left = new DialogueNode(Game.script.mayorDialogue.get(4), DialoguePhase.CHOOSINGRESPONSE, new ArrayList<>(Arrays.asList(
-            new IncreaseXP(),
-            new SpawnAxe()
+                new IncreaseXP(),
+                new SpawnAxe()
         )));
 
        /* this.testConvo = new DialogueNode("i am mayor who are you", DialoguePhase.ADVANCING);

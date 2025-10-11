@@ -1,4 +1,4 @@
-package io.github.spiritstead.dialogue;
+package io.github.spiritstead.dialogueTree;
 
 public interface DialogueEvent {
     void handle();

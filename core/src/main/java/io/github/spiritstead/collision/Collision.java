@@ -14,7 +14,7 @@ public class Collision {
         this.collidable = collidable;
         this.intializeMoveableSolidAreaInWorld();
         this.initializeCollidableSolidAreaInWorld();
-        this.checkCollisionForAllDirections();
+        this.checkSolidAreaCollisionForAllDirections();
         this.restoreDefaultAreaValues();
         return this.isColliding;
     }
@@ -29,7 +29,7 @@ public class Collision {
         this.collidable.getSolidArea().getRect().y = this.collidable.getWorldPosition().getY() + this.collidable.getSolidArea().getRect().y;
     }
 
-    private void checkCollisionForAllDirections() {
+    private void checkSolidAreaCollisionForAllDirections() {
         switch (this.moveable.getDirection()) {
             case UP:
                 this.moveable.getSolidArea().getRect().y += this.moveable.getSpeed();

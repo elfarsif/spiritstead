@@ -1,6 +1,5 @@
 package io.github.spiritstead.ui;
 
-import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.tools.OptionCursor;
 import io.github.spiritstead.tools.Options;
@@ -19,19 +18,19 @@ public class PlayerDialogueUI implements UIScreen {
 
     public PlayerDialogueUI() {
         this.dialogueWindow = new DialogueWindow(
-            ScreenSetting.TILE_SIZE * 2,
-            ScreenSetting.TILE_SIZE / 2,
-            ScreenSetting.SCREEN_WIDTH - ScreenSetting.TILE_SIZE * 4,
-            ScreenSetting.TILE_SIZE * 3);
+                ScreenSetting.TILE_SIZE * 2,
+                ScreenSetting.TILE_SIZE / 2,
+                ScreenSetting.SCREEN_WIDTH - ScreenSetting.TILE_SIZE * 4,
+                ScreenSetting.TILE_SIZE * 3);
         this.dialogueUIText1 = new DialogueUIText(
-            dialogueWindow,
-            dialogueWindow.x + ScreenSetting.TILE_SIZE / 2,
-            dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE / 2
+                dialogueWindow,
+                dialogueWindow.x + ScreenSetting.TILE_SIZE / 2,
+                dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE / 2
         );
         this.dialogueUIText2 = new DialogueUIText(
-            dialogueWindow,
-            dialogueWindow.x + ScreenSetting.TILE_SIZE / 2,
-            dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE * 2
+                dialogueWindow,
+                dialogueWindow.x + ScreenSetting.TILE_SIZE / 2,
+                dialogueWindow.y + dialogueWindow.height - ScreenSetting.TILE_SIZE * 2
         );
         this.optionCursor = new OptionCursor(this.dialogueUIText1.font);
         this.options = new Options(dialogueUIText1.font, ScreenSetting.TILE_SIZE);
@@ -41,8 +40,8 @@ public class PlayerDialogueUI implements UIScreen {
     public void draw() {
         dialogueWindow.draw();
         options.setList(new ArrayList<String>(Arrays.asList(
-            dialogueUIText1.currentDialogue,
-            dialogueUIText2.currentDialogue
+                dialogueUIText1.dialogueText,
+                dialogueUIText2.dialogueText
         )));
         options.draw(dialogueUIText1.x, dialogueUIText1.y);
         if (optionCursor.optionNum == 0) {

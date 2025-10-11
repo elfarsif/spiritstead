@@ -38,14 +38,12 @@ public class ContentSlideText {
 
     private void wrapTextToSize() {
         currentText = texts.get(textCounter);
-        textWrapper.setText(currentText);
-        textWrapper.setWidth((int) contentSlide.image1.getWidth());
-        textWrapper.wrap();
+        textWrapper.wrap(currentText, (int) contentSlide.image1.getWidth());
 
     }
 
     private void drawLetterByLetter() {
-        this.letterByLetterEffect.setText(textWrapper.wrappedText);
+        this.letterByLetterEffect.setText(textWrapper.getText());
         this.letterByLetterEffect.draw(contentSlide.image1X - ScreenSetting.TILE_SIZE, contentSlide.image1Y - ScreenSetting.TILE_SIZE);
     }
 

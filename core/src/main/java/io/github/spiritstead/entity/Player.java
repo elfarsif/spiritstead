@@ -34,7 +34,7 @@ public class Player implements Collidable, Moveable {
 
     public Direction direction;
     public Inventory inventory;
-    public int xp = 0;
+    public int xp = 3;
     public int hasKey = 0;
     public int speed;
     public ScreenPosition screenPosition = new ScreenPosition();

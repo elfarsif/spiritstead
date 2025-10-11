@@ -1,4 +1,4 @@
-package io.github.spiritstead.dialogue;
+package io.github.spiritstead.dialogueTree;
 
 import java.util.ArrayList;
 
@@ -35,13 +35,6 @@ public class DialogueNode {
         return this.left;
     }
 
-    public DialogueNode nextRight() {
-        if (this.right != null) {
-            this.right.prev = this;
-        }
-        return this.right;
-    }
-
     public DialogueNode(String text, DialoguePhase phase) {
         this(text);
         this.phase = phase;
@@ -57,7 +50,6 @@ public class DialogueNode {
 
     public void drawEvent() {
         if (dialogueEvents != null) {
-
             for (DialogueEvent event : this.dialogueEvents) {
                 event.draw();
             }

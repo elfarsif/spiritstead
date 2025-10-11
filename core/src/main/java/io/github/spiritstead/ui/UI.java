@@ -18,12 +18,15 @@ public class UI {
         this.gameScreenUI = new GameScreenUI();
         this.dialogueUI = new DialogueUI();
         this.playerDialogueUI = new PlayerDialogueUI();
-
-        uiScreen = gameScreenUI;
+        this.setUiScreen(gameScreenUI);
     }
 
     public void draw() {
         uiScreen.draw();
+    }
+
+    public void setUiScreen(UIScreen uiScreen) {
+        this.uiScreen = uiScreen;
     }
 
     public void dispose() {
