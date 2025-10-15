@@ -1,6 +1,6 @@
 package io.github.spiritstead.entity;
 
-import io.github.spiritstead.dialogueTree.DialogueNode;
+import io.github.spiritstead.dialogueTree.Node;
 
 public interface NPC extends Collidable, Moveable {
     void interact();
@@ -9,5 +9,5 @@ public interface NPC extends Collidable, Moveable {
 
     void update();
 
-    void setDialogueNode(DialogueNode dialogueNode);
+    void setDialogueNode(Node node);
 }

@@ -9,14 +9,14 @@ import io.github.spiritstead.ui.dialogue.DialogueWindow;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PlayerDialogueUI implements UIScreen {
+public class DialogueUIScreen implements UIScreen {
     private DialogueWindow dialogueWindow;
     public DialogueUIText dialogueUIText1;
     public DialogueUIText dialogueUIText2;
     public OptionCursor optionCursor;
     private Options options;
 
-    public PlayerDialogueUI() {
+    public DialogueUIScreen() {
         this.dialogueWindow = new DialogueWindow(
                 ScreenSetting.TILE_SIZE * 2,
                 ScreenSetting.TILE_SIZE / 2,

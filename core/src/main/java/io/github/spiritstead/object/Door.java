@@ -42,9 +42,9 @@ public class Door implements GameObject {
                 }
             }
             Game.player.hasKey--;
-            Game.ui.gameScreenUI.showMessage("You opened the door!");
+            Game.ui.gameUIScreen.showMessage("You opened the door!");
         } else {
-            Game.ui.gameScreenUI.showMessage("You need a key");
+            Game.ui.gameUIScreen.showMessage("You need a key");
         }
     }
     @Override

@@ -3,11 +3,8 @@ package io.github.spiritstead.entity;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
 import io.github.spiritstead.dialogueTree.*;
-import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.*;
 import io.github.spiritstead.tools.FrameGate;
-import io.github.spiritstead.tools.LetterByLetterEffect;
-import io.github.spiritstead.tools.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,11 +28,11 @@ public class Mayor implements NPC {
     public WorldPosition worldPosition = new WorldPosition();
     public Map<Integer, String> allDialogue = new HashMap<>();
     private int screenX, screenY;
-    public DialogueNode dialogueNode;
+    public Node node;
     private FrameGate walkingFrameGate;
     private Animation axeAnimation, talkingAnimation;
-    private DialogueNode dialogueNodeTempLeft;
-    private DialogueNode dialogueNodeTempRight;
+    private Node nodeTempLeft;
+    private Node nodeTempRight;
 
     public Mayor(GamePanel gp) {
         this.gp = gp;
@@ -81,40 +78,42 @@ public class Mayor implements NPC {
     }
 
     @Override
-    public void setDialogueNode(DialogueNode dialogueNode) {
-        this.dialogueNode = dialogueNode;
+    public void setDialogueNode(Node node) {
+        this.node = node;
     }
 
     public void interact() {
         this.stateHandler.setCurrentState(NpcState.CONVERSING);
 
-        if (this.dialogueNode == null) {
-            Game.ui.setUiScreen(Game.ui.gameScreenUI);
+        if (this.node == null) {
+            Game.ui.setUi(Game.ui.gameUIScreen);
             Game.screens.setScreen(Game.screens.gameScreen);
             this.stateHandler.setCurrentState(NpcState.AXING);
-            this.dialogueNodeTempRight = null;
-            this.dialogueNodeTempLeft = null;
-        } else if (this.dialogueNode.phase == DialoguePhase.ADVANCING) {
-            Game.ui.dialogueUI.text.setTextString(this.dialogueNode.text);
-            this.dialogueNode = this.dialogueNode.nextLeft();
-        } else if (this.dialogueNode.phase == DialoguePhase.CHOOSING) {
-            Game.ui.playerDialogueUI.dialogueUIText1.setTextString(this.dialogueNode.text);
-            Game.ui.playerDialogueUI.dialogueUIText2.setTextString(this.dialogueNode.prev.right.text);
-            Game.ui.uiScreen = Game.ui.playerDialogueUI;
-            this.dialogueNode = this.dialogueNode.nextLeft();
-        } else if (this.dialogueNode.phase == DialoguePhase.CHOOSINGRESPONSE) {
-            if (Game.ui.playerDialogueUI.optionCursor.optionNum == 0) {
-                Game.ui.dialogueUI.text.setTextString(this.dialogueNode.text);
-                this.dialogueNode.triggerEvent();
+            this.nodeTempRight = null;
+            this.nodeTempLeft = null;
+        } else if (this.node.isPhase(DialoguePhase.ADVANCING)) {
+            Game.ui.dialogueUI.text.setTextString(this.node.getText());
+            this.node = this.node.nextLeft();
+        } else if (this.node.isPhase(DialoguePhase.CHOOSING)) {
+            Game.ui.playerDialogueUIScreen.dialogueUIText1.setTextString(this.node.getText());
+            Game.ui.playerDialogueUIScreen.dialogueUIText2.setTextString(this.node.getPrev().getRight().getText());
+            Game.ui.uiScreen = Game.ui.playerDialogueUIScreen;
+            this.node = this.node.nextLeft();
+        } else if (this.node.isPhase(DialoguePhase.CHOOSINGRESPONSE)) {
+            if (Game.ui.playerDialogueUIScreen.optionCursor.optionNum == 0) {
+                Game.ui.dialogueUI.text.setTextString(this.node.getText());
+                this.node.triggerEvent();
                 Game.ui.uiScreen = Game.ui.dialogueUI;
-            } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
-                Game.ui.dialogueUI.text.setTextString(this.dialogueNode.prev.prev.right.left.text);
-                this.dialogueNode.prev.prev.right.left.triggerEvent();
+            } else if (Game.ui.playerDialogueUIScreen.optionCursor.optionNum == 1) {
+                Game.ui.dialogueUI.text.setTextString(this.node.getPrev().getPrev().getRight().getLeft().getText());
+                this.node.getPrev().getPrev().getRight().getLeft().triggerEvent();
                 Game.ui.uiScreen = Game.ui.dialogueUI;
             }
-            this.dialogueNodeTempLeft = new DialogueNode(this.dialogueNode.dialogueEvents);
-            this.dialogueNodeTempRight = new DialogueNode(this.dialogueNode.prev.prev.right.left.dialogueEvents);
-            this.dialogueNode = this.dialogueNode.nextLeft();
+            this.nodeTempLeft = Node.builder().addEvents(this.node.getDialogueEvents()).build();
+//                    new Node("", null, this.node.getDialogueEvents(), null, null);
+            this.nodeTempRight = Node.builder().addEvents(this.node.getPrev().getPrev().getRight().getLeft().getDialogueEvents()).build();
+//                    new Node("", null, this.node.getPrev().getPrev().getRight().getLeft().getDialogueEvents(), null, null);
+            this.node = this.node.nextLeft();
         }
 
     }
@@ -161,11 +160,11 @@ public class Mayor implements NPC {
                 Game.batch.draw(sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
             } else if (stateHandler.isState(NpcState.CONVERSING)) {
                 talkingAnimation.draw(screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
-                if (this.dialogueNodeTempLeft != null) {
-                    if (Game.ui.playerDialogueUI.optionCursor.optionNum == 0) {
-                        this.dialogueNodeTempLeft.drawEvent();
-                    } else if (Game.ui.playerDialogueUI.optionCursor.optionNum == 1) {
-                        this.dialogueNodeTempRight.drawEvent();
+                if (this.nodeTempLeft != null) {
+                    if (Game.ui.playerDialogueUIScreen.optionCursor.optionNum == 0) {
+                        this.nodeTempLeft.drawEvent();
+                    } else if (Game.ui.playerDialogueUIScreen.optionCursor.optionNum == 1) {
+                        this.nodeTempRight.drawEvent();
                     }
                 }
             } else if (stateHandler.isState(NpcState.AXING)) {

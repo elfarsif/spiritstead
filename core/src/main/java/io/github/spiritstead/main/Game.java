@@ -29,7 +29,7 @@ public class Game {
         resources = Resources.getInstance();
         script = new Script();
         keyH = new KeyHandler(gp);
-        audioPlayer = new AudioPlayer();
+        audioPlayer = AudioPlayer.getInstance();
         eHandler = new EventHandler(gp);
         tileM = new TileManager(gp);
         aSetter = new AssetSetter(gp);

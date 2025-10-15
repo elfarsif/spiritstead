@@ -33,7 +33,7 @@ public class Axe implements GameObject {
 
     @Override
     public void interact() {
-        Game.ui.gameScreenUI.showMessage("You got an axe!");
+        Game.ui.gameUIScreen.showMessage("You got an axe!");
         Game.player.inventory.add(this);
         Game.player.inventory.selectedItem = this;
         System.out.println(Game.player.inventory);

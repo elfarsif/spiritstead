@@ -11,16 +11,18 @@ import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 
 public class Boots implements GameObject {
-    public Sprite image;
-    public String name;
-    public boolean collision = false;
-    SolidArea solidArea = new SolidArea(0, 0, 48, 48);
-    ObjectDrawer objectDrawer;
+    private static final String FILE_PATH = "objects/boots.png";
+    private static final int SOLIDAREA_WIDTH = 48;
+    private static final int SOLIDAREA_HEIGHT = 48;
+
+    private Sprite image;
     private WorldPosition worldPosition = new WorldPosition();
+    public boolean collision = false;
+    SolidArea solidArea = new SolidArea(0, 0, SOLIDAREA_WIDTH, SOLIDAREA_HEIGHT);
+    private ObjectDrawer objectDrawer;
 
     public Boots() {
-        name = "Boots";
-        image = new Sprite(new Texture("objects/boots.png"));
+        image = new Sprite(new Texture(FILE_PATH));
         this.objectDrawer = new ObjectDrawer(worldPosition);
     }
 
@@ -37,7 +39,7 @@ public class Boots implements GameObject {
     public void interact() {
         Game.player.speed += 2;
         Game.audioPlayer.playSE(SoundEffect.POWERUP);
-        Game.ui.gameScreenUI.showMessage("YOU ARE FAST");
+        Game.ui.gameUIScreen.showMessage("YOU ARE FAST");
         for (int i = 0; i < Game.aSetter.obj.size(); i++) {
             if (Game.aSetter.obj.get(i) == this) {
                 Game.aSetter.obj.remove(i);

@@ -1,10 +1,18 @@
 package io.github.spiritstead.audio;
 
 public class AudioPlayer {
+    private static AudioPlayer instance;
     private Sound music;
     private Sound se;
 
-    public AudioPlayer() {
+    public static AudioPlayer getInstance() {
+        if (instance == null) {
+            instance = new AudioPlayer();
+        }
+        return instance;
+    }
+
+    private AudioPlayer() {
         this.music = new Sound();
         this.se = new Sound();
     }

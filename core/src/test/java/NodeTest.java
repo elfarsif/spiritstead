@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-public class DialogueNodeTest {
+public class NodeTest {
 
     @Test
     public void NodeTest() {

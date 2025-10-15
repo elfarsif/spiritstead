@@ -6,16 +6,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.*;
-import io.github.spiritstead.object.Key;
 
-public class GameScreenUI implements UIScreen {
+public class GameUIScreen implements UIScreen {
     Font font;
     Sprite inventoryBar, inventoryScroller;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
 
-    public GameScreenUI() {
+    public GameUIScreen() {
         this.inventoryBar = new Sprite(new Texture("objects/inventory.png"));
         font = new Font("fonts/maruMonicaBold.fnt");
         generateInventoryScroller();

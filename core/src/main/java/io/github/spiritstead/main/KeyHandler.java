@@ -53,9 +53,9 @@ public class KeyHandler implements InputProcessor {
             Game.aSetter.npcs[0].interact();
 
         } else if (code == Input.Keys.W) {
-            Game.ui.playerDialogueUI.optionCursor.optionNum--;
+            Game.ui.playerDialogueUIScreen.optionCursor.optionNum--;
         } else if (code == Input.Keys.S) {
-            Game.ui.playerDialogueUI.optionCursor.optionNum++;
+            Game.ui.playerDialogueUIScreen.optionCursor.optionNum++;
         } else if (code == Input.Keys.ENTER) {
 
         }
