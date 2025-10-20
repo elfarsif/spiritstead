@@ -4,15 +4,14 @@ import com.badlogic.gdx.Gdx;
 import io.github.spiritstead.entity.Npcs;
 import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.font.Font;
+import io.github.spiritstead.main.DayCycle;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.object.GameObjects;
 import io.github.spiritstead.screens.titleScreen.TitleScreen;
 import io.github.spiritstead.screens.titleScreen.TitleScreenOptions;
-import io.github.spiritstead.tools.BlackTexture;
-import io.github.spiritstead.tools.OptionCursor;
-import io.github.spiritstead.tools.Options;
+import io.github.spiritstead.tools.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +40,15 @@ public class Screens {
                         )))
         );
         this.cutsceneScreen = new CutsceneScreen(gp);
-        this.gameScreen = new GameScreen(player, new Npcs(Game.aSetter.npcs), new GameObjects(Game.aSetter.obj), Game.tileM, Game.eHandler, Game.ui);
+        this.gameScreen = new GameScreen(
+                player,
+                new Npcs(Game.aSetter.npcs),
+                new GameObjects(Game.aSetter.obj),
+                Game.tileM,
+                Game.eHandler,
+                Game.ui,
+                new DayCycle(new FrameGate(60), new BlackAlphaFrames())
+        );
         this.dialogueScreen = new DialogueScreen(gameScreen);
         setScreen(this.titleScreen);
     }

@@ -6,17 +6,17 @@ public class Npcs {
     public Npcs(NPC[] npcs) { this.npcs = npcs; }
 
     public void draw() {
-        for (int i = 0; i < this.npcs.length; i++) {
-            if (this.npcs[i] != null) {
-                this.npcs[i].draw();
+        for (NPC npc : this.npcs) {
+            if (npc != null) {
+                npc.draw();
             }
         }
     }
 
     public void update() {
-        for (int i = 0; i < this.npcs.length; i++) {
-            if (this.npcs[i] != null) {
-                this.npcs[i].update();
+        for (NPC npc : this.npcs) {
+            if (npc != null) {
+                npc.update();
             }
         }
     }

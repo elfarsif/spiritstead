@@ -21,14 +21,15 @@ public class GameScreen implements Screen {
     private final UI ui;
     private final DayCycle dayCycle;
 
-    public GameScreen(Player player, Npcs npcs, GameObjects objects, TileManager tileM, EventHandler eHandler, UI ui) {
+    public GameScreen(Player player, Npcs npcs, GameObjects objects, TileManager tileM, EventHandler eHandler, UI ui,
+                      DayCycle dayCycle) {
         this.player = player;
         this.npcs = npcs;
         this.objects = objects;
         this.tileM = tileM;
         this.eHandler = eHandler;
         this.ui = ui;
-        this.dayCycle = new DayCycle(new FrameGate(60), new BlackAlphaFrames());
+        this.dayCycle = dayCycle;
     }
 
     @Override
