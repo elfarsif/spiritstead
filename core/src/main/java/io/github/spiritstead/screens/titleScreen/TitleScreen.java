@@ -21,8 +21,9 @@ public class TitleScreen implements Screen {
     private final Font titleFont;
     private final GlyphLayout layout = new GlyphLayout();
     private final BlackTexture blackTexture;
-    public OptionCursor optionCursor;
     private final Options options;
+
+    public OptionCursor optionCursor;
 
     private static final String TITLE = "SpiritVale";
 

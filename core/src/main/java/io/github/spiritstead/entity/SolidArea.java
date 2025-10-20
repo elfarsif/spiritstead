@@ -13,14 +13,8 @@ public class SolidArea {
         this.defaultY = rect.y;
     }
 
-    public Rectangle getRect() {
-        return rect;
-    }
-    public int getDefaultX() {
-        return defaultX;
-    }
-    public int getDefaultY() {
-        return defaultY;
-    }
+    public Rectangle getRect() { return rect; }
+    public int getDefaultX() { return defaultX; }
+    public int getDefaultY() { return defaultY; }
 
 }
