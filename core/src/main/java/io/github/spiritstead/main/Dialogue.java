@@ -1,12 +1,12 @@
-package io.github.spiritstead.dialogueTree;
+package io.github.spiritstead.main;
 
-import io.github.spiritstead.main.Game;
+import io.github.spiritstead.dialogue.*;
 
-public class Dialogues {
+public class Dialogue {
     public final Node axeFoundDialog;
     public final Node helpFindAxe;
 
-    public Dialogues() {
+    public Dialogue() {
         this.axeFoundDialog =
                 Node.builder().text("you have the axe").phase(DialoguePhase.ADVANCING)
                         .left(
@@ -31,19 +31,5 @@ public class Dialogues {
                                         ).build()
                         ).build();
 
-       /* this.testConvo = new DialogueNode("i am mayor who are you", DialoguePhase.ADVANCING);
-        this.testConvo.left = new DialogueNode("I have more to say first", DialoguePhase.ADVANCING);
-        this.testConvo.left.left = new DialogueNode("I am left", DialoguePhase.CHOOSING);
-        this.testConvo.left.right = new DialogueNode("I am right", DialoguePhase.CHOOSING);
-        this.testConvo.left.left.left = new DialogueNode("Hello left", DialoguePhase.CHOOSINGRESPONSE, new ArrayList<>(Arrays.asList(
-            new SpawnAxe(),
-            new IncreaseXP()
-        )));
-        this.testConvo.left.right.left = new DialogueNode("Hello right", DialoguePhase.CHOOSINGRESPONSE, new ArrayList<>(Arrays.asList(
-            new SpawnAxe(),
-            new IncreaseXP()
-        )));
-        this.testConvo.left.left.left.left = new DialogueNode("I am deep in conversation", DialoguePhase.ADVANCING);
-   */
     }
 }

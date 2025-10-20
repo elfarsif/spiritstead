@@ -1,4 +1,4 @@
-package io.github.spiritstead.dialogueTree;
+package io.github.spiritstead.dialogue;
 
 import java.util.ArrayList;
 
@@ -16,11 +16,11 @@ public class NodeBuilder {
     public NodeBuilder addEvent(DialogueEvent event) { this.dialogueEvents.add(event); return this; }
     public NodeBuilder addEvents(ArrayList<DialogueEvent> events) { this.dialogueEvents = dialogueEvents; return this; }
 
-    public String getText() { return text; }
-    public DialoguePhase getPhase() { return phase; }
-    public Node getLeft() { return left; }
-    public Node getRight() { return right; }
-    public ArrayList<DialogueEvent> getDialogueEvents() { return dialogueEvents; }
+    protected String getText() { return text; }
+    protected DialoguePhase getPhase() { return phase; }
+    protected Node getLeft() { return left; }
+    protected Node getRight() { return right; }
+    protected ArrayList<DialogueEvent> getDialogueEvents() { return dialogueEvents; }
 
     public Node build() { return new Node(this); }
 

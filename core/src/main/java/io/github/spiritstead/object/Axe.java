@@ -35,7 +35,7 @@ public class Axe implements GameObject {
     public void interact() {
         Game.ui.gameUIScreen.showMessage("You got an axe!");
         Game.player.inventory.add(this);
-        Game.player.inventory.selectedItem = this;
+        Game.player.inventory.setSelectedItem(this);
         System.out.println(Game.player.inventory);
         for (int i = 0; i < Game.aSetter.obj.size(); i++) {
             if (Game.aSetter.obj.get(i) == this) {

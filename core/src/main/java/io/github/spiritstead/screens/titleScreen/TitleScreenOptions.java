@@ -13,12 +13,7 @@ public enum TitleScreenOptions {
         this.string = string;
     }
 
-    public int getValue() {
-        return value;
-    }
-
-    public String getString() {
-        return this.string;
-    }
+    public int getValue() { return this.value; }
+    public String getString() { return this.string; }
 
 }

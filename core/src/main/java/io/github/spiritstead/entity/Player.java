@@ -29,7 +29,6 @@ public class Player implements Collidable, Moveable {
     private Collision collision;
     private TileCollisionType tileCollision;
     private WorldPosition worldPosition = new WorldPosition();
-    private int axeAnimationCount = 0;
     private Animation axeAnimation;
 
     public Direction direction;
@@ -53,7 +52,7 @@ public class Player implements Collidable, Moveable {
         this.collision = new Collision();
         this.tileCollision = new TileCollisionType(Game.tileM, this);
         this.stateHandler = new StateHandler(PlayerState.NORMAL);
-        this.axeAnimation = new Animation(this.stateHandler, new ArrayList<>(Arrays.asList(
+        this.axeAnimation = Animation.singleAction(new FrameGate(30), this.stateHandler, new ArrayList<>(Arrays.asList(
                 new Sprite(new Texture("player/right1.png")),
                 new Sprite(new Texture("player/right2.png"))
         )));
@@ -64,7 +63,7 @@ public class Player implements Collidable, Moveable {
 
     private void interactObject(GameObject gameObject) {
         if (gameObject instanceof Tree) {
-            if (inventory.selectedItem instanceof Axe) {
+            if (inventory.getSelectedItem() instanceof Axe) {
                 if (Game.keyH.spacePressed) {
                     Game.keyH.spacePressed = false;
                     stateHandler.setCurrentState(PlayerState.AXING);
@@ -82,9 +81,9 @@ public class Player implements Collidable, Moveable {
         Game.ui.uiScreen = Game.ui.dialogueUI;
         Game.screens.setScreen(Game.screens.dialogueScreen);
         if (inventory.contains(Axe.class)) {
-            npc.setDialogueNode(Game.dialogues.axeFoundDialog);
+            npc.setDialogueNode(Game.dialogue.axeFoundDialog);
         } else {
-            npc.setDialogueNode(Game.dialogues.helpFindAxe);
+            npc.setDialogueNode(Game.dialogue.helpFindAxe);
         }
         npc.interact();
     }
@@ -169,7 +168,9 @@ public class Player implements Collidable, Moveable {
     }
     public void draw() {
         if (stateHandler.isState(PlayerState.AXING)) {
-            this.axeAnimation.drawSingleLoop(screenPosition.getX(), screenPosition.getY(), ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+            Game.keyH.inputGate.close();
+            this.axeAnimation.draw();
+            Game.batch.draw(axeAnimation.getCurrentSprite(), screenPosition.getX(), screenPosition.getY(), ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
         } else if (stateHandler.isState(PlayerState.NORMAL)) {
             drawPlayer();
             this.drawSolidArea();

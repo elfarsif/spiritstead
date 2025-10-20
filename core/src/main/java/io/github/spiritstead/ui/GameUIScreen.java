@@ -57,15 +57,15 @@ public class GameUIScreen implements UIScreen {
                 inventoryBar.getHeight() * ScreenSetting.SCALE);
 
         float x = (ScreenSetting.SCREEN_WIDTH / 2 - inventoryBar.getWidth() * ScreenSetting.SCALE / 2) + 3;
-        for (int i = 0; i < Game.player.inventory.items.size(); i++) {
+        for (int i = 0; i < Game.player.inventory.getItems().size(); i++) {
             int y = ScreenSetting.TILE_SIZE + 3 * ScreenSetting.SCALE;
-            Game.batch.draw(Game.player.inventory.items.get(i).getImage(),
+            Game.batch.draw(Game.player.inventory.getItems().get(i).getImage(),
                     x,
                     ScreenSetting.TILE_SIZE + 3 * ScreenSetting.SCALE,
                     ScreenSetting.TILE_SIZE,
                     ScreenSetting.TILE_SIZE
             );
-            if (Game.player.inventory.items.get(i) == Game.player.inventory.selectedItem) {
+            if (Game.player.inventory.getItems().get(i) == Game.player.inventory.getSelectedItem()) {
                 Game.batch.draw(this.inventoryScroller, x, y);
             }
             x += ScreenSetting.TILE_SIZE;

@@ -2,7 +2,7 @@ package io.github.spiritstead.entity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
-import io.github.spiritstead.dialogueTree.*;
+import io.github.spiritstead.dialogue.*;
 import io.github.spiritstead.main.*;
 import io.github.spiritstead.tools.FrameGate;
 
@@ -14,28 +14,26 @@ import java.util.Map;
 public class Mayor implements NPC {
     private StateHandler stateHandler;
     private Sprite sprite;
-    Sprites sprites;
+    private Sprites sprites;
     private Mover mover;
-    public int spriteNum = 1;
+    private int spriteNum = 1;
     private SolidArea solidArea;
-    public boolean collisionOn = false;
+    private boolean collisionOn = false;
     private int speed;
     private Direction direction;
-    GamePanel gp;
     private FrameGate frameGate;
     private TileCollisionType tileCollision;
     private Collision collision;
-    public WorldPosition worldPosition = new WorldPosition();
-    public Map<Integer, String> allDialogue = new HashMap<>();
+    private WorldPosition worldPosition = new WorldPosition();
+    private Map<Integer, String> allDialogue = new HashMap<>();
     private int screenX, screenY;
-    public Node node;
+    private Node node;
     private FrameGate walkingFrameGate;
     private Animation axeAnimation, talkingAnimation;
     private Node nodeTempLeft;
     private Node nodeTempRight;
 
-    public Mayor(GamePanel gp) {
-        this.gp = gp;
+    public Mayor() {
         this.mover = new Mover(this);
         this.sprites = new Sprites();
         this.frameGate = new FrameGate(120);
@@ -50,11 +48,11 @@ public class Mayor implements NPC {
         this.walkingFrameGate = new FrameGate(30);
         this.stateHandler = new StateHandler(NpcState.AXING);
 
-        this.axeAnimation = new Animation(new FrameGate(30), new ArrayList<>(Arrays.asList(
+        this.axeAnimation = Animation.looping(new FrameGate(30), new ArrayList<>(Arrays.asList(
                 sprites.down1,
                 sprites.down2
         )));
-        this.talkingAnimation = new Animation(new FrameGate(30), new ArrayList<>(Arrays.asList(
+        this.talkingAnimation = Animation.looping(new FrameGate(30), new ArrayList<>(Arrays.asList(
                 sprites.right1
         )));
     }
@@ -110,9 +108,7 @@ public class Mayor implements NPC {
                 Game.ui.uiScreen = Game.ui.dialogueUI;
             }
             this.nodeTempLeft = Node.builder().addEvents(this.node.getDialogueEvents()).build();
-//                    new Node("", null, this.node.getDialogueEvents(), null, null);
             this.nodeTempRight = Node.builder().addEvents(this.node.getPrev().getPrev().getRight().getLeft().getDialogueEvents()).build();
-//                    new Node("", null, this.node.getPrev().getPrev().getRight().getLeft().getDialogueEvents(), null, null);
             this.node = this.node.nextLeft();
         }
 
@@ -159,7 +155,8 @@ public class Mayor implements NPC {
                 updateSprite();
                 Game.batch.draw(sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
             } else if (stateHandler.isState(NpcState.CONVERSING)) {
-                talkingAnimation.draw(screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+                talkingAnimation.draw();
+                Game.batch.draw(talkingAnimation.getCurrentSprite(), screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
                 if (this.nodeTempLeft != null) {
                     if (Game.ui.playerDialogueUIScreen.optionCursor.optionNum == 0) {
                         this.nodeTempLeft.drawEvent();
@@ -168,8 +165,8 @@ public class Mayor implements NPC {
                     }
                 }
             } else if (stateHandler.isState(NpcState.AXING)) {
-                axeAnimation.draw(screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
-
+                axeAnimation.draw();
+                Game.batch.draw(axeAnimation.getCurrentSprite(), screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
             }
 
         }

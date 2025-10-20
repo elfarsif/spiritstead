@@ -1,20 +1,18 @@
-package io.github.spiritstead.dialogueTree;
+package io.github.spiritstead.dialogue;
 
 import java.util.ArrayList;
 
 public class Node {
     private final String text;
     private final DialoguePhase phase;
+    private final ArrayList<DialogueEvent> dialogueEvents;
     private final Node left;
     private final Node right;
-    private final ArrayList<DialogueEvent> dialogueEvents;
     private Node prev;
 
-    public static NodeBuilder builder() {
-        return new NodeBuilder();
-    }
+    public static NodeBuilder builder() { return new NodeBuilder(); }
 
-    public Node(NodeBuilder builder) {
+    protected Node(NodeBuilder builder) {
         this.text = builder.getText();
         this.phase = builder.getPhase();
         this.left = builder.getLeft();

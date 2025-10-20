@@ -1,8 +1,5 @@
 package io.github.spiritstead.entity;
 
-import io.github.spiritstead.main.Game;
-import jdk.internal.foreign.abi.Binding;
-
 public class Mover {
     private final Moveable moveable;
 

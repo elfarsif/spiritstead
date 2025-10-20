@@ -1,4 +1,4 @@
-package io.github.spiritstead.dialogueTree;
+package io.github.spiritstead.dialogue;
 
 public enum DialoguePhase {
     CHOOSING,

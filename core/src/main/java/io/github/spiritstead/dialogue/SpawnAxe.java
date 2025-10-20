@@ -1,4 +1,4 @@
-package io.github.spiritstead.dialogueTree;
+package io.github.spiritstead.dialogue;
 
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.ScreenSetting;

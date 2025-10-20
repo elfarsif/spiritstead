@@ -17,53 +17,42 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TitleScreen implements Screen {
-    private GamePanel gp;
-    private Font font;
-    private Font titleFont;
-    private GlyphLayout layout = new GlyphLayout();
-    private SpriteBatch batch;
-    private BlackTexture blackTexture;
+    private final Font font;
+    private final Font titleFont;
+    private final GlyphLayout layout = new GlyphLayout();
+    private final BlackTexture blackTexture;
     public OptionCursor optionCursor;
-    private Options options;
+    private final Options options;
 
-    public TitleScreen(GamePanel gp) {
-        this.gp = gp;
-        font = new Font("fonts/maruMonicaBold.fnt");
-        titleFont = new Font("fonts/alagard_60.fnt");
-        this.blackTexture = new BlackTexture(gp.sSetting.SCREEN_WIDTH, gp.sSetting.SCREEN_HEIGHT);
-        this.batch = Game.batch;
-        this.optionCursor = new OptionCursor(this.font);
-        this.options = new Options(font, ScreenSetting.TILE_SIZE, new ArrayList<String>(Arrays.asList(
-            TitleScreenOptions.NEW_GAME.getString(),
-            TitleScreenOptions.LOAD_GAME.getString(),
-            TitleScreenOptions.QUIT.getString()
-        )));
+    private static final String TITLE = "SpiritVale";
+
+    public TitleScreen(Font font, Font titleFont, BlackTexture blackTexture, OptionCursor optionCursor,
+                       Options options) {
+        this.font = font;
+        this.titleFont = titleFont;
+        this.blackTexture = blackTexture;
+        this.optionCursor = optionCursor;
+        this.options = options;
     }
 
     private void drawTitleScreen() {
-        batch.draw(blackTexture.texture, 0, 0);
+        Game.batch.draw(blackTexture.texture, 0, 0);
 
         //TITLE NAME placment
-        titleFont.getBitmapFont().getData().setScale(1.5f);
-        String text = "Spiritvale";
+        this.titleFont.getBitmapFont().getData().setScale(1.5f);
+        String text = TITLE;
         float x = getXforCenteredText(titleFont.getBitmapFont(), text);
-        float y = gp.sSetting.SCREEN_HEIGHT * 2 / 3 + layout.height / 2;
+        float y = (float) (ScreenSetting.SCREEN_HEIGHT * 2) / 3 + layout.height / 2;
 
         //Shadow
-        titleFont.getBitmapFont().setColor(Color.GRAY);
-        titleFont.getBitmapFont().draw(batch, text, x + 2, y - 2);
+        this.titleFont.getBitmapFont().setColor(Color.GRAY);
+        this.titleFont.getBitmapFont().draw(Game.batch, text, x + 2, y - 2);
 
         //Title
-        titleFont.getBitmapFont().setColor(Color.WHITE);
-        titleFont.getBitmapFont().draw(batch, text, x, y);
+        this.titleFont.getBitmapFont().setColor(Color.WHITE);
+        this.titleFont.getBitmapFont().draw(Game.batch, text, x, y);
 
-        //Character image
-//        float imageSize = ScreenSetting.TILE_SIZE * 2;
-//        x = gp.sSetting.SCREEN_WIDTH / 2 - imageSize / 2;
-//        y = gp.sSetting.SCREEN_HEIGHT / 2 - imageSize / 2;
-//        batch.draw(Game.player.sprites.down1, x, y, imageSize, imageSize);
-
-        y = gp.sSetting.SCREEN_HEIGHT / 2;
+        y = (float) ScreenSetting.SCREEN_HEIGHT / 2;
         //MENU
         font.getBitmapFont().getData().setScale(1f);
 
@@ -89,7 +78,7 @@ public class TitleScreen implements Screen {
 
     private float getXforCenteredText(BitmapFont font, String text) {
         layout.setText(font, text);
-        return gp.sSetting.SCREEN_WIDTH / 2 - layout.width / 2;
+        return (float) ScreenSetting.SCREEN_WIDTH / 2 - layout.width / 2;
 
     }
 
