@@ -33,8 +33,8 @@ public class Game {
         tileM = new TileManager(gp);
         aSetter = new AssetSetter(gp);
         player = new Player(gp);
-        screens = new Screens(gp, this.player);
         ui = new UI();
+        screens = new Screens(gp, this.player);
         dialogue = new Dialogue();
         Gdx.input.setInputProcessor(this.keyH);
     }

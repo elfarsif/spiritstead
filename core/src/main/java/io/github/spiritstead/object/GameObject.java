@@ -11,7 +11,7 @@ import io.github.spiritstead.main.ScreenSetting;
 import java.awt.*;
 
 public interface GameObject extends Collidable {
-    public void draw(SpriteBatch batch, GamePanel gp);
+    public void draw(SpriteBatch batch);
 
     public void interact();
 

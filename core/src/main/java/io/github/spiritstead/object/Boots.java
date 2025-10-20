@@ -31,7 +31,7 @@ public class Boots implements GameObject {
         worldPosition.setXY(worldX, worldY);
     }
 
-    public void draw(SpriteBatch batch, GamePanel gp) {
+    public void draw(SpriteBatch batch) {
         objectDrawer.draw(image);
     }
 

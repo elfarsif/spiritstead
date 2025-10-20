@@ -1,83 +1,77 @@
 package io.github.spiritstead.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import io.github.spiritstead.entity.NPC;
 import io.github.spiritstead.entity.Player;
-import io.github.spiritstead.main.AssetSetter;
+import io.github.spiritstead.main.DayCycle;
+import io.github.spiritstead.main.EventHandler;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
-import io.github.spiritstead.screens.titleScreen.TitleScreenOptions;
+import io.github.spiritstead.object.GameObject;
+import io.github.spiritstead.tile.TileManager;
 import io.github.spiritstead.tools.BlackAlphaFrames;
 import io.github.spiritstead.tools.FrameGate;
+import io.github.spiritstead.ui.UI;
+
+import java.util.List;
 
 public class GameScreen implements Screen {
-    private GamePanel gp;
-    private AssetSetter assetSetter;
-    private Player player;
-    //Day Night
-    private int frameCounter = 0;
-    private FrameGate fadeFrameGate;
-    private BlackAlphaFrames blackAlphaFrames;
+    private final Player player;
+    private final NPC[] npcs;
+    private final List<GameObject> obj;
+    private final TileManager tileM;
+    private final EventHandler eHandler;
+    private final UI ui;
+    private final DayCycle dayCycle;
 
-    public GameScreen(GamePanel gp, Player player) {
-        this.gp = gp;
-        this.assetSetter = Game.aSetter;
+    public GameScreen(Player player, NPC[] npcs, List<GameObject> obj, TileManager tileM, EventHandler eHandler, UI ui) {
         this.player = player;
-        //Day and night
-        this.fadeFrameGate = new FrameGate(60);
-        blackAlphaFrames = new BlackAlphaFrames();
-        frameCounter = blackAlphaFrames.frames.size() - 1;
+        this.npcs = npcs;
+        this.obj = obj;
+        this.tileM = tileM;
+        this.eHandler = eHandler;
+        this.ui = ui;
+        this.dayCycle = new DayCycle(new FrameGate(60), new BlackAlphaFrames());
     }
 
     @Override
     public void draw() {
-        Game.tileM.draw(Game.batch);
-        drawObjects();
-        drawNPCS();
-        player.draw();
-        Game.eHandler.draw(Game.batch);
-        Game.ui.draw();
-//        drawDayNightCycle();
-    }
-
-    private void drawDayNightCycle() {
-        if (fadeFrameGate.tick() && frameCounter > 3) {
-            frameCounter--;
-            fadeFrameGate.reset();
-        }
-
-        Game.batch.draw(blackAlphaFrames.frames.get(frameCounter), 0, 0);
+        this.tileM.draw(Game.batch);
+        this.drawObjects();
+        this.drawNPCS();
+        this.player.draw();
+        this.eHandler.draw(Game.batch);
+        this.ui.draw();
+        this.dayCycle.draw();
     }
 
     public void update() {
-        player.update();
-        updateNPCs();
+        this.player.update();
+        this.updateNPCs();
     }
 
     public void dispose() {
-        Game.ui.dispose();
+        this.ui.dispose();
     }
 
     private void drawNPCS() {
-        for (int i = 0; i < Game.aSetter.npcs.length; i++) {
-            if (Game.aSetter.npcs[i] != null) {
-                Game.aSetter.npcs[i].draw();
+        for (int i = 0; i < this.npcs.length; i++) {
+            if (this.npcs[i] != null) {
+                this.npcs[i].draw();
             }
         }
     }
 
     private void drawObjects() {
-        for (int i = 0; i < Game.aSetter.obj.size(); i++) {
-            if (assetSetter.obj.get(i) != null) {
-                assetSetter.obj.get(i).draw(Game.batch, this.gp);
+        for (int i = 0; i < this.obj.size(); i++) {
+            if (this.obj.get(i) != null) {
+                this.obj.get(i).draw(Game.batch);
             }
         }
     }
 
     private void updateNPCs() {
-        for (int i = 0; i < Game.aSetter.npcs.length; i++) {
-            if (Game.aSetter.npcs[i] != null) {
-                Game.aSetter.npcs[i].update();
+        for (int i = 0; i < this.npcs.length; i++) {
+            if (this.npcs[i] != null) {
+                this.npcs[i].update();
             }
         }
     }

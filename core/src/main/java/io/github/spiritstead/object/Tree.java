@@ -24,7 +24,7 @@ public class Tree implements GameObject {
     }
 
     @Override
-    public void draw(SpriteBatch batch, GamePanel gp) { objectDrawer.draw(image); }
+    public void draw(SpriteBatch batch) { objectDrawer.draw(image); }
     @Override
     public Sprite getImage() {
         return this.image;

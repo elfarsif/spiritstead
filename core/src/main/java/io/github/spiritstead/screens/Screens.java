@@ -3,6 +3,7 @@ package io.github.spiritstead.screens;
 import com.badlogic.gdx.Gdx;
 import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.font.Font;
+import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.screens.titleScreen.TitleScreen;
@@ -38,7 +39,7 @@ public class Screens {
                         )))
         );
         this.cutsceneScreen = new CutsceneScreen(gp);
-        this.gameScreen = new GameScreen(gp, player);
+        this.gameScreen = new GameScreen(player, Game.aSetter.npcs, Game.aSetter.obj, Game.tileM, Game.eHandler, Game.ui);
         this.dialogueScreen = new DialogueScreen(gameScreen);
         setScreen(this.titleScreen);
     }
