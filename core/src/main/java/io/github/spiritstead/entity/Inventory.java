@@ -1,18 +1,14 @@
 package io.github.spiritstead.entity;
 
-import io.github.spiritstead.object.Axe;
 import io.github.spiritstead.object.GameObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory {
-    private List<GameObject> items;
+public final class Inventory {
+    private final List<GameObject> items;
     private GameObject selectedItem;
 
-    public Inventory(List<GameObject> items) {
-        this.items = items;
-    }
+    public Inventory(List<GameObject> items) { this.items = items; }
 
     public boolean contains(Class objectClass) {
         for (GameObject item : items) {

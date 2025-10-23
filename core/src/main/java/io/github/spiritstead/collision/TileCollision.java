@@ -4,20 +4,22 @@ import io.github.spiritstead.entity.Collidable;
 import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.tile.TileManager;
 
-public class TileCollisionType implements CollisionType {
-    int entityLeftWorldX, entityRightWorldX, entityTopWorldY, entityBottomWorldY;
-    int entityLeftCol, entityRightCol, entityTopRow, entityBottomRow;
-    int tileNum1, tileNum2;
-    TileManager tileM;
-    private Collidable entity;
+public class TileCollision implements CollisionType {
+    private final TileManager tileM;
+    private final Collidable entity;
 
-    public TileCollisionType(TileManager tileM, Collidable entity) {
+    private int entityLeftWorldX, entityRightWorldX, entityTopWorldY, entityBottomWorldY;
+    private int entityLeftCol, entityRightCol, entityTopRow, entityBottomRow;
+    private int tileNum1, tileNum2;
+    private boolean isCollinding;
+
+    public TileCollision(TileManager tileM, Collidable entity) {
         this.tileM = tileM;
         this.entity = entity;
     }
 
-    public void check() {
-        entity.setCollisionOn(false);
+    public boolean check() {
+        this.isCollinding = false;
         initializeEntitySolidArea();
         intializeLinesForCollisionDetection();
         switch (entity.getDirection()) {
@@ -35,6 +37,7 @@ public class TileCollisionType implements CollisionType {
                 break;
         }
 
+        return this.isCollinding;
     }
 
     private void checkRightCollision() {
@@ -44,7 +47,7 @@ public class TileCollisionType implements CollisionType {
         tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.setCollisionOn(true);
+            this.isCollinding = true;
         }
     }
 
@@ -55,7 +58,7 @@ public class TileCollisionType implements CollisionType {
         tileNum2 = tileM.mapTileNum[entityLeftCol][entityBottomRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.setCollisionOn(true);
+            this.isCollinding = true;
         }
     }
 
@@ -66,7 +69,7 @@ public class TileCollisionType implements CollisionType {
         tileNum2 = tileM.mapTileNum[entityRightCol][entityBottomRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.setCollisionOn(true);
+            this.isCollinding = true;
         }
     }
 
@@ -77,7 +80,7 @@ public class TileCollisionType implements CollisionType {
         tileNum2 = tileM.mapTileNum[entityRightCol][entityTopRow];
 
         if (tileM.tile[tileNum1].collision || tileM.tile[tileNum2].collision) {
-            entity.setCollisionOn(true);
+            this.isCollinding = true;
         }
     }
 

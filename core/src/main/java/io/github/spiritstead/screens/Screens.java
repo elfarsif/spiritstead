@@ -43,7 +43,7 @@ public class Screens {
         this.gameScreen = new GameScreen(
                 player,
                 new Npcs(Game.aSetter.npcs),
-                new GameObjects(Game.aSetter.obj),
+                Game.aSetter.gameObjects,
                 Game.tileM,
                 Game.eHandler,
                 Game.ui,
@@ -53,13 +53,9 @@ public class Screens {
         setScreen(this.titleScreen);
     }
 
-    public void setScreen(Screen screen) {
-        this.screen = screen;
-    }
+    public void setScreen(Screen screen) { this.screen = screen; }
 
-    public void drawScreen() {
-        screen.draw();
-    }
+    public void drawScreen() { screen.draw(); }
 
     public void dispose() {
         titleScreen.dispose();

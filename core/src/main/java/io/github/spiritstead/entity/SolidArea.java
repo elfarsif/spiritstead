@@ -2,7 +2,7 @@ package io.github.spiritstead.entity;
 
 import java.awt.*;
 
-public class SolidArea {
+public final class SolidArea {
     private final Rectangle rect;
     private final int defaultX;
     private final int defaultY;

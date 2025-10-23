@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * This class is used to animate a list of sprites
  */
-public class Animation {
+public final class Animation implements Updatable {
     private final List<Sprite> sprites;
     private final FrameGate frameGate;
     private final Runnable onCycleComplete;
@@ -36,8 +36,8 @@ public class Animation {
         };
         return new Animation(gate, sprites, onCycleComplete);
     }
-
-    public void draw() {
+    @Override
+    public void update() {
         if (frameGate.tick()) {
             spriteNum++;
             if (spriteNum == sprites.size()) {

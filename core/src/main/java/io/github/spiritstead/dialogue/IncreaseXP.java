@@ -17,7 +17,8 @@ public class IncreaseXP implements DialogueEvent {
 
     @Override
     public void handle() {
-        Game.player.xp++;
+        Game.player.increaseXP(1);
+        System.out.println("Player XP: " + Game.player.getXp());
     }
 
     @Override

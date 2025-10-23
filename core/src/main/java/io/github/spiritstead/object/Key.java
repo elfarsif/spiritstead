@@ -35,7 +35,7 @@ public class Key implements GameObject {
 
     @Override
     public void interact() {
-        Game.player.hasKey++;
+        Game.player.addKey();
         Game.audioPlayer.playSE(SoundEffect.COIN);
         Game.ui.gameUIScreen.showMessage("You got a key!");
         for (int i = 0; i < Game.aSetter.obj.size(); i++) {

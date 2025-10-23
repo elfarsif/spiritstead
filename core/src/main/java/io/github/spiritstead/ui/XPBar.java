@@ -16,7 +16,7 @@ public class XPBar {
     public void draw(float screenX, float screenY) {
         xpBar.draw(screenX, screenY);
         float screenXAccumulator = screenX;
-        for (int i = 0; i < Game.player.xp; i++) {
+        for (int i = 0; i < Game.player.getXp(); i++) {
             xpBarFill.draw(
                     screenX + (8 * ScreenSetting.SCALE),
                     screenY + (2 * ScreenSetting.SCALE)

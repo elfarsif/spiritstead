@@ -4,9 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import io.github.spiritstead.tools.LetterByLetterEffect;
 
-public class Font {
+public final class Font {
     private BitmapFont bitmapFont;
     private String text;
     private int x, y;

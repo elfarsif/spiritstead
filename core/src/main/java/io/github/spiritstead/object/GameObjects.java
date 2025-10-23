@@ -4,7 +4,7 @@ import io.github.spiritstead.main.Game;
 
 import java.util.List;
 
-public class GameObjects {
+public final class GameObjects {
     private final List<GameObject> gameObjects;
 
     public GameObjects(List<GameObject> gameObjects) { this.gameObjects = gameObjects; }

@@ -1,6 +1,6 @@
 package io.github.spiritstead.entity;
 
-public class Mover {
+public final class Mover {
     private final Moveable moveable;
 
     public Mover(Moveable moveable) {

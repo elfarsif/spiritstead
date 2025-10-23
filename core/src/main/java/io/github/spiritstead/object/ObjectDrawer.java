@@ -7,7 +7,7 @@ import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.ScreenSetting;
 
 public class ObjectDrawer {
-    private WorldPosition worldPosition = new WorldPosition();
+    private WorldPosition worldPosition;
 
     public ObjectDrawer(WorldPosition worldPosition) {
         this.worldPosition = worldPosition;
@@ -15,14 +15,14 @@ public class ObjectDrawer {
 
     public void draw(Sprite image) {
         //Calculate where on the screen to draw the tile relative to the player
-        int screenX = worldPosition.getX() - Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX();
-        int screenY = worldPosition.getY() - Game.player.getWorldPosition().getY() + Game.player.screenPosition.getY();
+        int screenX = worldPosition.getX() - Game.player.getWorldPosition().getX() + Game.player.getScreenPosition().getX();
+        int screenY = worldPosition.getY() - Game.player.getWorldPosition().getY() + Game.player.getScreenPosition().getY();
 
         //only draw the tile if it is within the screen bounds plus one tile size to blend
-        if (worldPosition.getX() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getX() - Game.player.screenPosition.getX() &&
-            worldPosition.getX() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX() &&
-            worldPosition.getY() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getY() - Game.player.screenPosition.getY() &&
-            worldPosition.getY() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getY() + Game.player.screenPosition.getY()) {
+        if (worldPosition.getX() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getX() - Game.player.getScreenPosition().getX() &&
+                worldPosition.getX() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.getScreenPosition().getX() &&
+                worldPosition.getY() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getY() - Game.player.getScreenPosition().getY() &&
+                worldPosition.getY() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getY() + Game.player.getScreenPosition().getY()) {
 
             Game.batch.draw(image, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
         }

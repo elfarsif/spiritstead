@@ -11,13 +11,11 @@ It extends InputAdapter to handle key events.
 It can be used to check if a key is pressed or released.
  */
 public class KeyHandler implements InputProcessor {
-    GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, tPressed,
             jPressed, kPressed;
     public InputGate inputGate;
 
-    public KeyHandler(GamePanel gp) {
-        this.gp = gp;
+    public KeyHandler() {
         this.inputGate = new InputGate();
     }
 
@@ -51,7 +49,6 @@ public class KeyHandler implements InputProcessor {
     private void dialogueScreen(int code) {
         if (code == Input.Keys.SPACE) {
             Game.aSetter.npcs[0].interact();
-
         } else if (code == Input.Keys.W) {
             Game.ui.playerDialogueUIScreen.optionCursor.optionNum--;
         } else if (code == Input.Keys.S) {

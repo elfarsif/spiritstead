@@ -1,26 +1,28 @@
 package io.github.spiritstead.entity;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
+import java.util.List;
 
-public class Sprites {
-    public Sprite up1, up2, down1, down2, left1, left2, right1, right2;
-    public EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
+public final class Sprites {
+    private final List<Sprite> sprites;
+    private final EnumMap<Direction, Sprite[]> frames = new EnumMap<>(Direction.class);
 
-    public void load() {
-        up1 = new Sprite(new Texture("player/up1.png"));
-        up2 = new Sprite(new Texture("player/up2.png"));
-        down1 = new Sprite(new Texture("player/down1.png"));
-        down2 = new Sprite(new Texture("player/down2.png"));
-        left1 = new Sprite(new Texture("player/left1.png"));
-        left2 = new Sprite(new Texture("player/left2.png"));
-        right1 = new Sprite(new Texture("player/right1.png"));
-        right2 = new Sprite(new Texture("player/right2.png"));
-        frames.put(Direction.UP, new Sprite[]{up1, up2});
-        frames.put(Direction.DOWN, new Sprite[]{down1, down2});
-        frames.put(Direction.LEFT, new Sprite[]{left1, left2});
-        frames.put(Direction.RIGHT, new Sprite[]{right1, right2});
+    public Sprites(Sprite... n) {
+        this.sprites = new ArrayList<Sprite>();
+        Collections.addAll(sprites, n);
+        this.frames.put(Direction.UP, new Sprite[] {this.sprites.get(0), this.sprites.get(1)});
+        this.frames.put(Direction.DOWN, new Sprite[] {this.sprites.get(2), this.sprites.get(3)});
+        this.frames.put(Direction.LEFT, new Sprite[] {this.sprites.get(4), this.sprites.get(5)});
+        this.frames.put(Direction.RIGHT, new Sprite[] {this.sprites.get(6), this.sprites.get(7)});
     }
+
+    public Sprite getNextSprite(Direction direction, int spriteNum) {
+        return this.frames.get(direction)[spriteNum - 1];
+    }
+
+    public List<Sprite> getList() { return this.sprites; }
 }

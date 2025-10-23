@@ -1,6 +1,5 @@
 package io.github.spiritstead.screens;
 
-import io.github.spiritstead.entity.NPC;
 import io.github.spiritstead.entity.Npcs;
 import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.main.DayCycle;
@@ -8,8 +7,6 @@ import io.github.spiritstead.main.EventHandler;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.object.GameObjects;
 import io.github.spiritstead.tile.TileManager;
-import io.github.spiritstead.tools.BlackAlphaFrames;
-import io.github.spiritstead.tools.FrameGate;
 import io.github.spiritstead.ui.UI;
 
 public class GameScreen implements Screen {
@@ -40,7 +37,7 @@ public class GameScreen implements Screen {
         this.player.draw();
         this.eHandler.draw(Game.batch);
         this.ui.draw();
-        this.dayCycle.draw();
+//        this.dayCycle.draw();
     }
 
     public void update() {

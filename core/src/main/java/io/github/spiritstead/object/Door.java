@@ -12,7 +12,6 @@ import io.github.spiritstead.main.GamePanel;
 public class Door implements GameObject {
     public Sprite image;
     public String name;
-    public boolean collision = false;
     SolidArea solidArea = new SolidArea(0, 0, 48, 48);
     ObjectDrawer objectDrawer;
     private WorldPosition worldPosition = new WorldPosition();
@@ -20,7 +19,6 @@ public class Door implements GameObject {
     public Door() {
         name = "Door";
         image = new Sprite(new Texture("objects/door.png"));
-        collision = true;
         this.objectDrawer = new ObjectDrawer(worldPosition);
     }
 
@@ -35,13 +33,13 @@ public class Door implements GameObject {
 
     @Override
     public void interact() {
-        if (Game.player.hasKey > 0) {
+        if (Game.player.hasKey()) {
             for (int i = 0; i < Game.aSetter.obj.size(); i++) {
                 if (Game.aSetter.obj.get(i) == this) {
                     Game.aSetter.obj.remove(i);
                 }
             }
-            Game.player.hasKey--;
+            Game.player.removeKey();
             Game.ui.gameUIScreen.showMessage("You opened the door!");
         } else {
             Game.ui.gameUIScreen.showMessage("You need a key");

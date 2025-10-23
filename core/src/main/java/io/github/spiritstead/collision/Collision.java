@@ -3,7 +3,7 @@ package io.github.spiritstead.collision;
 import io.github.spiritstead.entity.Collidable;
 import io.github.spiritstead.entity.Moveable;
 
-public class Collision {
+public final class Collision {
     private boolean isColliding = false;
     private Moveable moveable;
     private Collidable collidable;

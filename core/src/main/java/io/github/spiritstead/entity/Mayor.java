@@ -11,62 +11,62 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Mayor implements NPC {
-    private StateHandler stateHandler;
-    private Sprite sprite;
-    private Sprites sprites;
-    private Mover mover;
-    private int spriteNum = 1;
-    private SolidArea solidArea;
-    private boolean collisionOn = false;
-    private int speed;
-    private Direction direction;
-    private FrameGate frameGate;
-    private TileCollisionType tileCollision;
-    private Collision collision;
-    private WorldPosition worldPosition = new WorldPosition();
-    private Map<Integer, String> allDialogue = new HashMap<>();
+public final class Mayor implements NPC {
+    private final StateHandler stateHandler;
+    private final Sprites sprites;
+    private final Mover mover;
+    private final SolidArea solidArea;
+    private final FrameGate frameGate;
+    private final TileCollision tileCollision;
+    private final Collision collision;
+    private final WorldPosition worldPosition = new WorldPosition();
+    private final FrameGate walkingFrameGate;
+    private final Animation axeAnimation, talkingAnimation;
+    private final Direction.Holder direction;
+    private final Map<Integer, String> allDialogue;
+
     private int screenX, screenY;
     private Node node;
-    private FrameGate walkingFrameGate;
-    private Animation axeAnimation, talkingAnimation;
     private Node nodeTempLeft;
     private Node nodeTempRight;
+    private Sprite sprite;
+    private int spriteNum = 1;
+    private boolean collisionOn = false;
+    private int speed;
 
-    public Mayor() {
+    public Mayor(Sprites sprites, Map<Integer, String> allDialogue, SolidArea solidArea, int speed) {
+        this.sprites = sprites;
+        this.allDialogue = allDialogue;
+        this.solidArea = solidArea;
         this.mover = new Mover(this);
-        this.sprites = new Sprites();
         this.frameGate = new FrameGate(120);
-        this.tileCollision = new TileCollisionType(Game.tileM, this);
+        this.tileCollision = new TileCollision(Game.tileM, this);
         this.collision = new Collision();
+        this.direction = new Direction.Holder(Direction.LEFT);
 
-        this.speed = 1;
-        this.solidArea = new SolidArea(0, 0, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
-        this.sprites.load();
-        this.direction = Direction.LEFT;
-        this.allDialogue = Game.script.mayorDialogue;
+        this.speed = speed;
         this.walkingFrameGate = new FrameGate(30);
-        this.stateHandler = new StateHandler(NpcState.AXING);
+        this.stateHandler = new StateHandler(NpcState.MOVING);
 
         this.axeAnimation = Animation.looping(new FrameGate(30), new ArrayList<>(Arrays.asList(
-                sprites.down1,
-                sprites.down2
+                sprites.getNextSprite(Direction.DOWN, 1),
+                sprites.getNextSprite(Direction.DOWN, 2)
         )));
         this.talkingAnimation = Animation.looping(new FrameGate(30), new ArrayList<>(Arrays.asList(
-                sprites.right1
+                sprites.getNextSprite(Direction.RIGHT, 1)
         )));
     }
 
     public void setAction() {
         if (this.frameGate.tick()) {
-            this.direction = Direction.UP;
+            this.direction.set(Direction.UP);
             this.frameGate.reset();
         }
 
     }
 
     public void update() {
-//        setAction();
+        setAction();
         if (this.stateHandler.isState(NpcState.MOVING)) {
             updateMovePlayerAnimation();
             checkCollisions();
@@ -76,9 +76,7 @@ public class Mayor implements NPC {
     }
 
     @Override
-    public void setDialogueNode(Node node) {
-        this.node = node;
-    }
+    public void setDialogueNode(Node node) { this.node = node; }
 
     public void interact() {
         this.stateHandler.setCurrentState(NpcState.CONVERSING);
@@ -128,7 +126,7 @@ public class Mayor implements NPC {
 
     private void checkCollisions() {
         this.collisionOn = false;
-        tileCollision.check();
+        this.collisionOn = tileCollision.check();
         checkPlayerCollision();
         checkObjectCollision();
 
@@ -155,7 +153,7 @@ public class Mayor implements NPC {
                 updateSprite();
                 Game.batch.draw(sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
             } else if (stateHandler.isState(NpcState.CONVERSING)) {
-                talkingAnimation.draw();
+                talkingAnimation.update();
                 Game.batch.draw(talkingAnimation.getCurrentSprite(), screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
                 if (this.nodeTempLeft != null) {
                     if (Game.ui.playerDialogueUIScreen.optionCursor.optionNum == 0) {
@@ -165,7 +163,7 @@ public class Mayor implements NPC {
                     }
                 }
             } else if (stateHandler.isState(NpcState.AXING)) {
-                axeAnimation.draw();
+                axeAnimation.update();
                 Game.batch.draw(axeAnimation.getCurrentSprite(), screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
             }
 
@@ -174,35 +172,19 @@ public class Mayor implements NPC {
 
     private void updateSprite() {
         sprite = null;
-        switch (direction) {
-            case UP:
-                sprite = sprites.frames.get(Direction.UP)[spriteNum - 1];
-                break;
-            case DOWN:
-                sprite = sprites.frames.get(Direction.DOWN)[spriteNum - 1];
-
-                break;
-            case LEFT:
-                sprite = sprites.frames.get(Direction.LEFT)[spriteNum - 1];
-                break;
-            case RIGHT:
-                sprite = sprites.frames.get(Direction.RIGHT)[spriteNum - 1];
-                break;
-            default:
-                sprite = sprites.down1;
-        }
+        sprite = sprites.getNextSprite(this.direction.get(), spriteNum);
     }
 
     private boolean entityIsWithinScreenBounds() {
-        return getWorldPosition().getX() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getX() - Game.player.screenPosition.getX() &&
-                getWorldPosition().getX() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX() &&
-                getWorldPosition().getY() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getY() - Game.player.screenPosition.getY() &&
-                getWorldPosition().getY() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.screenPosition.getY();
+        return getWorldPosition().getX() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getX() - Game.player.getScreenPosition().getX() &&
+                getWorldPosition().getX() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.getScreenPosition().getX() &&
+                getWorldPosition().getY() + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getY() - Game.player.getScreenPosition().getY() &&
+                getWorldPosition().getY() - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getX() + Game.player.getScreenPosition().getY();
     }
 
     private void initialiazeScreenPositionRelativeToPlayer() {
-        this.screenX = getWorldPosition().getX() - Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX();
-        this.screenY = getWorldPosition().getY() - Game.player.getWorldPosition().getY() + Game.player.screenPosition.getY();
+        this.screenX = getWorldPosition().getX() - Game.player.getWorldPosition().getX() + Game.player.getScreenPosition().getX();
+        this.screenY = getWorldPosition().getY() - Game.player.getWorldPosition().getY() + Game.player.getScreenPosition().getY();
     }
 
     @Override
@@ -210,7 +192,7 @@ public class Mayor implements NPC {
     @Override
     public WorldPosition getWorldPosition() { return this.worldPosition; }
     @Override
-    public Direction getDirection() { return this.direction; }
+    public Direction getDirection() { return this.direction.get(); }
     @Override
     public SolidArea getSolidArea() { return this.solidArea; }
     @Override

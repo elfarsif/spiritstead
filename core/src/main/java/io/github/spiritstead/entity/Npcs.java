@@ -1,6 +1,6 @@
 package io.github.spiritstead.entity;
 
-public class Npcs {
+public final class Npcs {
     private final NPC[] npcs;
 
     public Npcs(NPC[] npcs) { this.npcs = npcs; }
@@ -19,6 +19,10 @@ public class Npcs {
                 npc.update();
             }
         }
+    }
+
+    public void checkCollision() {
+
     }
 
 }

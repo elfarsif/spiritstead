@@ -7,69 +7,46 @@ import io.github.spiritstead.entity.Direction;
 import io.github.spiritstead.entity.SolidArea;
 import io.github.spiritstead.entity.WorldPosition;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
 
 public class Axe implements GameObject {
-    private Sprite image;
-    public boolean collision = false;
-    SolidArea solidArea = new SolidArea(0, 0, 48, 48);
-    ObjectDrawer objectDrawer;
-    private WorldPosition worldPosition = new WorldPosition();
+    private final Sprite image;
+    private final SolidArea solidArea;
+    private final ObjectDrawer objectDrawer;
+    private final WorldPosition worldPosition;
 
-    public Axe() {
-        this.image = new Sprite(new Texture("objects/axe.png"));
+    public Axe(Sprite image, SolidArea solidArea, WorldPosition worldPosition) {
+        this.solidArea = solidArea;
+        this.image = image;
+        this.worldPosition = worldPosition;
         this.objectDrawer = new ObjectDrawer(worldPosition);
     }
 
-    public Axe(int worldX, int worldY) {
-        this();
-        worldPosition.setXY(worldX, worldY);
-    }
-
     @Override
-    public void draw(SpriteBatch batch) {
-        objectDrawer.draw(image);
-    }
+    public void draw(SpriteBatch batch) { objectDrawer.draw(image); }
 
     @Override
     public void interact() {
         Game.ui.gameUIScreen.showMessage("You got an axe!");
-        Game.player.inventory.add(this);
-        Game.player.inventory.setSelectedItem(this);
-        System.out.println(Game.player.inventory);
+        Game.player.addToInventory(this);
+        Game.player.selectedItem(this);
         for (int i = 0; i < Game.aSetter.obj.size(); i++) {
             if (Game.aSetter.obj.get(i) == this) {
                 Game.aSetter.obj.remove(i);
             }
         }
     }
-    @Override
-    public Sprite getImage() {
-        return this.image;
-    }
 
     @Override
-    public SolidArea getSolidArea() {
-        return this.solidArea;
-    }
-
+    public Sprite getImage() { return this.image; }
     @Override
-    public void setCollisionOn(boolean collisionOn) {
-
-    }
-
+    public SolidArea getSolidArea() { return this.solidArea; }
     @Override
-    public WorldPosition getWorldPosition() {
-        return this.worldPosition;
-    }
-
+    public void setCollisionOn(boolean collisionOn) { }
     @Override
-    public int getSpeed() {
-        return 0;
-    }
-
+    public WorldPosition getWorldPosition() { return this.worldPosition; }
     @Override
-    public Direction getDirection() {
-        return null;
-    }
+    public int getSpeed() { return 0; }
+    @Override
+    public Direction getDirection() { return null; }
+
 }

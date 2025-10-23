@@ -77,8 +77,8 @@ public class EventHandler {
 
     public void draw(SpriteBatch batch) {
         //calculate where on the screen to draw the tile relative to player, from tile manage class
-        int screenX = e1WorldX - Game.player.getWorldPosition().getX() + Game.player.screenPosition.getX();
-        int screenY = e1WorldY - Game.player.getWorldPosition().getY() + Game.player.screenPosition.getY();
+        int screenX = e1WorldX - Game.player.getWorldPosition().getX() + Game.player.getScreenPosition().getX();
+        int screenY = e1WorldY - Game.player.getWorldPosition().getY() + Game.player.getScreenPosition().getY();
 
         batch.draw(solidAreaOutlineSprite, screenX, screenY);
 
