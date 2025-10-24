@@ -7,8 +7,6 @@ public interface Moveable {
 
     SolidArea getSolidArea();
 
-    void setCollisionOn(boolean collisionOn);
-
     WorldPosition getWorldPosition();
 
     Direction getDirection();

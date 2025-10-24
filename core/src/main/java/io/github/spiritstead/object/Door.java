@@ -53,12 +53,6 @@ public class Door implements GameObject {
     public SolidArea getSolidArea() {
         return this.solidArea;
     }
-
-    @Override
-    public void setCollisionOn(boolean collisionOn) {
-
-    }
-
     @Override
     public WorldPosition getWorldPosition() {
         return this.worldPosition;

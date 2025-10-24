@@ -55,11 +55,6 @@ public class Key implements GameObject {
         return this.image;
     }
     @Override
-    public void setCollisionOn(boolean collisionOn) {
-
-    }
-
-    @Override
     public WorldPosition getWorldPosition() {
         return this.worldPosition;
     }

@@ -141,7 +141,8 @@ public final class Mayor implements NPC {
     private void checkObjectCollision() {
         for (int i = 0; i < Game.aSetter.obj.size(); i++) {
             if (Game.aSetter.obj.get(i) != null && collision.check(this, Game.aSetter.obj.get(i))) {
-                this.collision.check(this, Game.aSetter.obj.get(i));
+//                this.collision.check(this, Game.aSetter.obj.get(i));
+                this.collisionOn = true;
             }
         }
     }
@@ -187,8 +188,6 @@ public final class Mayor implements NPC {
         this.screenY = getWorldPosition().getY() - Game.player.getWorldPosition().getY() + Game.player.getScreenPosition().getY();
     }
 
-    @Override
-    public void setCollisionOn(boolean collisionOn) { this.collisionOn = collisionOn; }
     @Override
     public WorldPosition getWorldPosition() { return this.worldPosition; }
     @Override

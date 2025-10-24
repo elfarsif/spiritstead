@@ -50,8 +50,6 @@ public class Boots implements GameObject {
     @Override
     public Sprite getImage() { return this.image; }
     @Override
-    public void setCollisionOn(boolean collisionOn) { }
-    @Override
     public WorldPosition getWorldPosition() { return this.worldPosition; }
     @Override
     public int getSpeed() { return 0; }

@@ -52,7 +52,6 @@ public final class Collision {
 
     private void checkCollision() {
         if (this.moveable.getSolidArea().getRect().intersects(this.collidable.getSolidArea().getRect())) {
-            this.moveable.setCollisionOn(true);
             this.isColliding = true;
         }
     }

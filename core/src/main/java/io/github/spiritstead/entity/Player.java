@@ -117,6 +117,7 @@ public final class Player implements Collidable, Moveable, Updatable {
     private void checkObjectCollision() {
         for (int i = 0; i < Game.aSetter.obj.size(); i++) {
             if (Game.aSetter.obj.get(i) != null && collision.check(this, Game.aSetter.obj.get(i))) {
+                this.collisionOn = true;
                 interactObject(Game.aSetter.obj.get(i));
             }
         }
@@ -145,6 +146,7 @@ public final class Player implements Collidable, Moveable, Updatable {
     private void checkNPCCollision() {
         for (int i = 0; i < Game.aSetter.npcs.length - 9; i++) {
             if (collision.check(Game.player, Game.aSetter.npcs[i])) {
+                this.collisionOn = true;
                 interactNPC(i);
             }
         }
@@ -192,8 +194,6 @@ public final class Player implements Collidable, Moveable, Updatable {
         return solidAreaSprite;
     }
 
-    @Override
-    public void setCollisionOn(boolean collisionOn) { this.collisionOn = collisionOn; }
     @Override
     public WorldPosition getWorldPosition() { return this.worldPosition; }
     @Override

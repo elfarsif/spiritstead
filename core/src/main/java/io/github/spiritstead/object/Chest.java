@@ -41,11 +41,6 @@ public class Chest implements GameObject {
     public SolidArea getSolidArea() {
         return this.solidArea;
     }
-
-    @Override
-    public void setCollisionOn(boolean collisionOn) {
-
-    }
     @Override
     public Sprite getImage() {
         return this.image;

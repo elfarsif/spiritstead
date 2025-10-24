@@ -1,6 +1,6 @@
 package io.github.spiritstead.entity;
 
-public class WorldPosition {
+public final class WorldPosition {
     private int x, y;
 
     public WorldPosition() { }

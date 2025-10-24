@@ -1,6 +1,6 @@
 package io.github.spiritstead.entity;
 
-public class StateHandler {
+public final class StateHandler {
     private Enum currentState;
     private Enum defaultState;
 
