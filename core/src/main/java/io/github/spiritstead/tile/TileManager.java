@@ -4,23 +4,23 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
+import io.github.spiritstead.main.WorldSettings;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class TileManager {
-    private GamePanel gp;
-    private SpriteBatch batch;
-    public Tile[] tile;
-    public int mapTileNum[][];
+public final class TileManager {
+    private final WorldSettings worldSettings;
 
-    public TileManager(GamePanel gp) {
-        this.gp = gp;
-        tile = new Tile[10];
-        mapTileNum = new int[gp.worldSettings.maxWorldCol][gp.worldSettings.maxWorldRow];
+    public final Tile[] tiles;
+    public final int mapTileNum[][];
+
+    public TileManager(WorldSettings worldSettings, Tile[] tiles, int[][] mapTileNum) {
+        this.worldSettings = worldSettings;
+        this.tiles = tiles;
+        this.mapTileNum = mapTileNum;
         loadTileSprites();
         loadMap("/maps/map1.txt");
     }
@@ -31,17 +31,17 @@ public class TileManager {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
-            int row = gp.worldSettings.maxWorldRow - 1;//start from the bottom row since 0,0 in libgdx is bottom left
+            int row = this.worldSettings.maxWorldRow - 1;//start from the bottom row since 0,0 in libgdx is bottom left
 
-            while (col < gp.worldSettings.maxWorldCol && row >= 0) {
+            while (col < this.worldSettings.maxWorldCol && row >= 0) {
                 String line = br.readLine();
-                while (col < gp.worldSettings.maxWorldCol) {
+                while (col < this.worldSettings.maxWorldCol) {
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[col][row] = num;
                     col++;
                 }
-                if (col == gp.worldSettings.maxWorldCol) {
+                if (col == this.worldSettings.maxWorldCol) {
                     col = 0;
                     row--;
                 }
@@ -53,28 +53,28 @@ public class TileManager {
     }
 
     private void loadTileSprites() {
-        tile[0] = new Tile();
-        tile[0].image = new Sprite(new Texture("tiles/grass.png"));
-        tile[1] = new Tile();
-        tile[1].image = new Sprite(new Texture("tiles/wall.png"));
-        tile[1].collision = true;
-        tile[2] = new Tile();
-        tile[2].image = new Sprite(new Texture("tiles/water.png"));
-        tile[2].collision = true;
-        tile[3] = new Tile();
-        tile[3].image = new Sprite(new Texture("tiles/sand.png"));
-        tile[4] = new Tile();
-        tile[4].image = new Sprite(new Texture("tiles/tree.png"));
-        tile[4].collision = true;
-        tile[5] = new Tile();
-        tile[5].image = new Sprite(new Texture("tiles/earth.png"));
+        tiles[0] = new Tile();
+        tiles[0].image = new Sprite(new Texture("tiles/grass.png"));
+        tiles[1] = new Tile();
+        tiles[1].image = new Sprite(new Texture("tiles/wall.png"));
+        tiles[1].collision = true;
+        tiles[2] = new Tile();
+        tiles[2].image = new Sprite(new Texture("tiles/water.png"));
+        tiles[2].collision = true;
+        tiles[3] = new Tile();
+        tiles[3].image = new Sprite(new Texture("tiles/sand.png"));
+        tiles[4] = new Tile();
+        tiles[4].image = new Sprite(new Texture("tiles/tree.png"));
+        tiles[4].collision = true;
+        tiles[5] = new Tile();
+        tiles[5].image = new Sprite(new Texture("tiles/earth.png"));
     }
 
     public void draw(SpriteBatch batch) {
         int worldCol = 0;
         int worldRow = 0;
 
-        while (worldCol < gp.worldSettings.maxWorldCol && worldRow < gp.worldSettings.maxWorldRow) {
+        while (worldCol < this.worldSettings.maxWorldCol && worldRow < this.worldSettings.maxWorldRow) {
             int tileNum = mapTileNum[worldCol][worldRow];
 
             int worldX = worldCol * ScreenSetting.TILE_SIZE;
@@ -89,13 +89,13 @@ public class TileManager {
                     worldY + ScreenSetting.TILE_SIZE > Game.player.getWorldPosition().getY() - Game.player.getScreenPosition().getY() &&
                     worldY - ScreenSetting.TILE_SIZE < Game.player.getWorldPosition().getY() + Game.player.getScreenPosition().getY()) {
 
-                batch.draw(tile[tileNum].image, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+                batch.draw(tiles[tileNum].image, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
 
             }
 
             worldCol++;
 
-            if (worldCol == gp.worldSettings.maxWorldCol) {
+            if (worldCol == this.worldSettings.maxWorldCol) {
                 worldCol = 0;
                 worldRow++;
             }

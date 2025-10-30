@@ -4,17 +4,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.ScreenSetting;
 
-public class ToolTip {
-    private SpriteBatch batch;
-    private Font font;
+public final class ToolTip {
+    private static final float SCALE = 0.5f;
+    private final Font font;
+    private final String text;
 
-    public ToolTip(SpriteBatch batch) {
-        this.batch = batch;
-        this.font = new Font("fonts/maruMonica.fnt");
-        this.font.getBitmapFont().getData().setScale(0.5f);
+    public ToolTip(Font font, String text) {
+        this.font = font;
+        this.text = text;
+        this.font.getBitmapFont().getData().setScale(SCALE);
     }
 
-    public void draw() {
-        font.getBitmapFont().draw(batch, "[ press space ]", ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+    public void draw(SpriteBatch batch) {
+        font.getBitmapFont().draw(batch, this.text, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
     }
 }

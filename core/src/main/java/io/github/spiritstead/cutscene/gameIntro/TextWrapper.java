@@ -7,14 +7,12 @@ import io.github.spiritstead.main.ScreenSetting;
 /**
  * This class adds \n to string to wrap at a certain width
  */
-public class TextWrapper {
-    private String text;
+public final class TextWrapper {
     private String wrappedText;
-    private int width;
 
-    GlyphLayout layout = new GlyphLayout();
-    StringBuilder wrappedTextStringBuilder = new StringBuilder();
-    Font font;
+    private final GlyphLayout layout = new GlyphLayout();
+    private final StringBuilder wrappedTextStringBuilder = new StringBuilder();
+    private final Font font;
 
     public TextWrapper(Font font) {
         this.font = font;
@@ -22,7 +20,6 @@ public class TextWrapper {
 
     public String wrap(String text, int width) {
         String originalText = text;
-        this.width = width;
 
         //TODO: maxwidth should be tilesize, make tile size a global final variable
         float maxWidth = width + ScreenSetting.TILE_SIZE * 2; // or set manually

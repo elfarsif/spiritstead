@@ -1,14 +1,11 @@
 package io.github.spiritstead.screens;
 
-import com.badlogic.gdx.Gdx;
-import io.github.spiritstead.entity.Npcs;
 import io.github.spiritstead.entity.Player;
 import io.github.spiritstead.font.Font;
 import io.github.spiritstead.main.DayCycle;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
-import io.github.spiritstead.object.GameObjects;
 import io.github.spiritstead.screens.titleScreen.TitleScreen;
 import io.github.spiritstead.screens.titleScreen.TitleScreenOptions;
 import io.github.spiritstead.tools.*;
@@ -42,7 +39,7 @@ public class Screens {
         this.cutsceneScreen = new CutsceneScreen(gp);
         this.gameScreen = new GameScreen(
                 player,
-                new Npcs(Game.aSetter.npcs),
+                Game.aSetter.npcs,
                 Game.aSetter.gameObjects,
                 Game.tileM,
                 Game.eHandler,

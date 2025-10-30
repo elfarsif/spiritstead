@@ -20,6 +20,10 @@ public final class Sprites {
         this.frames.put(Direction.RIGHT, new Sprite[] {this.sprites.get(6), this.sprites.get(7)});
     }
 
+    public static Sprites loadFiles(String... n) {
+        return new Sprites();
+    }
+
     public Sprite getNextSprite(Direction direction, int spriteNum) {
         return this.frames.get(direction)[spriteNum - 1];
     }

@@ -1,52 +1,42 @@
 package io.github.spiritstead.cutscene.gameIntro.contentSlide;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.spiritstead.cutscene.gameIntro.TextWrapper;
+import io.github.spiritstead.font.Font;
 import io.github.spiritstead.tools.FadeBlack;
 import io.github.spiritstead.cutscene.gameIntro.GameIntro;
 import io.github.spiritstead.cutscene.gameIntro.Slide;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
 import io.github.spiritstead.main.ScreenSetting;
+import io.github.spiritstead.tools.LetterByLetterEffect;
+import io.github.spiritstead.tools.Sprite;
 
 import java.util.ArrayList;
 
-public class ContentSlide implements Slide {
-    GameIntro gameIntro;
-    Sprite image1;
-    float image1X, image1Y;
-    ArrayList<String> texts;
-    private SpriteBatch batch;
-    FadeBlack fadeBlack;
-    ContentSlideText contentSlideText;
+public final class ContentSlide implements Slide {
+    private final Sprite sprite;
+    private final FadeBlack fadeBlack;
+    private final ContentSlideText contentSlideText;
 
-    public ContentSlide(GamePanel gp, GameIntro gameIntro, String imageFileName, ArrayList<String> texts) {
-        this.batch = Game.batch;
-        this.gameIntro = gameIntro;
+    public ContentSlide(GameIntro gameIntro, ArrayList<String> texts, Sprite sprite) {
         this.fadeBlack = new FadeBlack(Game.batch);
-        this.contentSlideText = new ContentSlideText(gp, gameIntro, this, texts);
-
-        setImage(imageFileName);
-        this.texts = texts;
-    }
-
-    public void setImage(String fileName) {
-        try {
-            image1 = new Sprite(new Texture(fileName));
-            image1.setSize(ScreenSetting.TILE_SIZE * 10, ScreenSetting.TILE_SIZE * 6);
-
-            image1X = ScreenSetting.SCREEN_WIDTH / 2 - image1.getWidth() / 2;
-            image1Y = ScreenSetting.SCREEN_HEIGHT / 2 - image1.getHeight() / 4;
-        } catch (Exception e) {
-
-            System.out.println(e.getMessage());
+        this.sprite = sprite;
+        TextWrapper textWrapper = new TextWrapper(new Font("fonts/maruMonica.fnt"));
+        ArrayList<String> wrappedTexts = new ArrayList<>();
+        for (String text : texts) {
+            String wrappedText = textWrapper.wrap(text, (int) sprite.getWidth());
+            wrappedTexts.add(wrappedText);
         }
+        this.contentSlideText = new ContentSlideText(gameIntro,
+                new LetterByLetterEffect(new Font("fonts/maruMonica.fnt")),
+                this.sprite.getX() - ScreenSetting.TILE_SIZE,
+                this.sprite.getY() - ScreenSetting.TILE_SIZE,
+                wrappedTexts
+        );
+
     }
 
     public void draw() {
-
-        batch.draw(image1, image1X, image1Y, image1.getWidth(), image1.getHeight());
+        this.sprite.draw();
         contentSlideText.draw();
         fadeBlack.draw();
 

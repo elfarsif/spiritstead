@@ -3,11 +3,9 @@ package io.github.spiritstead.object;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import io.github.spiritstead.entity.Direction;
-import io.github.spiritstead.entity.SolidArea;
-import io.github.spiritstead.entity.WorldPosition;
+import io.github.spiritstead.entity.*;
+import io.github.spiritstead.main.EventType;
 import io.github.spiritstead.main.Game;
-import io.github.spiritstead.main.GamePanel;
 
 public class Tree implements GameObject {
     private Sprite image;
@@ -15,12 +13,14 @@ public class Tree implements GameObject {
     private WorldPosition worldPosition;
     private ObjectDrawer objectDrawer;
     private int health;
+    public EventBus eventBus;
 
-    public Tree(WorldPosition worldPosition) {
+    public Tree(WorldPosition worldPosition, EventBus eventBus) {
         this.image = new Sprite(new Texture("tiles/tree.png"));
         this.worldPosition = worldPosition;
         this.objectDrawer = new ObjectDrawer(worldPosition);
         this.health = 2;
+        this.eventBus = eventBus;
     }
 
     @Override
@@ -40,11 +40,12 @@ public class Tree implements GameObject {
     }
 
     private void removeTree() {
-        for (int i = 0; i < Game.aSetter.obj.size(); i++) {
-            if (Game.aSetter.obj.get(i) == this) {
-                Game.aSetter.obj.remove(i);
+        for (int i = 0; i < Game.aSetter.gameObjects.size(); i++) {
+            if (Game.aSetter.gameObjects.get(i) == this) {
+                Game.aSetter.gameObjects.remove(i);
             }
         }
+        this.eventBus.publish(EventType.TREE_REMOVED);
     }
 
     @Override

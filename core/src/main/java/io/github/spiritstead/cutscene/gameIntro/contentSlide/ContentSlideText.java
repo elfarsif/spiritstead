@@ -10,56 +10,45 @@ import io.github.spiritstead.main.ScreenSetting;
 
 import java.util.ArrayList;
 
-public class ContentSlideText {
-    GamePanel gp;
-    GameIntro gameIntro;
-    ContentSlide contentSlide;
-    ArrayList<String> texts;
-    Font font;
-    private TextWrapper textWrapper;
-    public int textCounter = 0;
-    private String currentText = "";
-    private LetterByLetterEffect letterByLetterEffect;
+public final class ContentSlideText {
+    private final GameIntro gameIntro;
+    private final ArrayList<String> wrappedTexts;
+    private final LetterByLetterEffect letterByLetterEffect;
+    private final Float x, y;
 
-    public ContentSlideText(GamePanel gp, GameIntro gameIntro, ContentSlide contentSlide, ArrayList<String> text) {
-        this.gp = gp;
-        this.texts = text;
+    private int textCounter = 0;
+
+    public ContentSlideText(GameIntro gameIntro, LetterByLetterEffect letterByLetterEffect, Float x, Float y,
+                            ArrayList<String> wrappedTexts) {
         this.gameIntro = gameIntro;
-        this.contentSlide = contentSlide;
-        font = new Font("fonts/maruMonica.fnt");
-        this.textWrapper = new TextWrapper(font);
-        this.letterByLetterEffect = new LetterByLetterEffect(this.font);
+        this.wrappedTexts = wrappedTexts;
+        this.letterByLetterEffect = letterByLetterEffect;
+        this.x = x;
+        this.y = y;
     }
 
     private void displayText() {
-        wrapTextToSize();
-        drawLetterByLetter();
-    }
-
-    private void wrapTextToSize() {
-        currentText = texts.get(textCounter);
-        textWrapper.wrap(currentText, (int) contentSlide.image1.getWidth());
-
+        this.drawLetterByLetter();
     }
 
     private void drawLetterByLetter() {
-        this.letterByLetterEffect.setText(textWrapper.getText());
-        this.letterByLetterEffect.draw(contentSlide.image1X - ScreenSetting.TILE_SIZE, contentSlide.image1Y - ScreenSetting.TILE_SIZE);
+        this.letterByLetterEffect.setText(this.wrappedTexts.get(this.textCounter));
+        this.letterByLetterEffect.draw(this.x, this.y);
     }
 
     public void draw() {
         if (Game.keyH.spacePressed) {
 
-            if (textCounter < texts.size() - 1) {
-                textCounter += 1;
+            if (this.textCounter < wrappedTexts.size() - 1) {
+                this.textCounter += 1;
                 this.letterByLetterEffect.reset();
             } else {
-                gameIntro.slideCounter++;
+                this.gameIntro.slideCounter++;
             }
 
             Game.keyH.spacePressed = false;
         }
 
-        displayText();
+        this.displayText();
     }
 }

@@ -4,27 +4,27 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
 import io.github.spiritstead.dialogue.*;
 import io.github.spiritstead.main.*;
+import io.github.spiritstead.object.GameObjects;
 import io.github.spiritstead.tools.FrameGate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.io.File;
 import java.util.Map;
 
 public final class Mayor implements NPC {
-    private final StateHandler stateHandler;
+    private final State state;
     private final Sprites sprites;
     private final Mover mover;
     private final SolidArea solidArea;
-    private final FrameGate frameGate;
     private final TileCollision tileCollision;
     private final Collision collision;
-    private final WorldPosition worldPosition = new WorldPosition();
+    private final WorldPosition worldPosition;
     private final FrameGate walkingFrameGate;
     private final Animation axeAnimation, talkingAnimation;
     private final Direction.Holder direction;
     private final Map<Integer, String> allDialogue;
+    private final Action moveUp, moveDown;
 
+    private Action action;
     private int screenX, screenY;
     private Node node;
     private Node nodeTempLeft;
@@ -34,57 +34,55 @@ public final class Mayor implements NPC {
     private boolean collisionOn = false;
     private int speed;
 
-    public Mayor(Sprites sprites, Map<Integer, String> allDialogue, SolidArea solidArea, int speed) {
+    public Mayor(Sprites sprites, Map<Integer, String> allDialogue, SolidArea solidArea, int speed, Collision collision,
+                 Direction.Holder direction, State state, Animation axeAnimation, Animation talkingAnimation,
+                 Action moveUp, TileCollision tileCollision, Mover mover, WorldPosition worldPosition, Action moveDown) {
         this.sprites = sprites;
         this.allDialogue = allDialogue;
         this.solidArea = solidArea;
-        this.mover = new Mover(this);
-        this.frameGate = new FrameGate(120);
-        this.tileCollision = new TileCollision(Game.tileM, this);
-        this.collision = new Collision();
-        this.direction = new Direction.Holder(Direction.LEFT);
-
+        this.collision = collision;
+        this.direction = direction;
         this.speed = speed;
+        this.state = state;
+        this.axeAnimation = axeAnimation;
+        this.talkingAnimation = talkingAnimation;
+        this.moveUp = moveUp;
+        this.tileCollision = tileCollision;
+        this.mover = mover;
+        this.worldPosition = worldPosition;
         this.walkingFrameGate = new FrameGate(30);
-        this.stateHandler = new StateHandler(NpcState.MOVING);
-
-        this.axeAnimation = Animation.looping(new FrameGate(30), new ArrayList<>(Arrays.asList(
-                sprites.getNextSprite(Direction.DOWN, 1),
-                sprites.getNextSprite(Direction.DOWN, 2)
-        )));
-        this.talkingAnimation = Animation.looping(new FrameGate(30), new ArrayList<>(Arrays.asList(
-                sprites.getNextSprite(Direction.RIGHT, 1)
-        )));
-    }
-
-    public void setAction() {
-        if (this.frameGate.tick()) {
-            this.direction.set(Direction.UP);
-            this.frameGate.reset();
-        }
+        this.moveDown = moveDown;
+        this.action = moveUp;
 
     }
 
     public void update() {
-        setAction();
-        if (this.stateHandler.isState(NpcState.MOVING)) {
-            updateMovePlayerAnimation();
-            checkCollisions();
-            this.mover.move();
+        this.direction.set(action.update());
+        switch ((NpcState) this.state.getCurrent()) {
+            case MOVING:
+                this.updateMovePlayerAnimation();
+                this.checkCollisions();
+                this.mover.move(this);
+                break;
+            case AXING:
+                axeAnimation.update();
+                break;
+            case CONVERSING:
+                talkingAnimation.update();
+                break;
         }
-
     }
 
     @Override
     public void setDialogueNode(Node node) { this.node = node; }
 
     public void interact() {
-        this.stateHandler.setCurrentState(NpcState.CONVERSING);
+        this.state.setCurrent(NpcState.CONVERSING);
 
         if (this.node == null) {
             Game.ui.setUi(Game.ui.gameUIScreen);
             Game.screens.setScreen(Game.screens.gameScreen);
-            this.stateHandler.setCurrentState(NpcState.AXING);
+            this.state.setCurrent(NpcState.AXING);
             this.nodeTempRight = null;
             this.nodeTempLeft = null;
         } else if (this.node.isPhase(DialoguePhase.ADVANCING)) {
@@ -121,14 +119,16 @@ public final class Mayor implements NPC {
             }
             this.walkingFrameGate.reset();
         }
+        sprite = null;
+        sprite = sprites.getNextSprite(this.direction.get(), spriteNum);
 
     }
 
     private void checkCollisions() {
         this.collisionOn = false;
-        this.collisionOn = tileCollision.check();
-        checkPlayerCollision();
-        checkObjectCollision();
+        this.collisionOn = tileCollision.check(Game.tileM, this);
+        this.checkPlayerCollision();
+        this.checkObjectCollision();
 
     }
 
@@ -139,23 +139,20 @@ public final class Mayor implements NPC {
     }
 
     private void checkObjectCollision() {
-        for (int i = 0; i < Game.aSetter.obj.size(); i++) {
-            if (Game.aSetter.obj.get(i) != null && collision.check(this, Game.aSetter.obj.get(i))) {
-//                this.collision.check(this, Game.aSetter.obj.get(i));
+        for (int i = 0; i < Game.aSetter.gameObjects.size(); i++) {
+            if (Game.aSetter.gameObjects.get(i) != null && collision.check(this, Game.aSetter.gameObjects.get(i))) {
                 this.collisionOn = true;
             }
         }
     }
 
     public void draw() {
-        initialiazeScreenPositionRelativeToPlayer();
+        this.initialiazeScreenPositionRelativeToPlayer();
         if (entityIsWithinScreenBounds()) {
-            if (stateHandler.isState(NpcState.MOVING)) {
-                updateSprite();
-                Game.batch.draw(sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
-            } else if (stateHandler.isState(NpcState.CONVERSING)) {
-                talkingAnimation.update();
-                Game.batch.draw(talkingAnimation.getCurrentSprite(), screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+            if (this.state.is(NpcState.MOVING)) {
+                Game.batch.draw(this.sprite, screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
+            } else if (this.state.is(NpcState.CONVERSING)) {
+                Game.batch.draw(this.talkingAnimation.getCurrentSprite(), screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
                 if (this.nodeTempLeft != null) {
                     if (Game.ui.playerDialogueUIScreen.optionCursor.optionNum == 0) {
                         this.nodeTempLeft.drawEvent();
@@ -163,17 +160,11 @@ public final class Mayor implements NPC {
                         this.nodeTempRight.drawEvent();
                     }
                 }
-            } else if (stateHandler.isState(NpcState.AXING)) {
-                axeAnimation.update();
+            } else if (state.is(NpcState.AXING)) {
                 Game.batch.draw(axeAnimation.getCurrentSprite(), screenX, screenY, ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
             }
 
         }
-    }
-
-    private void updateSprite() {
-        sprite = null;
-        sprite = sprites.getNextSprite(this.direction.get(), spriteNum);
     }
 
     private boolean entityIsWithinScreenBounds() {
@@ -186,6 +177,11 @@ public final class Mayor implements NPC {
     private void initialiazeScreenPositionRelativeToPlayer() {
         this.screenX = getWorldPosition().getX() - Game.player.getWorldPosition().getX() + Game.player.getScreenPosition().getX();
         this.screenY = getWorldPosition().getY() - Game.player.getWorldPosition().getY() + Game.player.getScreenPosition().getY();
+    }
+    @Override
+    public void onEventBus(EventType eventType) {
+        this.action = this.moveDown;
+        this.state.setCurrent(NpcState.MOVING);
     }
 
     @Override

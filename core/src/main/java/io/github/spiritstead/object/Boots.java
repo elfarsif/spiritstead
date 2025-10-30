@@ -38,13 +38,12 @@ public class Boots implements GameObject {
         Game.player.increaseSpeedBy(2);
         Game.audioPlayer.playSE(SoundEffect.POWERUP);
         Game.ui.gameUIScreen.showMessage("YOU ARE FAST");
-        for (int i = 0; i < Game.aSetter.obj.size(); i++) {
-            if (Game.aSetter.obj.get(i) == this) {
-                Game.aSetter.obj.remove(i);
+        for (int i = 0; i < Game.aSetter.gameObjects.size(); i++) {
+            if (Game.aSetter.gameObjects.get(i) == this) {
+                Game.aSetter.gameObjects.remove(i);
             }
         }
     }
-
     @Override
     public SolidArea getSolidArea() { return this.solidArea; }
     @Override

@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 public final class Player implements Collidable, Moveable, Updatable {
     private final Sprites sprites;
-    private final StateHandler stateHandler;
+    private final State<PlayerState> state;
     private final Mover mover;
     private final FrameGate frameGate;
     private final Collision collision;
@@ -38,7 +38,8 @@ public final class Player implements Collidable, Moveable, Updatable {
     private int speed;
 
     public Player(Sprites sprites, ScreenPosition screenPosition, SolidArea solidArea, WorldPosition worldPosition,
-                  int initialSpeed, Inventory inventory, Direction.Holder direction) {
+                  int initialSpeed, Inventory inventory, Direction.Holder direction, Collision collision,
+                  TileCollision tileCollision, Mover mover) {
         this.sprites = sprites;
         this.screenPosition = screenPosition;
         this.solidArea = solidArea;
@@ -46,12 +47,12 @@ public final class Player implements Collidable, Moveable, Updatable {
         this.worldPosition = worldPosition;
         this.inventory = inventory;
         this.direction = direction;
-        this.mover = new Mover(this);
+        this.collision = collision;
+        this.tileCollision = tileCollision;
+        this.mover = mover;
         this.frameGate = new FrameGate(15);
-        this.collision = new Collision();
-        this.tileCollision = new TileCollision(Game.tileM, this);
-        this.stateHandler = new StateHandler(PlayerState.NORMAL);
-        this.axeAnimation = Animation.singleAction(new FrameGate(30), this.stateHandler, new ArrayList<>(Arrays.asList(
+        this.state = new State<PlayerState>(PlayerState.NORMAL);
+        this.axeAnimation = Animation.singleAction(new FrameGate(30), this.state, new ArrayList<>(Arrays.asList(
                 new Sprite(new Texture("player/right1.png")),
                 new Sprite(new Texture("player/right2.png"))
         )));
@@ -64,7 +65,7 @@ public final class Player implements Collidable, Moveable, Updatable {
             if (inventory.getSelectedItem() instanceof Axe) {
                 if (Game.keyH.spacePressed) {
                     Game.keyH.spacePressed = false;
-                    stateHandler.setCurrentState(PlayerState.AXING);
+                    state.setCurrent(PlayerState.AXING);
                     gameObject.interact();
                 }
             }
@@ -95,17 +96,17 @@ public final class Player implements Collidable, Moveable, Updatable {
             Game.keyH.kPressed = false;
             inventory.setSelectedItemToNext();
         }
-        if (stateHandler.isState(PlayerState.AXING)) {
+        if (state.is(PlayerState.AXING)) {
             checkObjectCollision();
 
-        } else if (stateHandler.isState(PlayerState.NORMAL)) {
+        } else if (state.is(PlayerState.NORMAL)) {
             if (Game.keyH.upPressed || Game.keyH.downPressed || Game.keyH.leftPressed || Game.keyH.rightPressed) {
                 assignKeyPressToDirection(Game.keyH);
-                this.collisionOn = this.tileCollision.check();
+                this.collisionOn = this.tileCollision.check(Game.tileM, this);
                 Game.eHandler.checkEvent();
                 checkNPCCollision();
                 checkObjectCollision();
-                mover.move();
+                this.mover.move(this);
                 updateSprite();
             }
             checkNPCCollision();
@@ -115,10 +116,10 @@ public final class Player implements Collidable, Moveable, Updatable {
     }
 
     private void checkObjectCollision() {
-        for (int i = 0; i < Game.aSetter.obj.size(); i++) {
-            if (Game.aSetter.obj.get(i) != null && collision.check(this, Game.aSetter.obj.get(i))) {
+        for (int i = 0; i < Game.aSetter.gameObjects.size(); i++) {
+            if (Game.aSetter.gameObjects.get(i) != null && collision.check(this, Game.aSetter.gameObjects.get(i))) {
                 this.collisionOn = true;
-                interactObject(Game.aSetter.obj.get(i));
+                interactObject(Game.aSetter.gameObjects.get(i));
             }
         }
     }
@@ -144,17 +145,16 @@ public final class Player implements Collidable, Moveable, Updatable {
         }
     }
     private void checkNPCCollision() {
-        for (int i = 0; i < Game.aSetter.npcs.length - 9; i++) {
-            if (collision.check(Game.player, Game.aSetter.npcs[i])) {
+        for (int i = 0; i < Game.aSetter.npcs.size() - 9; i++) {
+            if (collision.check(Game.player, Game.aSetter.npcs.get(i))) {
                 this.collisionOn = true;
                 interactNPC(i);
             }
         }
-
     }
     private void interactNPC(int npcIndex) {
         if (Game.keyH.spacePressed) {
-            interact(Game.aSetter.npcs[npcIndex]);
+            interact(Game.aSetter.npcs.get(npcIndex));
             Game.keyH.spacePressed = false;
         }
     }
@@ -162,11 +162,11 @@ public final class Player implements Collidable, Moveable, Updatable {
         Game.eHandler.checkEvent();
     }
     public void draw() {
-        if (stateHandler.isState(PlayerState.AXING)) {
+        if (state.is(PlayerState.AXING)) {
             Game.keyH.inputGate.close();
             this.axeAnimation.update();
             Game.batch.draw(axeAnimation.getCurrentSprite(), screenPosition.getX(), screenPosition.getY(), ScreenSetting.TILE_SIZE, ScreenSetting.TILE_SIZE);
-        } else if (stateHandler.isState(PlayerState.NORMAL)) {
+        } else if (state.is(PlayerState.NORMAL)) {
             drawPlayer();
             this.drawSolidArea();
         }

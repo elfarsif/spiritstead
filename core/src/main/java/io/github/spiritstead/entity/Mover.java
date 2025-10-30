@@ -1,13 +1,10 @@
 package io.github.spiritstead.entity;
 
+import jdk.internal.foreign.abi.Binding;
+
 public final class Mover {
-    private final Moveable moveable;
 
-    public Mover(Moveable moveable) {
-        this.moveable = moveable;
-    }
-
-    public void move() {
+    public void move(Moveable moveable) {
         if (! moveable.isCollisionOn()) {
             switch (moveable.getDirection()) {
                 case UP:

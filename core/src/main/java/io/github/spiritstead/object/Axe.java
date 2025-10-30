@@ -8,7 +8,7 @@ import io.github.spiritstead.entity.SolidArea;
 import io.github.spiritstead.entity.WorldPosition;
 import io.github.spiritstead.main.Game;
 
-public class Axe implements GameObject {
+public final class Axe implements GameObject {
     private final Sprite image;
     private final SolidArea solidArea;
     private final ObjectDrawer objectDrawer;
@@ -29,9 +29,9 @@ public class Axe implements GameObject {
         Game.ui.gameUIScreen.showMessage("You got an axe!");
         Game.player.addToInventory(this);
         Game.player.selectedItem(this);
-        for (int i = 0; i < Game.aSetter.obj.size(); i++) {
-            if (Game.aSetter.obj.get(i) == this) {
-                Game.aSetter.obj.remove(i);
+        for (int i = 0; i < Game.aSetter.gameObjects.size(); i++) {
+            if (Game.aSetter.gameObjects.get(i) == this) {
+                Game.aSetter.gameObjects.remove(i);
             }
         }
     }

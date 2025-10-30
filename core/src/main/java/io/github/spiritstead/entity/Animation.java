@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * This class is used to animate a list of sprites
  */
-public final class Animation implements Updatable {
+public final class Animation {
     private final List<Sprite> sprites;
     private final FrameGate frameGate;
     private final Runnable onCycleComplete;
@@ -26,18 +26,18 @@ public final class Animation implements Updatable {
         });
     }
 
-    public static Animation singleAction(FrameGate gate, StateHandler stateHandler, List<Sprite> sprites) {
+    public static Animation singleAction(FrameGate gate, State state, List<Sprite> sprites) {
         Runnable onCycleComplete = new Runnable() {
             @Override
             public void run() {
                 Game.keyH.inputGate.open();
-                stateHandler.setCurrentState(stateHandler.getDefaultState());
+                state.setCurrent(state.getDefault());
             }
         };
         return new Animation(gate, sprites, onCycleComplete);
     }
-    @Override
-    public void update() {
+
+    public boolean update() {
         if (frameGate.tick()) {
             spriteNum++;
             if (spriteNum == sprites.size()) {
@@ -46,6 +46,7 @@ public final class Animation implements Updatable {
             }
             this.frameGate.reset();
         }
+        return true;
     }
 
     public Sprite getCurrentSprite() { return this.sprites.get(spriteNum); }

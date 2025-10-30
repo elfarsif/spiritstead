@@ -34,9 +34,9 @@ public class Door implements GameObject {
     @Override
     public void interact() {
         if (Game.player.hasKey()) {
-            for (int i = 0; i < Game.aSetter.obj.size(); i++) {
-                if (Game.aSetter.obj.get(i) == this) {
-                    Game.aSetter.obj.remove(i);
+            for (int i = 0; i < Game.aSetter.gameObjects.size(); i++) {
+                if (Game.aSetter.gameObjects.get(i) == this) {
+                    Game.aSetter.gameObjects.remove(i);
                 }
             }
             Game.player.removeKey();

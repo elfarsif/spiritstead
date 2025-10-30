@@ -21,8 +21,7 @@ public final class Npcs {
         }
     }
 
-    public void checkCollision() {
-
-    }
-
+    public int size() { return this.npcs.length; }
+    public NPC get(int i) { return this.npcs[i]; }
+    public void interact(int i) { this.npcs[0].interact(); }
 }

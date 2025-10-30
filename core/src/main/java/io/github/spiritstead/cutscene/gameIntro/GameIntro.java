@@ -1,5 +1,8 @@
 package io.github.spiritstead.cutscene.gameIntro;
 
+import com.badlogic.gdx.graphics.Texture;
+import io.github.spiritstead.font.Font;
+import io.github.spiritstead.main.ScreenSetting;
 import io.github.spiritstead.tools.BlackTexture;
 import io.github.spiritstead.cutscene.Cutscene;
 import io.github.spiritstead.cutscene.gameIntro.contentSlide.ContentSlide;
@@ -7,25 +10,63 @@ import io.github.spiritstead.cutscene.gameIntro.titleSlide.TitleSlide;
 import io.github.spiritstead.entity.Direction;
 import io.github.spiritstead.main.Game;
 import io.github.spiritstead.main.GamePanel;
+import io.github.spiritstead.tools.FadeBlack;
+import io.github.spiritstead.tools.Sprite;
 
 import java.util.ArrayList;
 
-public class GameIntro implements Cutscene {
-    GamePanel gp;
+public final class GameIntro implements Cutscene {
     public int slideCounter = 0;
     ArrayList<Slide> slides = new ArrayList<>();
     BlackTexture blackTexture;
 
     public GameIntro(GamePanel gp) {
-        this.gp = gp;
 
-        slides.add(new TitleSlide(gp, "Prologue", this));
+        slides.add(new TitleSlide(
+                "Prologue",
+                this,
+                new ToolTip(
+                        new Font("fonts/maruMonica.fnt"),
+                        "[ press space ]"
+                ),
 
-        slides.add(new ContentSlide(gp, this, "intro/introSlide.png", new ArrayList<>(Game.script.getChapter1().get(1))));
-        slides.add(new ContentSlide(gp, this, "intro/introSlideCharacter.png", new ArrayList<>(Game.script.getChapter1().get(2))));
-        slides.add(new ContentSlide(gp, this, "intro/forrestTrail.png", new ArrayList<>(Game.script.getChapter1().get(3))));
-        slides.add(new ContentSlide(gp, this, "intro/townMap.png", new ArrayList<>(Game.script.getChapter1().get(4))));
-        slides.add(new ContentSlide(gp, this, "intro/introSlide.png", new ArrayList<>(Game.script.getChapter1().get(5))));
+                new Font("fonts/maruMonica.fnt"),
+                new FadeBlack(Game.batch)
+        ));
+
+        slides.add(new ContentSlide(this, new ArrayList<>(Game.script.getChapter1().get(1)),
+                new Sprite(
+                        "intro/introSlide.png",
+                        ScreenSetting.TILE_SIZE * 10,
+                        ScreenSetting.TILE_SIZE * 6
+                )
+        ));
+        slides.add(new ContentSlide(this, new ArrayList<>(Game.script.getChapter1().get(2)),
+                new Sprite(
+                        "intro/introSlideCharacter.png",
+                        ScreenSetting.TILE_SIZE * 10,
+                        ScreenSetting.TILE_SIZE * 6
+                )
+        ));
+        slides.add(new ContentSlide(this, new ArrayList<>(Game.script.getChapter1().get(3)),
+                new Sprite(
+                        "intro/forrestTrail.png",
+                        ScreenSetting.TILE_SIZE * 10,
+                        ScreenSetting.TILE_SIZE * 6
+                )));
+        slides.add(new ContentSlide(this, new ArrayList<>(Game.script.getChapter1().get(4)),
+                new Sprite(
+                        "intro/townMap.png",
+                        ScreenSetting.TILE_SIZE * 10,
+                        ScreenSetting.TILE_SIZE * 6
+                )
+        ));
+        slides.add(new ContentSlide(this, new ArrayList<>(Game.script.getChapter1().get(5)),
+                new Sprite(
+                        "intro/introSlide.png",
+                        ScreenSetting.TILE_SIZE * 10,
+                        ScreenSetting.TILE_SIZE * 6
+                )));
 
         this.blackTexture = new BlackTexture(gp.sSetting.SCREEN_WIDTH, gp.sSetting.SCREEN_HEIGHT);
     }

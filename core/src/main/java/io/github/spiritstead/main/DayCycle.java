@@ -3,7 +3,7 @@ package io.github.spiritstead.main;
 import io.github.spiritstead.tools.BlackAlphaFrames;
 import io.github.spiritstead.tools.FrameGate;
 
-public class DayCycle {
+public final class DayCycle {
     private final FrameGate fadeFrameGate;
     private final BlackAlphaFrames blackAlphaFrames;
     private int frameCounter = 0;
