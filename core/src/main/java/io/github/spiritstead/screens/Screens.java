@@ -39,8 +39,8 @@ public class Screens {
         this.cutsceneScreen = new CutsceneScreen(gp);
         this.gameScreen = new GameScreen(
                 player,
-                Game.aSetter.npcs,
-                Game.aSetter.gameObjects,
+                Game.resources.npcs,
+                Game.resources.gameObjects,
                 Game.tileM,
                 Game.eHandler,
                 Game.ui,

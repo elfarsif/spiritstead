@@ -48,7 +48,7 @@ public class KeyHandler implements InputProcessor {
 
     private void dialogueScreen(int code) {
         if (code == Input.Keys.SPACE) {
-            Game.aSetter.npcs.interact(0);
+            Game.resources.npcs.interact(0);
         } else if (code == Input.Keys.W) {
             Game.ui.playerDialogueUIScreen.optionCursor.optionNum--;
         } else if (code == Input.Keys.S) {

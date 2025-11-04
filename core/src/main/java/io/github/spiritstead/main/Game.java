@@ -5,11 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.audio.AudioPlayer;
-import io.github.spiritstead.audio.Music;
 import io.github.spiritstead.collision.Collision;
 import io.github.spiritstead.collision.TileCollision;
 import io.github.spiritstead.entity.*;
-import io.github.spiritstead.object.Key;
 import io.github.spiritstead.screens.Screens;
 import io.github.spiritstead.script.Script;
 import io.github.spiritstead.tile.Tile;
@@ -26,16 +24,14 @@ public class Game {
     public static UI ui;
     public static EventHandler eHandler;
     public static TileManager tileM;
-    public static AssetSetter aSetter;
+    public static Resources resources;
     public static Screens screens;
     public static Script script;
     public static Player player;
-    public static Resources resources;
     public static Dialogue dialogue;
 
     public Game(GamePanel gp) {
         batch = new SpriteBatch();
-        resources = Resources.getInstance();
         script = new Script();
         keyH = new KeyHandler();
         audioPlayer = AudioPlayer.getInstance();
@@ -43,7 +39,6 @@ public class Game {
         tileM = new TileManager(gp.worldSettings, new Tile[10],
                 new int[gp.worldSettings.maxWorldCol][gp.worldSettings.maxWorldRow]
         );
-        aSetter = new AssetSetter();
         player = new Player(
                 new Sprites(
                         new Sprite(new Texture("player/up1.png")),
@@ -59,12 +54,13 @@ public class Game {
                 new SolidArea(5 * ScreenSetting.SCALE, 0, 6 * ScreenSetting.SCALE, 6 * ScreenSetting.SCALE),
                 new WorldPosition(ScreenSetting.TILE_SIZE * 28, ScreenSetting.TILE_SIZE * 13),
                 4,
-                new Inventory(new ArrayList<>(Arrays.asList(new Key()))),
+                new Inventory(new ArrayList<>(Arrays.asList())),
                 new Direction.Holder(Direction.DOWN),
                 new Collision(),
                 new TileCollision(),
                 new Mover()
         );
+        resources = new Resources();
         ui = new UI();
         screens = new Screens(gp, this.player);
         dialogue = new Dialogue();

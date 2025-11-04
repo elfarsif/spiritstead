@@ -1,6 +1,8 @@
 package io.github.spiritstead.entity;
 
 import io.github.spiritstead.main.EventType;
+import io.github.spiritstead.main.Game;
+import io.github.spiritstead.object.GameObject;
 
 import java.util.*;
 
@@ -18,10 +20,10 @@ public final class EventBus {
         subscribers.add(subscriber);
     }
 
-    public void publish(EventType eventType) {
+    public void publish(EventType eventType, GameObject gameObject) {
         List<Subscriber> subscribers = this.eventTypeSubscribers.get(eventType);
         for (Subscriber subscriber : subscribers) {
-            subscriber.onEventBus(eventType);
+            subscriber.onEventBus(eventType, gameObject);
         }
     }
 

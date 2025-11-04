@@ -15,7 +15,7 @@ import io.github.spiritstead.tools.FrameGate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public final class Player implements Collidable, Moveable, Updatable {
+public final class Player implements Collidable, Moveable, Updatable, Subscriber {
     private final Sprites sprites;
     private final State<PlayerState> state;
     private final Mover mover;
@@ -116,10 +116,10 @@ public final class Player implements Collidable, Moveable, Updatable {
     }
 
     private void checkObjectCollision() {
-        for (int i = 0; i < Game.aSetter.gameObjects.size(); i++) {
-            if (Game.aSetter.gameObjects.get(i) != null && collision.check(this, Game.aSetter.gameObjects.get(i))) {
+        for (int i = 0; i < Game.resources.gameObjects.size(); i++) {
+            if (Game.resources.gameObjects.get(i) != null && collision.check(this, Game.resources.gameObjects.get(i))) {
                 this.collisionOn = true;
-                interactObject(Game.aSetter.gameObjects.get(i));
+                interactObject(Game.resources.gameObjects.get(i));
             }
         }
     }
@@ -145,8 +145,8 @@ public final class Player implements Collidable, Moveable, Updatable {
         }
     }
     private void checkNPCCollision() {
-        for (int i = 0; i < Game.aSetter.npcs.size() - 9; i++) {
-            if (collision.check(Game.player, Game.aSetter.npcs.get(i))) {
+        for (int i = 0; i < Game.resources.npcs.size() - 9; i++) {
+            if (collision.check(Game.player, Game.resources.npcs.get(i))) {
                 this.collisionOn = true;
                 interactNPC(i);
             }
@@ -154,7 +154,7 @@ public final class Player implements Collidable, Moveable, Updatable {
     }
     private void interactNPC(int npcIndex) {
         if (Game.keyH.spacePressed) {
-            interact(Game.aSetter.npcs.get(npcIndex));
+            interact(Game.resources.npcs.get(npcIndex));
             Game.keyH.spacePressed = false;
         }
     }
@@ -193,6 +193,14 @@ public final class Player implements Collidable, Moveable, Updatable {
         solidAreaPixmap.dispose();
         return solidAreaSprite;
     }
+    @Override
+    public void onEventBus(EventType eventType, GameObject gameObject) {
+        if (eventType == EventType.ADD_TO_INVENTORY) {
+            this.inventory.add(gameObject);
+            this.inventory.setSelectedItem(gameObject);
+        }
+        System.out.println(eventType + " in PLayer");
+    }
 
     @Override
     public WorldPosition getWorldPosition() { return this.worldPosition; }
@@ -204,14 +212,8 @@ public final class Player implements Collidable, Moveable, Updatable {
     public boolean isCollisionOn() { return this.collisionOn; }
     @Override
     public int getSpeed() { return this.speed; }
-    public void increaseSpeedBy(int speed) { this.speed += speed; }
     public void increaseXP(int amount) { this.xp++; }
     public int getXp() { return this.xp; }
-    public boolean hasKey() { return this.hasKey > 0; }
-    public void removeKey() { this.hasKey--; }
-    public void addKey() { this.hasKey++; }
-    public void addToInventory(GameObject gameObject) { this.inventory.add(gameObject); }
-    public void selectedItem(GameObject gameObject) { this.inventory.setSelectedItem(gameObject); }
     public int inventorySize() { return this.inventory.getItems().size(); }
     public Sprite inventoryItemImage(int i) { return this.inventory.getItems().get(i).getImage(); }
     public boolean isSelectedItem(int i) { return this.inventory.getItems().get(i) == this.inventory.getSelectedItem(); }

@@ -4,10 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.spiritstead.collision.*;
 import io.github.spiritstead.dialogue.*;
 import io.github.spiritstead.main.*;
-import io.github.spiritstead.object.GameObjects;
+import io.github.spiritstead.object.GameObject;
 import io.github.spiritstead.tools.FrameGate;
 
-import java.io.File;
 import java.util.Map;
 
 public final class Mayor implements NPC {
@@ -139,8 +138,8 @@ public final class Mayor implements NPC {
     }
 
     private void checkObjectCollision() {
-        for (int i = 0; i < Game.aSetter.gameObjects.size(); i++) {
-            if (Game.aSetter.gameObjects.get(i) != null && collision.check(this, Game.aSetter.gameObjects.get(i))) {
+        for (int i = 0; i < Game.resources.gameObjects.size(); i++) {
+            if (Game.resources.gameObjects.get(i) != null && collision.check(this, Game.resources.gameObjects.get(i))) {
                 this.collisionOn = true;
             }
         }
@@ -179,9 +178,11 @@ public final class Mayor implements NPC {
         this.screenY = getWorldPosition().getY() - Game.player.getWorldPosition().getY() + Game.player.getScreenPosition().getY();
     }
     @Override
-    public void onEventBus(EventType eventType) {
-        this.action = this.moveDown;
-        this.state.setCurrent(NpcState.MOVING);
+    public void onEventBus(EventType eventType, GameObject gameObject) {
+        if (eventType == EventType.TREE_REMOVED) {
+            this.action = this.moveDown;
+            this.state.setCurrent(NpcState.MOVING);
+        }
     }
 
     @Override

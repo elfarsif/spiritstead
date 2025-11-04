@@ -1,26 +1,27 @@
 package io.github.spiritstead.object;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.entity.*;
 import io.github.spiritstead.main.EventType;
-import io.github.spiritstead.main.Game;
 
-public class Tree implements GameObject {
-    private Sprite image;
-    private SolidArea solidArea = new SolidArea(0, 0, 48, 48);
-    private WorldPosition worldPosition;
-    private ObjectDrawer objectDrawer;
+public final class Tree implements GameObject {
+    private final Sprite image;
+    private final SolidArea solidArea;
+    private final ObjectDrawer objectDrawer;
+    private final WorldPosition worldPosition;
+    private final EventBus eventBus;
+
     private int health;
-    public EventBus eventBus;
 
-    public Tree(WorldPosition worldPosition, EventBus eventBus) {
-        this.image = new Sprite(new Texture("tiles/tree.png"));
+    public Tree(SolidArea solidArea, WorldPosition worldPosition, EventBus eventBus, Sprite image, int health) {
+        this.solidArea = solidArea;
+        this.image = image;
         this.worldPosition = worldPosition;
-        this.objectDrawer = new ObjectDrawer(worldPosition);
-        this.health = 2;
         this.eventBus = eventBus;
+        this.objectDrawer = new ObjectDrawer(worldPosition);
+
+        this.health = health;
     }
 
     @Override
@@ -32,20 +33,9 @@ public class Tree implements GameObject {
     @Override
     public void interact() {
         this.health--;
-        System.out.println("currentHealth : " + health);
-
         if (health == 0) {
-            removeTree();
+            this.eventBus.publish(EventType.TREE_REMOVED, this);
         }
-    }
-
-    private void removeTree() {
-        for (int i = 0; i < Game.aSetter.gameObjects.size(); i++) {
-            if (Game.aSetter.gameObjects.get(i) == this) {
-                Game.aSetter.gameObjects.remove(i);
-            }
-        }
-        this.eventBus.publish(EventType.TREE_REMOVED);
     }
 
     @Override

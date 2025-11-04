@@ -23,8 +23,19 @@ public final class GameObjects implements Subscriber {
     public GameObject get(int i) { return this.gameObjects.get(i); }
     public void remove(int i) { this.gameObjects.remove(i); }
     @Override
-    public void onEventBus(EventType eventType) {
-        System.out.println("in game object triggeredk");
+    public void onEventBus(EventType eventType, GameObject gameObject) {
+        if (eventType == EventType.TREE_REMOVED) {
+            this.removeObject(gameObject);
+        } else if (eventType == EventType.OBJECT_REMOVAL) {
+            this.removeObject(gameObject);
+        }
 
+    }
+    private void removeObject(GameObject gameObject) {
+        for (int i = 0; i < this.gameObjects.size(); i++) {
+            if (this.gameObjects.get(i) == gameObject) {
+                this.gameObjects.remove(i);
+            }
+        }
     }
 }

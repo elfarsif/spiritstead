@@ -3,38 +3,31 @@ package io.github.spiritstead.object;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.spiritstead.entity.Direction;
-import io.github.spiritstead.entity.EventBus;
 import io.github.spiritstead.entity.SolidArea;
 import io.github.spiritstead.entity.WorldPosition;
-import io.github.spiritstead.main.EventType;
-import io.github.spiritstead.main.Game;
 
-public final class Axe implements GameObject, Interactable {
-    private final static GameObjectType GAME_OBJECT_TYPE = GameObjectType.AXE;
+public class GameObjectImp implements GameObject {
     private final Sprite image;
     private final SolidArea solidArea;
     private final ObjectDrawer objectDrawer;
     private final WorldPosition worldPosition;
-    private final EventBus eventBus;
+    private final Interactable interactable;
 
-    public Axe(Sprite image, SolidArea solidArea, WorldPosition worldPosition, EventBus eventBus) {
+    public GameObjectImp(Sprite image, SolidArea solidArea, WorldPosition worldPosition, Interactable interactable) {
         this.solidArea = solidArea;
         this.image = image;
         this.worldPosition = worldPosition;
         this.objectDrawer = new ObjectDrawer(worldPosition);
-        this.eventBus = eventBus;
+        this.interactable = interactable;
     }
 
     @Override
-    public void draw(SpriteBatch batch) { objectDrawer.draw(image); }
-
+    public void draw(SpriteBatch batch) { this.objectDrawer.draw(image); }
     @Override
     public void interact() {
-        Game.ui.gameUIScreen.showMessage("You got an axe!");
-        eventBus.publish(EventType.ADD_TO_INVENTORY, this);
-        eventBus.publish(EventType.OBJECT_REMOVAL, this);
+        System.out.println("interact");
+//        this.interactable.interact();
     }
-
     @Override
     public Sprite getImage() { return this.image; }
     @Override
@@ -45,5 +38,4 @@ public final class Axe implements GameObject, Interactable {
     public int getSpeed() { return 0; }
     @Override
     public Direction getDirection() { return null; }
-
 }
