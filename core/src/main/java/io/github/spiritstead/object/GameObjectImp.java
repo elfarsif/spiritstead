@@ -22,14 +22,15 @@ public class GameObjectImp implements GameObject {
     }
 
     @Override
-    public void draw(SpriteBatch batch) { this.objectDrawer.draw(image); }
-    @Override
     public void interact() {
-        System.out.println("interact");
-//        this.interactable.interact();
+        this.interactable.interact(this);
     }
     @Override
+    public void draw(SpriteBatch batch) { this.objectDrawer.draw(image); }
+    @Override
     public Sprite getImage() { return this.image; }
+    @Override
+    public Interactable getInteractable() { return this.interactable; }
     @Override
     public SolidArea getSolidArea() { return this.solidArea; }
     @Override
@@ -38,4 +39,5 @@ public class GameObjectImp implements GameObject {
     public int getSpeed() { return 0; }
     @Override
     public Direction getDirection() { return null; }
+
 }

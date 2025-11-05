@@ -12,7 +12,7 @@ public final class Inventory {
 
     public boolean contains(Class objectClass) {
         for (GameObject item : items) {
-            if (item.getClass() == objectClass) {
+            if (item.getInteractable().getClass() == objectClass) {
                 return true;
             }
         }

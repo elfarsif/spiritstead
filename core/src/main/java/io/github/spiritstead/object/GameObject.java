@@ -11,4 +11,5 @@ public interface GameObject extends Collidable {
 
     Sprite getImage();
 
+    Interactable getInteractable();
 }

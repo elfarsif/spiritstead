@@ -13,7 +13,7 @@ public class SpawnAxe implements DialogueEvent {
     @Override
     public void handle() {
         System.out.println("spawn axe on map");
-        Game.resources.gameObjects.add(Game.resources.axe);
+        Game.resources.gameObjects.add(Game.resources.axe2);
     }
 
     @Override

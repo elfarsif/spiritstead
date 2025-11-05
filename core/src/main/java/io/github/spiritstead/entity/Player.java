@@ -61,8 +61,8 @@ public final class Player implements Collidable, Moveable, Updatable, Subscriber
     }
 
     private void interactObject(GameObject gameObject) {
-        if (gameObject instanceof Tree) {
-            if (inventory.getSelectedItem() instanceof Axe) {
+        if (gameObject.getInteractable() instanceof Tree) {
+            if (inventory.getSelectedItem().getInteractable() instanceof Axe) {
                 if (Game.keyH.spacePressed) {
                     Game.keyH.spacePressed = false;
                     state.setCurrent(PlayerState.AXING);
@@ -158,9 +158,7 @@ public final class Player implements Collidable, Moveable, Updatable, Subscriber
             Game.keyH.spacePressed = false;
         }
     }
-    private void checkEventCollision() {
-        Game.eHandler.checkEvent();
-    }
+
     public void draw() {
         if (state.is(PlayerState.AXING)) {
             Game.keyH.inputGate.close();

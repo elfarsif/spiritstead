@@ -18,25 +18,30 @@ public class Resources {
     public final Npcs npcs;
     public final GameObjects gameObjects;
 
-    public final GameObject axe, axe2;
-
+    public final GameObject axe2, tree2;
+    public final Interactable axe, tree;
     public Resources() {
         this.eventBus = new EventBus(
                 EventType.TREE_REMOVED,
                 EventType.OBJECT_REMOVAL,
                 EventType.ADD_TO_INVENTORY
         );
-        this.axe = new Axe(
-                new Sprite(new Texture("objects/axe.png")),
-                new SolidArea(0, 0, 48, 48),
-                new WorldPosition(25 * ScreenSetting.TILE_SIZE, 9 * ScreenSetting.TILE_SIZE),
-                this.eventBus
-        );
+        this.axe = new Axe(this.eventBus);
         this.axe2 = new GameObjectImp(
                 new Sprite(new Texture("objects/axe.png")),
                 new SolidArea(0, 0, 48, 48),
                 new WorldPosition(25 * ScreenSetting.TILE_SIZE, 9 * ScreenSetting.TILE_SIZE),
                 (Interactable) this.axe
+        );
+        this.tree = new Tree(
+                this.eventBus,
+                2
+        );
+        this.tree2 = new GameObjectImp(
+                new Sprite(new Texture("tiles/tree.png")),
+                new SolidArea(0, 0, 48, 48),
+                new WorldPosition(21 * ScreenSetting.TILE_SIZE, 14 * ScreenSetting.TILE_SIZE),
+                this.tree
         );
         this.setNPCs();
         this.npcs = new Npcs(this.npcsArray);
@@ -80,26 +85,6 @@ public class Resources {
         );
     }
     public void setObject() {
-        obj.add(new Tree(
-                new SolidArea(0, 0, 48, 48),
-                new WorldPosition(21 * ScreenSetting.TILE_SIZE, 13 * ScreenSetting.TILE_SIZE),
-                this.eventBus,
-                new Sprite(new Texture("tiles/tree.png")),
-                2
-        ));
-        obj.add(new Tree(
-                new SolidArea(0, 0, 48, 48),
-                new WorldPosition(21 * ScreenSetting.TILE_SIZE, 14 * ScreenSetting.TILE_SIZE),
-                this.eventBus,
-                new Sprite(new Texture("tiles/tree.png")),
-                2
-        ));
-       /* obj.add(new GameObjectImp(
-                        new Sprite(new Texture("tiles/tree.png")),
-                        new SolidArea(0, 0, 48, 48),
-                        new WorldPosition(21 * ScreenSetting.TILE_SIZE, 11 * ScreenSetting.TILE_SIZE)
-                )
-        );*/
-
+        obj.add(tree2);
     }
 }
